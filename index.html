@@ -2798,6 +2798,61 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .hw-empty{flex:none;padding:22px 16px;border-radius:26px 7px 26px 7px;border:1.5px dashed #b9cc95;background:#ffffff8c;text-align:center;color:#5d6650;font-size:12.5px;line-height:1.4}
 .hw-empty b{display:block;color:#1b1c19;font-size:15px;margin-bottom:3px}
 
+
+/* ===================== PRIZE DETAILS (tap a prize) ===================== */
+.pdb{position:absolute;inset:0;z-index:24;background:#1b1c1980;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s}
+.pdb.open{opacity:1;pointer-events:auto}
+.pdx{position:absolute;left:12px;right:12px;bottom:12px;max-height:calc(100% - 40px);z-index:25;display:flex;flex-direction:column;border-radius:44px 10px 44px 10px;background:#fff;overflow:hidden;
+  box-shadow:0 8px 0 var(--pm2,#c3e46a),0 30px 60px -20px #1b1c19aa;transform:translateY(110%);transition:transform .5s cubic-bezier(.2,1.2,.3,1)}
+.pdx.open{transform:none}
+.pd-hero{position:relative;flex:none;height:210px;background:var(--pbg,#f1fad6);overflow:hidden;display:grid;place-items:center}
+.pd-hero::before{content:"";position:absolute;left:50%;top:50%;width:620px;height:620px;margin:-310px 0 0 -310px;background:repeating-conic-gradient(from 0deg,#ffffffa6 0 7deg,transparent 7deg 20deg);animation:rot 26s linear infinite;
+  -webkit-mask-image:radial-gradient(closest-side,#000 15%,transparent 70%);mask-image:radial-gradient(closest-side,#000 15%,transparent 70%)}
+.pd-hero::after{content:"";position:absolute;left:50%;bottom:22px;width:130px;height:16px;margin-left:-65px;border-radius:50%;background:#1b1c1922;filter:blur(4px);animation:pdSh 3.2s ease-in-out infinite}
+@keyframes pdSh{50%{transform:scaleX(.8);opacity:.6}}
+.pd-art{position:relative;z-index:1;width:150px;height:150px;animation:pdFloat 3.2s ease-in-out infinite}
+.pd-art svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 10px 12px #1b1c1933)}
+@keyframes pdFloat{50%{transform:translateY(-10px) rotate(-2deg)}}
+.pdx.open .pd-art{animation:pdIn .7s cubic-bezier(.3,1.7,.5,1) .1s both,pdFloat 3.2s ease-in-out .8s infinite}
+@keyframes pdIn{from{transform:scale(.3) rotate(-25deg);opacity:0}}
+.pd-close{position:absolute;right:14px;top:14px;z-index:2;width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 3px 0 #1b1c1926}
+.pd-close svg{width:14px;height:14px;fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.pd-place{position:absolute;left:14px;top:14px;z-index:2;display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;letter-spacing:.8px;padding:4px 10px 4px 4px;border-radius:999px;background:linear-gradient(135deg,var(--pm1,#fff3a8),var(--pm2,#f2c94c));color:var(--pmt,#5c3d00);box-shadow:0 3px 0 #1b1c1918}
+.pd-place i{width:18px;height:18px;border-radius:50%;background:#fff;display:grid;place-items:center;font-style:normal;font-family:var(--f-display);font-size:11px}
+.pd-val{position:absolute;left:14px;bottom:14px;z-index:2;padding:6px 12px;border-radius:14px 4px 14px 4px;background:#1b1c19;color:var(--lime);font-family:var(--f-display);font-size:17px;letter-spacing:.4px;transform:skewX(-8deg)}
+.pd-body{overflow-y:auto;padding:16px 18px 6px;scrollbar-width:none}
+.pd-body::-webkit-scrollbar{display:none}
+.pd-body small.k{display:block;font-size:10px;font-weight:800;letter-spacing:1.6px;color:#5d6650}
+.pd-body h3{margin:3px 0 0;font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1.02;transform:skewX(-7deg);transform-origin:0 100%}
+.pd-body p{margin:8px 0 0;font-size:13.5px;line-height:1.5;color:#3c4236}
+.pd-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:14px}
+.pd-tiles div{padding:9px 9px 8px;border-radius:16px 5px 16px 5px;background:#f6f9ee;border:1.5px solid #edf2e1}
+.pd-tiles small{display:block;font-size:8.5px;font-weight:800;letter-spacing:1px;color:#5d6650}
+.pd-tiles b{display:block;margin-top:2px;font-size:12.5px;font-weight:700;line-height:1.2}
+.pd-box{margin-top:14px}
+.pd-box h5{margin:0 0 7px;font-size:10px;font-weight:800;letter-spacing:1.5px;color:#5d6650}
+.pd-box ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.pd-box li{display:flex;align-items:flex-start;gap:9px;font-size:13px;font-weight:600;line-height:1.35}
+.pd-box li i{width:18px;height:18px;flex:none;margin-top:1px;border-radius:6px 2px 6px 2px;background:var(--lime);display:grid;place-items:center}
+.pd-box li i svg{width:10px;height:10px;fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.pd-st{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 12px;border-radius:16px 5px 16px 5px;background:var(--cc,#f1f3ec);color:var(--ct,#5d6650);font-size:12px;font-weight:600;line-height:1.35}
+.pd-st b{color:inherit}
+.pd-st .dt{width:9px;height:9px;flex:none;border-radius:50%;background:currentColor}
+.pd-fine{margin:12px 0 4px;font-size:10.5px;line-height:1.4;color:#8a9478}
+.pd-act{flex:none;display:flex;gap:8px;padding:10px 14px 16px;border-top:1.5px dashed #e6ebdb}
+.pd-act button{height:52px;border-radius:18px 6px 18px 6px;font-size:14px;font-weight:800;letter-spacing:.6px;display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .12s}
+.pd-act button:active{transform:translateY(3px)}
+.pd-act svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.pd-act .sec{flex:1;background:#f1f4ea;color:#5d6650}
+.pd-act .pri{flex:2;background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:var(--ink);box-shadow:0 4px 0 #5f840a}
+.pd-act .pri[disabled]{background:#1b1c19;color:var(--lime);box-shadow:0 4px 0 #000;pointer-events:none}
+.pd-act .dk{flex:2;background:#1b1c19;color:var(--lime);box-shadow:0 4px 0 #000}
+.pd-act .wn{flex:2;background:#ff6b5a;color:#fff;box-shadow:0 4px 0 #a3241a}
+.pt .inf{position:absolute;left:8px;top:8px;width:22px;height:22px;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:Georgia,serif;font-style:italic;font-weight:700;font-size:12px;color:#5d6650;box-shadow:0 2px 0 #dfe8c9}
+.pc5{cursor:pointer}
+.pc5 .tap5{display:inline-flex;align-items:center;gap:3px;margin-top:4px;font-size:10.5px;font-weight:800;color:#3f6c05}
+.pc5 .tap5 svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -3293,6 +3348,12 @@ input,textarea{-webkit-user-select:text;user-select:text}
       <span class="hw-stamp" id="hwStamp">ACCEPTED!</span>
     </div>
   </div>
+  <div class="pdb" id="pdb"></div>
+  <div class="pdx" id="pdx" role="dialog" aria-modal="true" aria-labelledby="pdT">
+    <div class="pd-hero"><span class="pd-place" id="pdPlace"></span><button class="pd-close" id="pdClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><div class="pd-art" id="pdArt"></div><span class="pd-val" id="pdVal"></span></div>
+    <div class="pd-body" id="pdBody"></div>
+    <div class="pd-act" id="pdAct"></div>
+  </div>
   <div class="toast" id="toast" role="status"></div>
 </main>
 </div>
@@ -3779,6 +3840,63 @@ input,textarea{-webkit-user-select:text;user-select:text}
   const PLACE={1:'1ST',2:'2ND',3:'3RD'};
   const CHP={1:PRIZES[1],2:PRIZES[2],3:PRIZES[3],4:[['credit10','RM10 game credit','Digital code','#f1fad6'],['stickers','Mega sticker pack','50+ stickers','#fff6d6'],['bottle','Sports water bottle','Worth RM35','#e8f4ff'],['snack','Snack party box','Worth RM30','#ffe9e6'],['books','RM20 book voucher','Digital voucher','#efeaff'],['art','Colour pencil set','Worth RM25','#fff0e3']]};
   const PLACE2={1:'1ST',2:'2ND',3:'3RD',4:'4TH–10TH'};
+
+  /* =================== PRIZE DETAILS =================== */
+  const PDESC={
+    'Handheld game console':{d:'A pocket-sized games console with a bright 7" screen, detachable controllers and a stand so you can play on the go or share with a friend.',box:['Console with 7" HD screen','2 detachable mini controllers','Charging cable & stand','64GB storage'],age:'8+',kind:'Electronics'},
+    '10" drawing tablet':{d:'Draw, paint and take notes on a 10-inch screen with a pressure-sensitive pen. Great for art, comics and school projects.',box:['10" tablet, 64GB','Pressure-sensitive stylus','Kid-proof case','USB-C charger'],age:'7+',kind:'Electronics'},
+    'Kids smartwatch':{d:'A tough, splash-proof watch with a step counter, alarms, a timer for study breaks and fun watch faces you can swap.',box:['Smartwatch with 2 straps','Magnetic charger','Screen protector'],age:'6+',kind:'Wearable'},
+    'Kick scooter':{d:'A light, foldable three-height scooter with light-up wheels and a rear brake. Ride to school or the park in style.',box:['Foldable scooter','Light-up PU wheels','Carry strap','Adjustable handlebar (3 heights)'],age:'6–12',kind:'Outdoor'},
+    'Instant photo camera':{d:'Snap a picture and watch it print in seconds. Comes with film so you can start a photo wall straight away.',box:['Instant camera','20 film sheets','Wrist strap','Photo album'],age:'8+',kind:'Creative'},
+    'Pro gaming headset':{d:'Big comfy ear cups, a flip-up mic and volume control on the cable. Safe volume limit for younger ears.',box:['Over-ear headset','Detachable mic','3.5mm & USB cables'],age:'8+',kind:'Audio'},
+    'Gaming headset':{d:'Comfy over-ear headset with a mic for games, calls and online classes. Built-in volume limiter.',box:['Over-ear headset','Flexible mic','3.5mm cable'],age:'7+',kind:'Audio'},
+    'Wireless earbuds':{d:'True wireless earbuds with a pocket charging case, touch controls and up to 20 hours of play with the case.',box:['2 earbuds','Charging case','3 ear-tip sizes','USB-C cable'],age:'8+',kind:'Audio'},
+    'Wired earphones':{d:'Lightweight earphones with an in-line mic and volume-safe sound. Tangle-free flat cable.',box:['Earphones with mic','3 ear-tip sizes','Pouch'],age:'6+',kind:'Audio'},
+    'Smart speaker':{d:'A compact speaker with rich sound and a glowing ring. Play music, set timers and ask questions.',box:['Smart speaker','Power adapter','Quick start guide'],age:'6+',kind:'Electronics'},
+    'Game controller':{d:'A wireless controller that works with PCs, tablets and phones. Comfy grips and a rechargeable battery.',box:['Wireless controller','USB-C cable','Phone clip'],age:'7+',kind:'Gaming'},
+    'Building block set':{d:'Over 500 colourful bricks to build a city, a spaceship or anything you can imagine. Comes with idea cards.',box:['520+ bricks','2 base plates','8 idea cards','Storage box'],age:'6+',kind:'Toys'},
+    'Mini building set':{d:'A take-anywhere box of 200 bricks with instructions for 3 mini builds.',box:['200+ bricks','Instructions for 3 builds','Storage tub'],age:'5+',kind:'Toys'},
+    'Pro art & sketch kit':{d:'Everything a young artist needs: sketch pencils, markers, pastels and a hardback sketchbook in a carry case.',box:['24 sketch & colour pencils','12 dual-tip markers','Oil pastels','A4 sketchbook','Carry case'],age:'6+',kind:'Creative'},
+    'Deluxe art set':{d:'A big wooden box packed with crayons, paints, pencils and brushes. Perfect for school art projects.',box:['80-piece art set','Wooden case','Paint palette'],age:'5+',kind:'Creative'},
+    'Colour pencil set':{d:'36 bright, easy-to-sharpen colour pencils with a sharpener in a tin.',box:['36 colour pencils','Sharpener','Metal tin'],age:'4+',kind:'Creative'},
+    'Giant plush bear':{d:'A super-soft 60cm bear made for hugs. Machine washable.',box:['60cm plush bear','Gift ribbon'],age:'3+',kind:'Toys'},
+    'RM30 game credit':{d:'A digital top-up code worth RM30 to spend on games, apps or in-game items. Sent to your parent so they can help you redeem it.',box:['RM30 digital code','Valid for 12 months'],age:'All ages',kind:'Digital',digital:true},
+    'RM10 game credit':{d:'A RM10 digital top-up code for games or apps. Sent to your parent\'s email.',box:['RM10 digital code','Valid for 12 months'],age:'All ages',kind:'Digital',digital:true},
+    'Book voucher bundle':{d:'Pick your own books! Vouchers you can use at partner bookstores and online, for storybooks, comics or activity books.',box:['RM80 in book vouchers','Use in store or online','Valid for 12 months'],age:'All ages',kind:'Voucher',digital:true},
+    'RM20 book voucher':{d:'A RM20 digital voucher for books, comics or activity books at partner bookstores.',box:['RM20 digital voucher','Valid for 6 months'],age:'All ages',kind:'Voucher',digital:true},
+    'Mega sticker pack':{d:'50+ shiny, glittery and puffy stickers to decorate notebooks, bottles and bags.',box:['50+ stickers','Reward chart'],age:'4+',kind:'Fun'},
+    'Sports water bottle':{d:'A 600ml leak-proof bottle with a flip straw that keeps drinks cold for hours. Fits most school bags.',box:['600ml insulated bottle','Spare straw'],age:'All ages',kind:'Everyday'},
+    'Snack party box':{d:'A box of tasty snacks to share with friends or family after a big win.',box:['15+ snack packs','Party box'],age:'All ages',kind:'Treats'}
+  };
+  const PRIZE_VAL={};Object.values(CHP).flat().forEach(it=>{PRIZE_VAL[it[1]]=it[2]});
+  const MEDAL_PD={1:['#fff3a8','#f2c94c','#5c3d00'],2:['#ffffff','#c3c9bc','#3c4236'],3:['#ffd9b5','#e4a06a','#5a2f0f'],4:['#eaf7c6','#a7d81c','#3f5a0a']};
+  const pdOk='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  let pdCb=null;
+  // o: {art,name,bg,val,place,placeLbl,src,mode:'pick'|'won',picked,status:{t,cc,ct,note},btn}
+  function openPD(o){const D=PDESC[o.name]||{d:'A great prize you can win in RI9 challenges and quizzes.',box:['Prize as pictured'],age:'All ages',kind:'Prize'},x=$('#pdx'),m=MEDAL_PD[o.place]||MEDAL_PD[4];
+    x.style.setProperty('--pbg',o.bg||'#f1fad6');x.style.setProperty('--pm1',m[0]);x.style.setProperty('--pm2',m[1]);x.style.setProperty('--pmt',m[2]);
+    $('#pdArt').innerHTML=PA[o.art]||'';$('#pdPlace').innerHTML=o.place?`<i>${o.place>3?'★':o.place}</i>${o.placeLbl}`:'';$('#pdPlace').hidden=!o.place;
+    const val=o.val||PRIZE_VAL[o.name]||'';$('#pdVal').textContent=val.replace(/^Worth /,'');$('#pdVal').hidden=!val;
+    const ship=D.digital?'Code by email':'Free delivery';
+    $('#pdBody').innerHTML=`<small class="k">${(D.kind||'PRIZE').toUpperCase()}${o.src?' · '+o.src.toUpperCase():''}</small><h3 id="pdT">${o.name}</h3><p>${D.d}</p>
+      <div class="pd-tiles"><div><small>VALUE</small><b>${val.replace(/^Worth /,'')||'—'}</b></div><div><small>AGES</small><b>${D.age}</b></div><div><small>DELIVERY</small><b>${ship}</b></div></div>
+      <div class="pd-box"><h5>WHAT YOU GET</h5><ul>${D.box.map(b=>`<li><i>${pdOk}</i>${b}</li>`).join('')}</ul></div>
+      ${o.status?`<div class="pd-st" style="--cc:${o.status.cc};--ct:${o.status.ct}"><span class="dt"></span><span><b>${o.status.t}</b> · ${o.status.note}</span></div>`:''}
+      <p class="pd-fine">${D.digital?'Digital prizes are emailed to your parent within 2 working days.':'Physical prizes ship to the mailing address in your profile within 5–7 working days. A parent must confirm the address.'} Pictures are for illustration.</p>`;
+    pdCb=o.onPick||null;
+    $('#pdAct').innerHTML=o.mode==='pick'
+      ?`<button class="sec" data-pd="close">Back</button><button class="pri" data-pd="pick"${o.picked?' disabled':''}>${pdOk}${o.picked?'YOUR PICK':'PICK THIS PRIZE'}</button>`
+      :`<button class="sec" data-pd="close">Close</button>${o.btn?`<button class="${o.btn[1]==='warn'?'wn':'dk'}" data-pd="act">${o.btn[0]}</button>`:''}`;
+    pdAct=o.onAct||null;
+    $('#pdBody').scrollTop=0;x.classList.add('open');$('#pdb').classList.add('open');SFX.play('pop');setTimeout(()=>$('#pdClose').focus({preventScroll:true}),450)}
+  let pdAct=null;
+  function closePD(){$('#pdx').classList.remove('open');$('#pdb').classList.remove('open')}
+  $('#pdb').addEventListener('click',closePD);$('#pdClose').addEventListener('click',()=>{buzz();closePD()});
+  $('#pdAct').addEventListener('click',e=>{const b=e.target.closest('[data-pd]');if(!b)return;buzz();const a=b.dataset.pd;
+    if(a==='close'){closePD();return}
+    if(a==='pick'){const f=pdCb;closePD();setTimeout(()=>f&&f(),220);return}
+    if(a==='act'){const f=pdAct;closePD();setTimeout(()=>f&&f(),220)}});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#pdx').classList.contains('open'))closePD()});
   let chPicks={1:null,2:null,3:null,4:null},pzCtx='quiz';
   try{const v=JSON.parse(localStorage.getItem('chPicks')||'null');if(v)chPicks={...chPicks,...v}}catch(e){}
   let picks={1:null,2:null,3:null};
@@ -3799,18 +3917,21 @@ input,textarea{-webkit-user-select:text;user-select:text}
     $('#pzS').innerHTML=`<i>${p===4?'4+':p}</i>${lbl} PLACE`;
     $('#pzT').textContent=p===4?'CONSOLATION PRIZE':'PICK YOUR PRIZE';
     $('#pzP').textContent=pzCtx==='quiz'?`Finish ${PLACE[p].toLowerCase()} when the prize drops and this one is yours.`:p===4?'Finish anywhere from 4th to 10th today and this is yours.':`Finish ${PLACE2[p].toLowerCase()} on today's board and this one is yours.`;
-    $('#pzG').innerHTML=list.map((it,i)=>`<button class="pt${cur===i?' on':''}" data-i="${i}" style="--bgc:${it[3]};--d:${(i*.05).toFixed(2)}s"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="art">${PA[it[0]]}</span><b>${it[1]}</b><small>${it[2]}</small></button>`).join('');
+    $('#pzG').innerHTML=list.map((it,i)=>`<button class="pt${cur===i?' on':''}" data-i="${i}" aria-label="${it[1]}, see details" style="--bgc:${it[3]};--d:${(i*.05).toFixed(2)}s"><span class="inf" aria-hidden="true">i</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="art">${PA[it[0]]}</span><b>${it[1]}</b><small>${it[2]}</small></button>`).join('');
     $('#pzG').scrollTop=0;d.classList.add('open');$('#pzBd').classList.add('open');
   }
-  function closePrize(){$('#pzd').classList.remove('open');$('#pzBd').classList.remove('open')}
+  function closePrize(){$('#pzd').classList.remove('open');$('#pzBd').classList.remove('open');closePD()}
   $('#qpz').addEventListener('click',e=>{const c=e.target.closest('.qp');if(c)openPrize(+c.dataset.p)});
   $('#pzG').addEventListener('click',e=>{const t=e.target.closest('.pt');if(!t)return;const i=+t.dataset.i;buzz();
+    const list=pzCtx==='quiz'?PRIZES[pzPlace]:CHP[pzPlace],it=list[i],cur=(pzCtx==='quiz'?picks:chPicks)[pzPlace];
+    openPD({art:it[0],name:it[1],val:it[2],bg:it[3],place:pzPlace,placeLbl:(pzCtx==='quiz'?PLACE:PLACE2)[pzPlace]+' PLACE',src:pzCtx==='quiz'?'Prize Quiz':'Daily Challenge',mode:'pick',picked:cur===i,onPick:()=>pickPz(t,i)})});
+  function pickPz(t,i){
     document.querySelectorAll('#pzG .pt').forEach(x=>x.classList.toggle('on',x===t));SFX.play('coin');
     if(pzCtx==='ch'){chPicks[pzPlace]=i;try{localStorage.setItem('chPicks',JSON.stringify(chPicks))}catch(_){}
       setTimeout(()=>{closePrize();setTimeout(()=>{renderLobbyPrizes(pzPlace);SFX.play('sparkle');toast(`${PLACE2[pzPlace]} prize locked in: ${CHP[pzPlace][i][1]}`)},200)},280);return}
     picks[pzPlace]=i;
     try{localStorage.setItem('qdPicks',JSON.stringify(picks))}catch(_){}
-    setTimeout(()=>{closePrize();setTimeout(()=>{renderPicks(pzPlace);SFX.play('sparkle');toast(`${PLACE[pzPlace]} place prize: ${PRIZES[pzPlace][i][1]}`)},200)},280)});
+    setTimeout(()=>{closePrize();setTimeout(()=>{renderPicks(pzPlace);SFX.play('sparkle');toast(`${PLACE[pzPlace]} place prize: ${PRIZES[pzPlace][i][1]}`)},200)},280)}
   $('#lbx').addEventListener('click',e=>{const c=e.target.closest('[data-chp]');if(c)openPrize(+c.dataset.chp,'ch')});
   $('#pzBd').addEventListener('click',closePrize);$('#pzX').addEventListener('click',closePrize);
   addEventListener('keydown',e=>{if(e.key==='Escape')closePrize()});
@@ -4093,14 +4214,19 @@ input,textarea{-webkit-user-select:text;user-select:text}
     const ck='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
     $('#plist').innerHTML=WON.map((w,j)=>{const m=MEDAL[w.place];
       const steps=STEPS.map((l,i)=>{const s=i+1<w.step||w.st==='done'?'done':i+1===w.step?'now':'';return`<div class="stp ${s}"><span class="dot">${s==='done'?ck:''}</span><small>${l}</small><em>${i===0?w.date:''}</em></div>`}).join('');
-      return`<div class="pc5 ps-${w.st}${w.st==='ship'?' moving':''}" style="--bgc:${w.bg};--m1:${m[0]};--m2:${m[1]};--mt:${m[2]};--d:${(.08+j*.07).toFixed(2)}s">
+      return`<div class="pc5 ps-${w.st}${w.st==='ship'?' moving':''}" data-j="${j}" role="button" tabindex="0" aria-label="${w.name}, see details" style="--bgc:${w.bg};--m1:${m[0]};--m2:${m[1]};--mt:${m[2]};--d:${(.08+j*.07).toFixed(2)}s">
         <span class="chip5"><i></i>${STL[w.st]}</span>
-        <div class="top5"><span class="art5">${PA[w.art]}</span><span class="tx5"><span class="md5"><i>${w.place}</i>${m[3]}</span><b>${w.name}</b><small>${w.from}</small></span></div>
+        <div class="top5"><span class="art5">${PA[w.art]}</span><span class="tx5"><span class="md5"><i>${w.place}</i>${m[3]}</span><b>${w.name}</b><small>${w.from}</small><span class="tap5">Prize details<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
         <div class="trk" style="--tp:${w.st==='done'?1:Math.max(0,(w.step-1)/3)}"><span class="fill"></span>${steps}</div>
         <div class="ft5"><span>${w.note}</span>${w.btn?`<button class="btn5 ${w.btn[1]||''}" data-a="${w.btn[0]}">${w.btn[0]}</button>`:''}</div></div>`}).join('');
     if(anim){replay($('#plist'),'anim');countUpAll($('#psum'),200);$('#plist').scrollTop=0}
   }
-  $('#plist').addEventListener('click',e=>{const b=e.target.closest('.btn5');if(!b)return;buzz();toast(b.dataset.a==='Confirm address'?'Address form — next in the build':`${b.dataset.a} — next in the build`)});
+  const wonAct=a=>toast(a==='Confirm address'?'Address form — next in the build':`${a} — next in the build`);
+  const STC={act:['#ffe4df','#c23a2f'],prep:['#fff0d6','#a65d07'],ship:['#dff1ff','#1f6fae'],done:['#e4f8a8','#3f6c05']};
+  function wonDetail(j){const w=WON[j];if(!w)return;buzz();
+    openPD({art:w.art,name:w.name,bg:w.bg,place:w.place,placeLbl:MEDAL[w.place][3],src:w.from,mode:'won',status:{t:STL[w.st],cc:STC[w.st][0],ct:STC[w.st][1],note:w.note},btn:w.btn,onAct:()=>wonAct(w.btn[0])})}
+  $('#plist').addEventListener('click',e=>{const b=e.target.closest('.btn5');if(b){buzz();wonAct(b.dataset.a);return}const c=e.target.closest('.pc5');if(c)wonDetail(+c.dataset.j)});
+  $('#plist').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('pc5')){e.preventDefault();wonDetail(+e.target.dataset.j)}});
   function openPrizes(){renderPrizes(true)}
 
   /* =================== PROFILE (student) =================== */
