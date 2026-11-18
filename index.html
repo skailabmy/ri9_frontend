@@ -2456,6 +2456,145 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .bgs .a.done b{color:#5f9a06}.bgs .b.done b{color:#c98400}
 .bgoal.win{background:linear-gradient(180deg,#f4ffc8,#d9fb63);box-shadow:0 0 0 2px #fff,0 0 26px #c6f432aa,0 10px 18px -8px #000c}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ===================== PROFILE (student) ===================== */
+#s-prof .ahdr .gbtn.pf-out svg{stroke:#c23a2f}
+.pf-body{position:absolute;left:0;right:0;top:66px;bottom:0;padding:6px 16px 120px;display:flex;flex-direction:column;gap:14px}
+.pf-body.anim>*{animation:up .5s cubic-bezier(.2,1.2,.4,1) both;animation-delay:var(--d,0s)}
+/* hero */
+.pf-hero{flex:none;position:relative;overflow:hidden;padding:18px 16px 16px;border-radius:44px 10px 44px 10px;color:#fff;
+  background:radial-gradient(120% 120% at 100% 100%,#3d5a0e 0%,#26301a 38%,var(--char) 70%);box-shadow:0 24px 40px -22px #1e2a0899,inset 0 1px 0 #ffffff1c}
+.pf-hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(105deg,transparent 0 22px,#c6f43209 22px 24px);animation:speed 1.2s linear infinite;pointer-events:none}
+.pf-hero>*{position:relative}
+.pf-top{display:flex;align-items:center;gap:14px}
+.pf-av{width:64px;height:64px;flex:none;border-radius:22px 7px 22px 7px;background:var(--lime);color:var(--ink);display:grid;place-items:center;font-family:var(--f-display);font-size:28px;transform:skewX(-6deg);box-shadow:0 4px 0 #6f9a0b,0 0 22px #c6f43255}
+.pf-id{flex:1;min-width:0}
+.pf-id small{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:1.6px;color:var(--lime)}
+.pf-id small i{width:6px;height:6px;border-radius:50%;background:var(--lime)}
+.pf-id b{display:block;margin-top:3px;font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1;transform:skewX(-7deg);transform-origin:0 100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf-id span{display:block;margin-top:4px;font-size:11.5px;color:#ffffffa6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf-lock{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 10px 10px 12px;border-radius:18px 6px 18px 6px;background:#ffffff12;border:1px solid #ffffff1f}
+.pf-lock .li{width:34px;height:34px;flex:none;border-radius:12px 4px 12px 4px;background:#ffffff1a;display:grid;place-items:center}
+.pf-lock .li svg{width:18px;height:18px;fill:none;stroke:var(--lime);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pf-lock p{flex:1;min-width:0;margin:0;font-size:11.5px;line-height:1.3;color:#ffffffb3}
+.pf-lock p b{display:block;color:#fff;font-size:13px}
+.pf-lock button{flex:none;height:38px;padding:0 14px;border-radius:12px 4px 12px 4px;background:var(--lime);color:var(--ink);font-size:12px;font-weight:800;letter-spacing:.4px;box-shadow:0 3px 0 #6f9a0b;transition:transform .12s}
+.pf-lock button:active{transform:translateY(2px);box-shadow:0 1px 0 #6f9a0b}
+#s-prof.edit .pf-lock{background:#c6f4321f;border-color:#c6f43266}
+#s-prof.edit .pf-lock .li{background:var(--lime)}
+#s-prof.edit .pf-lock .li svg{stroke:var(--ink)}
+#s-prof.edit .pf-lock button{background:#ffffff1f;color:#fff;box-shadow:none}
+/* section cards */
+.pf-sec{flex:none;padding:14px 14px 16px;border-radius:30px 8px 30px 8px;background:#fff;box-shadow:0 5px 0 var(--pe,#d3e6a6),0 18px 28px -20px #4a6d1288;display:flex;flex-direction:column;gap:12px}
+.pf-sec h5{margin:0;display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:800;letter-spacing:1.5px;color:#5d6650}
+.pf-sec h5 i{width:24px;height:24px;flex:none;border-radius:8px 3px 8px 3px;background:var(--pc,var(--lime));display:grid;place-items:center;transform:skewX(-8deg)}
+.pf-sec h5 i svg{width:14px;height:14px;fill:none;stroke:var(--pi,var(--ink));stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transform:skewX(8deg)}
+.pf-sec h5 em{margin-left:auto;font-style:normal;font-weight:700;letter-spacing:.3px;color:#8a9478}
+.pf-sec.par{--pc:var(--ink);--pi:var(--lime);--pe:#c9d0bc}
+.pf-f{display:block}
+.pf-f>span:first-child{display:flex;align-items:center;justify-content:space-between;margin:0 0 5px 4px;font-size:10px;font-weight:800;letter-spacing:1.2px;color:#5d6650}
+.pf-f>span:first-child em{font-style:normal;font-weight:700;letter-spacing:.3px;color:#c23a2f;display:none}
+.pf-f.err>span:first-child em{display:inline}
+.pf-in{position:relative;display:flex;align-items:center;min-height:48px;border-radius:14px 5px 14px 5px;background:#f6f9ee;border:1.5px solid #edf2e1;transition:border-color .2s,background .2s}
+.pf-in input,.pf-in select,.pf-in textarea{flex:1;min-width:0;width:100%;height:46px;padding:0 14px;border:0;background:none;outline:none;font:inherit;font-size:16px;font-weight:500;color:var(--ink);-webkit-appearance:none;appearance:none}
+.pf-in textarea{height:76px;padding:12px 14px;resize:none;line-height:1.35}
+.pf-in select{padding-right:38px;cursor:pointer}
+.pf-in .chev{position:absolute;right:12px;width:14px;height:14px;fill:none;stroke:var(--ink);stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.pf-in .cc{flex:none;display:flex;align-items:center;gap:6px;height:30px;margin-left:8px;padding:0 9px 0 6px;border-radius:9px 3px 9px 3px;background:#fff;box-shadow:0 2px 0 #dfe8c9;font-size:14px;font-weight:700}
+.pf-in .cc svg{width:20px;height:14px;border-radius:2px}
+.pf-in input::placeholder,.pf-in textarea::placeholder{color:#a3ab95;font-weight:400}
+.pf-in:focus-within{border-color:var(--lime);background:#fff;box-shadow:0 0 0 3px #c6f43233}
+.pf-f.err .pf-in{border-color:#ff6b5a;background:#fff5f3}
+/* locked look */
+#s-prof:not(.edit) .pf-in{background:#fafbf7;border-style:dashed;border-color:#e3e8d6}
+#s-prof:not(.edit) .pf-in input,#s-prof:not(.edit) .pf-in select,#s-prof:not(.edit) .pf-in textarea{color:#4e5644;-webkit-text-fill-color:#4e5644;opacity:1;cursor:pointer}
+#s-prof:not(.edit) .pf-in .chev{opacity:.25}
+#s-prof:not(.edit) .pf-in::after{content:"";position:absolute;right:12px;top:15px;width:14px;height:14px;opacity:.45;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231b1c19' stroke-width='2.4' stroke-linecap='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center/contain no-repeat}
+#s-prof:not(.edit) .pf-in.sel .chev{display:none}
+/* DUMO */
+.pf-dumo{display:flex;align-items:center;gap:12px;padding:10px 10px 10px 12px;border-radius:18px 6px 18px 6px;background:linear-gradient(110deg,#ffd25e,#ffae2e 55%,#ff8a1e);box-shadow:0 4px 0 #c9781a;color:#3b2200}
+.pf-dumo .dl{width:38px;height:38px;flex:none;border-radius:12px 4px 12px 4px;background:#fff;display:grid;place-items:center;font-family:var(--f-display);font-size:15px;color:#ff8a1e;transform:skewX(-8deg)}
+.pf-dumo div{flex:1;min-width:0}
+.pf-dumo small{display:block;font-size:9px;font-weight:800;letter-spacing:1.3px;opacity:.75}
+.pf-dumo b{display:block;font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf-dumo button{flex:none;height:34px;padding:0 14px;border-radius:12px 4px 12px 4px;background:#fff;color:#c55f00;font-size:12px;font-weight:800;box-shadow:0 3px 0 #c9781a}
+/* family code (for parent app) */
+.pf-fam{display:flex;align-items:center;gap:12px;padding:10px 10px 10px 12px;border-radius:18px 6px 18px 6px;background:#1b1c19;color:#fff}
+.pf-fam div{flex:1;min-width:0}
+.pf-fam small{display:block;font-size:9px;font-weight:800;letter-spacing:1.3px;color:var(--lime)}
+.pf-fam b{display:block;font-family:var(--f-display);font-weight:400;font-size:24px;letter-spacing:3px;line-height:1.1;transform:skewX(-8deg);transform-origin:0 50%}
+.pf-fam span{display:block;font-size:10.5px;color:#ffffff8c}
+.pf-fam button{flex:none;height:34px;padding:0 12px;border-radius:12px 4px 12px 4px;background:var(--lime);color:var(--ink);font-size:11.5px;font-weight:800}
+/* bundle row */
+.pf-row{width:100%;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:18px 6px 18px 6px;background:#f6f9ee;border:1.5px solid #edf2e1;text-align:left;transition:transform .12s}
+.pf-row:active{transform:scale(.98)}
+.pf-row .ri{width:38px;height:38px;flex:none;border-radius:12px 4px 12px 4px;background:#ece9ff;display:grid;place-items:center}
+.pf-row .ri svg{width:20px;height:20px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pf-row div{flex:1;min-width:0}
+.pf-row b{display:block;font-size:14.5px;font-weight:700}
+.pf-row small{display:block;font-size:11px;color:#5d6650;font-weight:600;margin-top:1px}
+.pf-row>svg{width:14px;height:14px;fill:none;stroke:var(--ink);stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.pf-bundles{display:flex;flex-wrap:wrap;gap:6px}
+.pf-bundles span{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;letter-spacing:.6px;padding:5px 10px;border-radius:999px;background:#ece9ff;color:#4b3db5}
+.pf-bundles span i{width:6px;height:6px;border-radius:50%;background:#8f7cff}
+/* save bar */
+.pf-save{position:absolute;left:14px;right:14px;bottom:16px;z-index:6;display:flex;align-items:center;gap:10px;padding:10px 10px 10px 16px;border-radius:26px 8px 26px 8px;background:linear-gradient(180deg,#30322c,#1b1c19);color:#fff;
+  box-shadow:0 16px 30px -14px #1b1c19cc,inset 0 1px 0 #ffffff1a;transform:translateY(140%);transition:transform .45s cubic-bezier(.2,1.3,.4,1)}
+#s-prof.edit .pf-save{transform:none}
+.pf-save div{flex:1;min-width:0}
+.pf-save small{display:block;font-size:9px;font-weight:800;letter-spacing:1.3px;color:var(--lime)}
+.pf-save b{display:block;font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf-save .x{flex:none;height:44px;padding:0 12px;border-radius:14px 5px 14px 5px;background:#ffffff14;font-size:12px;font-weight:800;color:#ffffffcc}
+.pf-save .go{flex:none;height:48px;padding:0 18px;border-radius:16px 6px 16px 6px;background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:var(--ink);font-size:13.5px;font-weight:800;letter-spacing:.6px;box-shadow:0 4px 0 #5f840a;transition:transform .12s}
+.pf-save .go:active{transform:translateY(3px);box-shadow:0 1px 0 #5f840a}
+/* modals (OTP, bundle, confirm) */
+.pf-bd{position:absolute;inset:0;z-index:20;background:#1b1c1966;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s}
+.pf-bd.open{opacity:1;pointer-events:auto}
+.pf-md{position:absolute;left:14px;right:14px;top:50%;z-index:21;border-radius:44px 10px 44px 10px;background:#fff;overflow:hidden;box-shadow:0 30px 60px -20px #1b1c1999;
+  transform:translateY(-44%) scale(.94);opacity:0;pointer-events:none;transition:transform .4s cubic-bezier(.2,1.3,.4,1),opacity .25s}
+.pf-md.open{transform:translateY(-50%) scale(1);opacity:1;pointer-events:auto}
+.pf-mh{position:relative;padding:20px 20px 16px;background:linear-gradient(160deg,#f4ffc4,#d7fb5c);overflow:hidden;text-align:center}
+.pf-mh::before{content:"";position:absolute;inset:-50%;background:repeating-linear-gradient(118deg,transparent 0 16px,#ffffff66 16px 19px);animation:lines 1.6s linear infinite}
+.pf-mh>*{position:relative}
+.pf-mx{position:absolute!important;right:14px;top:14px;width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 3px 0 #a4d61a;z-index:2}
+.pf-mx svg{width:13px;height:13px;fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.pf-shield{width:84px;height:84px;margin:0 auto 6px;display:block}
+.pf-shield .sh{transform-origin:50% 50%;animation:shb 2.4s ease-in-out infinite}
+@keyframes shb{50%{transform:translateY(-3px)}}
+.pf-shield .ring{transform-origin:42px 42px;animation:rot 10s linear infinite}
+.pf-mh small{display:block;font-size:10px;font-weight:800;letter-spacing:2px;color:#4b6a12}
+.pf-mh h4{margin:2px 0 0;font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1.05;transform:skewX(-8deg)}
+.pf-mb{padding:16px 18px 18px;text-align:center}
+.pf-mb p{margin:0;font-size:13px;line-height:1.45;color:#4e5644}
+.pf-mb p b{color:var(--ink)}
+.pf-otp{position:relative;display:flex;justify-content:center;gap:6px;margin-top:16px}
+.pf-otp .bx{width:42px;height:54px;border-radius:14px 5px 14px 5px;background:#f6f9ee;border:1.5px solid #e3e8d6;display:grid;place-items:center;font-family:var(--f-display);font-size:28px;transform:skewX(-6deg);transition:all .2s}
+.pf-otp .bx.full{background:#fff;border-color:#c9d0bc;box-shadow:0 3px 0 #dfe8c9}
+.pf-otp .bx.cur{border-color:var(--lime);box-shadow:0 0 0 3px #c6f43244}
+.pf-otp .bx.cur::after{content:"";width:2px;height:26px;background:var(--ink);animation:blink 1s steps(1) infinite}
+.pf-otp .sep{width:8px;align-self:center;height:3px;border-radius:2px;background:#c9d0bc}
+.pf-otp input{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;caret-color:transparent}
+.pf-otp.bad{animation:pfshk .4s}
+.pf-otp.bad .bx{border-color:#ff6b5a;background:#fff5f3}
+.pf-otp.ok .bx{background:var(--lime);border-color:var(--lime);box-shadow:0 3px 0 #6f9a0b}
+@keyframes pfshk{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.pf-mbtn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:50px;margin-top:16px;border-radius:16px 6px 16px 6px;background:var(--ink);color:var(--lime);font-size:14px;font-weight:800;letter-spacing:.8px;box-shadow:0 4px 0 #000;transition:opacity .2s,transform .12s}
+.pf-mbtn:active{transform:translateY(3px);box-shadow:0 1px 0 #000}
+.pf-mbtn[disabled]{opacity:.35;pointer-events:none}
+.pf-mbtn.dang{background:#ff6b5a;color:#fff;box-shadow:0 4px 0 #a3241a}
+.pf-mbtn.sec{background:#f1f4ea;color:#5d6650;box-shadow:none;margin-top:8px;height:44px}
+.pf-mbtn .spin{width:18px;height:18px;border-radius:50%;border:3px solid #c6f43244;border-top-color:var(--lime);animation:rot .7s linear infinite}
+.pf-rs{margin-top:12px;font-size:12px;font-weight:600;color:#8a9478}
+.pf-rs button{font-weight:800;color:#3f6c05;text-decoration:underline;text-underline-offset:2px}
+.pf-hint{margin-top:8px;font-size:10.5px;color:#a3ab95}
+.pf-code{width:100%;height:52px;margin-top:14px;padding:0 14px;border-radius:14px 5px 14px 5px;background:#f6f9ee;border:1.5px solid #edf2e1;font:inherit;font-family:var(--f-display);font-size:22px;letter-spacing:3px;text-align:center;text-transform:uppercase;outline:none}
+.pf-code:focus{border-color:var(--lime);background:#fff}
+#s-prof:not(.edit) .pf-in input,#s-prof:not(.edit) .pf-in select,#s-prof:not(.edit) .pf-in textarea{pointer-events:none}
+#s-prof:not(.edit) .pf-in{cursor:pointer}
+#s-prof:not(.edit) .pf-in input::placeholder,#s-prof:not(.edit) .pf-in textarea::placeholder{-webkit-text-fill-color:#b3baa6;color:#b3baa6}
+.pf-body{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14px);mask-image:linear-gradient(180deg,transparent 0,#000 14px)}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -2603,6 +2742,80 @@ input,textarea{-webkit-user-select:text;user-select:text}
     </div>
     <div class="psum in2" id="psum" style="--d:.05s"></div>
     <div class="plist scroll" id="plist"></div>
+  </section>
+
+  <!-- ===== PROFILE ===== -->
+  <section class="screen" id="s-prof" data-pos="right" aria-label="My profile">
+    <div class="arena-bg" aria-hidden="true"><canvas class="emb"></canvas></div>
+    <div class="ahdr in2" style="--a:up .5s ease">
+      <button class="gbtn" data-back="home" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="tt"><h2>MY <span>PROFILE</span></h2></div>
+      <button class="gbtn pf-out" id="pfOut" aria-label="Log out"><svg viewBox="0 0 24 24"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M10 16l-4-4 4-4M6 12h10"/></svg></button>
+    </div>
+    <form class="pf-body scroll" id="pfBody" novalidate autocomplete="on">
+      <div class="pf-hero" style="--d:.04s">
+        <div class="pf-top"><span class="pf-av" id="pfAv">S</span>
+          <div class="pf-id"><small><i></i>STUDENT</small><b id="pfName">sean</b><span id="pfSub">@test4 · KSSR Year 4</span></div></div>
+        <div class="pf-lock"><span class="li"><svg viewBox="0 0 24 24" id="pfLockI"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+          <p id="pfLockT"><b>Details are locked</b>We'll email a code to keep your account &amp; prizes safe.</p>
+          <button type="button" id="pfEdit">Edit details</button></div>
+      </div>
+
+      <div class="pf-sec" style="--d:.08s">
+        <h5><i><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i>ACCOUNT</h5>
+        <label class="pf-f" data-k="username"><span>USERNAME<em>3–20 letters, numbers or _</em></span><span class="pf-in"><input name="username" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="20"></span></label>
+        <label class="pf-f" data-k="name"><span>FULL NAME<em>Required</em></span><span class="pf-in"><input name="name" autocomplete="name" maxlength="60"></span></label>
+        <label class="pf-f" data-k="email"><span>EMAIL<em>Check the email</em></span><span class="pf-in"><input name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false"></span></label>
+      </div>
+
+      <div class="pf-sec" style="--d:.12s;--pc:#dff1ff;--pe:#bfe3ff">
+        <h5><i><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i>CONTACT</h5>
+        <label class="pf-f" data-k="mobile"><span>MOBILE NUMBER<em>8–11 digits</em></span><span class="pf-in"><span class="cc"><svg viewBox="0 0 28 14"><rect width="28" height="14" fill="#fff"/><path d="M0 1h28M0 3h28M0 5h28M0 7h28M0 9h28M0 11h28M0 13h28" stroke="#d52b1e" stroke-width="1"/><rect width="14" height="8" fill="#0b3b8c"/><circle cx="6" cy="4" r="2.6" fill="#ffd200"/><circle cx="7" cy="4" r="2.2" fill="#0b3b8c"/><circle cx="10.4" cy="4" r="1.2" fill="#ffd200"/></svg>+60</span><input name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="12 345 6789" maxlength="13"></span></label>
+        <label class="pf-f" data-k="country"><span>COUNTRY</span><span class="pf-in sel"><select name="country" id="pfCountry"></select><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></label>
+        <label class="pf-f" data-k="address"><span>MAILING ADDRESS<em>Needed to ship prizes</em></span><span class="pf-in"><textarea name="address" autocomplete="street-address" maxlength="200" placeholder="Where should we ship your prizes?"></textarea></span></label>
+      </div>
+
+      <div class="pf-sec" style="--d:.16s;--pc:#fff0d6;--pe:#f3d68a">
+        <h5><i><svg viewBox="0 0 24 24"><path d="M3 9l9-5 9 5-9 5z"/><path d="M7 11.5V16c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4.5"/></svg></i>SCHOOL</h5>
+        <label class="pf-f" data-k="school"><span>SCHOOL NAME</span><span class="pf-in"><input name="school" autocomplete="organization" maxlength="80" placeholder="e.g. SK Taman Tun Dr Ismail"></span></label>
+        <label class="pf-f" data-k="year"><span>YEAR</span><span class="pf-in sel"><select name="year" id="pfYear"></select><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></label>
+        <div class="pf-f"><span>DUMO ACCOUNT</span><div class="pf-dumo"><span class="dl">DU</span><div><small>CONNECTED</small><b id="pfDumo">ri9_test4</b></div><button type="button" id="pfDumoSw">Switch</button></div></div>
+      </div>
+
+      <div class="pf-sec par" style="--d:.2s">
+        <h5><i><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9.5" r="2.5"/><path d="M16 14.2c3 .1 5.5 2 5.5 5.3"/></svg></i>PARENT INFO</h5>
+        <label class="pf-f" data-k="pname"><span>PARENT FULL NAME</span><span class="pf-in"><input name="pname" autocomplete="off" maxlength="60" placeholder="Enter parent full name"></span></label>
+        <label class="pf-f" data-k="pmobile"><span>PARENT MOBILE NO.<em>8–11 digits</em></span><span class="pf-in"><span class="cc"><svg viewBox="0 0 28 14"><rect width="28" height="14" fill="#fff"/><path d="M0 1h28M0 3h28M0 5h28M0 7h28M0 9h28M0 11h28M0 13h28" stroke="#d52b1e" stroke-width="1"/><rect width="14" height="8" fill="#0b3b8c"/><circle cx="6" cy="4" r="2.6" fill="#ffd200"/><circle cx="7" cy="4" r="2.2" fill="#0b3b8c"/><circle cx="10.4" cy="4" r="1.2" fill="#ffd200"/></svg>+60</span><input name="pmobile" type="tel" inputmode="numeric" autocomplete="off" placeholder="Enter parent mobile number" maxlength="13"></span></label>
+        <label class="pf-f" data-k="pemail"><span>PARENT EMAIL<em>Check the email</em></span><span class="pf-in"><input name="pemail" type="email" inputmode="email" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Enter parent email"></span></label>
+        <div class="pf-fam"><div><small>FAMILY CODE · FOR THE PARENT APP</small><b id="pfFam">7QK-2PA</b><span>Your parent enters this to follow your progress.</span></div><button type="button" id="pfFamCp">Copy</button></div>
+      </div>
+
+      <div class="pf-sec" style="--d:.24s;--pc:#ece9ff;--pe:#d5ceff">
+        <h5><i><svg viewBox="0 0 24 24"><rect x="3.5" y="10" width="17" height="11" rx="1.5"/><rect x="2.5" y="6.5" width="19" height="3.8" rx="1"/><path d="M12 6.5V21M12 6.5C10 2.5 6 3.5 8 6.5M12 6.5c2-4 6-3 4 0"/></svg></i>BUNDLE</h5>
+        <button type="button" class="pf-row" id="pfBundle"><span class="ri"><svg viewBox="0 0 24 24"><path d="M3 9V6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v3a3 3 0 0 0 0 6v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-3a3 3 0 0 0 0-6z"/><path d="M14 5v14" stroke-dasharray="2 2"/></svg></span><div><b>Redeem bundle code</b><small>Got a code from school or a voucher?</small></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="pf-bundles" id="pfBundles"></div>
+      </div>
+    </form>
+
+    <div class="pf-save" id="pfSave"><div><small>EDITING · VERIFIED</small><b id="pfSaveT">No changes yet</b></div><button type="button" class="x" id="pfCancel">Cancel</button><button type="button" class="go" id="pfSubmit">SAVE</button></div>
+
+    <div class="pf-bd" id="pfBd"></div>
+    <div class="pf-md" id="pfOtp" role="dialog" aria-modal="true" aria-labelledby="pfOtpT">
+      <div class="pf-mh"><button type="button" class="pf-mx" data-pfx aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <svg class="pf-shield" viewBox="0 0 84 84" aria-hidden="true"><circle class="ring" cx="42" cy="42" r="38" fill="none" stroke="#1b1c19" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round" opacity=".35"/><g class="sh"><path d="M42 12 64 20v18c0 15-9.5 26-22 31-12.5-5-22-16-22-31V20z" fill="#1b1c19"/><path d="M42 18 58 24v14c0 11.5-7 20-16 24z" fill="#ffffff1a"/><rect x="33" y="38" width="18" height="14" rx="3" fill="#c6f432"/><path d="M36.5 38v-4a5.5 5.5 0 0 1 11 0v4" fill="none" stroke="#c6f432" stroke-width="3.2"/><circle cx="42" cy="44.5" r="2.2" fill="#1b1c19"/></g></svg>
+        <small>SECURITY CHECK</small><h4 id="pfOtpT">ENTER OTP CODE</h4></div>
+      <div class="pf-mb">
+        <p>We sent a 6-digit code to <b id="pfOtpTo">t***4@gmail.com</b>. Enter it to unlock your details.</p>
+        <div class="pf-otp" id="pfOtpBx"><input id="pfOtpIn" inputmode="numeric" autocomplete="one-time-code" maxlength="6" aria-label="6-digit code"></div>
+        <button type="button" class="pf-mbtn" id="pfVerify" disabled>VERIFY</button>
+        <div class="pf-rs" id="pfRs"></div>
+        <div class="pf-hint">Demo: any 6 digits except 000000</div>
+      </div>
+    </div>
+    <div class="pf-md" id="pfMd2" role="dialog" aria-modal="true" aria-labelledby="pfM2T">
+      <div class="pf-mh"><button type="button" class="pf-mx" data-pfx aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><small id="pfM2S"></small><h4 id="pfM2T"></h4></div>
+      <div class="pf-mb" id="pfM2B"></div>
+    </div>
   </section>
 
   <!-- ===== QUIZ ===== -->
@@ -3013,7 +3226,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   function moveInd(){const b=document.querySelector('.dnav button.on');if(!b)return;navInd.style.transform=`translateX(${b.offsetLeft}px)`}
 
   navBtns.forEach(b=>b.addEventListener('click',()=>{buzz();navBtns.forEach(x=>{x.classList.toggle('on',x===b);x.toggleAttribute('aria-current',x===b)});{const t0=performance.now();(function f(t){moveInd();if(t-t0<500)requestAnimationFrame(f)})(t0)}
-    const pg=b.dataset.page;if(pg==='Prizes'){setTimeout(()=>nav('prizes'),180);return}if(pg==='Statistics'){setTimeout(()=>nav('stats'),180);return}
+    const pg=b.dataset.page;if(pg==='Prizes'){setTimeout(()=>nav('prizes'),180);return}if(pg==='Statistics'){setTimeout(()=>nav('stats'),180);return}if(pg==='Profile'){setTimeout(()=>nav('prof'),180);return}
     if(pg!=='Home'){toast(`${pg} — next page in the build`);clearTimeout(b._t);b._t=setTimeout(()=>navBtns[0].click(),1600)}}));
   window.navHome=()=>{navBtns.forEach((x,i)=>{x.classList.toggle('on',i===0);x.toggleAttribute('aria-current',i===0)});moveInd()};
   function shapeDock(){const d=$('#dock'),W=d.offsetWidth,H=d.offsetHeight,c=W/2,r=30;
@@ -3043,7 +3256,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
 
 
   /* =================== SCREENS =================== */
-  const ORDER=['home','stats','chap','prizes','quiz','lobby','types','tour','hist','drill','write','tech'], SCR={home:$('#s-home'),stats:$('#s-stats'),chap:$('#s-chap'),prizes:$('#s-prizes'),quiz:$('#s-quiz'),lobby:$('#s-lobby'),types:$('#s-types'),drill:$('#s-drill'),write:$('#s-write'),tech:$('#s-tech'),tour:$('#s-tour'),hist:$('#s-hist')};
+  const ORDER=['home','stats','chap','prizes','prof','quiz','lobby','types','tour','hist','drill','write','tech'], SCR={home:$('#s-home'),stats:$('#s-stats'),chap:$('#s-chap'),prizes:$('#s-prizes'),prof:$('#s-prof'),quiz:$('#s-quiz'),lobby:$('#s-lobby'),types:$('#s-types'),drill:$('#s-drill'),write:$('#s-write'),tech:$('#s-tech'),tour:$('#s-tour'),hist:$('#s-hist')};
   let curScreen='home';
   function show(name,instant){
     if(!SCR[name])name='home';
@@ -3063,6 +3276,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
     if(name==='stats'&&curScreen!=='chap')openStats();
     if(name==='chap')openChap();
     if(name==='prizes')openPrizes();
+    if(name==='prof'&&window.openProf)openProf();
     if(name==='home'&&window.GL&&curScreen!=='home')GL.card(true);
     if(name==='tour'&&curScreen!=='drill'&&curScreen!=='hist')openTour();
     if(name==='tour'&&(curScreen==='hist'||curScreen==='drill')){renderTour(false)}
@@ -3626,6 +3840,118 @@ input,textarea{-webkit-user-select:text;user-select:text}
   }
   $('#plist').addEventListener('click',e=>{const b=e.target.closest('.btn5');if(!b)return;buzz();toast(b.dataset.a==='Confirm address'?'Address form — next in the build':`${b.dataset.a} — next in the build`)});
   function openPrizes(){renderPrizes(true)}
+
+  /* =================== PROFILE (student) =================== */
+  (function(){
+    const scr=$('#s-prof'),form=$('#pfBody'),F=n=>form.elements[n];
+    const KEYS=['username','name','email','mobile','country','address','school','year','pname','pmobile','pemail'];
+    const LABEL={username:'Username',name:'Full name',email:'Email',mobile:'Mobile',country:'Country',address:'Address',school:'School',year:'Year',pname:'Parent name',pmobile:'Parent mobile',pemail:'Parent email',dumo:'DUMO account'};
+    const COUNTRIES=[['MY','Malaysia'],['SG','Singapore'],['BN','Brunei'],['ID','Indonesia'],['TH','Thailand'],['PH','Philippines'],['VN','Vietnam'],['IN','India'],['CN','China'],['AU','Australia'],['GB','United Kingdom'],['OT','Other']];
+    const pfEsc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    $('#pfCountry').innerHTML='<option value="">Select your country</option>'+COUNTRIES.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join('');
+    $('#pfYear').innerHTML=YEARS.map(y=>`<option value="${y.id}">${y.label}</option>`).join('');
+    const DEF={username:'test4',name:'sean',email:'test4@gmail.com',mobile:'',country:'MY',address:'',school:'',year:lob.year,pname:'',pmobile:'',pemail:'',dumo:'ri9_test4',fam:'7QK2PA',bundles:[]};
+    let P;try{P={...DEF,...JSON.parse(localStorage.getItem('qdProfile')||'null')}}catch(_){P={...DEF}}
+    const persist=()=>{try{localStorage.setItem('qdProfile',JSON.stringify(P))}catch(_){}};
+    let editing=false,snap=null,dumoNew=null;
+
+    function fill(){KEYS.forEach(k=>{F(k).value=P[k]??''});paintHero();paintBundles();$('#pfDumo').textContent=P.dumo;$('#pfFam').textContent=P.fam.slice(0,3)+'-'+P.fam.slice(3)}
+    function paintHero(){const n=(P.name||P.username||'?').trim();$('#pfAv').textContent=(n[0]||'?').toUpperCase();$('#pfName').textContent=n;
+      const y=YEARS.find(x=>x.id===P.year);$('#pfSub').textContent=`@${P.username}${y?' · '+y.label:''}`}
+    function paintBundles(){$('#pfBundles').innerHTML=P.bundles.map(b=>`<span><i></i>${pfEsc(b)}</span>`).join('')}
+    function setLocked(lock){editing=!lock;scr.classList.toggle('edit',!lock);
+      form.querySelectorAll('input,textarea').forEach(i=>i.readOnly=lock);form.querySelectorAll('select').forEach(s=>s.disabled=lock);
+      $('#pfLockT').innerHTML=lock?'<b>Details are locked</b>We\'ll email a code to keep your account &amp; prizes safe.':'<b>Unlocked for editing</b>Make your changes, then tap Save.';
+      $('#pfLockI').innerHTML=lock?'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>':'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>';
+      $('#pfEdit').textContent=lock?'Edit details':'Lock';
+      form.querySelectorAll('.pf-f.err').forEach(f=>f.classList.remove('err'));
+      if(!lock){snap={...P};dumoNew=null;paintChanges()}}
+    function changes(){if(!snap)return[];const c=KEYS.filter(k=>String(F(k).value).trim()!==String(snap[k]??'').trim());if(dumoNew&&dumoNew!==snap.dumo)c.push('dumo');return c}
+    function paintChanges(){const c=changes();$('#pfSaveT').textContent=c.length?`${c.length} change${c.length>1?'s':''} · ${c.map(k=>LABEL[k]).join(', ')}`:'No changes yet'}
+    form.addEventListener('input',e=>{if(!editing)return;const f=e.target.closest('.pf-f');f&&f.classList.remove('err');
+      if(e.target.type==='tel')e.target.value=e.target.value.replace(/[^\d ]/g,'');paintChanges()});
+    form.addEventListener('change',()=>editing&&paintChanges());
+    form.addEventListener('submit',e=>e.preventDefault());
+    // tapping a locked field asks for the OTP
+    form.addEventListener('click',e=>{if(editing)return;if(e.target.closest('.pf-in')){e.preventDefault();buzz();requireOtp()}});
+
+    /* ---- modals ---- */
+    const bd=$('#pfBd');let openMd=null;
+    function md(el){openMd&&openMd.classList.remove('open');openMd=el;el.classList.add('open');bd.classList.add('open')}
+    function closeMd(){if(!openMd)return;openMd.classList.remove('open');bd.classList.remove('open');openMd=null;clearInterval(rsT)}
+    bd.addEventListener('click',closeMd);scr.querySelectorAll('[data-pfx]').forEach(b=>b.addEventListener('click',()=>{buzz();closeMd()}));
+    addEventListener('keydown',e=>{if(e.key==='Escape'&&openMd)closeMd()});
+    function dialog(sub,title,body){$('#pfM2S').textContent=sub;$('#pfM2T').textContent=title;$('#pfM2B').innerHTML=body;md($('#pfMd2'))}
+
+    /* ---- OTP ---- */
+    const ob=$('#pfOtpBx'),oi=$('#pfOtpIn');let rsT,rsLeft=0,afterOtp=null;
+    ob.insertAdjacentHTML('afterbegin',[0,1,2,3,4,5].map(i=>`<span class="bx"></span>${i===2?'<span class="sep"></span>':''}`).join(''));
+    const bxs=[...ob.querySelectorAll('.bx')];
+    function paintOtp(){const v=oi.value,foc=document.activeElement===oi;bxs.forEach((b,i)=>{b.textContent=v[i]||'';b.classList.toggle('full',!!v[i]);b.classList.toggle('cur',foc&&v.length<6&&i===v.length)});$('#pfVerify').disabled=v.length!==6}
+    oi.addEventListener('input',()=>{oi.value=oi.value.replace(/\D/g,'').slice(0,6);ob.classList.remove('bad');paintOtp();if(oi.value.length===6)setTimeout(()=>$('#pfVerify').click(),150)});
+    oi.addEventListener('focus',paintOtp);oi.addEventListener('blur',paintOtp);
+    const mask=e=>{const[u,d]=String(e).split('@');return d?(u.length<=2?u[0]+'*':u[0]+'*'.repeat(Math.min(3,u.length-2))+u.slice(-1))+'@'+d:e};
+    function tickRs(){const r=$('#pfRs');if(rsLeft>0){r.textContent=`Resend code in ${rsLeft}s`;rsLeft--}else{clearInterval(rsT);r.innerHTML='Didn\'t get it? <button type="button" id="pfResend">Resend code</button>';$('#pfResend').onclick=()=>{buzz();startRs();toast('New code sent')}}}
+    function startRs(){clearInterval(rsT);rsLeft=59;tickRs();rsT=setInterval(tickRs,1000)}
+    function requireOtp(then){if(editing){then&&then();return}afterOtp=then||null;oi.value='';ob.classList.remove('bad','ok');$('#pfVerify').innerHTML='VERIFY';
+      $('#pfOtpTo').textContent=mask(P.email);paintOtp();md($('#pfOtp'));startRs();setTimeout(()=>oi.focus({preventScroll:true}),350);toast('Code sent to your email')}
+    $('#pfVerify').addEventListener('click',()=>{const v=oi.value,b=$('#pfVerify');if(v.length!==6||b.dataset.busy)return;buzz();b.dataset.busy=1;b.innerHTML='<span class="spin"></span>CHECKING';
+      setTimeout(()=>{delete b.dataset.busy;
+        if(v==='000000'){b.innerHTML='VERIFY';ob.classList.remove('bad');void ob.offsetWidth;ob.classList.add('bad');SFX.play('wrong');toast('That code doesn\'t match — try again');oi.value='';paintOtp();oi.focus();return}
+        ob.classList.add('ok');b.innerHTML='VERIFIED ✓';SFX.play('right');
+        setTimeout(()=>{closeMd();setLocked(false);toast('Verified — you can edit now');const f=afterOtp;afterOtp=null;f&&f()},550)},800)});
+    $('#pfEdit').addEventListener('click',()=>{buzz();if(editing)cancelEdit();else requireOtp()});
+
+    /* ---- save / cancel ---- */
+    const RX={username:/^[a-z0-9_]{3,20}$/i,email:/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,phone:/^\d{8,11}$/};
+    function validate(){const bad=[],v=k=>String(F(k).value).trim(),ph=k=>v(k).replace(/\s/g,'');
+      if(!RX.username.test(v('username')))bad.push('username');if(!v('name'))bad.push('name');if(!RX.email.test(v('email')))bad.push('email');
+      if(v('mobile')&&!RX.phone.test(ph('mobile').replace(/^0/,'')))bad.push('mobile');
+      if(v('pmobile')&&!RX.phone.test(ph('pmobile').replace(/^0/,'')))bad.push('pmobile');
+      if(v('pemail')&&!RX.email.test(v('pemail')))bad.push('pemail');
+      form.querySelectorAll('.pf-f').forEach(f=>f.classList.toggle('err',bad.includes(f.dataset.k)));return bad}
+    $('#pfSubmit').addEventListener('click',()=>{buzz();const c=changes();if(!c.length){toast('Nothing changed yet');return}
+      const bad=validate();if(bad.length){const f=form.querySelector(`.pf-f[data-k="${bad[0]}"]`);f.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});SFX.play('wrong');toast(`Check ${LABEL[bad[0]].toLowerCase()}`);return}
+      const yearChanged=F('year').value!==P.year;
+      KEYS.forEach(k=>{P[k]=String(F(k).value).trim()});if(dumoNew)P.dumo=dumoNew;persist();
+      if(yearChanged&&YEARS.some(y=>y.id===P.year)){setYear(P.year);if(typeof renderFields==='function')renderFields()}
+      setLocked(true);fill();SFX.play('right');toast(`Profile saved · ${c.length} change${c.length>1?'s':''}`)});
+    function cancelEdit(){if(!changes().length){setLocked(true);fill();return}
+      dialog('UNSAVED CHANGES','Discard changes?',`<p>You changed <b>${changes().map(k=>LABEL[k]).join(', ')}</b>. These won't be saved.</p><button type="button" class="pf-mbtn dang" id="pfDisc">DISCARD</button><button type="button" class="pf-mbtn sec" id="pfKeep">Keep editing</button>`);
+      $('#pfDisc').onclick=()=>{buzz();closeMd();setLocked(true);fill();toast('Changes discarded')};$('#pfKeep').onclick=()=>{buzz();closeMd()}}
+    $('#pfCancel').addEventListener('click',()=>{buzz();cancelEdit()});
+
+    /* ---- DUMO switch (a detail change, so it needs the OTP too) ---- */
+    $('#pfDumoSw').addEventListener('click',e=>{e.stopPropagation();buzz();requireOtp(()=>{
+      const cur=dumoNew||P.dumo,list=[...new Set([cur,P.dumo,'ri9_'+P.username,P.username+'_dumo'])];
+      dialog('DUMO ACCOUNT','Switch account',`<div style="display:flex;flex-direction:column;gap:7px">${list.map(a=>`<button type="button" class="pf-row" data-dumo="${pfEsc(a)}" style="${a===cur?'border-color:var(--lime);background:#f1fcd2':''}"><span class="ri" style="background:#fff0d6;font-family:var(--f-display);color:#ff8a1e">DU</span><div><b>${pfEsc(a)}</b><small>${a===cur?'Connected now':'Tap to connect'}</small></div></button>`).join('')}</div><p class="pf-hint" style="margin-top:12px">Switching takes effect when you save.</p>`);
+      $('#pfM2B').querySelectorAll('[data-dumo]').forEach(b=>b.onclick=()=>{buzz();dumoNew=b.dataset.dumo;$('#pfDumo').textContent=dumoNew;closeMd();paintChanges();toast('DUMO: '+dumoNew)})})});
+
+    /* ---- family code ---- */
+    $('#pfFamCp').addEventListener('click',e=>{e.stopPropagation();buzz();const c=P.fam;
+      (navigator.clipboard?navigator.clipboard.writeText(c):Promise.reject()).then(()=>toast('Family code copied'),()=>toast('Family code: '+c))});
+
+    /* ---- bundle redeem ---- */
+    const PACKS=['SCIENCE PACK · 30 DAYS','MATHS BOOSTER · 60 DAYS','EXAM PREP BUNDLE','WRITING PRO · 30 DAYS','ALL SUBJECTS · 1 YEAR'];
+    $('#pfBundle').addEventListener('click',e=>{e.stopPropagation();buzz();
+      dialog('BUNDLE','Redeem a code',`<p>Enter the code from your school, voucher or bundle card.</p><input class="pf-code" id="pfCode" maxlength="14" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="RI9-XXXX-XXXX"><button type="button" class="pf-mbtn" id="pfRedeem" disabled>REDEEM</button><div class="pf-hint">Demo: any 6+ letters / numbers</div>`);
+      const ci=$('#pfCode'),rb=$('#pfRedeem');setTimeout(()=>ci.focus({preventScroll:true}),350);
+      ci.oninput=()=>{ci.value=ci.value.toUpperCase().replace(/[^A-Z0-9-]/g,'');rb.disabled=ci.value.replace(/-/g,'').length<6};
+      ci.onkeydown=ev=>{if(ev.key==='Enter'&&!rb.disabled)rb.click()};
+      rb.onclick=()=>{buzz();const code=ci.value.replace(/-/g,'');rb.disabled=true;rb.innerHTML='<span class="spin"></span>CHECKING';
+        setTimeout(()=>{let h=0;for(const ch of code)h=(h*31+ch.charCodeAt(0))>>>0;const pack=PACKS[h%PACKS.length];
+          if(P.bundles.includes(pack)){rb.disabled=false;rb.innerHTML='REDEEM';toast('That bundle is already on your account');return}
+          P.bundles.push(pack);persist();paintBundles();closeMd();SFX.play('right');toast('Unlocked: '+pack)},900)}});
+
+    /* ---- log out ---- */
+    $('#pfOut').addEventListener('click',()=>{buzz();
+      dialog('ACCOUNT','Log out?',`<p>You'll need your username and password to sign back in as <b>@${pfEsc(P.username)}</b>.</p><button type="button" class="pf-mbtn dang" id="pfOutOk">LOG OUT</button><button type="button" class="pf-mbtn sec" id="pfOutNo">Stay</button>`);
+      $('#pfOutOk').onclick=()=>{buzz();closeMd();toast('Logged out — sign-in screen comes next in the build');nav('home')};$('#pfOutNo').onclick=()=>{buzz();closeMd()}});
+
+    window.openProf=()=>{closeMd();if(editing)setLocked(true);fill();replay(form,'anim');form.scrollTop=0};
+    setLocked(true);fill();
+  })();
+
 
 
   /* =================== WRITING DRILL =================== */
