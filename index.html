@@ -2953,6 +2953,135 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .pc5 .tap5{display:inline-flex;align-items:center;gap:3px;margin-top:4px;font-size:10.5px;font-weight:800;color:#3f6c05}
 .pc5 .tap5 svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 
+
+/* ===================== WALKTHROUGH (first run) ===================== */
+.wt{position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;color:#fff;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .35s;
+  background:radial-gradient(120% 60% at 50% 32%,#3f5a0d 0%,#1d2a0d 42%,#0b0f06 82%);touch-action:pan-y}
+.wt.open{opacity:1;pointer-events:auto}
+.wt-rays{position:absolute;left:50%;top:230px;width:1100px;height:1100px;margin:-550px 0 0 -550px;background:repeating-conic-gradient(from 0deg,#c6f43212 0 6deg,transparent 6deg 16deg);animation:rot 34s linear infinite;
+  -webkit-mask-image:radial-gradient(closest-side,#000 10%,transparent 70%);mask-image:radial-gradient(closest-side,#000 10%,transparent 70%);pointer-events:none}
+.wt-speed{position:absolute;inset:-40%;background:repeating-linear-gradient(118deg,transparent 0 46px,#c6f4320b 46px 49px);animation:lines 1.4s linear infinite;pointer-events:none}
+/* top */
+.wt-top{position:relative;z-index:2;flex:none;display:flex;align-items:center;gap:10px;height:56px;padding:0 14px}
+.wt-prog{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.wt-prog i{height:6px;border-radius:4px;background:#ffffff1f;overflow:hidden;transform:skewX(-20deg)}
+.wt-prog i b{display:block;height:100%;width:0;background:var(--lime);box-shadow:0 0 10px #c6f432;transition:width .45s cubic-bezier(.2,1,.3,1)}
+.wt-prog i.done b{width:100%}
+.wt-skip{height:34px;padding:0 13px;border-radius:12px 4px 12px 4px;background:#ffffff12;border:1px solid #ffffff1f;font-size:12px;font-weight:800;letter-spacing:.6px;color:#ffffffcc}
+/* slides */
+.wt-track{position:relative;z-index:1;flex:1;min-height:0;display:flex;transition:transform .55s cubic-bezier(.2,1,.25,1)}
+.wt-track.drag{transition:none}
+.wt-s{flex:0 0 100%;min-width:0;display:flex;flex-direction:column;align-items:center;padding:0 22px}
+.wt-scene{position:relative;flex:1;min-height:220px;width:100%;max-width:360px;display:grid;place-items:center}
+.wt-txt{flex:none;width:100%;max-width:360px;padding-bottom:6px}
+.wt-n{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--lime)}
+.wt-n i{font-style:normal;font-family:var(--f-display);font-size:13px;letter-spacing:0;width:26px;height:26px;border-radius:9px 3px 9px 3px;background:var(--lime);color:#1b1c19;display:grid;place-items:center;transform:skewX(-8deg)}
+.wt-h{margin:8px 0 0;font-family:var(--f-display);font-weight:400;font-size:44px;line-height:.95;letter-spacing:.3px;transform:skewX(-8deg);transform-origin:0 100%}
+.wt-h span{color:#1b1c19;background:var(--lime);padding:0 8px;box-shadow:4px 4px 0 #000;display:inline-block}
+.wt-p{margin:12px 0 0;font-size:15px;line-height:1.45;color:#ffffffc4;max-width:330px}
+.wt-p b{color:#fff}
+.wt-s.on .wt-txt>*{animation:up .55s cubic-bezier(.2,1.2,.4,1) both}
+.wt-s.on .wt-h{animation-delay:.08s!important}.wt-s.on .wt-p{animation-delay:.16s!important}
+/* bottom */
+.wt-bot{position:relative;z-index:2;flex:none;display:flex;align-items:center;gap:10px;padding:14px 18px 18px}
+.wt-back{width:54px;height:58px;flex:none;border-radius:18px 6px 18px 6px;background:#ffffff12;border:1px solid #ffffff1f;display:grid;place-items:center;transition:opacity .25s}
+.wt-back svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.wt-back[disabled]{display:none}
+.wt-next{flex:1;height:58px;border-radius:20px 6px 20px 6px;display:flex;align-items:center;justify-content:center;gap:10px;background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:#1b1c19;
+  font-family:var(--f-display);font-size:24px;letter-spacing:1px;box-shadow:0 5px 0 #5f840a,0 0 30px #c6f43255;transition:transform .12s}
+.wt-next span{transform:skewX(-8deg)}
+.wt-next:active{transform:translateY(3px);box-shadow:0 2px 0 #5f840a}
+.wt-next svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.wt-next.last{animation:hotp 1.2s ease-in-out infinite}
+
+/* --- scene 1: subjects --- */
+.wt1{position:relative;width:300px;height:230px;perspective:800px}
+.wt1 .c{position:absolute;left:50%;top:14px;width:150px;height:186px;margin-left:-75px;border-radius:26px 7px 26px 7px;background:#fff;color:#1b1c19;padding:14px 12px;box-shadow:0 20px 30px -14px #000;
+  display:flex;flex-direction:column;align-items:center;gap:6px;transition:transform .6s cubic-bezier(.3,1.3,.5,1),filter .6s,z-index 0s .2s}
+.wt1 .c .ic{width:48px;height:48px;border-radius:16px 5px 16px 5px;background:var(--sc);display:grid;place-items:center}
+.wt1 .c .ic svg{width:28px;height:28px;fill:none;stroke:#1b1c19;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.wt1 .c .ic svg .f{fill:#1b1c19;stroke:none}
+.wt1 .c b{font-size:14px;font-weight:700}
+.wt1 .c svg.g{width:110px;height:62px;margin-top:4px}
+.wt1 .c small{font-size:9px;font-weight:800;letter-spacing:1.2px;color:#5d6650}
+.wt1 .c[data-p="0"]{transform:none;z-index:3}
+.wt1 .c[data-p="1"]{transform:translateX(112px) translateZ(-90px) rotateY(-28deg) scale(.86);z-index:2;filter:brightness(.6)}
+.wt1 .c[data-p="2"]{transform:translateX(-112px) translateZ(-90px) rotateY(28deg) scale(.86);z-index:2;filter:brightness(.6)}
+.wt1 .c[data-p="3"]{transform:translateZ(-200px) scale(.6);z-index:1;filter:brightness(.3);opacity:0}
+.wt1 .c .arc{stroke-dasharray:140;stroke-dashoffset:140;transition:stroke-dashoffset 1s cubic-bezier(.2,1,.3,1) .3s}
+.wt1 .c[data-p="0"] .arc{stroke-dashoffset:var(--o,40)}
+.wt-hand{position:absolute;left:50%;bottom:4px;width:44px;height:44px;margin-left:-22px;z-index:5;filter:drop-shadow(0 4px 6px #000)}
+.wt-s.on .wt-hand{animation:wtSwipe 2.2s ease-in-out infinite}
+@keyframes wtSwipe{0%{transform:translateX(50px);opacity:0}15%{opacity:1}55%{transform:translateX(-50px);opacity:1}70%,100%{transform:translateX(-50px);opacity:0}}
+/* --- scene 2: challenge --- */
+.wt2{position:relative;width:300px;height:250px;display:flex;flex-direction:column;align-items:center}
+.wt2 .bt{position:relative;width:132px;height:132px;display:grid;place-items:center}
+.wt2 .bt svg.t{position:absolute;inset:0;transform:rotate(-90deg)}
+.wt2 .bt .run{stroke-dasharray:390;stroke-dashoffset:0}
+.wt-s.on .wt2 .bt .run{animation:wtDrain 4s linear infinite}
+@keyframes wtDrain{to{stroke-dashoffset:390}}
+.wt2 .bt .core{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 38%,#98c814 100%);box-shadow:0 0 40px #c6f43288,inset 0 -5px 0 #00000024}
+.wt2 .bt .core svg{width:42px;height:42px}
+.wt-s.on .wt2 .bt .core{animation:wtZap 1.2s ease-in-out infinite}
+@keyframes wtZap{50%{transform:scale(1.07)}}
+.wt2 .tm{position:absolute;top:-6px;right:-30px;padding:4px 9px;border-radius:10px 3px 10px 3px;background:#1b1c19;border:1.5px solid var(--lime);font-family:var(--f-display);font-size:16px;color:var(--lime);transform:skewX(-8deg)}
+.wt2 .qs{display:flex;gap:6px;margin-top:22px}
+.wt2 .qs i{width:34px;height:12px;border-radius:5px;background:#ffffff1f;transform:skewX(-20deg)}
+.wt-s.on .wt2 .qs i{animation:wtQ 4s steps(1) infinite;animation-delay:calc(var(--k)*.45s)}
+@keyframes wtQ{0%{background:#ffffff1f}10%,100%{background:var(--lime);box-shadow:0 0 10px #c6f432}}
+.wt2 .qs i.x{--bad:1}
+.wt-s.on .wt2 .qs i.x{animation-name:wtQx}
+@keyframes wtQx{0%{background:#ffffff1f}10%,100%{background:#ff6b5a;box-shadow:0 0 10px #ff6b5a}}
+.wt2 .pts{position:absolute;right:20px;top:40px;font-family:var(--f-display);font-size:34px;color:var(--lime);transform:skewX(-8deg);text-shadow:0 0 20px #c6f432;opacity:0}
+.wt-s.on .wt2 .pts{animation:wtPts 4s ease-out infinite 2.6s}
+@keyframes wtPts{0%{opacity:0;transform:skewX(-8deg) translateY(20px) scale(.6)}12%{opacity:1;transform:skewX(-8deg) scale(1.15)}40%{opacity:1;transform:skewX(-8deg)}60%,100%{opacity:0;transform:skewX(-8deg) translateY(-24px)}}
+.wt2 .lbl{display:flex;gap:16px;margin-top:12px;font-size:10px;font-weight:800;letter-spacing:1.3px;color:#ffffff99}
+.wt2 .lbl b{color:#fff}
+/* --- scene 3: streak + ranks --- */
+.wt3{position:relative;width:310px;height:240px}
+.wt3 .fl{position:absolute;left:4px;top:6px;width:120px;height:146px}
+.wt3 .fl svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 24px #ff7a1e99)}
+.wt3 .fl .o{transform-origin:50% 95%;animation:flick .9s ease-in-out infinite}
+.wt3 .fl .i{transform-origin:50% 95%;animation:flick .7s ease-in-out infinite reverse}
+.wt3 .fl b{position:absolute;left:0;right:0;top:64px;text-align:center;font-family:var(--f-display);font-size:46px;color:#fff;text-shadow:0 3px 0 #a33c08}
+.wt3 .fl small{position:absolute;left:0;right:0;bottom:-18px;text-align:center;font-size:10px;font-weight:800;letter-spacing:1.5px;color:#ffc46b}
+.wt3 .days{position:absolute;left:4px;bottom:6px;display:flex;gap:3px}
+.wt3 .days i{width:14px;height:20px;border-radius:7px 2px 7px 2px;background:#ffffff14;transform:skewX(-6deg)}
+.wt-s.on .wt3 .days i{animation:wtDay .4s cubic-bezier(.3,1.7,.5,1) both;animation-delay:calc(.3s + var(--k)*.12s)}
+@keyframes wtDay{from{background:#ffffff14;transform:skewX(-6deg) scale(.5)}to{background:linear-gradient(180deg,#ffb420,#ff6a1e);transform:skewX(-6deg)}}
+.wt3 .pod{position:absolute;right:0;bottom:6px;display:flex;align-items:flex-end;gap:5px}
+.wt3 .pc{display:flex;flex-direction:column;align-items:center;gap:5px}
+.wt3 .pc .av{width:38px;height:38px;border-radius:13px 4px 13px 4px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#1b1c19;background:var(--t);transform:skewX(-6deg)}
+.wt3 .pc.me .av{box-shadow:0 0 0 3px var(--lime),0 0 18px #c6f432}
+.wt3 .pc .bk{width:50px;border-radius:12px 4px 0 0;display:grid;place-items:start center;padding-top:6px;font-family:var(--f-display);font-size:22px;color:#1b1c19;transform-origin:bottom}
+.wt3 .pc:nth-child(1) .bk{height:70px;background:linear-gradient(180deg,#e9edf2,#b8c0c8)}
+.wt3 .pc:nth-child(2) .bk{height:100px;background:linear-gradient(180deg,#e9ff8f,#a4d61a)}
+.wt3 .pc:nth-child(3) .bk{height:50px;background:linear-gradient(180deg,#ffd9b5,#e4a06a)}
+.wt-s.on .wt3 .pc .bk{animation:wtRise .7s cubic-bezier(.3,1.5,.5,1) both;animation-delay:calc(.2s + var(--k)*.12s)}
+@keyframes wtRise{from{transform:scaleY(0)}}
+.wt3 .crown{width:28px;height:20px;margin-bottom:-4px}
+.wt-s.on .wt3 .crown{animation:wtCrown 1.6s ease-in-out infinite}
+@keyframes wtCrown{50%{transform:translateY(-4px) rotate(-6deg)}}
+/* --- scene 4: prizes --- */
+.wt4{position:relative;width:300px;height:250px}
+.wt4 .gift{position:absolute;left:50%;top:50%;width:110px;height:110px;margin:-48px 0 0 -55px;z-index:2}
+.wt4 .gift svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 12px 18px #000a)}
+.wt-s.on .wt4 .gift{animation:wtGift 1.8s cubic-bezier(.3,1.6,.5,1) infinite}
+@keyframes wtGift{0%,60%,100%{transform:none}70%{transform:scale(1.1,.9)}80%{transform:translateY(-10px) scale(.95,1.05)}}
+.wt-s.on .wt4 .lid{animation:wtLid 1.8s cubic-bezier(.3,1.6,.5,1) infinite;transform-origin:20px 34px}
+@keyframes wtLid{0%,60%,100%{transform:none}78%{transform:translateY(-18px) rotate(-14deg)}}
+.wt4 .glow{position:absolute;left:50%;top:50%;width:220px;height:220px;margin:-110px 0 0 -110px;border-radius:50%;background:radial-gradient(closest-side,#f2c94c66,#f2c94c11 60%,transparent);animation:pulse 2s ease-in-out infinite}
+.wt4 .orb{position:absolute;inset:0;animation:rot 12s linear infinite}
+.wt4 .orb>span{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:20px 6px 20px 6px;background:var(--bg);display:grid;place-items:center;box-shadow:0 8px 16px -6px #000a;
+  transform:rotate(var(--a)) translateY(-92px) rotate(calc(-1 * var(--a)))}
+.wt4 .orb>span>i{display:grid;place-items:center;animation:rot 12s linear infinite reverse}
+.wt4 .orb svg{width:46px;height:46px}
+.wt4 .cn{position:absolute;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,#e7bd5b 55%,#b98c37);box-shadow:inset 0 -2px 0 #a67b2e;opacity:0}
+.wt-s.on .wt4 .cn{animation:wtCoin 1.8s ease-out infinite;animation-delay:calc(1.2s + var(--k)*.08s)}
+@keyframes wtCoin{0%{opacity:0;transform:translate(0,0)}10%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(360deg)}}
+.wt4 .tag{position:absolute;left:50%;bottom:-34px;z-index:3;transform:translateX(-50%) skewX(-8deg);padding:5px 12px;border-radius:12px 4px 12px 4px;background:#1b1c19;border:1.5px solid #f2c94c;font-size:11px;font-weight:800;letter-spacing:1px;color:#ffe9a8;white-space:nowrap}
+@media (max-height:720px){.wt-h{font-size:36px}.wt-p{font-size:13.5px;margin-top:8px}.wt-scene{min-height:180px;transform:scale(.85)}}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -3655,7 +3784,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   shapeDock();moveInd();document.fonts&&document.fonts.ready.then(moveInd);addEventListener('resize',()=>requestAnimationFrame(()=>{shapeDock();moveInd()}));
   pz.addEventListener('click',()=>toast('Prizes — next page in the build'));
   $('#sos').addEventListener('click',()=>toast('S.O.S — ask for help'));
-  $('#help').addEventListener('click',()=>toast('Pick a subject · beat 9:00 · win prizes'));
+  $('#help').addEventListener('click',()=>{buzz();WT.open()});
 
   /* launch */
   const L=$('#launch'),C=$('#cnt'),R=$('#ready');let timers=[];
@@ -5143,6 +5272,65 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
       if(active){prog.sec++;if(prog.sec%10===0)save();check()}},1000);
     return{card,open,addQ(n=1){prog.q+=n;save();check()},get first(){return!goal},home(){card(true);if(prog.won&&!prog.cel){prog.cel=true;save()}}};
   })();
+
+  /* ===================== WALKTHROUGH (first run, cookie-gated) ===================== */
+  const WT=(()=>{
+    const CK='ri9_walkthrough';
+    const seen=()=>{try{if(document.cookie.split('; ').some(c=>c.startsWith(CK+'=')))return true}catch(_){}try{return localStorage.getItem(CK)==='done'}catch(_){return false}};
+    const mark=()=>{try{document.cookie=`${CK}=done; max-age=${60*60*24*365}; path=/; SameSite=Lax`}catch(_){}try{localStorage.setItem(CK,'done')}catch(_){}};
+    const force=/[?&#]walkthrough\b/.test(location.search+location.hash);
+    const SC=['#e4f8a8','#dff1ff','#fff0d6','#ece9ff'];
+    const gauge=o=>`<svg class="g" viewBox="0 0 110 62"><path d="M8 56a47 47 0 0 1 94 0" fill="none" stroke="#eef2e6" stroke-width="10" stroke-linecap="round"/><path class="arc" d="M8 56a47 47 0 0 1 94 0" fill="none" stroke="#8fc914" stroke-width="10" stroke-linecap="round" style="--o:${o}"/></svg>`;
+    const flame='<svg viewBox="0 0 19 25"><path class="o" d="M9.5 0.5c1.4 4.6 7.8 7.4 7.8 14.3a7.8 7.8 0 0 1-15.6 0c0-4.2 2.6-6.1 3.5-9.6 1.3 2.1 1.4 3.9 2.6 4.6.7-3.4.6-6.4 1.7-9.3z" fill="#ff5a2e"/><path class="i" d="M9.6 11.8c.9 2.8 4.3 3.7 4.3 7.2a4.3 4.3 0 0 1-8.6 0c0-2.2 1.9-3.6 2.1-5.6.8.8 1.2 1.6 1.4 2.4.6-1.3.7-2.6.8-4z" fill="#ffb420"/></svg>';
+    const bolt='<svg viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z" fill="#1b1c19"/></svg>';
+    const STEPS=[
+      {h:'PICK A <span>SUBJECT</span>',p:'Swipe the cards on your dashboard to choose <b>Maths, English, BM or Science</b>. Your speed shows on every card.',
+       s:`<div class="wt1" id="wt1">${SUBJ.slice(0,4).map((x,k)=>`<div class="c" data-p="${k}" style="--sc:${SC[k]}"><span class="ic"><svg viewBox="0 0 24 24">${x.ico}</svg></span><b>${x.name}</b>${gauge([40,60,30,70][k])}<small>AVG SPEED</small></div>`).join('')}
+         <svg class="wt-hand" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10l.5-.1V8a1.5 1.5 0 0 1 3 0v2.2a1.5 1.5 0 0 1 3 .3V15a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L4.2 15a1.6 1.6 0 0 1 2.5-2l1.3 1.4V11z" fill="#fff" stroke="#1b1c19" stroke-width="1.3" stroke-linejoin="round"/></svg></div>`},
+      {h:'BEAT THE <span>CLOCK</span>',p:'Tap <b>Challenge</b> and answer <b>6 quick questions</b> before time runs out. Right + fast = <b>more points</b>.',
+       s:`<div class="wt2"><div class="bt"><svg class="t" viewBox="0 0 132 132"><circle cx="66" cy="66" r="62" fill="none" stroke="#ffffff14" stroke-width="6"/><circle class="run" cx="66" cy="66" r="62" fill="none" stroke="#c6f432" stroke-width="6" stroke-linecap="round"/></svg><span class="core">${bolt}</span><span class="tm">0:42</span></div>
+         <div class="qs">${[0,1,2,3,4,5].map(k=>`<i class="${k===3?'x':''}" style="--k:${k}"></i>`).join('')}</div><div class="lbl"><span><b>6</b> QUESTIONS</span><span><b>1</b> MINUTE</span></div><span class="pts">+40</span></div>`},
+      {h:'KEEP THE <span>FIRE</span> GOING',p:'Play <b>every day</b> to grow your 🔥 streak, smash your daily goal and <b>climb the leaderboard</b>.',
+       s:`<div class="wt3"><div class="fl">${flame}<b>7</b><small>DAY STREAK</small></div><div class="days">${[0,1,2,3,4,5,6].map(k=>`<i style="--k:${k}"></i>`).join('')}</div>
+         <div class="pod"><div class="pc" style="--k:1"><span class="av" style="--t:#cfe3ff">DL</span><span class="bk">2</span></div><div class="pc me" style="--k:2"><svg class="crown" viewBox="0 0 40 28"><path d="M4 25 2 7l10 8L20 2l8 13 10-8-2 18z" fill="#f2c94c" stroke="#8a6410" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="av" style="--t:#e4f8a8">YOU</span><span class="bk">1</span></div><div class="pc" style="--k:0"><span class="av" style="--t:#ffd9b8">AR</span><span class="bk">3</span></div></div></div>`},
+      {h:'WIN <span>REAL PRIZES</span>',p:'Top the <b>Prize Quiz</b> or a <b>Tournament</b> and pick your prize. We ship it <b>to your door</b>!',
+       s:`<div class="wt4"><span class="glow"></span><div class="orb">${[['scooter','#ffe9e6'],['console','#e8f4ff'],['earbuds','#f3f5f0'],['watch','#efeaff'],['camera','#ffe9f0']].map((x,k)=>`<span style="--a:${k*72}deg;--bg:${x[1]}"><i>${PA[x[0]]||''}</i></span>`).join('')}</div>
+         <div class="gift"><svg viewBox="0 0 110 110"><rect x="16" y="46" width="78" height="56" rx="8" fill="#c6f432"/><rect x="49" y="46" width="12" height="56" fill="#1b1c19"/><g class="lid"><rect x="10" y="32" width="90" height="18" rx="6" fill="#a7d81c"/><rect x="49" y="32" width="12" height="18" fill="#1b1c19"/><path d="M55 32c-6-14-24-16-22-4 1 5 12 6 22 4zM55 32c6-14 24-16 22-4-1 5-12 6-22 4z" fill="#ff4d3a" stroke="#1b1c19" stroke-width="2.5" stroke-linejoin="round"/></g></svg></div>
+         ${[[-70,-90],[60,-100],[-100,-20],[96,-30],[0,-120],[-40,-110]].map((v,k)=>`<i class="cn" style="left:141px;top:110px;--x:${v[0]}px;--y:${v[1]}px;--k:${k}"></i>`).join('')}<span class="tag">SCOOTERS · CONSOLES · EARBUDS & MORE</span></div>`}
+    ];
+    const el=document.createElement('div');el.className='wt';el.id='wt';el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.setAttribute('aria-label','How to play and win');
+    el.innerHTML=`<span class="wt-rays"></span><span class="wt-speed"></span>
+      <div class="wt-top"><div class="wt-prog">${STEPS.map(()=>'<i><b></b></i>').join('')}</div><button class="wt-skip" id="wtSkip">Skip</button></div>
+      <div class="wt-track" id="wtTrack">${STEPS.map((s,k)=>`<section class="wt-s" aria-hidden="true"><div class="wt-scene">${s.s}</div><div class="wt-txt"><div class="wt-n"><i>${k+1}</i>STEP ${k+1} OF ${STEPS.length}</div><h2 class="wt-h">${s.h}</h2><p class="wt-p">${s.p}</p></div></section>`).join('')}</div>
+      <div class="wt-bot"><button class="wt-back" id="wtBack" aria-label="Previous step"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button class="wt-next" id="wtNext"></button></div>`;
+    $('#stage').appendChild(el);
+    const track=$('#wtTrack'),slides=[...el.querySelectorAll('.wt-s')],bars=[...el.querySelectorAll('.wt-prog i')];
+    let i=0,c1=0,c1T=0,done=null;
+    function go(n,silent){i=Math.max(0,Math.min(STEPS.length-1,n));track.style.transform=`translateX(${-i*100}%)`;
+      slides.forEach((s,k)=>{const on=k===i;s.setAttribute('aria-hidden',String(!on));s.inert=!on;if(on){s.classList.remove('on');void s.offsetWidth;s.classList.add('on')}else s.classList.remove('on')});
+      bars.forEach((b,k)=>b.classList.toggle('done',k<=i));
+      $('#wtBack').disabled=i===0;const last=i===STEPS.length-1;const nx=$('#wtNext');nx.classList.toggle('last',last);
+      nx.innerHTML=last?`<span>LET'S GO!</span>${bolt.replace('#1b1c19','currentColor')}`:'<span>NEXT</span><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg>';
+      nx.setAttribute('aria-label',last?'Finish and start playing':'Next step');
+      clearInterval(c1T);if(i===0)c1T=setInterval(spin1,1700);
+      if(!silent){SFX.play('whoosh');buzz()}}
+    function spin1(){c1=(c1+1)%4;el.querySelectorAll('#wt1 .c').forEach((c,k)=>c.dataset.p=String((k-c1+4)%4))}
+    function open(cb){done=cb||null;el.classList.add('open');go(0,true);setTimeout(()=>$('#wtNext').focus({preventScroll:true}),400)}
+    function close(fin){mark();clearInterval(c1T);if(fin){SFX.play('win');confetti(SCR.home)}const f=done;done=null;setTimeout(()=>{el.classList.remove('open');f&&f()},fin?450:0)}
+    $('#wtNext').addEventListener('click',()=>{if(i<STEPS.length-1)go(i+1);else close(true)});
+    $('#wtBack').addEventListener('click',()=>go(i-1));
+    $('#wtSkip').addEventListener('click',()=>{buzz();close(false)});
+    addEventListener('keydown',e=>{if(!el.classList.contains('open'))return;if(e.key==='ArrowRight')go(i+1);else if(e.key==='ArrowLeft')go(i-1);else if(e.key==='Escape')close(false)});
+    // swipe
+    let sx=null,sy=0,dx=0,mv=false;
+    track.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;dx=0;mv=false});
+    track.addEventListener('pointermove',e=>{if(sx===null)return;dx=e.clientX-sx;if(!mv){if(Math.abs(dx)<10)return;if(Math.abs(e.clientY-sy)>Math.abs(dx)){sx=null;return}mv=true;track.classList.add('drag');try{track.setPointerCapture(e.pointerId)}catch(_){}}
+      const w=track.offsetWidth||390;track.style.transform=`translateX(calc(${-i*100}% + ${dx/(track.getBoundingClientRect().width/w)}px))`});
+    const up=()=>{if(sx===null)return;sx=null;track.classList.remove('drag');if(mv&&Math.abs(dx)>50)go(i+(dx<0?1:-1));else go(i,true)};
+    track.addEventListener('pointerup',up);track.addEventListener('pointercancel',up);
+    return{needed:()=>force||!seen(),open,get open_(){return el.classList.contains('open')}};
+  })();
+  window.WT=WT;
   window.GL=GL;
   GL.card(true);
 
@@ -5282,7 +5470,7 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
     // show new homework when the dashboard is free (not behind the goal sheet, streak page or a launch)
     let tries=0;
     function check(){paintBadge();if(curScreen!=='home'||pop.classList.contains('open'))return;
-      const blocked=$('#gsh').classList.contains('open')||($('#sk')&&$('#sk').classList.contains('open'))||!$('#launch').hidden;
+      const blocked=$('#wt').classList.contains('open')||$('#gsh').classList.contains('open')||($('#sk')&&$('#sk').classList.contains('open'))||!$('#launch').hidden;
       if(blocked){if(tries++<60)setTimeout(check,1000);return}tries=0;
       const nw=items().filter(i=>i.st==='new'&&!later.has(i.id));if(nw.length)setTimeout(()=>{if(curScreen==='home'&&!pop.classList.contains('open'))openPop(nw)},500)}
 
@@ -5337,7 +5525,8 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
     return{onHome(){setTimeout(check,1900)},openList(){tab='todo';seg.forEach((x,i)=>x.classList.toggle('on',i===0));renderList(true);requestAnimationFrame(moveK)},progress,check};
   })();
   window.HW=HW;
-  if(GL.first)setTimeout(()=>GL.open(true),1400);
+  if(WT.needed())setTimeout(()=>WT.open(()=>{if(GL.first)GL.open(true);HW.check()}),500);
+  else if(GL.first)setTimeout(()=>GL.open(true),1400);
   show(location.hash.slice(1)||'home',true);
 })();
 </script>
