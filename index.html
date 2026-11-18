@@ -2595,6 +2595,80 @@ input,textarea{-webkit-user-select:text;user-select:text}
 #s-prof:not(.edit) .pf-in input::placeholder,#s-prof:not(.edit) .pf-in textarea::placeholder{-webkit-text-fill-color:#b3baa6;color:#b3baa6}
 .pf-body{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14px);mask-image:linear-gradient(180deg,transparent 0,#000 14px)}
 
+
+/* ===================== STREAK UPDATED (after first challenge of the day) ===================== */
+.sk{position:absolute;inset:0;z-index:45;overflow:hidden;color:#fff;display:flex;flex-direction:column;align-items:center;
+  background:radial-gradient(120% 70% at 50% 34%,#5a3a0c 0%,#2c2410 38%,#16170f 72%,#0f100c 100%);
+  opacity:0;pointer-events:none;transform:scale(1.04);transition:opacity .35s ease,transform .45s cubic-bezier(.2,1,.3,1)}
+.sk.open{opacity:1;pointer-events:auto;transform:none}
+.sk .rays{position:absolute;left:50%;top:250px;width:1000px;height:1000px;margin:-500px 0 0 -500px;pointer-events:none;
+  background:repeating-conic-gradient(from 0deg,#ff9d1e1c 0 7deg,transparent 7deg 20deg);animation:rot 36s linear infinite;
+  -webkit-mask-image:radial-gradient(closest-side,#000 8%,transparent 72%);mask-image:radial-gradient(closest-side,#000 8%,transparent 72%)}
+.sk .glow2{position:absolute;left:50%;top:250px;width:360px;height:360px;margin:-180px 0 0 -180px;border-radius:50%;background:radial-gradient(closest-side,#ff8a1e66,#ff5a2e22 55%,transparent);animation:pulse 2.4s ease-in-out infinite;pointer-events:none}
+.sk .emb2{position:absolute;inset:0;pointer-events:none}
+.sk .emb2 i{position:absolute;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#ffb420;box-shadow:0 0 8px #ff8a1e;opacity:0;animation:ember var(--t) linear var(--dl) infinite}
+@keyframes ember{0%{opacity:0;transform:translate(0,0) scale(1)}12%{opacity:1}100%{opacity:0;transform:translate(var(--x),-720px) scale(.3)}}
+.sk-x{position:absolute;right:14px;top:12px;z-index:3;width:42px;height:42px;border-radius:16px 6px 16px 6px;background:#ffffff14;border:1px solid #ffffff22;display:grid;place-items:center;transition:transform .15s}
+.sk-x:active{transform:scale(.88)}
+.sk-x svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.8;stroke-linecap:round}
+.sk-k{position:relative;margin-top:30px;display:inline-flex;align-items:center;gap:7px;padding:6px 12px 6px 9px;border-radius:999px;background:#ff8a1e26;border:1px solid #ff8a1e55;font-size:10.5px;font-weight:800;letter-spacing:1.8px;color:#ffc46b}
+.sk-k i{width:7px;height:7px;border-radius:50%;background:#ff8a1e;animation:live 1.4s ease-out infinite}
+.sk-fl{position:relative;width:168px;height:200px;margin-top:14px}
+.sk-fl svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 30px #ff7a1e88)}
+.sk-fl .o{transform-origin:50% 95%;animation:flick .9s ease-in-out infinite}
+.sk-fl .i{transform-origin:50% 95%;animation:flick .7s ease-in-out infinite reverse}
+.sk-fl .c{transform-origin:50% 95%;animation:flick .55s ease-in-out infinite}
+.sk.play .sk-fl{animation:ignite .9s cubic-bezier(.3,1.7,.5,1) .15s both}
+@keyframes ignite{0%{transform:scale(.1) translateY(60px);opacity:0}60%{transform:scale(1.12);opacity:1}100%{transform:none}}
+.sk.cold .sk-fl svg{filter:drop-shadow(0 0 22px #ff7a1e55)}
+/* the number rolls from yesterday's value to today's */
+.sk-num{position:absolute;left:0;right:0;top:92px;height:86px;overflow:hidden;text-align:center;pointer-events:none}
+.sk-num .roll{display:flex;flex-direction:column;transition:transform .9s cubic-bezier(.3,1.5,.5,1)}
+.sk-num .roll span{height:86px;font-family:var(--f-display);font-size:78px;line-height:86px;color:#fff;text-shadow:0 4px 0 #a33c08,0 0 22px #ff5a2e;transform:skewX(-6deg)}
+.sk-lbl{position:relative;margin-top:-4px;font-family:var(--f-display);font-weight:400;font-size:40px;line-height:1;letter-spacing:.5px;transform:skewX(-8deg);text-align:center}
+.sk-lbl span{display:inline-block;color:var(--ink);background:linear-gradient(180deg,#ffd25e,#ff9d1e);padding:0 8px;margin-left:2px;box-shadow:3px 3px 0 #a33c08}
+.sk-sub{position:relative;max-width:300px;margin:12px auto 0;font-size:13.5px;line-height:1.45;color:#ffffffb3;text-align:center}
+.sk-sub b{color:#fff}
+/* week */
+.sk-wk{position:relative;width:calc(100% - 32px);max-width:358px;margin-top:20px;padding:14px 14px 12px;border-radius:30px 8px 30px 8px;background:#ffffff0d;border:1px solid #ffffff17}
+.sk-wk h5{margin:0 2px 10px;display:flex;justify-content:space-between;font-size:10px;font-weight:800;letter-spacing:1.5px;color:#ffffff99}
+.sk-wk h5 em{font-style:normal;color:#ffc46b;letter-spacing:.4px}
+.sk-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.sk-d{display:flex;flex-direction:column;align-items:center;gap:6px}
+.sk-d .b{width:38px;height:42px;border-radius:13px 4px 13px 4px;display:grid;place-items:center;background:#ffffff0f;border:1px solid #ffffff14;transform:skewX(-6deg)}
+.sk-d .b svg{width:18px;height:22px;transform:skewX(6deg)}
+.sk-d small{font-size:10px;font-weight:800;color:#ffffff66}
+.sk-d.on .b{background:linear-gradient(180deg,#ffb420,#ff6a1e);border-color:#ffb420;box-shadow:0 3px 0 #a33c08}
+.sk-d.on small{color:#fff}
+.sk-d.miss .b{background:#ffffff08;border-style:dashed}
+.sk-d.today .b{box-shadow:0 3px 0 #a33c08,0 0 0 3px #16170f,0 0 0 5px #ffd25e}
+.sk-d.today small{color:#ffd25e}
+.sk.play .sk-d.today .b{animation:dayOn .7s cubic-bezier(.3,1.8,.5,1) 1.15s both}
+@keyframes dayOn{0%{transform:skewX(-6deg) scale(.4);background:#ffffff0f;border-color:#ffffff14;box-shadow:none}100%{transform:skewX(-6deg)}}
+/* milestone */
+.sk-ms{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1.5px dashed #ffffff1a}
+.sk-ms .md{width:38px;height:38px;flex:none;border-radius:12px 4px 12px 4px;background:linear-gradient(135deg,#fff3a8,#f2c94c);display:grid;place-items:center;font-family:var(--f-display);font-size:16px;color:#5c3d00;transform:skewX(-8deg)}
+.sk-ms div{flex:1;min-width:0}
+.sk-ms b{display:block;font-size:12.5px;font-weight:700}
+.sk-ms small{display:block;font-size:10.5px;color:#ffffff8c;margin-top:1px}
+.sk-ms .bar{height:7px;margin-top:6px;border-radius:4px;background:#ffffff14;overflow:hidden;transform:skewX(-20deg)}
+.sk-ms .bar i{display:block;height:100%;width:var(--p);border-radius:4px;background:linear-gradient(90deg,#ff9d1e,#ffd25e);transition:width 1s cubic-bezier(.2,1,.3,1) 1.3s}
+.sk:not(.play) .sk-ms .bar i{width:var(--p0)}
+.sk-bonus{position:relative;margin-top:14px;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px 0 8px;border-radius:999px;background:#c6f4321f;border:1px solid #c6f43255;font-size:12.5px;font-weight:800;color:var(--lime)}
+.sk-bonus .cn{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,#e7bd5b 55%,#b98c37);box-shadow:inset 0 -2px 0 #a67b2e}
+.sk.play .sk-bonus{animation:up .5s cubic-bezier(.2,1.4,.4,1) 1.6s both}
+/* actions */
+.sk-act{position:absolute;left:16px;right:16px;bottom:18px;display:flex;flex-direction:column;gap:8px}
+.sk-act button{height:54px;border-radius:18px 6px 18px 6px;font-size:14.5px;font-weight:800;letter-spacing:.8px;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s}
+.sk-act button:active{transform:translateY(3px)}
+.sk-act .pri{background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:var(--ink);box-shadow:0 4px 0 #5f840a,0 0 22px #c6f43244}
+.sk-act .pri:active{box-shadow:0 1px 0 #5f840a}
+.sk-act .sec{height:48px;background:#ffffff12;border:1px solid #ffffff1f;color:#fff}
+.sk-act svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.sk.play .sk-in{animation:up .55s cubic-bezier(.2,1.2,.4,1) both;animation-delay:var(--d,0s)}
+.streak{cursor:pointer}
+@media (max-height:700px){.sk-k{margin-top:16px}.sk-fl{width:140px;height:166px;margin-top:6px}.sk-num{top:74px}.sk-wk{margin-top:12px}}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -3035,6 +3109,27 @@ input,textarea{-webkit-user-select:text;user-select:text}
     <div class="ph"><small id="pzS"><i>1</i>1ST PLACE</small><h4 id="pzT">PICK YOUR PRIZE</h4><p id="pzP">Finish 1st and this one is yours.</p>
       <button class="px" id="pzX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <div class="pg" id="pzG"></div>
+  </div>
+  <div class="sk" id="sk" role="dialog" aria-modal="true" aria-labelledby="skLbl" aria-describedby="skSub">
+    <div class="rays" aria-hidden="true"></div><div class="glow2" aria-hidden="true"></div><div class="emb2" id="skEmb" aria-hidden="true"></div>
+    <button class="sk-x" id="skX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <span class="sk-k sk-in" id="skK" style="--d:.05s"><i></i>STREAK UPDATED</span>
+    <div class="sk-fl" aria-hidden="true">
+      <svg viewBox="0 0 19 25"><path class="o" d="M9.5 0.5c1.4 4.6 7.8 7.4 7.8 14.3a7.8 7.8 0 0 1-15.6 0c0-4.2 2.6-6.1 3.5-9.6 1.3 2.1 1.4 3.9 2.6 4.6.7-3.4.6-6.4 1.7-9.3z" fill="#ff5a2e"/><path class="i" d="M9.6 11.8c.9 2.8 4.3 3.7 4.3 7.2a4.3 4.3 0 0 1-8.6 0c0-2.2 1.9-3.6 2.1-5.6.8.8 1.2 1.6 1.4 2.4.6-1.3.7-2.6.8-4z" fill="#ffb420"/><path class="c" d="M9.6 17.2c.5 1.4 2.1 1.9 2.1 3.7a2.1 2.1 0 0 1-4.2 0c0-1.1.9-1.8 1.1-2.8.4.4.6.8.7 1.2.3-.7.3-1.3.3-2.1z" fill="#fff3c4"/></svg>
+      <div class="sk-num" id="skNum"><div class="roll" id="skRoll"></div></div>
+    </div>
+    <div class="sk-lbl sk-in" id="skLbl" style="--d:.5s">DAY <span>STREAK!</span></div>
+    <p class="sk-sub sk-in" id="skSub" style="--d:.6s"></p>
+    <div class="sk-wk sk-in" style="--d:.75s">
+      <h5><span>THIS WEEK</span><em id="skBest"></em></h5>
+      <div class="sk-days" id="skDays"></div>
+      <div class="sk-ms"><span class="md" id="skMd">7</span><div><b id="skMsT"></b><small id="skMsS"></small><div class="bar"><i id="skBar"></i></div></div></div>
+    </div>
+    <span class="sk-bonus" id="skBonus"><span class="cn"></span><span id="skBonusT">+10 streak coins</span></span>
+    <div class="sk-act sk-in" style="--d:.9s">
+      <button class="pri" id="skBack"><svg viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z" fill="currentColor" stroke="none"/></svg><span id="skBackL">BACK TO CHALLENGE</span></button>
+      <button class="sec" id="skHome"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/></svg>DASHBOARD</button>
+    </div>
   </div>
   <div class="toast" id="toast" role="status"></div>
 </main>
@@ -3732,6 +3827,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
     if(win){const el=$('#resPts'),to=t.pts,t0=performance.now()+450;el.textContent='+0';(function f(n){const p=Math.max(0,Math.min(1,(n-t0)/800));el.textContent='+'+Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(performance.now());
       setTimeout(()=>confetti(SCR.drill),350);
       const bt=`${D.ok}/6 · ${fmtS(ms)}`;t.best=bt}
+    window.STK&&STK.afterChallenge();
   }
   function startDrill(t){
     D.t=t;D.qs=makeQs(lob.subj,lob.ch);D.i=0;D.ok=0;D.res=[];D.ms=0;D.run=false;
@@ -3954,6 +4050,77 @@ input,textarea{-webkit-user-select:text;user-select:text}
 
 
 
+  /* ===================== STREAK UPDATED ===================== */
+  window.STK=(()=>{
+    const ds=t=>{const d=new Date(t);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+    const td=()=>ds(Date.now()),yd=()=>ds(Date.now()-864e5);
+    let S;try{S=JSON.parse(localStorage.getItem('qdStreak')||'null')}catch(_){S=null}
+    if(!S||typeof S.n!=='number')S={n:1,best:12,last:yd(),days:[yd()]};   // demo: 1-day streak from yesterday
+    const save=()=>{try{localStorage.setItem('qdStreak',JSON.stringify(S))}catch(_){}};
+    const pill=document.querySelector('#s-home .streak'),sk=$('#sk');
+    const live=()=>S.last===td()||S.last===yd()?S.n:0;   // a streak that skipped yesterday is already gone
+    function paintPill(){const b=pill&&pill.querySelector('b');if(b)b.textContent=live()}
+    paintPill();
+
+    // called when a challenge is completed; returns null if today already counted
+    function complete(){const t=td();if(S.last===t)return null;const prev=live(),broken=S.n>1&&S.last!==yd();
+      S.n=S.last===yd()?S.n+1:1;S.last=t;S.days=[...new Set([...(S.days||[]),t])].slice(-21);S.best=Math.max(S.best||0,S.n);save();paintPill();
+      return{prev,n:S.n,broken}}
+
+    const MS=[3,7,14,30,50,100,365];
+    const nm=()=>{try{const p=JSON.parse(localStorage.getItem('qdProfile')||'null');const n=(p&&p.name||'').trim().split(' ')[0];return n?n[0].toUpperCase()+n.slice(1):''}catch(_){return''}};
+    const flameSm=on=>`<svg viewBox="0 0 19 25"><path d="M9.5 0.5c1.4 4.6 7.8 7.4 7.8 14.3a7.8 7.8 0 0 1-15.6 0c0-4.2 2.6-6.1 3.5-9.6 1.3 2.1 1.4 3.9 2.6 4.6.7-3.4.6-6.4 1.7-9.3z" fill="${on?'#fff':'#ffffff26'}"/>${on?'<path d="M9.6 11.8c.9 2.8 4.3 3.7 4.3 7.2a4.3 4.3 0 0 1-8.6 0c0-2.2 1.9-3.6 2.1-5.6.8.8 1.2 1.6 1.4 2.4.6-1.3.7-2.6.8-4z" fill="#ffb420"/>':''}</svg>`;
+    let ctx='home',opener=null,rollT=0;
+
+    function open(r,from){
+      ctx=from;opener=document.activeElement;const view=!r;
+      const n=view?live():r.n,prev=view?n:r.prev,name=nm();
+      sk.classList.toggle('cold',view&&n===0);
+      // number roll
+      const roll=$('#skRoll');clearTimeout(rollT);roll.style.transition='none';roll.style.transform='none';
+      roll.innerHTML=(prev!==n?[prev,n]:[n]).map(v=>`<span>${v}</span>`).join('');void roll.offsetWidth;roll.style.transition='';
+      if(prev!==n)rollT=setTimeout(()=>{roll.style.transform='translateY(-86px)';SFX.play('pop')},reduce?0:950);
+      $('#skLbl').innerHTML=n===1?'DAY <span>STREAK!</span>':n===0?'NO STREAK <span>YET</span>':'DAY <span>STREAK!</span>';
+      const hit=MS.includes(n)&&!view;
+      $('#skK').innerHTML=`<i></i>${view?'YOUR STREAK':hit?'MILESTONE UNLOCKED':r.broken?'NEW STREAK STARTED':'STREAK UPDATED'}`;
+      const hi=name?`Nice one, ${name}! `:'Nice one! ';
+      $('#skSub').innerHTML=view
+        ?(S.last===td()?`You've already kept it alive today. See you tomorrow for day <b>${n+1}</b>.`:n?`Finish a challenge today to make it <b>${n+1}</b> days. Don't let the flame go out!`:'Finish any challenge today to light your first flame.')
+        :r.broken?`${hi}Your old streak ended, but day <b>1</b> starts now. Come back tomorrow to make it <b>2</b>.`
+        :n===1?`${hi}First challenge done. Come back tomorrow to make it <b>2 days</b> in a row.`
+        :`${hi}That's <b>${n} days</b> in a row. Come back tomorrow to make it <b>${n+1}</b>.`;
+      // week strip (Mon–Sun)
+      const now=new Date(),dow=(now.getDay()+6)%7,set=new Set(S.days||[]);
+      $('#skDays').innerHTML=['M','T','W','T','F','S','S'].map((l,i)=>{const d=ds(now.getTime()+(i-dow)*864e5),on=set.has(d),isT=i===dow;
+        const cls=(on?' on':'')+(isT?' today':'')+(!on&&i<dow?' miss':'');return`<div class="sk-d${cls}"><span class="b">${flameSm(on)}</span><small>${l}</small></div>`}).join('');
+      $('#skBest').textContent=`BEST ${Math.max(S.best||0,n)} DAYS`;
+      // next milestone
+      const nx=MS.find(m=>m>n)||n+1,pv=[0,...MS].filter(m=>m<=n).pop()||0,left=nx-n;
+      $('#skMd').textContent=nx;$('#skMsT').textContent=hit?`${n}-day flame unlocked!`:`${left} day${left>1?'s':''} to your ${nx}-day flame`;
+      $('#skMsS').textContent=hit?`Next up: ${nx} days in a row`:`Keep it going ${left>1?'every day':'one more day'}`;
+      const bar=$('#skBar');bar.style.setProperty('--p',Math.round((n-pv)/(nx-pv)*100)+'%');bar.style.setProperty('--p0',Math.round(Math.max(0,prev-pv)/(nx-pv)*100)+'%');
+      const coins=Math.min(50,n*5);$('#skBonus').hidden=view;$('#skBonusT').textContent=`+${coins} streak coins`;
+      $('#skBackL').textContent=from==='challenge'?'BACK TO CHALLENGE':'KEEP GOING';$('#skHome').hidden=from!=='challenge';
+      // embers
+      $('#skEmb').innerHTML=reduce?'':Array.from({length:18},()=>`<i style="left:${(20+Math.random()*60).toFixed(1)}%;--x:${(Math.random()*120-60).toFixed(0)}px;--t:${(3+Math.random()*3).toFixed(2)}s;--dl:${(Math.random()*4).toFixed(2)}s"></i>`).join('');
+      sk.classList.remove('play');void sk.offsetWidth;sk.classList.add('open','play');
+      if(!view){setTimeout(()=>SFX.play('win'),250);setTimeout(()=>SFX.play('sparkle'),1300)}
+      try{navigator.vibrate&&navigator.vibrate(view?10:[15,60,15,60,30])}catch(_){}
+      setTimeout(()=>$('#skX').focus({preventScroll:true}),400);
+    }
+    function close(home){if(!sk.classList.contains('open'))return;sk.classList.remove('open');clearTimeout(rollT);
+      if(home)nav('home');else if(opener&&opener.focus)try{opener.focus({preventScroll:true})}catch(_){}
+      if(home||ctx==='home')replay(pill,'nudge')}
+    $('#skX').addEventListener('click',()=>{buzz();close(false)});
+    $('#skBack').addEventListener('click',()=>{buzz();close(false)});
+    $('#skHome').addEventListener('click',()=>{buzz();close(true)});
+    addEventListener('keydown',e=>{if(e.key==='Escape'&&sk.classList.contains('open'))close(false)});
+    if(pill){pill.setAttribute('role','button');pill.tabIndex=0;pill.setAttribute('aria-label','Day streak — view details');
+      const go=()=>{buzz();open(null,'home')};pill.addEventListener('click',go);pill.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})}
+    return{afterChallenge(){const r=complete();if(r)setTimeout(()=>open(r,'challenge'),reduce?300:1300)},open:()=>open(null,'home')};
+  })();
+
+
   /* =================== WRITING DRILL =================== */
   const WI=SUBJ.length;
   SUBJ.push({name:'Writing Drill',avg:0,q:6,tr:0,writing:true,ico:`<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4M4 20l2-2"/>`});
@@ -4147,6 +4314,7 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
       <div class="wbd"><div class="wbh">HOW YOU SCORED</div>${WSTEPS.map((s,i)=>{const v=W.scores[i]||0;return`<div class="wbr"><i>${i+1}</i><span>${s.short}</span><div class="wbb"><b style="--p:${v/s.max*100}%;--d:${.4+i*.08}s"></b></div><em>${v}<small>/${s.max}</small></em></div>`}).join('')}</div>`;
     const R=$('#wres');R.classList.add('show');replay($('#wrb'),'anim');setTimeout(()=>SFX.play('stamp'),1250);setTimeout(()=>SFX.play(r>=.5?'win':'lose'),1450);$('#wrb').scrollTop=0;
     if(r>=.8)setTimeout(()=>confetti(SCR.write),1500);
+    window.STK&&STK.afterChallenge();
   }
   $('#wQuit').addEventListener('click',()=>{buzz();nav('lobby')});
   $('#wDone').addEventListener('click',()=>{buzz();nav('lobby')});
