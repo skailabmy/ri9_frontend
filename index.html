@@ -2681,73 +2681,173 @@ input,textarea{-webkit-user-select:text;user-select:text}
 @keyframes hwWig{0%,80%,100%{transform:none}84%{transform:rotate(-12deg) scale(1.08)}88%{transform:rotate(10deg) scale(1.08)}92%{transform:rotate(-6deg)}}
 @keyframes hwPop{50%{transform:scale(1.18)}}
 
-/* ---------- popup ---------- */
-.hwp{position:absolute;inset:0;z-index:44;display:flex;align-items:center;justify-content:center;padding:16px;background:#0f120bcc;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .3s}
+/* ---------- popup: INCOMING CHALLENGE takeover ---------- */
+.hwp{position:absolute;inset:0;z-index:44;overflow:hidden;color:#fff;opacity:0;pointer-events:none;transition:opacity .25s;
+  background:radial-gradient(120% 60% at 50% 30%,#3f5a0d 0%,#1d2a0d 40%,#0b0f06 80%)}
 .hwp.open{opacity:1;pointer-events:auto}
-.hwc{position:relative;width:100%;max-width:370px;border-radius:44px 10px 44px 10px;background:#fff;overflow:hidden;box-shadow:0 40px 80px -30px #000;transform:translateY(60px) scale(.8) rotate(-3deg);transition:transform .6s cubic-bezier(.2,1.5,.4,1)}
-.hwp.open .hwc{transform:none}
-.hwc.swap{animation:hwSwap .5s cubic-bezier(.2,1.3,.4,1)}
-@keyframes hwSwap{0%{transform:translateX(0)}40%{transform:translateX(-120%) rotate(-8deg);opacity:0}41%{transform:translateX(120%) rotate(8deg)}100%{transform:none}}
-.hw-top{position:relative;height:172px;overflow:hidden;background:radial-gradient(120% 120% at 50% 100%,#e2fd7a 0%,var(--lime) 40%,#8fc914 100%)}
-.hw-top .rays{position:absolute;left:50%;top:96px;width:700px;height:700px;margin:-350px 0 0 -350px;background:repeating-conic-gradient(from 0deg,#ffffff55 0 7deg,transparent 7deg 20deg);animation:rot 22s linear infinite}
-.hw-top .stripes{position:absolute;inset:-50%;background:repeating-linear-gradient(118deg,transparent 0 30px,#ffffff2a 30px 34px);animation:lines 2s linear infinite}
-.hw-cnt{position:absolute;left:16px;top:14px;z-index:2;height:26px;padding:0 10px;border-radius:999px;background:#1b1c19;color:var(--lime);font-size:10.5px;font-weight:800;letter-spacing:1px;display:flex;align-items:center}
-.hw-later{position:absolute;right:14px;top:12px;z-index:2;height:30px;padding:0 11px;border-radius:999px;background:#ffffffb3;font-size:11px;font-weight:800;color:#3f5a0a}
-.hw-ill{position:absolute;left:50%;top:28px;width:116px;height:96px;margin-left:-58px;z-index:1}
-.hwp.open .hw-ill{animation:hwDrop .8s cubic-bezier(.3,1.8,.5,1) .2s both}
-@keyframes hwDrop{0%{transform:translateY(-140px) rotate(-20deg) scale(.6)}100%{transform:none}}
-.hw-ill svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 10px 10px #3e5a0f66)}
-.hw-ill .flap{transform-origin:58px 34px;animation:hwFlap 2.6s ease-in-out 1s infinite}
-@keyframes hwFlap{0%,60%,100%{transform:none}70%,90%{transform:scaleY(-1)}}
-.hw-ill .pap{animation:hwPap 2.6s ease-in-out 1s infinite}
-@keyframes hwPap{0%,60%,100%{transform:none}72%,88%{transform:translateY(-20px)}}
-.hw-ill .spk{animation:tw 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
-.hw-h{position:absolute;left:0;right:0;bottom:12px;z-index:1;text-align:center;font-family:var(--f-display);font-weight:400;font-size:36px;line-height:1;color:var(--ink);transform:skewX(-8deg);text-shadow:3px 3px 0 #fff}
-.hwp.open .hw-h{animation:slam .6s cubic-bezier(.2,1.2,.4,1) .45s both}
-.hw-b{padding:14px 16px 16px}
-.hw-from{display:flex;align-items:center;gap:9px}
-.hw-av{width:38px;height:38px;flex:none;border-radius:13px 4px 13px 4px;display:grid;place-items:center;font-size:12px;font-weight:800;background:var(--avc,#ffd9b8);color:var(--ink);transform:skewX(-6deg)}
-.hw-av>*{transform:skewX(6deg)}
-.hw-from div{flex:1;min-width:0;line-height:1.15}
-.hw-from small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1.2px;color:#5d6650}
-.hw-from b{display:block;font-size:14.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hw-due{flex:none;font-size:10px;font-weight:800;letter-spacing:.6px;padding:5px 9px;border-radius:999px;background:#fff0d6;color:#a65d07}
-.hw-due.urg{background:#ffe4df;color:#c23a2f}
-.hw-note{position:relative;margin:10px 0 0 4px;padding:9px 12px;border-radius:4px 16px 16px 16px;background:#f6f9ee;font-size:13px;line-height:1.35;font-style:italic;color:#3c4236}
-.hw-task{display:flex;align-items:center;gap:12px;margin-top:12px;padding:12px;border-radius:22px 6px 22px 6px;background:var(--sc,#e4f8a8);box-shadow:0 4px 0 var(--ed,#c3e46a)}
-.hw-task .ti{width:48px;height:48px;flex:none;border-radius:16px 5px 16px 5px;background:#fff;display:grid;place-items:center}
-.hw-task .ti svg{width:26px;height:26px;fill:none;stroke:#1b1c19;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.hw-task .ti svg .f{fill:#1b1c19;stroke:none}
-.hw-task div{flex:1;min-width:0}
-.hw-task small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1.1px;color:#3c4236b3}
-.hw-task b{display:block;font-size:17px;font-weight:700;line-height:1.15;margin-top:1px}
-.hw-task span{display:block;font-size:11.5px;font-weight:600;color:#3c4236;margin-top:3px}
-.hw-bonus{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px 12px;border-radius:22px 6px 22px 6px;background:linear-gradient(110deg,#2c2410,#1b1c19);color:#fff}
-.hw-bonus::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#ffe9a855 48%,transparent 60%);transform:translateX(-110%);animation:sheen 2.8s ease-in-out .8s infinite}
-.hw-x{flex:none;font-family:var(--f-display);font-size:38px;line-height:1;transform:skewX(-8deg);background:linear-gradient(180deg,#fff3a8,#f2c94c 55%,#c9971c);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 #8a6410)}
-.hwp.open .hw-x{animation:hwX 1.1s cubic-bezier(.3,1.8,.5,1) .7s both}
-@keyframes hwX{0%{transform:skewX(-8deg) scale(.2) rotate(-30deg)}100%{transform:skewX(-8deg)}}
-.hw-bonus div{flex:1;min-width:0}
-.hw-bonus small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1.4px;color:#f2c94c}
-.hw-bonus b{display:block;font-size:13.5px;font-weight:700;line-height:1.25}
-.hw-bonus .cn{width:22px;height:22px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,#e7bd5b 55%,#b98c37);box-shadow:inset 0 -2px 0 #a67b2e}
-.hw-bonus em{flex:none;font-style:normal;display:flex;align-items:center;gap:5px;font-size:13px;font-weight:800;color:#ffe9a8}
-.hw-acts{display:flex;gap:8px;margin-top:14px}
-.hw-acts button{height:54px;border-radius:18px 6px 18px 6px;font-size:14.5px;font-weight:800;letter-spacing:.8px;display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .12s}
-.hw-acts button:active{transform:translateY(3px)}
-.hw-acts svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
-.hw-acts .ok{flex:1.6;background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:var(--ink);box-shadow:0 4px 0 #5f840a,0 0 22px #c6f43255;animation:hotp 1.6s ease-in-out infinite}
-.hw-acts .ok:active{box-shadow:0 1px 0 #5f840a}
-.hw-acts .no{flex:1;background:#f1f4ea;color:#5d6650}
-.hw-acts .dg{flex:1.4;background:#ff6b5a;color:#fff;box-shadow:0 4px 0 #a3241a}
-.hw-q{margin:12px 2px 0;font-size:13px;font-weight:700;text-align:center}
-.hw-rs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:10px}
-.hw-rs button{height:36px;padding:0 13px;border-radius:12px 4px 12px 4px;background:#f6f9ee;border:1.5px solid #edf2e1;font-size:12.5px;font-weight:700;color:#4e5644;transition:all .2s}
-.hw-rs button.on{background:#1b1c19;border-color:#1b1c19;color:var(--lime)}
-.hw-stamp{position:absolute;left:50%;top:50%;z-index:5;padding:6px 18px;border:5px solid #3f6c05;border-radius:14px;font-family:var(--f-display);font-size:42px;color:#3f6c05;background:#ffffffe6;transform:translate(-50%,-50%) rotate(-12deg);pointer-events:none;opacity:0}
-.hw-stamp.no{border-color:#c23a2f;color:#c23a2f}
-.hw-stamp.go{animation:hwStamp .7s cubic-bezier(.3,1.6,.5,1) both}
-@keyframes hwStamp{0%{opacity:0;transform:translate(-50%,-50%) rotate(-12deg) scale(2.4)}60%{opacity:1;transform:translate(-50%,-50%) rotate(-12deg) scale(.92)}100%{opacity:1;transform:translate(-50%,-50%) rotate(-12deg)}}
+.hwp.shake{animation:hxShake .45s cubic-bezier(.3,.7,.4,1)}
+@keyframes hxShake{10%{transform:translate(-9px,5px) rotate(-.6deg)}25%{transform:translate(8px,-6px) rotate(.5deg)}40%{transform:translate(-6px,3px)}60%{transform:translate(4px,-2px)}80%{transform:translate(-2px,1px)}}
+/* background life */
+.hx-rays{position:absolute;left:50%;top:150px;width:1100px;height:1100px;margin:-550px 0 0 -550px;background:repeating-conic-gradient(from 0deg,#c6f43214 0 6deg,transparent 6deg 16deg);animation:rot 30s linear infinite;
+  -webkit-mask-image:radial-gradient(closest-side,#000 10%,transparent 70%);mask-image:radial-gradient(closest-side,#000 10%,transparent 70%)}
+.hx-speed{position:absolute;inset:-40%;background:repeating-linear-gradient(118deg,transparent 0 40px,#c6f4320d 40px 43px);animation:lines 1.1s linear infinite}
+.hx-siren{position:absolute;top:-120px;width:300px;height:300px;border-radius:50%;filter:blur(30px);opacity:0;pointer-events:none}
+.hx-siren.l{left:-140px;background:#ff4d3a}.hx-siren.r{right:-140px;background:var(--lime)}
+.hwp.open .hx-siren.l{animation:hxSiren 1s steps(1) 3}.hwp.open .hx-siren.r{animation:hxSiren 1s steps(1) .5s 3}
+@keyframes hxSiren{0%{opacity:.8}50%{opacity:0}}
+.hx-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:9}
+.hx-flash.go{animation:hxFlash .5s ease-out}
+@keyframes hxFlash{0%{opacity:.9}100%{opacity:0}}
+/* intro: hazard tape + INCOMING */
+.hx-intro{position:absolute;inset:0;z-index:8;display:grid;place-items:center;pointer-events:none}
+.hx-tape{position:absolute;left:-20%;right:-20%;height:44px;display:flex;align-items:center;overflow:hidden;font-family:var(--f-display);font-size:20px;letter-spacing:2px;color:#1b1c19;white-space:nowrap;
+  background:repeating-linear-gradient(-45deg,var(--lime) 0 22px,#1b1c19 22px 44px);box-shadow:0 10px 30px #000a}
+.hx-tape span{display:inline-block;padding:2px 14px;background:var(--lime);margin-right:40px;transform:skewX(-8deg)}
+.hx-tape.a{top:calc(50% - 120px);transform:rotate(-8deg) translateX(-120%)}
+.hx-tape.b{top:calc(50% + 76px);transform:rotate(-8deg) translateX(120%)}
+.hwp.play .hx-tape.a{animation:hxTapeA 1.5s cubic-bezier(.2,1,.3,1) both}
+.hwp.play .hx-tape.b{animation:hxTapeB 1.5s cubic-bezier(.2,1,.3,1) both}
+@keyframes hxTapeA{0%{transform:rotate(-8deg) translateX(-120%)}30%,70%{transform:rotate(-8deg) translateX(0)}100%{transform:rotate(-8deg) translateX(120%)}}
+@keyframes hxTapeB{0%{transform:rotate(-8deg) translateX(120%)}30%,70%{transform:rotate(-8deg) translateX(0)}100%{transform:rotate(-8deg) translateX(-120%)}}
+.hx-inc{text-align:center;opacity:0}
+.hwp.play .hx-inc{animation:hxInc 1.5s cubic-bezier(.2,1.2,.4,1) both}
+@keyframes hxInc{0%{opacity:0;transform:scale(2.6);filter:blur(10px)}20%{opacity:1;transform:scale(1);filter:none}75%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.6)}}
+.hx-inc small{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:5px;color:#ff6b5a}
+.hx-inc small i{width:9px;height:9px;border-radius:50%;background:#ff4d3a;box-shadow:0 0 12px #ff4d3a;animation:live 1s ease-out infinite}
+.hx-inc b{display:block;font-family:var(--f-display);font-weight:400;font-size:64px;line-height:.9;transform:skewX(-8deg);text-shadow:4px 4px 0 #ff4d3a,-3px -2px 0 #22d3ee}
+.hwp.play .hx-inc b{animation:hxGlitch .25s steps(2) 5}
+@keyframes hxGlitch{50%{text-shadow:-4px 2px 0 #ff4d3a,3px -2px 0 #22d3ee;transform:skewX(-8deg) translateX(2px)}}
+/* main stage */
+.hx-main{position:absolute;inset:0;display:flex;flex-direction:column;padding:10px 14px 14px}
+.hx-main>*{opacity:0}
+.hwp.play .hx-main>*{animation:hxUp .6s cubic-bezier(.2,1.3,.4,1) both;animation-delay:calc(1.35s + var(--d,0s))}
+@keyframes hxUp{from{opacity:0;transform:translateY(40px) scale(.94)}to{opacity:1;transform:none}}
+.hwp.skip .hx-intro{display:none}
+.hwp.skip.play .hx-main>*{animation-delay:var(--d,0s)}
+.hx-bar{flex:none;display:flex;align-items:center;gap:8px;height:42px}
+.hx-cnt{height:28px;padding:0 11px;border-radius:999px;background:#ffffff14;border:1px solid #ffffff22;font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:var(--lime);display:flex;align-items:center;gap:6px}
+.hx-cnt i{width:7px;height:7px;border-radius:50%;background:#ff4d3a;animation:live 1.2s ease-out infinite}
+.hx-later{margin-left:auto;height:34px;padding:0 12px;border-radius:12px 4px 12px 4px;background:#ffffff12;border:1px solid #ffffff1f;font-size:11.5px;font-weight:800;color:#ffffffcc;display:flex;align-items:center;gap:5px}
+.hx-later svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round}
+/* VS row */
+.hx-vs{flex:none;position:relative;display:flex;align-items:center;justify-content:space-between;height:128px;margin-top:4px;padding:0 6px}
+.hx-p{display:flex;flex-direction:column;align-items:center;gap:5px;width:120px;text-align:center}
+.hx-p .ring{position:relative;width:86px;height:86px;border-radius:24px 8px 24px 8px;padding:3px;background:linear-gradient(135deg,var(--c1),var(--c2));transform:skewX(-6deg);box-shadow:0 0 24px var(--c3)}
+.hx-p .ring b{width:100%;height:100%;border-radius:21px 6px 21px 6px;background:var(--bg);display:grid;place-items:center;font-family:var(--f-display);font-weight:400;font-size:34px;color:#1b1c19}
+.hx-p small{font-size:9.5px;font-weight:800;letter-spacing:1.4px;color:#ffffff8c}
+.hx-p strong{font-size:13.5px;font-weight:700;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.hx-p.l{--c1:#ff8a5c;--c2:#ff4d3a;--c3:#ff4d3a66;--bg:#ffd9b8}
+.hx-p.r{--c1:#efff9e;--c2:#8fc914;--c3:#c6f43266;--bg:#e4f8a8}
+.hwp.play .hx-p.l{animation:hxInL .6s cubic-bezier(.2,1.4,.4,1) 1.35s both}
+.hwp.play .hx-p.r{animation:hxInR .6s cubic-bezier(.2,1.4,.4,1) 1.45s both}
+.hwp.skip.play .hx-p.l,.hwp.skip.play .hx-p.r{animation-delay:0s}
+@keyframes hxInL{from{transform:translateX(-160px) rotate(-12deg);opacity:0}}
+@keyframes hxInR{from{transform:translateX(160px) rotate(12deg);opacity:0}}
+.hx-vsb{position:absolute;left:50%;top:50%;width:90px;height:90px;margin:-58px 0 0 -45px;display:grid;place-items:center}
+.hx-vsb svg.bolt{position:absolute;width:90px;height:90px;filter:drop-shadow(0 0 14px #c6f432)}
+.hx-vsb span{position:relative;font-family:var(--f-display);font-size:42px;line-height:1;color:#fff;transform:skewX(-10deg);text-shadow:3px 3px 0 #1b1c19,0 0 18px #c6f432}
+.hwp.play .hx-vsb{animation:hxSlam .5s cubic-bezier(.3,1.6,.5,1) 1.75s both}
+.hwp.skip.play .hx-vsb{animation-delay:.2s}
+@keyframes hxSlam{0%{transform:scale(4) rotate(-30deg);opacity:0}100%{transform:none;opacity:1}}
+.hx-vsb .wave{position:absolute;inset:-10px;border-radius:50%;border:3px solid var(--lime);opacity:0}
+.hwp.play .hx-vsb .wave{animation:hxWave .8s ease-out 2s both}
+.hwp.skip.play .hx-vsb .wave{animation-delay:.45s}
+@keyframes hxWave{0%{opacity:.9;transform:scale(.5)}100%{opacity:0;transform:scale(3.4)}}
+.hx-says{flex:none;margin-top:6px;text-align:center;font-family:var(--f-display);font-size:20px;letter-spacing:1px;color:var(--lime);transform:skewX(-8deg);text-shadow:0 0 18px #c6f43277;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* mission card (holographic) */
+.hx-cardw{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;perspective:900px;padding:12px 4px 6px}
+.hx-card{position:relative;width:100%;max-width:350px;border-radius:30px 9px 30px 9px;padding:2.5px;background:linear-gradient(135deg,#fff3a8,#f2c94c 30%,#fff 50%,#c6f432 70%,#f2c94c);
+  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s cubic-bezier(.2,1,.3,1);box-shadow:0 30px 50px -20px #000,0 0 40px #c6f43233}
+.hwp.play .hx-card{animation:hxFlip .9s cubic-bezier(.2,1.2,.3,1) 1.65s backwards}
+.hwp.skip.play .hx-card{animation-delay:.1s}
+@keyframes hxFlip{0%{transform:rotateY(-100deg) scale(.7);opacity:0}100%{transform:none;opacity:1}}
+.hx-ci{position:relative;border-radius:28px 7px 28px 7px;background:#fff;color:#1b1c19;overflow:hidden}
+.hx-ci::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:color-dodge;opacity:.35;
+  background:linear-gradient(115deg,transparent 20%,#ff8ad8 35%,#7fd1ff 45%,#c6f432 55%,#ffd25e 65%,transparent 80%);background-size:250% 250%;background-position:var(--mx,30%) 50%;transition:background-position .3s}
+.hx-top{position:relative;display:flex;align-items:center;gap:12px;padding:18px 14px 16px;background:linear-gradient(140deg,color-mix(in srgb,var(--sc) 55%,#fff),var(--sc));overflow:hidden}
+.hx-top::before{content:"";position:absolute;inset:-60%;background:repeating-linear-gradient(118deg,transparent 0 18px,#ffffff66 18px 21px);animation:lines 1.8s linear infinite}
+.hx-top>*{position:relative}
+.hx-top .ti{width:54px;height:54px;flex:none;border-radius:18px 6px 18px 6px;background:#fff;display:grid;place-items:center;box-shadow:0 4px 0 #0000001f;transform:skewX(-6deg)}
+.hx-top .ti svg{width:30px;height:30px;fill:none;stroke:#1b1c19;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transform:skewX(6deg)}
+.hx-top .ti svg .f{fill:#1b1c19;stroke:none}
+.hx-top div{flex:1;min-width:0}
+.hx-top small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1.6px;color:#1b1c19b3}
+.hx-top b{display:block;font-family:var(--f-display);font-weight:400;font-size:32px;line-height:1;margin-top:3px;transform:skewX(-7deg);transform-origin:0 100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hx-diff{position:absolute;right:12px;top:10px;display:flex;gap:2px}
+.hx-diff svg{width:14px;height:14px}
+.hx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:12px 12px 0}
+.hx-stats div{padding:11px 8px 9px;border-radius:14px 4px 14px 4px;background:#f6f9ee;border:1.5px solid #edf2e1;text-align:center}
+.hx-stats b{display:block;font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1;transform:skewX(-8deg)}
+.hx-stats small{display:block;margin-top:3px;font-size:8.5px;font-weight:800;letter-spacing:1px;color:#5d6650}
+.hx-stats .warn b{color:#c23a2f}
+.hx-quote{display:flex;gap:9px;align-items:flex-start;margin:10px 12px 0;font-size:12.5px;line-height:1.35;font-style:italic;color:#3c4236}
+.hx-quote i{flex:none;width:24px;height:24px;border-radius:8px 3px 8px 3px;background:#ffd9b8;display:grid;place-items:center;font-style:normal;font-size:9px;font-weight:800}
+/* reward */
+.hx-rw{position:relative;display:flex;align-items:center;gap:12px;margin:14px 0 0;padding:18px 14px;background:linear-gradient(110deg,#2c2410,#1b1c19 70%);color:#fff;overflow:hidden}
+.hx-rw::before{content:"";position:absolute;left:-30px;top:50%;width:150px;height:150px;margin-top:-75px;background:repeating-conic-gradient(from 0deg,#f2c94c33 0 8deg,transparent 8deg 20deg);border-radius:50%;animation:rot 8s linear infinite}
+.hx-rw::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#ffe9a855 48%,transparent 60%);transform:translateX(-110%);animation:sheen 2.4s ease-in-out 2.5s infinite}
+.hx-mult{position:relative;flex:none;width:84px;text-align:center;font-family:var(--f-display);font-size:62px;line-height:1;transform:skewX(-8deg);
+  background:linear-gradient(180deg,#fffbe0,#f2c94c 50%,#c9971c);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 #8a6410) drop-shadow(0 0 14px #f2c94c88)}
+.hwp.play .hx-mult{animation:hxMult 1s cubic-bezier(.3,1.9,.5,1) 2.2s both}
+.hwp.skip.play .hx-mult{animation-delay:.5s}
+@keyframes hxMult{0%{transform:skewX(-8deg) scale(0) rotate(-200deg)}100%{transform:skewX(-8deg)}}
+.hx-rw div{position:relative;flex:1;min-width:0}
+.hx-rw small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1.6px;color:#f2c94c}
+.hx-rw b{display:block;font-size:14.5px;font-weight:700;line-height:1.2}
+.hx-rw b em{font-style:normal;color:#ffe9a8}
+.hx-coins{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:2px}
+.hx-coins .stk{position:relative;width:36px;height:30px}
+.hx-coins .stk i{position:absolute;left:0;width:36px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,#e7bd5b 55%,#b98c37);box-shadow:inset 0 -2px 0 #a67b2e,0 2px 0 #8a6410}
+.hx-coins .stk i:nth-child(1){bottom:0}.hx-coins .stk i:nth-child(2){bottom:6px}.hx-coins .stk i:nth-child(3){bottom:12px}.hx-coins .stk i:nth-child(4){bottom:18px;animation:hxCoin 1.4s ease-in-out infinite}
+@keyframes hxCoin{50%{transform:translateY(-6px) rotateX(60deg)}}
+.hx-coins b{font-family:var(--f-display);font-size:16px;color:#ffe9a8;letter-spacing:.5px}
+/* expiry */
+.hx-exp{flex:none;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;font-size:11px;font-weight:800;letter-spacing:1.4px;color:#ffffff99}
+.hx-exp b{font-family:var(--f-display);font-weight:400;font-size:19px;letter-spacing:1px;color:#fff;font-variant-numeric:tabular-nums;transform:skewX(-8deg)}
+.hx-exp.hot b{color:#ff6b5a;animation:blink 1s steps(1) infinite}
+/* hold to accept */
+.hx-acts{flex:none;display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.hx-hold{position:relative;height:66px;border-radius:22px 7px 22px 7px;overflow:hidden;background:#2a3a10;border:2px solid var(--lime);color:var(--lime);
+  box-shadow:0 0 0 0 #c6f43266,0 0 30px #c6f43244;touch-action:none;-webkit-user-select:none;user-select:none}
+.hx-hold:not(.held){animation:hxBreath 1.6s ease-in-out infinite}
+@keyframes hxBreath{50%{box-shadow:0 0 0 8px #c6f43200,0 0 46px #c6f43277}}
+.hx-hold .fill{position:absolute;inset:0;background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);transform-origin:left;transform:scaleX(var(--h,0))}
+.hx-hold .stripes{position:absolute;inset:-50%;background:repeating-linear-gradient(118deg,transparent 0 16px,#c6f43218 16px 20px);animation:lines 1s linear infinite}
+.hx-hold .lb{position:relative;z-index:1;height:100%;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--f-display);font-size:26px;letter-spacing:1px;transform:skewX(-8deg)}
+.hx-hold.held .lb,.hx-hold.done .lb{color:#1b1c19}
+.hx-hold .lb svg{width:24px;height:24px}
+.hx-hold .lb small{font-family:var(--f-ui);font-size:10px;font-weight:800;letter-spacing:1.4px;opacity:.75;transform:skewX(8deg)}
+.hx-hold.nudge{animation:hxNo .4s}
+@keyframes hxNo{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.hx-skip{height:38px;font-size:12.5px;font-weight:800;letter-spacing:.6px;color:#ffffff80}
+.hx-go{height:66px;border-radius:22px 7px 22px 7px;display:flex;align-items:center;justify-content:center;gap:10px;background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:#1b1c19;
+  font-family:var(--f-display);font-size:28px;letter-spacing:1px;box-shadow:0 5px 0 #5f840a,0 0 40px #c6f43277;animation:hotp 1.2s ease-in-out infinite}
+.hx-go span{transform:skewX(-8deg)}
+.hx-go svg{width:26px;height:26px}
+/* accepted slam */
+.hx-acc{position:absolute;left:0;right:0;top:42%;z-index:7;text-align:center;pointer-events:none;opacity:0}
+.hx-acc.go{animation:hxAcc 1.4s cubic-bezier(.2,1.2,.4,1) both}
+@keyframes hxAcc{0%{opacity:0;transform:scale(3) rotate(-8deg)}18%{opacity:1;transform:scale(.95) rotate(-8deg)}28%{transform:scale(1) rotate(-8deg)}80%{opacity:1;transform:scale(1) rotate(-8deg)}100%{opacity:0;transform:scale(1.1) rotate(-8deg)}}
+.hx-acc b{display:inline-block;padding:6px 18px;font-family:var(--f-display);font-weight:400;font-size:46px;line-height:1;color:#1b1c19;background:var(--lime);box-shadow:6px 6px 0 #1b1c19,0 0 60px #c6f432}
+.hx-acc.no b{background:#ffffff;color:#5d6650;box-shadow:6px 6px 0 #00000088}
+/* reject sheet */
+.hx-rj{position:absolute;left:10px;right:10px;bottom:10px;z-index:6;padding:16px 14px 14px;border-radius:30px 9px 30px 9px;background:#fff;color:#1b1c19;box-shadow:0 -20px 50px #000a;transform:translateY(120%);transition:transform .45s cubic-bezier(.2,1.2,.3,1)}
+.hx-rj:not(.open){visibility:hidden;transition:transform .45s cubic-bezier(.2,1.2,.3,1),visibility 0s .45s}
+.hx-rj.open{transform:none}
+.hx-rj h5{margin:0;font-family:var(--f-display);font-weight:400;font-size:24px;transform:skewX(-8deg);transform-origin:0 50%}
+.hx-rj p{margin:4px 0 0;font-size:12.5px;color:#5d6650}
+.hx-rj .rs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.hx-rj .rs button{height:38px;padding:0 13px;border-radius:12px 4px 12px 4px;background:#f6f9ee;border:1.5px solid #edf2e1;font-size:12.5px;font-weight:700;color:#4e5644}
+.hx-rj .rs button.on{background:#1b1c19;border-color:#1b1c19;color:var(--lime)}
+.hx-rj .ra{display:flex;gap:8px;margin-top:14px}
+.hx-rj .ra button{flex:1;height:50px;border-radius:16px 6px 16px 6px;font-size:13.5px;font-weight:800}
+.hx-rj .ra .k{flex:1.4;background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:#1b1c19;box-shadow:0 4px 0 #5f840a}
+.hx-rj .ra .x{background:#f1f4ea;color:#c23a2f}
+.hwp.rejecting .hx-card{transform:rotate(-6deg) scale(.92);filter:grayscale(.8) brightness(.7)}
+@media (max-height:760px){.hx-vs{height:96px}.hx-p .ring{width:62px;height:62px}.hx-p .ring b{font-size:25px}.hx-vsb{transform:scale(.8)}.hx-stats b{font-size:24px}.hx-rw{padding:12px 14px}.hx-mult{font-size:50px}.hx-quote{display:none}.hx-top b{font-size:24px}}
+.hx-main>.hx-says{opacity:0}
+.hwp.play .hx-main>.hx-says{animation:hxUp .5s cubic-bezier(.2,1.3,.4,1) 2s both}
+.hwp.skip.play .hx-main>.hx-says{animation-delay:.35s}
 
 /* ---------- list screen ---------- */
 #s-hw .aseg{top:66px}
@@ -3328,25 +3428,28 @@ input,textarea{-webkit-user-select:text;user-select:text}
       <button class="sec" id="skHome"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/></svg>DASHBOARD</button>
     </div>
   </div>
-  <div class="hwp" id="hwp" role="dialog" aria-modal="true" aria-labelledby="hwH">
-    <div class="hwc" id="hwc">
-      <div class="hw-top">
-        <span class="rays"></span><span class="stripes"></span>
-        <span class="hw-cnt" id="hwCnt">1 / 1</span>
-        <button class="hw-later" id="hwLater">Decide later</button>
-        <div class="hw-ill" aria-hidden="true"><svg viewBox="0 0 116 96">
-          <path class="spk" d="M10 20l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#fff"/><path class="spk" d="M104 8l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="#fff" style="animation-delay:.6s"/>
-          <rect x="18" y="34" width="80" height="54" rx="8" fill="#1b1c19"/>
-          <g class="pap"><rect x="30" y="22" width="56" height="44" rx="4" fill="#fff"/><path d="M38 34h40M38 42h40M38 50h26" stroke="#c9d0bc" stroke-width="3" stroke-linecap="round"/><path d="M68 49l4 4 8-9" stroke="#8fc914" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
-          <path d="M18 42l40 26 40-26v40a6 6 0 0 1-6 6H24a6 6 0 0 1-6-6z" fill="#2c2e29"/>
-          <path class="flap" d="M18 42a8 8 0 0 1 4-6l36-2 36 2a8 8 0 0 1 4 6L58 68z" fill="#3a3d36"/>
-          <circle cx="58" cy="66" r="9" fill="#ff4d3a" stroke="#fff" stroke-width="2.5"/><path d="M58 61v5.5M58 70v.1" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
-        </svg></div>
-        <div class="hw-h" id="hwH">NEW HOMEWORK!</div>
-      </div>
-      <div class="hw-b" id="hwB"></div>
-      <span class="hw-stamp" id="hwStamp">ACCEPTED!</span>
+  <div class="hwp" id="hwp" role="dialog" aria-modal="true" aria-labelledby="hxSays">
+    <span class="hx-rays"></span><span class="hx-speed"></span><span class="hx-siren l"></span><span class="hx-siren r"></span>
+    <div class="hx-intro" aria-hidden="true">
+      <div class="hx-tape a"><span>INCOMING CHALLENGE</span><span>INCOMING CHALLENGE</span><span>INCOMING CHALLENGE</span><span>INCOMING CHALLENGE</span></div>
+      <div class="hx-inc"><small><i></i>ALERT</small><b>INCOMING!</b></div>
+      <div class="hx-tape b"><span>BONUS POINTS</span><span>BONUS POINTS</span><span>BONUS POINTS</span><span>BONUS POINTS</span></div>
     </div>
+    <div class="hx-main">
+      <div class="hx-bar" style="--d:0s"><span class="hx-cnt" id="hxCnt"></span><button class="hx-later" data-a="later" id="hxLater"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>Later</button></div>
+      <div class="hx-vs" style="--d:0s;opacity:1;animation:none">
+        <div class="hx-p l" id="hxL"></div>
+        <div class="hx-vsb" aria-hidden="true"><span class="wave"></span><svg class="bolt" viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z" fill="#c6f432"/></svg><span>VS</span></div>
+        <div class="hx-p r" id="hxR"></div>
+        </div>
+      <div class="hx-says" id="hxSays"></div>
+      <div class="hx-cardw" id="hxCw" style="--d:0s;opacity:1;animation:none"><div class="hx-card" id="hxCard"><div class="hx-ci" id="hxCi"></div></div></div>
+      <div class="hx-exp" id="hxExp" style="--d:.55s"></div>
+      <div class="hx-acts" id="hxActs" style="--d:.65s"></div>
+    </div>
+    <div class="hx-acc" id="hxAcc"><b>CHALLENGE ACCEPTED!</b></div>
+    <div class="hx-rj" id="hxRj" role="dialog" aria-labelledby="hxRjT"></div>
+    <div class="hx-flash" id="hxFlash"></div>
   </div>
   <div class="pdb" id="pdb"></div>
   <div class="pdx" id="pdx" role="dialog" aria-modal="true" aria-labelledby="pdT">
@@ -5100,40 +5203,81 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
     function paintBadge(){const L=items(),nw=L.filter(i=>i.st==='new').length,open=L.filter(i=>i.st==='new'||i.st==='acc').length,b=$('#hwBd');
       b.textContent=open;b.hidden=!open;btn.classList.toggle('new',nw>0);btn.setAttribute('aria-label',`Homework, ${open} to do${nw?`, ${nw} new`:''}`)}
 
-    /* ---------- popup ---------- */
-    const pop=$('#hwp'),card=$('#hwc');let queue=[],qi=0,later=new Set(),busy=false,single=false;
-    function body(i){const c=col(i.subj),urg=i.due<=plus(1),mins=Math.max(1,Math.round(i.n*10/60));
-      return`<div class="hw-from">${av(i)}<div><small>${whoLabel(i).toUpperCase()}</small><b>${hesc(whoName(i))}</b></div><span class="hw-due${urg?' urg':''}">${dueTxt(i.due).toUpperCase()}</span></div>
-        ${i.note?`<div class="hw-note">“${hesc(i.note)}”</div>`:''}
-        <div class="hw-task" style="--sc:${c.sc};--ed:${c.ed}"><span class="ti"><svg viewBox="0 0 24 24">${SUBJ[i.subj].ico}</svg></span><div><small>${SUBJ[i.subj].name.toUpperCase()} · CHAPTER ${i.ch+1}</small><b>${hesc(i.chn)}</b><span>${i.n} questions · about ${mins} min</span></div></div>
-        <div class="hw-bonus"><span class="hw-x">${i.mult}×</span><div><small>HOMEWORK BONUS</small><b>${i.mult===2?'Double':'Triple'} points on every challenge</b></div>${i.coins?`<em><span class="cn"></span>+${i.coins}</em>`:''}</div>
-        <div class="hw-acts" id="hwActs"><button class="no" data-a="rej"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>Reject</button><button class="ok" data-a="acc"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>ACCEPT</button></div>`}
-    function showCur(swap){const i=queue[qi];if(!i){closePop();return}
-      $('#hwCnt').textContent=`${qi+1} / ${queue.length}`;$('#hwCnt').hidden=queue.length<2;$('#hwLater').hidden=single;
-      $('#hwB').innerHTML=body(i);$('#hwStamp').className='hw-stamp';
-      if(swap){card.classList.remove('swap');void card.offsetWidth;card.classList.add('swap')}}
-    function openPop(list,one){queue=list;qi=0;single=!!one;showCur(false);pop.classList.add('open');SFX.play('unlock');setTimeout(()=>SFX.play('sparkle'),500);
-      try{navigator.vibrate&&navigator.vibrate([20,50,20])}catch(_){};setTimeout(()=>{const b=pop.querySelector('.ok');b&&b.focus({preventScroll:true})},500)}
-    function closePop(){pop.classList.remove('open');busy=false;paintBadge();if(curScreen==='hw')renderList(false)}
-    function next(){qi++;if(qi<queue.length)showCur(true);else closePop()}
-    function stamp(txt,no){const s=$('#hwStamp');s.textContent=txt;s.className='hw-stamp'+(no?' no':'');void s.offsetWidth;s.classList.add('go')}
-    $('#hwB').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||busy)return;const i=queue[qi],a=b.dataset.a;buzz();
-      if(a==='acc'){busy=true;setSt(i.id,{st:'acc'});i.st='acc';pushParent(i);stamp('ACCEPTED!');SFX.play('win');
-        setTimeout(()=>{busy=false;if(qi<queue.length-1){next();return}
-          $('#hwActs').innerHTML='<button class="no" data-a="close">Later</button><button class="ok" data-a="start"><svg viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z" fill="currentColor" stroke="none"/></svg>START NOW</button>';
-          $('#hwStamp').className='hw-stamp'},900);return}
-      if(a==='rej'){$('#hwActs').outerHTML=`<p class="hw-q">Why not this one? <span style="font-weight:600;color:#5d6650">${hesc(i.src==='parent'?i.who:'Your teacher')} will see your answer.</span></p>
-          <div class="hw-rs" id="hwRs">${['Too busy today','I already know this','It\'s too hard','Something else'].map((r,k)=>`<button data-r="${hesc(r)}" class="${k?'':'on'}">${r}</button>`).join('')}</div>
-          <div class="hw-acts" id="hwActs"><button class="no" data-a="back">Back</button><button class="dg" data-a="rejok">Reject homework</button></div>`;return}
-      if(b.dataset.r){$$hw('#hwRs button').forEach(x=>x.classList.toggle('on',x===b));return}
-      if(a==='back'){showCur(false);return}
-      if(a==='rejok'){busy=true;const r=(document.querySelector('#hwRs button.on')||{}).dataset?.r||'';setSt(i.id,{st:'rej',reason:r});i.st='rej';i.reason=r;pushParent(i);stamp('REJECTED',true);SFX.play('no');
-        toast(`${i.src==='parent'?i.who:'Cikgu Aminah'} will see: “${r}”`);setTimeout(()=>{busy=false;next()},900);return}
+    /* ---------- popup: INCOMING CHALLENGE ---------- */
+    const pop=$('#hwp');let queue=[],qi=0,later=new Set(),busy=false,single=false,expT=0,sfxT=[];
+    const kidName=()=>{const p=rd('qdProfile',{})||{};const n=String(p.name||p.username||'sean').trim().split(' ')[0]||'You';return n[0].toUpperCase()+n.slice(1)};
+    const star=on=>`<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z" fill="${on?'#1b1c19':'#1b1c1930'}"/></svg>`;
+    const vib=p=>{try{navigator.vibrate&&navigator.vibrate(p)}catch(_){}};
+    function fill(i){
+      const c=col(i.subj),mins=Math.max(1,Math.round(i.n*10/60)),dif=i.mult>=3?3:i.n>=15?2:1,kid=kidName();
+      const nm=i.src==='parent'?i.who:'Cikgu Aminah',ini=i.src==='parent'?(i.who[0]+i.who[1]).toUpperCase():'CA';
+      $('#hxCnt').innerHTML=`<i></i>${queue.length>1?`CHALLENGE ${qi+1} OF ${queue.length}`:'NEW CHALLENGE'}`;$('#hxLater').hidden=single;
+      $('#hxL').style.setProperty('--bg',i.src==='parent'?'#ffd9b8':'#cfe3ff');
+      $('#hxL').innerHTML=`<span class="ring"><b>${ini}</b></span><small>${i.src==='parent'?'PARENT':'TEACHER'}</small><strong>${hesc(nm)}</strong>`;
+      $('#hxR').innerHTML=`<span class="ring"><b>${hesc(kid[0])}</b></span><small>YOU</small><strong>${hesc(kid)}</strong>`;
+      $('#hxSays').textContent=`${nm.toUpperCase()} CHALLENGES YOU`;
+      $('#hxCard').style.setProperty('--sc',c.sc);
+      $('#hxCi').innerHTML=`<div class="hx-top"><span class="ti"><svg viewBox="0 0 24 24">${SUBJ[i.subj].ico}</svg></span><div><small>MISSION · ${SUBJ[i.subj].name.toUpperCase()} · CH ${i.ch+1}</small><b>${hesc(i.chn)}</b></div><span class="hx-diff" aria-label="Difficulty ${dif} of 3">${[1,2,3].map(k=>star(k<=dif)).join('')}</span></div>
+        <div class="hx-stats"><div><b>${i.n}</b><small>QUESTIONS</small></div><div><b>~${mins}m</b><small>TO BEAT</small></div><div class="${i.due<=td()?'warn':''}"><b>${dueShort(i.due)}</b><small>DEADLINE</small></div></div>
+        ${i.note?`<div class="hx-quote"><i style="background:${i.src==='parent'?'#ffd9b8':'#cfe3ff'}">${ini}</i><span>“${hesc(i.note)}”</span></div>`:''}
+        <div class="hx-rw"><span class="hx-mult">${i.mult}×</span><div><small>BONUS ${i.mult===2?'DOUBLE':'TRIPLE'} POINTS</small><b>Every round of this challenge scores <em>${i.mult}× points</em></b></div>${i.coins?`<span class="hx-coins"><span class="stk"><i></i><i></i><i></i><i></i></span><b>+${i.coins}</b></span>`:''}</div>`;
+      $('#hxActs').innerHTML=`<button class="hx-hold" id="hxHold" aria-label="Press and hold to accept the challenge"><span class="stripes"></span><span class="fill"></span><span class="lb"><svg viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z" fill="currentColor"/></svg>HOLD TO ACCEPT</span></button><button class="hx-skip" data-a="skip">Not today</button>`;
+      wireHold();$('#hxRj').classList.remove('open');pop.classList.remove('rejecting');
+      clearInterval(expT);const tickE=()=>{const end=new Date(i.due+'T23:59:59').getTime(),s=Math.floor((end-Date.now())/1000),e=$('#hxExp');
+        if(s<=0){e.className='hx-exp hot';e.innerHTML='DEADLINE PASSED · <b>DO IT NOW</b>';return}
+        const d=Math.floor(s/86400),hh=String(Math.floor(s%86400/3600)).padStart(2,'0'),mm=String(Math.floor(s%3600/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
+        e.className='hx-exp'+(s<6*3600?' hot':'');e.innerHTML=`ENDS IN <b>${d?d+'D ':''}${hh}:${mm}:${ss}</b>`};tickE();expT=setInterval(tickE,1000);
+    }
+    function dueShort(s){const d=Math.round((new Date(s+'T00:00')-new Date(td()+'T00:00'))/DAY);return d<0?'LATE':d===0?'TODAY':d===1?'TMRW':WDN[new Date(s+'T00:00').getDay()].toUpperCase()}
+    function play(skip){sfxT.forEach(clearTimeout);sfxT=[];pop.classList.remove('play','skip','shake');void pop.offsetWidth;if(skip||reduce)pop.classList.add('skip');pop.classList.add('open','play');
+      const at=(ms,f)=>sfxT.push(setTimeout(f,ms));
+      if(skip||reduce){SFX.play('whoosh');at(200,()=>SFX.play('go'));at(500,()=>SFX.play('sparkle'));return}
+      SFX.play('whoosh');[150,550,950].forEach(t=>at(t,()=>SFX.play('count')));vib([30,90,30,90,30]);
+      at(1350,()=>SFX.play('whoosh'));at(1780,()=>{SFX.play('go');pop.classList.remove('shake');void pop.offsetWidth;pop.classList.add('shake');vib(40)});at(2250,()=>SFX.play('sparkle'))}
+    function openPop(list,one){queue=list;qi=0;single=!!one;busy=false;fill(queue[0]);play(false);setTimeout(()=>{const h=$('#hxHold');h&&h.focus({preventScroll:true})},reduce?100:2300)}
+    function closePop(){pop.classList.remove('open','play','skip','shake','rejecting');$('#hxRj').classList.remove('open');clearInterval(expT);sfxT.forEach(clearTimeout);busy=false;paintBadge();if(curScreen==='hw')renderList(false)}
+    function next(){qi++;if(qi<queue.length){busy=false;fill(queue[qi]);play(true)}else closePop()}
+    function slam(txt,no){const a=$('#hxAcc');a.querySelector('b').textContent=txt;a.className='hx-acc'+(no?' no':'');void a.offsetWidth;a.classList.add('go')}
+    // hold-to-accept
+    const HOLD=reduce?1:800;let hv=0,raf=0,holding=false,q4=0;
+    function wireHold(){const b=$('#hxHold');hv=0;q4=0;holding=false;
+      const set=v=>{hv=v;b.style.setProperty('--h',v.toFixed(3))};
+      const start=e=>{if(busy||holding)return;e&&e.preventDefault&&e.preventDefault();holding=true;b.classList.add('held');const t0=performance.now()-hv*HOLD;cancelAnimationFrame(raf);
+        (function f(t){if(!holding)return;const v=Math.min(1,(t-t0)/HOLD);set(v);const q=Math.floor(v*4);if(q>q4){q4=q;SFX.play('count');vib(8)}if(v>=1){holding=false;accept(b);return}raf=requestAnimationFrame(f)})(performance.now())};
+      const stop=()=>{if(!holding)return;holding=false;cancelAnimationFrame(raf);b.classList.remove('held');q4=0;
+        if(hv<.2){b.classList.remove('nudge');void b.offsetWidth;b.classList.add('nudge');toast('Press and hold to accept!')}
+        const v0=hv,t0=performance.now();(function f(t){if(holding)return;const p=Math.min(1,(t-t0)/250);set(v0*(1-p));if(p<1)raf=requestAnimationFrame(f)})(t0)};
+      b.addEventListener('pointerdown',start);['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,stop));
+      b.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();start()}});b.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter')stop()});
+      b.addEventListener('contextmenu',e=>e.preventDefault())}
+    function accept(b){const i=queue[qi];busy=true;b.classList.add('done');setSt(i.id,{st:'acc'});i.st='acc';pushParent(i);
+      const f=$('#hxFlash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go');pop.classList.remove('shake');void pop.offsetWidth;pop.classList.add('shake');
+      slam('CHALLENGE ACCEPTED!');SFX.play('win');vib([20,40,60]);confetti(pop);paintBadge();
+      setTimeout(()=>{if(qi<queue.length-1){next();return}busy=false;
+        $('#hxActs').innerHTML=`<button class="hx-go" data-a="start"><svg viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z" fill="currentColor"/></svg><span>PLAY NOW</span></button><button class="hx-skip" data-a="close">Later · it's saved in My homework</button>`;
+        setTimeout(()=>{const g=pop.querySelector('.hx-go');g&&g.focus({preventScroll:true})},50)},1400)}
+    // reject
+    function openRj(){const i=queue[qi],nm=i.src==='parent'?i.who:'Cikgu Aminah';pop.classList.add('rejecting');
+      $('#hxRj').innerHTML=`<h5 id="hxRjT">Skip this challenge?</h5><p>${hesc(nm)} will see why. You'll miss the <b>${i.mult}× points</b>${i.coins?` and <b>+${i.coins} coins</b>`:''}.</p>
+        <div class="rs">${['Too busy today','I already know this','It\'s too hard','Something else'].map((r,k)=>`<button data-r="${hesc(r)}" class="${k?'':'on'}">${r}</button>`).join('')}</div>
+        <div class="ra"><button class="x" data-a="rejok">Skip it</button><button class="k" data-a="keep">I'll take it on!</button></div>`;
+      $('#hxRj').classList.add('open')}
+    pop.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.id==='hxHold')return;const a=b.dataset.a,i=queue[qi];
+      if(b.dataset.r){buzz();pop.querySelectorAll('.hx-rj .rs button').forEach(x=>x.classList.toggle('on',x===b));return}
+      if(busy&&a!=='start'&&a!=='close')return;buzz();
+      if(a==='later'){queue.slice(qi).forEach(x=>later.add(x.id));closePop();toast('Saved in My homework for later');return}
+      if(a==='skip'){openRj();return}
+      if(a==='keep'){$('#hxRj').classList.remove('open');pop.classList.remove('rejecting');setTimeout(()=>{const h=$('#hxHold');h&&h.focus({preventScroll:true})},300);return}
+      if(a==='rejok'){busy=true;const r=(pop.querySelector('.hx-rj .rs button.on')||{dataset:{}}).dataset.r||'';setSt(i.id,{st:'rej',reason:r});i.st='rej';i.reason=r;pushParent(i);
+        $('#hxRj').classList.remove('open');slam('SKIPPED',true);SFX.play('no');toast(`${i.src==='parent'?i.who:'Cikgu Aminah'} will see: “${r}”`);paintBadge();setTimeout(()=>{busy=false;next()},1100);return}
       if(a==='close'){closePop();return}
       if(a==='start'){closePop();launch(i.id)}});
-    const $$hw=s=>[...document.querySelectorAll(s)];
-    $('#hwLater').addEventListener('click',()=>{buzz();queue.slice(qi).forEach(i=>later.add(i.id));closePop();toast('It\'s waiting in your homework list')});
-    addEventListener('keydown',e=>{if(e.key==='Escape'&&pop.classList.contains('open')&&!single)$('#hwLater').click();else if(e.key==='Escape'&&pop.classList.contains('open'))closePop()});
+    // tilt the mission card with the finger / mouse
+    (()=>{const w=$('#hxCw'),c=$('#hxCard');w.addEventListener('pointermove',e=>{const r=w.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      c.style.setProperty('--ry',(x*16).toFixed(1)+'deg');c.style.setProperty('--rx',(-y*12).toFixed(1)+'deg');c.style.setProperty('--mx',(50+x*100).toFixed(0)+'%')});
+      w.addEventListener('pointerleave',()=>{c.style.setProperty('--ry','0deg');c.style.setProperty('--rx','0deg');c.style.setProperty('--mx','30%')})})();
+    addEventListener('keydown',e=>{if(e.key!=='Escape'||!pop.classList.contains('open'))return;if($('#hxRj').classList.contains('open')){pop.querySelector('[data-a="keep"]').click();return}
+      if(single)closePop();else $('#hxLater').click()});
 
     // show new homework when the dashboard is free (not behind the goal sheet, streak page or a launch)
     let tries=0;
