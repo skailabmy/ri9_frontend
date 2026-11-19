@@ -3587,6 +3587,47 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .pq-rv.claim .pq-rvjar{display:none}
 @media (max-height:760px){.pq-poolc{height:96px}.pq-jar{width:80px;height:88px}.pq-tiers{top:168px}.pq-stage{top:226px;height:262px}.pq-ms{top:494px}}
 
+/* ===================== PRIZE LOCKS (complexity combos) + COMPLEXITY STATS ===================== */
+.pt.lk .art{filter:grayscale(.85) brightness(.92)}
+.pt.lk b,.pt.lk small{opacity:.6}
+.pt .lkov{position:absolute;left:6px;right:6px;top:54px;display:flex;flex-direction:column;align-items:center;gap:4px;z-index:2}
+.pt .lkov .lki{width:30px;height:30px;border-radius:50%;background:#1b1c19;display:grid;place-items:center;box-shadow:0 3px 0 #000,0 0 0 3px #fff}
+.pt .lkov .lki svg{width:15px;height:15px;fill:none;stroke:var(--lime);stroke-width:2.6;stroke-linecap:round}
+.pt .lkov .lkc{display:flex;gap:4px}
+.pt .lkov .lkc i{display:flex;align-items:center;gap:3px;padding:2px 6px 2px 4px;border-radius:999px;background:#1b1c19;color:#fff;font-style:normal;font-size:9px;font-weight:800;white-space:nowrap}
+.pt .lkov .lkc i svg{width:11px;height:11px;fill:none;stroke:var(--lime);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.pt .lkov .lkc i.ok{background:var(--lime);color:#1b1c19}.pt .lkov .lkc i.ok svg{stroke:#1b1c19}
+.pt .unl{position:absolute;left:8px;bottom:-9px;display:flex;align-items:center;gap:3px;padding:2px 7px 2px 4px;border-radius:999px;background:var(--lime);color:#1b1c19;font-size:8.5px;font-weight:900;letter-spacing:.4px;box-shadow:0 2px 0 #6f9a0b;z-index:2}
+.pt .unl svg{width:11px;height:11px;fill:none;stroke:#1b1c19;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.pd-lock{margin-top:14px;padding:12px 12px 10px;border-radius:18px 6px 18px 6px;background:#1b1c19;color:#fff}
+.pd-lock.ok{background:linear-gradient(135deg,#f4ffc4,#d7fb5c);color:#1b1c19}
+.pd-lock h5{margin:0;display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:800;letter-spacing:1.3px;color:var(--lime)}
+.pd-lock.ok h5{color:#3f5a0a}
+.pd-lock h5 svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round}
+.pd-lock p{margin:5px 0 9px;font-size:12px;line-height:1.4;color:#ffffffb3}.pd-lock.ok p{color:#3c4236}
+.pd-lock .lr{display:grid;grid-template-columns:22px 92px 1fr 40px;align-items:center;gap:8px;padding:6px 0}
+.pd-lock .lr+.lr{border-top:1px dashed #ffffff22}.pd-lock.ok .lr+.lr{border-top-color:#1b1c1922}
+.pd-lock .lr svg.ti{width:20px;height:20px;fill:none;stroke:var(--lime);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pd-lock.ok .lr svg.ti{stroke:#1b1c19}
+.pd-lock .lr b{font-size:12.5px;font-weight:700}
+.pd-lock .lr .tb{height:7px;border-radius:4px;background:#ffffff1f;overflow:hidden;transform:skewX(-20deg)}.pd-lock.ok .lr .tb{background:#1b1c1918}
+.pd-lock .lr .tb i{display:block;height:100%;width:var(--p);background:var(--lime);border-radius:4px}.pd-lock.ok .lr .tb i{background:#3f6c05}
+.pd-lock .lr em{font-style:normal;font-family:var(--f-display);font-size:15px;text-align:right}
+.pd-act .lockb{flex:2;background:#1b1c19;color:var(--lime);box-shadow:0 4px 0 #000}
+/* stats: subjects / complexity switch */
+.stab{display:inline-flex;gap:2px;padding:3px;border-radius:11px;background:#ffffffb3;box-shadow:0 2px 0 #d3e6a6;transform:skewX(-10deg);margin-left:-4px}
+.stab button{padding:4px 10px;border-radius:8px;font-size:10px;font-weight:800;letter-spacing:1.2px;color:#6b7360;transform:skewX(10deg);transition:all .2s}
+.stab button.on{background:#1b1c19;color:var(--lime)}
+.sr .wk7{display:inline-flex;align-items:center;gap:3px;margin-left:4px;padding:1px 6px;border-radius:999px;background:#1b1c19;color:var(--lime);font-size:9px;font-weight:800}
+.sr .wk7.ok{background:var(--lime);color:#1b1c19}
+.cx-list{position:absolute;left:14px;right:14px;top:246px;bottom:0;display:flex;flex-direction:column;gap:9px;padding:2px 6px 24px}
+.cx-list.anim>*{animation:rowIn2 .5s cubic-bezier(.2,1.2,.4,1) both;animation-delay:var(--d)}
+.cx-crumb{flex:none;display:flex;align-items:center;gap:6px;margin:0 4px 2px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:#5d6650}
+.cx-crumb button{color:#3f6c05;text-decoration:underline;text-underline-offset:2px}
+.cx-empty{flex:none;padding:20px 16px;border-radius:24px 6px 24px 6px;border:1.5px dashed #b9cc95;background:#ffffff8c;text-align:center;color:#5d6650;font-size:12.5px;line-height:1.45}
+.cx-empty b{display:block;color:#1b1c19;font-size:14.5px;margin-bottom:2px}
+.cx-empty button{margin-top:10px;height:36px;padding:0 14px;border-radius:12px 4px 12px 4px;background:#1b1c19;color:var(--lime);font-size:12px;font-weight:800}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -3707,8 +3748,20 @@ input,textarea{-webkit-user-select:text;user-select:text}
       <div class="ovt" id="ovt"><div class="ovsl"><div class="ovw" id="ovw"></div></div><div class="ovsl"><div class="ovw wk2" id="wk"></div></div><div class="ovsl"><div class="ovw wk2 tws" id="tws"></div></div></div>
     </div>
     <div class="ovd" id="ovd"><button class="on" aria-label="Overview"></button><button aria-label="Questions this week"></button><button aria-label="Twist strength"></button></div>
-    <div class="lab2 slab in2" style="--d:.12s"><span>ALL SUBJECTS</span><span id="slCount">4 subjects</span></div>
+    <div class="lab2 slab in2" style="--d:.12s"><span class="stab" id="stab"><button class="on" data-v="subj">SUBJECTS</button><button data-v="cx">COMPLEXITY</button></span><span id="slCount">4 subjects</span></div>
     <div class="slist scroll" id="sgrid"></div>
+  </section>
+
+  <!-- ===== COMPLEXITY STATS ===== -->
+  <section class="screen" id="s-cx" data-pos="right" aria-label="Complexity type stats">
+    <div class="arena-bg" aria-hidden="true"><canvas class="emb"></canvas></div>
+    <div class="ahdr in2" style="--a:up .5s ease">
+      <button class="gbtn" id="cxBack" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="tt"><h2 id="cxT">WORDY</h2><small id="cxS" style="display:block;margin-top:6px;font-size:10px;font-weight:800;letter-spacing:1.3px;color:#5d6650"></small></div><span style="width:42px;flex:none"></span>
+    </div>
+    <div class="chero in2" id="cxHero" style="--a:up .55s cubic-bezier(.2,1.2,.4,1);--d:.05s"></div>
+    <div class="cfilter in2" id="cxSeg" style="--d:.1s"><button class="on" data-p="week">This week</button><button data-p="all">All time</button></div>
+    <div class="cx-list scroll" id="cxList"></div>
   </section>
 
   <!-- ===== CHAPTERS ===== -->
@@ -4361,7 +4414,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
 
 
   /* =================== SCREENS =================== */
-  const ORDER=['home','stats','chap','prizes','prof','hw','pq','quiz','lobby','past','types','tour','hist','drill','write','tech'], SCR={home:$('#s-home'),stats:$('#s-stats'),chap:$('#s-chap'),prizes:$('#s-prizes'),prof:$('#s-prof'),past:$('#s-past'),pq:$('#s-pq'),hw:$('#s-hw'),quiz:$('#s-quiz'),lobby:$('#s-lobby'),types:$('#s-types'),drill:$('#s-drill'),write:$('#s-write'),tech:$('#s-tech'),tour:$('#s-tour'),hist:$('#s-hist')};
+  const ORDER=['home','stats','chap','cx','prizes','prof','hw','pq','quiz','lobby','past','types','tour','hist','drill','write','tech'], SCR={home:$('#s-home'),stats:$('#s-stats'),chap:$('#s-chap'),cx:$('#s-cx'),prizes:$('#s-prizes'),prof:$('#s-prof'),past:$('#s-past'),pq:$('#s-pq'),hw:$('#s-hw'),quiz:$('#s-quiz'),lobby:$('#s-lobby'),types:$('#s-types'),drill:$('#s-drill'),write:$('#s-write'),tech:$('#s-tech'),tour:$('#s-tour'),hist:$('#s-hist')};
   let curScreen='home';
   function show(name,instant){
     if(!SCR[name])name='home';
@@ -4380,6 +4433,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
     if(name==='quiz'&&name!==curScreen)openQuiz();
     if(name==='stats'&&curScreen!=='chap')openStats();
     if(name==='chap')openChap();
+    if(name==='cx'&&typeof renderCx==='function')renderCx();
     if(name==='prizes')openPrizes();
     if(name==='prof'&&window.openProf)openProf();
     if(name==='hw'&&window.HW)HW.openList();
@@ -4672,10 +4726,13 @@ input,textarea{-webkit-user-select:text;user-select:text}
     $('#pdBody').innerHTML=`<small class="k">${(D.kind||'PRIZE').toUpperCase()}${o.src?' · '+o.src.toUpperCase():''}</small><h3 id="pdT">${o.name}</h3><p>${D.d}</p>
       <div class="pd-tiles"><div><small>VALUE</small><b>${val.replace(/^Worth /,'')||'—'}</b></div><div><small>AGES</small><b>${D.age}</b></div><div><small>DELIVERY</small><b>${ship}</b></div></div>
       <div class="pd-box"><h5>WHAT YOU GET</h5><ul>${D.box.map(b=>`<li><i>${pdOk}</i>${b}</li>`).join('')}</ul></div>
+      ${o.lock?lockPanel(o.lock):''}
       ${o.status?`<div class="pd-st" style="--cc:${o.status.cc};--ct:${o.status.ct}"><span class="dt"></span><span><b>${o.status.t}</b> · ${o.status.note}</span></div>`:''}
       <p class="pd-fine">${D.digital?'Digital prizes are emailed to your parent within 2 working days.':'Physical prizes ship to the mailing address in your profile within 5–7 working days. A parent must confirm the address.'} Pictures are for illustration.</p>`;
     pdCb=o.onPick||null;
-    $('#pdAct').innerHTML=o.mode==='pick'
+    $('#pdAct').innerHTML=o.mode==='pick'&&o.lock&&!o.lock.ok
+      ?`<button class="sec" data-pd="close">Back</button><button class="lockb" data-pd="act">${LOCKI}PRACTISE ${SETS.TW[o.lock.st.find(x=>x.n<SETS.NEED).t].n.toUpperCase()}</button>`
+      :o.mode==='pick'
       ?`<button class="sec" data-pd="close">Back</button><button class="pri" data-pd="pick"${o.picked?' disabled':''}>${pdOk}${o.picked?'YOUR PICK':'PICK THIS PRIZE'}</button>`
       :`<button class="sec" data-pd="close">Close</button>${o.btn?`<button class="${o.btn[1]==='warn'?'wn':'dk'}" data-pd="act">${o.btn[0]}</button>`:''}`;
     pdAct=o.onAct||null;
@@ -4708,15 +4765,28 @@ input,textarea{-webkit-user-select:text;user-select:text}
     $('#pzS').innerHTML=`<i>${p===4?'4+':p}</i>${lbl} PLACE`;
     $('#pzT').textContent=p===4?'CONSOLATION PRIZE':'PICK YOUR PRIZE';
     $('#pzP').textContent=pzCtx==='quiz'?`Finish ${PLACE[p].toLowerCase()} when the prize drops and this one is yours.`:p===4?'Finish anywhere from 4th to 10th today and this is yours.':`Finish ${PLACE2[p].toLowerCase()} on today's board and this one is yours.`;
-    $('#pzG').innerHTML=list.map((it,i)=>`<button class="pt${cur===i?' on':''}" data-i="${i}" aria-label="${it[1]}, see details" style="--bgc:${it[3]};--d:${(i*.05).toFixed(2)}s"><span class="inf" aria-hidden="true">i</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="art">${PA[it[0]]}</span><b>${it[1]}</b><small>${it[2]}</small></button>`).join('');
+    $('#pzG').innerHTML=list.map((it,i)=>{const L=pzLock(p,i);return`<button class="pt${cur===i?' on':''}${L&&!L.ok?' lk':''}" data-i="${i}" aria-label="${it[1]}, see details" style="--bgc:${it[3]};--d:${(i*.05).toFixed(2)}s"><span class="inf" aria-hidden="true">i</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="art">${PA[it[0]]}</span><b>${it[1]}</b><small>${it[2]}</small>${lockTile(L)}</button>`}).join('');
     $('#pzG').scrollTop=0;d.classList.add('open');$('#pzBd').classList.add('open');
   }
   function closePrize(){$('#pzd').classList.remove('open');$('#pzBd').classList.remove('open');closePD()}
   $('#qpz').addEventListener('click',e=>{const c=e.target.closest('.qp');if(c)openPrize(+c.dataset.p)});
   $('#pzG').addEventListener('click',e=>{const t=e.target.closest('.pt');if(!t)return;const i=+t.dataset.i;buzz();
     const list=pzCtx==='quiz'?PRIZES[pzPlace]:CHP[pzPlace],it=list[i],cur=(pzCtx==='quiz'?picks:chPicks)[pzPlace];
-    openPD({art:it[0],name:it[1],val:it[2],bg:it[3],place:pzPlace,placeLbl:(pzCtx==='quiz'?PLACE:PLACE2)[pzPlace]+' PLACE',src:pzCtx==='quiz'?'Prize Quiz':'Daily Challenge',mode:'pick',picked:cur===i,onPick:()=>pickPz(t,i)})});
+    const L=pzLock(pzPlace,i);openPD({art:it[0],name:it[1],val:it[2],bg:it[3],place:pzPlace,placeLbl:(pzCtx==='quiz'?PLACE:PLACE2)[pzPlace]+' PLACE',src:pzCtx==='quiz'?'Prize Quiz':'Daily Challenge',mode:'pick',picked:cur===i,lock:L,onPick:()=>pickPz(t,i),
+      onAct:()=>{const need=L.st.find(x=>x.n<SETS.NEED).t;lob.tw=need;SETS.paintRow();closePrize();nav('types');setTimeout(()=>toast(`${SETS.TW[need].n} twist is on · every round counts toward the unlock`),600)}})});
+
+  /* ---- prize locks: some challenge prizes need a complexity combo (10 Qs of each type in 7 days) ---- */
+  const PZLOCK={'1|0':['long','multi'],'1|1':['close','noise'],'1|5':['multi','noise'],'2|1':['close','multi'],'2|2':['long','close'],'3|0':['long','noise']};
+  function pzLock(place,i){if(pzCtx!=='ch'||!window.SETS)return null;const pair=PZLOCK[place+'|'+i];if(!pair)return null;return{pair,...SETS.combo(pair)}}
+  const LOCKI='<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+  function lockTile(L){if(!L)return'';if(L.ok)return`<span class="unl">${L.pair.map(t=>SETS.ico(t)).join('')}UNLOCKED</span>`;
+    return`<span class="lkov"><span class="lki">${LOCKI}</span><span class="lkc">${L.st.map(x=>`<i class="${x.n>=SETS.NEED?'ok':''}">${SETS.ico(x.t)}${x.n}/${SETS.NEED}</i>`).join('')}</span></span>`}
+  function lockPanel(L){if(!L)return'';const TW=SETS.TW;
+    return`<div class="pd-lock${L.ok?' ok':''}"><h5>${L.ok?'<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>UNLOCKED WITH A COMBO':LOCKI+'LOCKED · NEEDS A COMBO'}</h5>
+      <p>${L.ok?'You answered 10+ questions in both of these twists this week. Nice!':`Answer <b style="color:#fff">${SETS.NEED} questions in each</b> of these challenge twists within 7 days to unlock this prize.`}</p>
+      ${L.st.map(x=>`<div class="lr">${SETS.ico(x.t,'ti')}<b>${TW[x.t].n}</b><span class="tb"><i style="--p:${x.n/SETS.NEED*100}%"></i></span><em>${x.n}/${SETS.NEED}</em></div>`).join('')}</div>`}
   function pickPz(t,i){
+    {const L=pzLock(pzPlace,i);if(L&&!L.ok){toast('This prize is locked · finish the twist combo first');return}}
     document.querySelectorAll('#pzG .pt').forEach(x=>x.classList.toggle('on',x===t));SFX.play('coin');
     if(pzCtx==='ch'){chPicks[pzPlace]=i;try{localStorage.setItem('chPicks',JSON.stringify(chPicks))}catch(_){}
       setTimeout(()=>{closePrize();setTimeout(()=>{renderLobbyPrizes(pzPlace);SFX.play('sparkle');toast(`${PLACE2[pzPlace]} prize locked in: ${CHP[pzPlace][i][1]}`)},200)},280);return}
@@ -4872,6 +4942,14 @@ input,textarea{-webkit-user-select:text;user-select:text}
     const TWK=['long','close','multi','noise'];
     let S;try{S=JSON.parse(localStorage.getItem('qdSets')||'null')}catch(_){S=null}
     if(!S||!S.c)S={c:{},tw:{}};
+    // per-day log of complexity questions: days[YYYY-MM-DD][tw][year|subj|ch]=[ok,n]
+    const dkey=t=>{const d=new Date(t);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+    function logDay(t,k,ok,n,when){const d=dkey(when||Date.now()),D=(S.days[d]=S.days[d]||{}),T=(D[t]=D[t]||{}),v=(T[k]=T[k]||[0,0]);v[0]+=ok;v[1]+=n}
+    if(!S.days){S.days={};// demo history: twists played over the last month (this week: Wordy 12, Multi-step 12, Close call 6, Extra info 0)
+      const r=rng(4242),y=lob.year,plan=[[1,'long'],[3,'multi'],[2,'long'],[4,'close'],[5,'multi'],[9,'noise'],[11,'close'],[12,'long'],[15,'noise'],[18,'multi'],[21,'close'],[24,'noise'],[26,'long']];
+      plan.forEach(([ago,t])=>{const s=Math.floor(r()*4),c=Math.floor(r()*5),ok=3+Math.floor(r()*4),k=`${y}|${s}|${c}`,p2=S.c[k]||(S.c[k]={u:1,done:{},ok:0,n:0,tw:{}});
+        p2.ok+=ok;p2.n+=6;(p2.tw[t]=p2.tw[t]||{ok:0,n:0}).ok+=ok;p2.tw[t].n+=6;(S.tw[t]=S.tw[t]||{ok:0,n:0}).ok+=ok;S.tw[t].n+=6;logDay(t,k,ok,6,Date.now()-ago*864e5)});
+      try{localStorage.setItem('qdSets',JSON.stringify(S))}catch(_){}}
     const save=()=>{try{localStorage.setItem('qdSets',JSON.stringify(S))}catch(_){}};
     const key=(s=lob.subj,c=lob.ch)=>`${lob.year}|${s}|${c}`;
     const ch=(s,c)=>S.c[key(s,c)]||{u:1,done:{},ok:0,n:0,tw:{}};
@@ -4926,10 +5004,21 @@ input,textarea{-webkit-user-select:text;user-select:text}
 
     // ---- tracking ----
     function record(ok,set,tw){const k=key(),p=S.c[k]||(S.c[k]={u:1,done:{},ok:0,n:0,tw:{}}),t=tw||'base';
-      p.ok+=ok;p.n+=6;(p.tw[t]=p.tw[t]||{ok:0,n:0}).ok+=ok;p.tw[t].n+=6;(S.tw[t]=S.tw[t]||{ok:0,n:0}).ok+=ok;S.tw[t].n+=6;
+      p.ok+=ok;p.n+=6;(p.tw[t]=p.tw[t]||{ok:0,n:0}).ok+=ok;p.tw[t].n+=6;(S.tw[t]=S.tw[t]||{ok:0,n:0}).ok+=ok;S.tw[t].n+=6;logDay(t,k,ok,6);
       p.done[set]=Math.max(p.done[set]||0,ok);let unlocked=false;if(set>=p.u&&p.u<NSETS){p.u=set+1;unlocked=true}
       save();paintRow();return{p,unlocked}}
     const strength=t=>pct(S.tw[t]);
+    const last7=()=>{const out=[];for(let i=0;i<7;i++)out.push(dkey(Date.now()-i*864e5));return out};
+    // questions of a complexity type attempted in the last 7 days (any subject/year)
+    function week(t){let n=0;last7().forEach(d=>{const T=(S.days[d]||{})[t];if(T)Object.values(T).forEach(v=>n+=v[1])});return n}
+    // accuracy + question count per type -> subject -> chapter, for this year
+    function agg(period){const out={};TWK.forEach(t=>out[t]={ok:0,n:0,s:{}});
+      const add=(t,k,ok,n)=>{const[y,s,c]=k.split('|');if(y!==String(lob.year)||!out[t])return;const T=out[t];T.ok+=ok;T.n+=n;const A=T.s[s]||(T.s[s]={ok:0,n:0,c:{}});A.ok+=ok;A.n+=n;const B=A.c[c]||(A.c[c]={ok:0,n:0});B.ok+=ok;B.n+=n};
+      if(period==='all')Object.entries(S.c).forEach(([k,p2])=>Object.entries(p2.tw||{}).forEach(([t,o])=>add(t,k,o.ok,o.n)));
+      else last7().forEach(d=>Object.entries(S.days[d]||{}).forEach(([t,T])=>Object.entries(T).forEach(([k,v])=>add(t,k,v[0],v[1]))));
+      return out}
+    const NEED=10;
+    const combo=pair=>{const st=pair.map(t=>({t,n:Math.min(NEED,week(t))}));return{st,ok:st.every(x=>x.n>=NEED)}};
     function overall(){const tried=TWK.filter(t=>S.tw[t]&&S.tw[t].n);if(!tried.length)return null;return Math.round(tried.reduce((a,t)=>a+pct(S.tw[t]),0)/tried.length)}
     const ico=(t,cls='')=>`<svg class="${cls}" viewBox="0 0 24 24">${TW[t].i}</svg>`;
     const lockI='<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',ckI='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
@@ -4967,7 +5056,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
     const chapNote=(s,c)=>{const p=ch(s,c),tws=TWK.map(t=>p.tw[t]).filter(o=>o&&o.n),t=tws.length?Math.round(tws.reduce((a,o)=>a+o.ok,0)/tws.reduce((a,o)=>a+o.n,0)*100):null;
       return`<span class="setc">Set ${Math.min(p.u,NSETS)}/${NSETS}</span>${t!=null?`<span class="twc">Twist ${t}%</span>`:''}`};
 
-    return{NSETS,TW,cur,make,onField,paintRow,openPick,closePick,resultPanel,hidePanel,statsCard,chapNote,
+    return{NSETS,TW,TWK,NEED,week,agg,combo,ico,cur,make,onField,paintRow,openPick,closePick,resultPanel,hidePanel,statsCard,chapNote,
       pickSet(n){const p=ch(lob.subj,lob.ch);if(n>p.u){toast(`Finish Set ${n-1} to unlock Set ${n}`);return false}lob.set=n;paintRow();return true},
       pickTw(t){lob.tw=t||null;paintRow()}};
   })();
@@ -5079,6 +5168,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
         <span class="sw"><b>${s.name}</b><div class="bar5" style="--dl:${(.25+k*.06).toFixed(2)}s"><i style="--p:${x.acc}%"></i></div><span class="sm">${x.spd}s avg · ${x.qs} Qs · ${CHAPTERS[k].length} chapters</span></span>
         <span class="sv"><b>${x.acc}%</b><span>${lv}</span></span><span class="sgo"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></button>`}).join('');
     $('#slCount').textContent=`${SUBJ.length} subjects`;
+    if(ST.view==='cx')renderCxList();
     const days=['M','T','W','T','F','S','S'],td=(new Date().getDay()+6)%7,r=rng(ST.period==='all'?9:3),vals=days.map((_,i)=>i>td?0:Math.round(4+r()*26)),mx=Math.max(...vals,1),tot=vals.reduce((a,b)=>a+b,0);
     $('#wk').innerHTML=`<div class="wh"><b>Questions this week</b><span><em>${tot}</em> answered</span></div><div class="wbars">${days.map((d,i)=>`<div class="wb${vals[i]?' on':''}${i===td?' today':''}"><span class="bx"><i style="--h:${Math.max(6,vals[i]/mx*100)}%;--d:${(.35+i*.05).toFixed(2)}s"></i></span><small>${d}</small></div>`).join('')}</div>`;
     if(anim){replay($('#sgrid'),'anim');replay($('#wk'),'anim')}
@@ -5086,7 +5176,38 @@ input,textarea{-webkit-user-select:text;user-select:text}
   const stK=$('#stK'),stBtns=[...document.querySelectorAll('#stSeg button')];
   function moveStK(){const b=document.querySelector('#stSeg button.on');stK.style.width=b.offsetWidth+'px';stK.style.transform=`translateX(${b.offsetLeft}px)`}
   stBtns.forEach(b=>b.addEventListener('click',()=>{if(b.classList.contains('on'))return;buzz();stBtns.forEach(x=>x.classList.toggle('on',x===b));ST.period=b.dataset.p;moveStK();renderStats(true)}));
-  $('#sgrid').addEventListener('click',e=>{const c=e.target.closest('.sr');if(!c)return;buzz();ST.subj=+c.dataset.k;nav('chap')});
+  $('#sgrid').addEventListener('click',e=>{const c=e.target.closest('.sr');if(!c)return;buzz();if(c.dataset.tw){ST.cx=c.dataset.tw;ST.cxS=null;nav('cx');return}ST.subj=+c.dataset.k;nav('chap')});
+  /* ---- complexity stats: type -> subjects -> chapters ---- */
+  const CXC={long:{sc:'#dff1ff',sd:'#4fb3f5',ed:'#bfe3ff'},close:{sc:'#fff0d6',sd:'#ffae2e',ed:'#f3d68a'},multi:{sc:'#ece9ff',sd:'#8f7cff',ed:'#d5ceff'},noise:{sc:'#ffe4df',sd:'#ff6b5a',ed:'#ffc9bf'}};
+  const pc2=o=>o&&o.n?Math.round(o.ok/o.n*100):null;
+  $('#stab').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.classList.contains('on'))return;buzz();ST.view=b.dataset.v;$$s('#stab button').forEach(x=>x.classList.toggle('on',x===b));renderStats(true)});
+  const $$s=s=>[...document.querySelectorAll(s)];
+  function renderCxList(){const A=SETS.agg(ST.period),TW=SETS.TW;
+    $('#sgrid').innerHTML=SETS.TWK.map((t,k)=>{const o=A[t],a=pc2(o),[lv]=lvl(a),c=CXC[t],w=SETS.week(t);
+      return`<button class="sr" data-tw="${t}" style="--sc:${c.sc};--sd:${c.sd};--ed:${c.ed};--d:${(.1+k*.06).toFixed(2)}s"><span class="si2">${SETS.ico(t)}</span>
+        <span class="sw"><b>${TW[t].n}</b><div class="bar5" style="--dl:${(.25+k*.06).toFixed(2)}s"><i style="--p:${a||0}%"></i></div><span class="sm">${o.n} Qs<span class="wk7${w>=SETS.NEED?' ok':''}" title="Questions in the last 7 days (prize unlocks need ${SETS.NEED})">🔓 ${Math.min(w,SETS.NEED)}/${SETS.NEED} this week</span></span></span>
+        <span class="sv"><b>${a==null?'—':a+'%'}</b><span>${lv}</span></span><span class="sgo"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></button>`}).join('');
+    $('#slCount').textContent='4 twist types';replay($('#sgrid'),'anim')}
+  function renderCx(){const t=ST.cx||'long',A=SETS.agg(ST.period)[t],TW=SETS.TW,c=CXC[t],s=ST.cxS,sc=$('#s-cx');
+    sc.style.setProperty('--sc',c.sc);sc.style.setProperty('--sd',c.sd);sc.style.setProperty('--ed',c.ed);
+    $('#cxT').textContent=TW[t].n.toUpperCase();$('#cxS').textContent=s==null?TW[t].d.toUpperCase():SUBJ[s].name.toUpperCase();
+    $$s('#cxSeg button').forEach(b=>b.classList.toggle('on',b.dataset.p===ST.period));
+    const node=s==null?A:(A.s[s]||{ok:0,n:0,c:{}}),w=SETS.week(t);
+    $('#cxHero').innerHTML=`<span class="ci">${s==null?SETS.ico(t):`<svg viewBox="0 0 24 24">${SUBJ[s].ico}</svg>`}</span><span class="cs"><span><small>ACCURACY</small><b>${pc2(node)==null?'—':pc2(node)+'%'}</b></span><span><small>QUESTIONS</small><b>${node.n}</b></span><span><small>7-DAY</small><b>${Math.min(w,SETS.NEED)}/${SETS.NEED}</b></span></span>`;
+    const L=$('#cxList');
+    if(s==null){const rows=SUBJ.slice(0,4).map((x,i)=>({i,x,o:A.s[i]||{ok:0,n:0}}));
+      L.innerHTML=`<div class="cx-crumb">${TW[t].n.toUpperCase()} · SUBJECTS · ${ST.period==='week'?'THIS WEEK':'ALL TIME'}</div>`+(A.n?rows.map((r,j)=>{const a=pc2(r.o),[lv,cl]=lvl(r.o.n?a:null),cc=SCOL[r.i];
+        return`<button class="sr ${cl}" data-s="${r.i}" style="--sc:${cc.sc};--sd:${cc.sd};--ed:${cc.ed};--d:${(.05+j*.05).toFixed(2)}s"><span class="si2"><svg viewBox="0 0 24 24">${r.x.ico}</svg></span><span class="sw"><b>${r.x.name}</b><div class="bar5"><i style="--p:${a||0}%"></i></div><span class="sm">${r.o.n} questions</span></span><span class="sv"><b>${r.o.n?a+'%':'—'}</b><span>${r.o.n?lv:'NOT TRIED'}</span></span><span class="sgo"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></button>`}).join('')
+        :`<div class="cx-empty"><b>No ${TW[t].n} questions ${ST.period==='week'?'this week':'yet'}</b>Play a challenge with the ${TW[t].n} twist to see your accuracy here.<br><button data-play="${t}">PLAY ${TW[t].n.toUpperCase()}</button></div>`)}
+    else{const chs=CHAPTERS[s]||[];L.innerHTML=`<div class="cx-crumb"><button data-up>${TW[t].n.toUpperCase()}</button> › ${SUBJ[s].name.toUpperCase()} · CHAPTERS</div>`+chs.map((n,i)=>{const o=(node.c||{})[i]||{ok:0,n:0},a=o.n?pc2(o):null,[lv,cl]=lvl(a);
+        return`<div class="cr ${cl}" style="--d:${(.05+i*.04).toFixed(2)}s"><span class="cn2">${i+1}</span><span class="cw"><b>${esc(n)}</b><div class="bar5"><i style="--p:${a||0}%"></i></div><span class="cm"><span>${o.n} questions</span></span></span><span class="cv"><b>${a==null?'—':a+'%'}</b><span>${lv}</span></span><button class="cgo" data-play="${t}" data-ch="${i}" aria-label="Practise ${esc(n)} with ${TW[t].n}"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="#c6f432" stroke="none"/></svg></button></div>`}).join('')}
+    replay(L,'anim');L.scrollTop=0}
+  $('#cxList').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;buzz();
+    if(b.dataset.up!=null){ST.cxS=null;renderCx();return}
+    if(b.dataset.play){lob.tw=b.dataset.play;if(ST.cxS!=null){lob.subj=ST.cxS;lob.ch=+(b.dataset.ch||0)}renderFields();SETS.paintRow();nav('types');return}
+    if(b.dataset.s!=null){ST.cxS=+b.dataset.s;renderCx()}});
+  $('#cxSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;buzz();ST.period=b.dataset.p;renderCx()});
+  $('#cxBack').addEventListener('click',()=>{buzz();if(ST.cxS!=null){ST.cxS=null;renderCx()}else nav('stats')});
   let ovI=0;
   function ovGo(i){ovI=Math.max(0,Math.min(2,i));if(ovI===2){SETS.statsCard();replay($('#tws'),'anim')}$('#ovt').style.transform=`translateX(${-ovI*100}%)`;document.querySelectorAll('#ovd button').forEach((d,k)=>d.classList.toggle('on',k===ovI));if(ovI===1)replay($('#wk'),'anim')}
   document.querySelectorAll('#ovd button').forEach((d,k)=>d.addEventListener('click',()=>{buzz();ovGo(k)}));
