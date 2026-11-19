@@ -3628,6 +3628,56 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .cx-empty b{display:block;color:#1b1c19;font-size:14.5px;margin-bottom:2px}
 .cx-empty button{margin-top:10px;height:36px;padding:0 14px;border-radius:12px 4px 12px 4px;background:#1b1c19;color:var(--lime);font-size:12px;font-weight:800}
 
+/* ---- Puzzle Quest: week strip + intensive days (Wed/Fri) ---- */
+.pq-week{position:absolute;left:12px;right:12px;top:62px;height:60px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;z-index:3}
+.pq-hl{position:absolute;top:0;bottom:0;left:0;width:calc((100% - 30px)/7);border-radius:16px 5px 16px 5px;background:var(--ink);box-shadow:0 4px 0 #000,0 0 18px #c6f43255;transition:transform .9s cubic-bezier(.3,1.35,.5,1);z-index:0}
+.pq-day{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:16px 5px 16px 5px;background:#ffffffc0;box-shadow:0 3px 0 #dde7c6;color:var(--ink);transition:background .3s,color .3s}
+.pq-day small{font-size:9px;font-weight:800;letter-spacing:1px;color:#5d6650}
+.pq-day b{font-family:var(--f-display);font-weight:400;font-size:19px;line-height:1;transform:skewX(-8deg)}
+.pq-day em{font-style:normal;font-size:8.5px;font-weight:800;letter-spacing:.3px;color:#8a9478;white-space:nowrap}
+.pq-day em.done{color:#3f6c05}
+.pq-day.past{opacity:.75}
+.pq-day.int{background:linear-gradient(180deg,#fff3e0,#ffe2c4);box-shadow:0 3px 0 #ffb36b}
+.pq-day.int small{color:#c25a06}
+.pq-day.int::before{content:"⚡";position:absolute;top:-8px;right:-3px;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#ffb420,#ff6a1e);display:grid;place-items:center;font-size:10px;box-shadow:0 2px 0 #a33c08}
+.pq-day.today{background:transparent;box-shadow:none;color:#fff}
+.pq-day.today small{color:var(--lime)}.pq-day.today em{color:#ffffffb3}
+.pq-week.go .pq-day.today{animation:pqToday .5s cubic-bezier(.3,1.7,.5,1) .85s both}
+@keyframes pqToday{0%{transform:scale(.8)}60%{transform:scale(1.12)}100%{transform:none}}
+.pq-day .tp{position:absolute;bottom:-9px;padding:1px 6px;border-radius:999px;background:var(--lime);color:#1b1c19;font-size:7.5px;font-weight:900;letter-spacing:.8px;box-shadow:0 2px 0 #6f9a0b}
+.pq-week.go .pq-day{animation:up .45s cubic-bezier(.2,1.2,.4,1) both;animation-delay:calc(var(--i)*45ms)}
+/* shift the rest down for the strip */
+.pq-poolc{top:132px;height:96px}
+.pq-jar{width:80px;height:88px}
+.pq-pl .lv{font-size:26px}
+.pq-tiers{top:236px}
+.pq-stage{top:294px;height:256px}
+.pq-ms{top:554px}
+@media (max-height:760px){.pq-poolc{top:128px;height:86px}.pq-jar{width:70px;height:78px}.pq-tiers{top:222px}.pq-stage{top:276px;height:244px}.pq-ms{top:524px}}
+/* intensive day theme */
+.pq-msh b{white-space:nowrap}.pq-msh>span:last-child{white-space:nowrap}
+#s-pq.intense .pq-msh>span:last-child{margin-left:6px}#s-pq.intense .pq-int{margin-left:auto}
+#s-pq.intense .pq-bg{background:linear-gradient(180deg,#fff1dc 0%,#ffe6cc 45%,#fff6ea 100%)}
+#s-pq.intense .pq-bg .rays{background:repeating-conic-gradient(from 0deg,#ffffffd0 0 6deg,transparent 6deg 18deg)}
+#s-pq.intense .pq-bg::after{content:"";position:absolute;inset:-40%;background:repeating-linear-gradient(118deg,transparent 0 46px,#ff8a1e14 46px 60px);animation:lines 1.2s linear infinite}
+#s-pq.intense .ahdr .tt h2 span{background:linear-gradient(135deg,#ffb420,#ff6a1e);color:#fff;box-shadow:3px 3px 0 #1b1c19}
+#s-pq.intense .pq-hl{background:linear-gradient(135deg,#ff9d1e,#ff5a2e);box-shadow:0 4px 0 #a33c08,0 0 22px #ff8a1e88}
+#s-pq.intense .pq-day.today small{color:#fff}
+#s-pq.intense .pq-day.today .tp{background:#fff;color:#c25a06;box-shadow:0 2px 0 #a33c08}
+#s-pq.intense .pq-poolc{background:radial-gradient(120% 140% at 0% 100%,#7a3a0c 0%,#3a2210 40%,var(--char) 75%);box-shadow:0 0 0 2px #ff8a1e,0 22px 34px -20px #a33c08aa}
+#s-pq.intense .pq-poolc .pq-pl small{color:#ffb36b}
+#s-pq.intense .pq-ms{box-shadow:0 5px 0 #ffb36b,0 0 0 2px #ff9d1e}
+.pq-int{display:none}
+#s-pq.intense .pq-int{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 9px;border-radius:999px;background:linear-gradient(135deg,#ffb420,#ff6a1e);color:#fff;font-size:9.5px;font-weight:900;letter-spacing:.8px;box-shadow:0 2px 0 #a33c08;animation:hotp 1.4s ease-in-out infinite}
+#s-pq.intense .pq-m.ready{border-color:#ff9d1e;box-shadow:0 0 0 2px #ffb36b88}
+.pq-splash{position:absolute;inset:0;z-index:9;display:grid;place-items:center;pointer-events:none;opacity:0;background:radial-gradient(closest-side,#ffffffd9,#ffffff00)}
+.pq-splash.go{animation:pqSplash 2.1s ease both}
+@keyframes pqSplash{0%{opacity:0}12%,75%{opacity:1}100%{opacity:0}}
+.pq-splash div{text-align:center;transform:rotate(-6deg)}
+.pq-splash b{display:block;padding:6px 16px;font-family:var(--f-display);font-weight:400;font-size:44px;line-height:1;color:#fff;background:linear-gradient(135deg,#ffb420,#ff5a2e);box-shadow:6px 6px 0 #1b1c19,0 0 50px #ff8a1e}
+.pq-splash.go b{animation:slam .6s cubic-bezier(.2,1.2,.4,1) .1s both}
+.pq-splash small{display:inline-block;margin-top:10px;padding:5px 12px;border-radius:999px;background:#1b1c19;color:#fff;font-size:12px;font-weight:800;letter-spacing:1px}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -3899,11 +3949,13 @@ input,textarea{-webkit-user-select:text;user-select:text}
       <div class="tt"><h2>PUZZLE <span>QUEST</span></h2></div>
       <button class="gbtn" id="pqInfo" aria-label="How Puzzle Quest works"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/></svg></button>
     </div>
+    <div class="pq-week" id="pqWeek" aria-label="This week"></div>
+    <div class="pq-splash" id="pqSplash" aria-hidden="true"></div>
     <div class="pq-poolc in2" id="pqPool" style="--d:.04s" role="status" aria-live="polite"></div>
     <div class="pq-tiers in2" id="pqTiers" style="--d:.05s"></div>
     <div class="pq-stage" id="pqStage"><div class="pq-track" id="pqTrack"></div></div>
     <div class="pq-stock in2" id="pqStock" style="--d:.12s"></div>
-    <div class="pq-ms in2" style="--d:.18s"><div class="pq-msh"><b>TODAY'S MISSIONS</b><span>NEW IN <b class="resetT">--:--:--</b></span></div><div class="pq-list" id="pqList"></div></div>
+    <div class="pq-ms in2" style="--d:.18s"><div class="pq-msh"><b id="pqMsT">TODAY'S MISSIONS</b><span class="pq-int">⚡ INTENSIVE</span><span>NEW IN <b class="resetT">--:--:--</b></span></div><div class="pq-list" id="pqList"></div></div>
   </section>
 
   <!-- ===== QUIZ ===== -->
@@ -6293,11 +6345,18 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
       ch:{t:n=>`Complete ${n} challenge${n>1?'s':''}`,ic:'<path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z"/>',go:'lobby'},
       win:{t:n=>`Beat ${n} challenge${n>1?'s':''}`,ic:'<path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4c0 3 1.5 4.5 3.5 5M17 6h3c0 3-1.5 4.5-3.5 5M12 14v4M8 21h8"/>',go:'lobby'},
       quiz:{t:()=>'Play a Prize Quiz round',ic:'<path d="M12 20.5s-8.5-4.8-8.5-11A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8.5 2.5c0 6.2-8.5 11-8.5 11z"/>',go:'quiz'}};
-    function missionsFor(d){const r=rng(hash2('m'+d));return[{type:'q',goal:r()<.5?20:30},r()<.6?{type:'ch',goal:r()<.5?2:3}:{type:'win',goal:r()<.6?1:2},{type:'quiz',goal:1}].map((m,i)=>({...m,id:i,prog:0,got:null}))}
+    const FORCE=/[?&]intense\b/.test(location.search);
+    const toDate=d=>{const[y,m,dd]=d.split('-').map(Number);return new Date(y,m-1,dd)};
+    const isInt=d=>{const x=d instanceof Date?d:toDate(d);return x.getDay()===3||x.getDay()===5||(FORCE&&x.toDateString()===new Date().toDateString())};
+    function missionsFor(d){const r=rng(hash2('m'+d)),base=[{type:'q',goal:r()<.5?20:30},r()<.6?{type:'ch',goal:r()<.5?2:3}:{type:'win',goal:r()<.6?1:2},{type:'quiz',goal:1}];
+      const extra=isInt(d)?[{type:'q',goal:50},{type:'win',goal:2},{type:'ch',goal:5}]:[];return[...base,...extra].map((m,i)=>({...m,id:i,prog:0,got:null}))}
     let S;try{S=JSON.parse(localStorage.getItem('qdPuzzle')||'null')}catch(_){S=null}
     if(!S||!S.tiers){S={day:day(),ms:[{id:0,type:'q',goal:20,prog:20,got:null},{id:1,type:'ch',goal:3,prog:1,got:null},{id:2,type:'quiz',goal:1,prog:0,got:null}],   // demo: one mission ready to collect
       tiers:{gold:{have:[0,2,3,5,6,9,10],prize:0},silver:{have:[0,1,4,6,8],prize:0},bronze:{have:[0,1,2,4,5],prize:0}},claims:[],sel:0}}
     if(S.day!==day()){S.day=day();S.ms=missionsFor(S.day);S.draws=0}
+    if(isInt(S.day)&&S.ms.length<6){const ex=missionsFor(S.day).slice(S.ms.length);ex.forEach((m,k)=>S.ms.push({...m,id:S.ms.length}))}
+    if(!S.hist){S.hist={};const mon=new Date();mon.setHours(0,0,0,0);mon.setDate(mon.getDate()-((mon.getDay()+6)%7));const rr=rng(hash2('hist'+mon.toDateString()));
+      for(let k=0;k<7;k++){const d=new Date(mon.getTime()+k*864e5);if(d>=new Date(new Date().toDateString()))break;const of=isInt(d)?6:3;S.hist[d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()]={drawn:Math.max(1,of-Math.floor(rr()*3)),of}}}
     const save=()=>{try{localStorage.setItem('qdPuzzle',JSON.stringify(S))}catch(_){}};
     save();
     // claimed prizes show up in My prizes
@@ -6351,7 +6410,12 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
     function paint(force){const nReady=S.ms.filter(m=>m.prog>=m.goal&&!m.got).length,tab=$('#pqTab');
       if(tab){tab.querySelector('b').textContent=nReady;tab.querySelector('b').hidden=!nReady;tab.classList.toggle('ready',nReady>0)}
       if(curScreen!=='pq'&&!force)return;
-      el.className=el.className.replace(/\bt-\w+/g,'').trim()+' t-'+TIERS[sel].k;
+      el.className=el.className.replace(/\bt-\w+/g,'').trim()+' t-'+TIERS[sel].k;el.classList.toggle('intense',isInt(S.day));
+      {const now=new Date(),mon=new Date(now);mon.setHours(0,0,0,0);mon.setDate(mon.getDate()-((now.getDay()+6)%7));const ti=(now.getDay()+6)%7,wk=$('#pqWeek');
+        wk.innerHTML=`<span class="pq-hl" style="transform:translateX(calc(${wk.dataset.anim==='1'?0:ti} * (100% + 5px)))"></span>`+['MON','TUE','WED','THU','FRI','SAT','SUN'].map((l,k)=>{const d=new Date(mon.getTime()+k*864e5),key=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(),h=(S.hist||{})[key],it=isInt(d),past=k<ti,td=k===ti;
+          const st=td?`${S.ms.filter(m=>m.got).length}/${S.ms.length} 🧩`:past?(h?`${h.drawn}/${h.of} 🧩`:'—'):it?'6 🧩':'3 🧩';
+          return`<div class="pq-day${it?' int':''}${td?' today':''}${past?' past':''}" style="--i:${k}" aria-label="${l}${it?', intensive day, 6 missions':''}${td?', today':''}"><small>${l}</small><b>${d.getDate()}</b><em class="${past&&h&&h.drawn>=h.of?'done':''}">${st}</em>${td?'<span class="tp">TODAY</span>':''}</div>`}).join('');
+        $('#pqMsT').textContent=isInt(S.day)?'6 MISSIONS TODAY':"TODAY'S MISSIONS"}
       $('#pqTiers').innerHTML=TIERS.map((t,i)=>{const n=S.tiers[t.k].have.length,C2=2*Math.PI*16;return`<button class="pq-ti t-${t.k}${i===sel?' on':''}${n>=t.n?' full':''}" data-t="${i}" aria-pressed="${i===sel}"><span class="pq-md"><svg viewBox="0 0 38 38"><circle cx="19" cy="19" r="16" fill="none" stroke="#ffffff1a" stroke-width="3.5"/><circle cx="19" cy="19" r="16" fill="none" stroke="var(--mg)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="${C2}" stroke-dashoffset="${C2*(1-n/t.n)}"/></svg><i></i></span><span><b>${t.name}</b><small>${n}<em>/${t.n}</em></small></span></button>`}).join('');
       $('#pqTrack').innerHTML=TIERS.map(t=>{const n=S.tiers[t.k].have.length,p=prizeOf(t),full=n>=t.n;return`<div class="pq-slide t-${t.k}${full?' full':''}"><div class="pq-frame"><i class="pq-bolt"></i><i class="pq-bolt"></i><i class="pq-bolt"></i><i class="pq-bolt"></i><div class="pq-board" data-k="${t.k}">${boardSVG(t)}<div class="pq-done"><span>COMPLETE!</span></div></div></div>
         <div class="pq-meta"><button class="pq-pz" data-pool="${t.k}" style="--pbg:${p[3]}"><span class="pq-a">${PA[p[0]]||''}</span><span><small>YOUR ${t.name} PRIZE</small><b>${p[1]}</b></span><em>Change</em></button>${full?`<button class="pq-claim" data-claim="${t.k}">CLAIM</button>`:''}</div></div>`}).join('');
@@ -6383,7 +6447,7 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
     const rv=$('#pqRv');let cur=null;
     function roll(){const r=Math.random();let acc=0,t=TIERS[2];for(const x of [TIERS[0],TIERS[1],TIERS[2]]){acc+=x.w;if(r<acc){t=x;break}}return{tier:t.k,i:Math.floor(Math.random()*t.n)}}
     function collect(id){const m=S.ms.find(x=>x.id===id);if(!m||m.got||m.prog<m.goal)return;if(!pool().lv){toast('Today\'s pool is empty · it refills at midnight');return}
-      S.draws=(S.draws||0)+1;const g=roll(),T=S.tiers[g.tier];g.dup=T.have.includes(g.i);m.got=g;if(!g.dup)T.have.push(g.i);save();cur=g;
+      S.draws=(S.draws||0)+1;S.hist=S.hist||{};S.hist[S.day]={drawn:S.ms.filter(x=>x.got).length+1,of:S.ms.length};const g=roll(),T=S.tiers[g.tier];g.dup=T.have.includes(g.i);m.got=g;if(!g.dup)T.have.push(g.i);save();cur=g;
       const t=TK[g.tier];rv.className='pq-rv t-'+g.tier+(g.dup?' dup':'');
       rv.innerHTML=`<span class="pq-swirl"></span><span class="pq-burst"></span><span class="pq-sp">${Array.from({length:22},()=>`<i style="left:${(Math.random()*100).toFixed(1)}%;top:${(20+Math.random()*60).toFixed(1)}%;--t:${(1.6+Math.random()*2).toFixed(2)}s;--dl:${(Math.random()*2).toFixed(2)}s"></i>`).join('')}</span>
         <span class="pq-k">MISSION COMPLETE</span><div class="pq-h" id="pqRvH"><span>DRAWN</span> FROM THE POOL</div><span class="pq-rvjar">${jarSVG(pool().r)}</span>
@@ -6450,7 +6514,14 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
       S.ms.forEach(m=>{if(m.got||m.prog>=m.goal)return;const hit=(m.type==='q'&&type==='q')||(m.type==='ch'&&type==='ch')||(m.type==='win'&&type==='ch'&&win)||(m.type==='quiz'&&type==='quiz');
         if(hit){m.prog++;if(m.prog>=m.goal)done++}});
       save();paint();if(done)setTimeout(()=>toast('🧩 Mission complete! Collect your puzzle piece'),type==='q'?0:1600)}
-    return{open(){sel=S.sel||0;paint(true);if(fx)setTimeout(placeFx,500)},track,paint,TIERS};
+    function intro(){const wk=$('#pqWeek'),now=new Date(),ti=(now.getDay()+6)%7,names=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+      wk.dataset.anim='1';paint(true);wk.dataset.anim='';wk.classList.remove('go');void wk.offsetWidth;wk.classList.add('go');
+      const hl=wk.querySelector('.pq-hl');requestAnimationFrame(()=>requestAnimationFrame(()=>{hl.style.transform=`translateX(calc(${ti} * (100% + 5px)))`}));
+      setTimeout(()=>SFX.play('tick'),300);setTimeout(()=>SFX.play('pop'),950);
+      if(isInt(S.day)&&S.splash!==S.day){S.splash=S.day;save();const sp=$('#pqSplash');sp.innerHTML='<div><b>⚡ INTENSIVE DAY ⚡</b><small>6 MISSIONS · 6 PIECES TO WIN</small></div>';setTimeout(()=>{sp.classList.remove('go');void sp.offsetWidth;sp.classList.add('go');SFX.play('win')},1000)}
+      else setTimeout(()=>toast(isInt(S.day)?`⚡ ${names[ti]} is an intensive day · 6 missions`:`${names[ti]} · ${S.ms.length} missions today${[3,5].includes(now.getDay())?'':' · next intensive day: '+(now.getDay()<3?'Wednesday':now.getDay()<5?'Friday':'Wednesday')}`),1100)}
+    $('#pqWeek').addEventListener('click',e=>{const d=e.target.closest('.pq-day');if(!d)return;buzz();toast(d.getAttribute('aria-label').replace(', today',' (today)'))});
+    return{open(){sel=S.sel||0;intro();if(fx)setTimeout(placeFx,500)},track,paint,TIERS};
   })();
   window.PQ=PQ;
   { const tab=document.createElement('button');tab.className='pq-tab in';tab.id='pqTab';tab.style.cssText='--a:slideL .45s ease;--d:.95s';tab.setAttribute('aria-label','Puzzle Quest');
