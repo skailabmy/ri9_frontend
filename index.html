@@ -3500,6 +3500,93 @@ input,textarea{-webkit-user-select:text;user-select:text}
 @media (max-height:760px){.pq-stage{height:286px}.pq-stock{top:418px}.pq-ms{top:474px}}
 @keyframes pqStamp{0%{opacity:0;transform:translate(-50%,-50%) rotate(-14deg) scale(2.4)}60%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(.92)}100%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg)}}
 
+/* ---- Puzzle Quest v2: light page + one shared daily piece pool ---- */
+#s-pq{color:var(--ink)}
+#s-pq .pq-bg{background:linear-gradient(180deg,#eef4e2 0%,#f3f7ec 50%,#f7f9f3 100%)}
+#s-pq .pq-bg .rays{background:repeating-conic-gradient(from 0deg,#ffffffd0 0 6deg,transparent 6deg 18deg);top:520px;opacity:.9}
+#s-pq .pq-bg .dust{display:none}
+#s-pq .gbtn{background:#ffffffd9;border:1px solid #fff;box-shadow:0 6px 14px -8px #4a6d1266}
+#s-pq .gbtn svg{stroke:var(--ink)}
+#s-pq .ahdr .tt h2{color:var(--ink)}
+#s-pq .ahdr .tt h2 span{background:var(--lime);color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+/* pool card */
+.pq-poolc{position:absolute;left:12px;right:12px;top:64px;height:112px;display:flex;align-items:center;gap:12px;padding:0 14px 0 8px;border-radius:30px 8px 30px 8px;overflow:hidden;color:#fff;
+  background:radial-gradient(120% 140% at 0% 100%,#3d5a0e 0%,#26301a 40%,var(--char) 75%);box-shadow:0 22px 34px -20px #1e2a08aa,inset 0 1px 0 #ffffff1c}
+.pq-poolc::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(105deg,transparent 0 22px,#c6f43209 22px 24px);animation:speed 1.2s linear infinite;pointer-events:none}
+.pq-poolc>*{position:relative}
+.pq-jar{width:96px;height:104px;flex:none}
+.pq-jar svg{width:100%;height:100%;overflow:visible}
+.pq-jar .pc{animation:pqJig 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pqJig{0%,100%{transform:rotate(var(--r))}50%{transform:rotate(calc(var(--r) + 8deg)) translateY(-1px)}}
+.pq-poolc.low .pq-jar .pc{animation-duration:1.1s}
+.pq-pl{flex:1;min-width:0}
+.pq-pl small{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--lime)}
+.pq-pl small i{width:7px;height:7px;border-radius:50%;background:#ff4d3a;animation:live 1.4s ease-out infinite}
+.pq-pl .lv{display:block;margin-top:4px;font-family:var(--f-display);font-weight:400;font-size:30px;line-height:.95;letter-spacing:.3px;color:var(--pc);transform:skewX(-8deg);transform-origin:0 100%;text-shadow:0 0 18px color-mix(in srgb,var(--pc) 45%,transparent)}
+.pq-poolc.low .pq-pl .lv{animation:pqLow 1.2s ease-in-out infinite}
+@keyframes pqLow{50%{transform:skewX(-8deg) scale(1.04)}}
+.pq-seg{display:flex;gap:4px;margin-top:8px}
+.pq-seg i{flex:1;height:9px;border-radius:5px 2px 5px 2px;background:#ffffff1a;transform:skewX(-18deg)}
+.pq-seg i.on{background:var(--pc);box-shadow:0 0 10px var(--pc)}
+.pq-poolc.low .pq-seg i.on:last-of-type{animation:blink 1s steps(1) infinite}
+.pq-pl em{display:block;margin-top:6px;font-style:normal;font-size:10.5px;font-weight:600;color:#ffffff99;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pq-pl em b{color:#fff;font-variant-numeric:tabular-nums}
+/* tiers, board, meta on light */
+.pq-tiers{top:186px}
+.pq-ti{background:#ffffffd9;border-color:#fff;box-shadow:0 4px 0 #dde7c6}
+.pq-ti small{color:var(--ink)}.pq-ti small em{color:var(--muted-2,#8a9478)}
+.pq-ti b{color:var(--mt)}
+.pq-ti .pq-md svg circle:first-child{stroke:#1b1c1914}
+.pq-ti.on{background:linear-gradient(135deg,#fff,color-mix(in srgb,var(--m1) 70%,#fff));border-color:var(--m2);box-shadow:0 4px 0 var(--m2),0 0 0 2px var(--m2)}
+.pq-stage{top:246px;height:280px}
+.pq-frame{box-shadow:0 0 0 2px #00000014,0 22px 34px -20px #4a6d1288}
+.pq-pz{background:#fff;border-color:#fff;box-shadow:0 3px 0 #dde7c6;color:var(--ink)}
+.pq-pz small{color:var(--mt)}
+.pq-pz em{background:#1b1c19;color:#fff}
+.pq-stock{display:none!important}
+/* missions panel */
+.pq-ms{top:532px;background:#fff;border:0;box-shadow:0 5px 0 #dde7c6,0 20px 30px -22px #4a6d1288}
+.pq-msh b{color:var(--ink)}
+.pq-msh span{color:#5d6650}
+.pq-msh span b{font-family:var(--f-ui);font-size:11px;font-weight:800;transform:none;letter-spacing:.4px}
+.pq-m{background:#f6f9ee;border-color:#edf2e1}
+.pq-m .pq-mi{background:#fff;box-shadow:0 2px 0 #dfe8c9}
+.pq-m .pq-mi svg{stroke:var(--ink)}
+.pq-m .pq-tx b{color:var(--ink)}
+.pq-m .pq-tx .pq-bar{background:#1b1c1912}
+.pq-m .pq-tx small{color:#5d6650}
+.pq-m .pq-act.pq-go2{background:#1b1c19;color:var(--lime);box-shadow:0 3px 0 #000}
+.pq-m .pq-act.pq-get[disabled]{background:#e8eade;color:#8a9478;box-shadow:none;animation:none}
+.pq-m.ready{border-color:#a7d81c;box-shadow:0 0 0 2px #c6f43266}
+.pq-m .pq-res{color:var(--mt);font-size:11px}
+.pq-m.got{opacity:1}
+.pq-m.got .pq-res i{box-shadow:0 0 0 1.5px var(--m3)}
+.pq-m.dup .pq-res{color:#8a9478}
+/* reveal on light */
+.pq-rv{color:var(--ink);background:radial-gradient(90% 55% at 50% 44%,#ffffff 0%,#f2fbd8 45%,#dff4a2 100%)}
+.pq-rv .pq-burst{background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--mg) 55%,transparent) 0 7deg,transparent 7deg 18deg)}
+.pq-rv:not(.flipped) .pq-burst{opacity:.6;background:repeating-conic-gradient(from 0deg,#ffffffd0 0 7deg,transparent 7deg 18deg)}
+.pq-rv .pq-swirl{opacity:.35}
+.pq-rv .pq-sp i{background:#fff;box-shadow:0 0 8px #c6f432}
+.pq-rv .pq-k{color:#3f6c05}
+.pq-rv .pq-h{color:var(--ink)}
+.pq-rv .pq-h span{box-shadow:4px 4px 0 var(--ink)}
+.pq-rv:not(.flipped) .pq-h span{background:var(--lime);color:var(--ink)}
+.pq-rv .pq-tap{color:#3f5a0a}
+.pq-rv .pq-res p{color:#3c4236}.pq-rv .pq-res p b{color:var(--ink)}
+.pq-rv .pq-acts .pq-dr{background:#1b1c19;border:0;color:#fff;box-shadow:0 5px 0 #000}
+.pq-rv .pq-card .pq-q{fill:#c6f432}
+/* draw from the pool: a small jar the piece pops out of */
+.pq-rvjar{position:relative;width:70px;height:76px;margin-top:16px;opacity:1;transition:opacity .4s,transform .4s}
+.pq-rvjar svg{width:100%;height:100%;overflow:visible}
+.pq-rv.flipped .pq-rvjar{opacity:0;transform:scale(.7)}
+.pq-rv .pq-card{margin-top:4px}
+.pq-rv.open:not(.claim):not(.flipped) .pq-card .pq-in{animation:pqPop .9s cubic-bezier(.3,1.5,.5,1) both,pqHover 3s ease-in-out .9s infinite}
+@keyframes pqPop{0%{transform:translateY(-120px) scale(.25) rotate(-30deg);opacity:0}60%{opacity:1}100%{transform:none}}
+.pq-rv.flipped .pq-card .pq-in{animation:pqHover 3s ease-in-out infinite}
+.pq-rv.claim .pq-rvjar{display:none}
+@media (max-height:760px){.pq-poolc{height:96px}.pq-jar{width:80px;height:88px}.pq-tiers{top:168px}.pq-stage{top:226px;height:262px}.pq-ms{top:494px}}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -3759,6 +3846,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
       <div class="tt"><h2>PUZZLE <span>QUEST</span></h2></div>
       <button class="gbtn" id="pqInfo" aria-label="How Puzzle Quest works"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/></svg></button>
     </div>
+    <div class="pq-poolc in2" id="pqPool" style="--d:.04s" role="status" aria-live="polite"></div>
     <div class="pq-tiers in2" id="pqTiers" style="--d:.05s"></div>
     <div class="pq-stage" id="pqStage"><div class="pq-track" id="pqTrack"></div></div>
     <div class="pq-stock in2" id="pqStock" style="--d:.12s"></div>
@@ -6071,9 +6159,9 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
   // A piece is a colour + a position; flip it to see which. Duplicates are dropped. Full puzzle = claim the picked prize, then it resets.
   const PQ=(()=>{
     const TIERS=[
-      {k:'gold',name:'GOLD',cols:4,rows:3,cell:72,w:.18,pool:[0,1,2,4].map(i=>PRIZES[1][i]),cap:30,burn:.85},
-      {k:'silver',name:'SILVER',cols:3,rows:3,cell:72,w:.32,pool:[0,1,2,3].map(i=>PRIZES[2][i]),cap:90,burn:.7},
-      {k:'bronze',name:'BRONZE',cols:3,rows:2,cell:88,w:.5,pool:[0,1,2,3].map(i=>PRIZES[3][i]),cap:240,burn:.55}];
+      {k:'gold',name:'GOLD',cols:4,rows:3,cell:64,w:.18,pool:[0,1,2,4].map(i=>PRIZES[1][i]),cap:30,burn:.85},
+      {k:'silver',name:'SILVER',cols:3,rows:3,cell:64,w:.32,pool:[0,1,2,3].map(i=>PRIZES[2][i]),cap:90,burn:.7},
+      {k:'bronze',name:'BRONZE',cols:3,rows:2,cell:78,w:.5,pool:[0,1,2,3].map(i=>PRIZES[3][i]),cap:240,burn:.55}];
     const TK=Object.fromEntries(TIERS.map(t=>[t.k,t]));
     TIERS.forEach(t=>{t.n=t.cols*t.rows;t.W=t.cols*t.cell;t.H=t.rows*t.cell;const r=rng(hash2(t.k));
       t.h=Array.from({length:t.rows-1},()=>Array.from({length:t.cols},()=>r()<.5?1:-1));t.v=Array.from({length:t.rows},()=>Array.from({length:t.cols-1},()=>r()<.5?1:-1))});
@@ -6088,7 +6176,7 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
     let S;try{S=JSON.parse(localStorage.getItem('qdPuzzle')||'null')}catch(_){S=null}
     if(!S||!S.tiers){S={day:day(),ms:[{id:0,type:'q',goal:20,prog:20,got:null},{id:1,type:'ch',goal:3,prog:1,got:null},{id:2,type:'quiz',goal:1,prog:0,got:null}],   // demo: one mission ready to collect
       tiers:{gold:{have:[0,2,3,5,6,9,10],prize:0},silver:{have:[0,1,4,6,8],prize:0},bronze:{have:[0,1,2,4,5],prize:0}},claims:[],sel:0}}
-    if(S.day!==day()){S.day=day();S.ms=missionsFor(S.day)}
+    if(S.day!==day()){S.day=day();S.ms=missionsFor(S.day);S.draws=0}
     const save=()=>{try{localStorage.setItem('qdPuzzle',JSON.stringify(S))}catch(_){}};
     save();
     // claimed prizes show up in My prizes
@@ -6099,6 +6187,18 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
       const used=Math.round(t.cap*(.12+t.burn*f)*j)+S.claims.filter(c=>c.tier===t.k&&c.day===S.day).length;const r=Math.max(0,(t.cap-used)/t.cap);
       return r<=0?{lv:0,txt:'Gone for today',c:'#8a9478'}:r<.12?{lv:1,txt:'Last few left!',c:'#ff6b5a',low:true}:r<.35?{lv:2,txt:'Almost gone',c:'#ff9d1e',low:true}:r<.6?{lv:3,txt:'Going fast',c:'#ffd25e'}:{lv:4,txt:'Plenty left',c:'#c6f432'}}
 
+    // ---- ONE shared daily piece pool (all colours). Hidden count -> only a level is shown ----
+    function pool(){const now=new Date(),f=(now.getHours()*60+now.getMinutes())/1440,j=.85+rng(hash2('pool'+S.day))()*.3,cap=5000;
+      const used=Math.round(cap*(.08+.82*f)*j)+(S.draws||0),r=Math.max(0,(cap-used)/cap);
+      return r<=0?{lv:0,r:0,txt:'POOL EMPTY',c:'#a3ab95'}:r<.12?{lv:1,r,txt:'ALMOST EMPTY',c:'#ff6b5a',low:true}:r<.3?{lv:2,r,txt:'RUNNING LOW',c:'#ff9d1e',low:true}:r<.55?{lv:3,r,txt:'GOING FAST',c:'#ffd25e'}:r<.8?{lv:4,r,txt:'PLENTY LEFT',c:'#c6f432'}:{lv:5,r,txt:'FULL TO THE BRIM',c:'#c6f432'}}
+    const MINI='M5 5h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4h-4a2 2 0 1 0-4 0H5v-4a2 2 0 1 0 0-4z';
+    function jarSVG(r){const cols=['#f2c94c','#c9d1d8','#d98a4e','#d98a4e','#c9d1d8','#d98a4e'],rr=rng(77),N=25,show=Math.max(r>0?2:0,Math.round(N*Math.min(1,r*1.1)));let pcs='';
+      for(let k=0;k<show;k++){const row=Math.floor(k/5),col=k%5,x=17+col*13+(row%2?5:0)+rr()*3,y=86-row*13-rr()*3,rot=Math.round(rr()*80-40);
+        pcs+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(.62)"><path class="pc" style="--r:${rot}deg;animation-delay:${(rr()*2).toFixed(2)}s" d="${MINI}" fill="${cols[k%cols.length]}" stroke="#1b1c19" stroke-width="1.4"/></g>`}
+      return`<svg viewBox="0 0 96 104"><defs><linearGradient id="pqjg" x1="0" x2="1"><stop offset="0" stop-color="#ffffff30"/><stop offset=".35" stop-color="#ffffff0c"/><stop offset="1" stop-color="#ffffff22"/></linearGradient></defs>
+        <rect x="26" y="4" width="44" height="12" rx="4" fill="#c6f432" stroke="#1b1c19" stroke-width="2"/><rect x="30" y="14" width="36" height="6" fill="#ffffff22"/>
+        <path d="M24 20h48a6 6 0 0 1 6 6v4c6 4 10 10 10 20v40a12 12 0 0 1-12 12H20A12 12 0 0 1 8 90V50c0-10 4-16 10-20v-4a6 6 0 0 1 6-6z" fill="url(#pqjg)" stroke="#ffffff66" stroke-width="2.5"/>
+        <g>${pcs}</g><path d="M16 46c0-6 2-9 5-12" stroke="#ffffffa0" stroke-width="3" stroke-linecap="round" fill="none"/></svg>`}
     // ---- jigsaw geometry ----
     function edge(P,Q,b,A){const pt=(u,v)=>`${(P[0]+(Q[0]-P[0])*u+b[0]*v).toFixed(1)} ${(P[1]+(Q[1]-P[1])*u+b[1]*v).toFixed(1)}`;
       if(!A)return`L${pt(1,0)}`;return`L${pt(.36,0)}C${pt(.42,0)} ${pt(.3,A)} ${pt(.5,A)}C${pt(.7,A)} ${pt(.58,0)} ${pt(.64,0)}L${pt(1,0)}`}
@@ -6135,11 +6235,11 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
       $('#pqTrack').innerHTML=TIERS.map(t=>{const n=S.tiers[t.k].have.length,p=prizeOf(t),full=n>=t.n;return`<div class="pq-slide t-${t.k}${full?' full':''}"><div class="pq-frame"><i class="pq-bolt"></i><i class="pq-bolt"></i><i class="pq-bolt"></i><i class="pq-bolt"></i><div class="pq-board" data-k="${t.k}">${boardSVG(t)}<div class="pq-done"><span>COMPLETE!</span></div></div></div>
         <div class="pq-meta"><button class="pq-pz" data-pool="${t.k}" style="--pbg:${p[3]}"><span class="pq-a">${PA[p[0]]||''}</span><span><small>YOUR ${t.name} PRIZE</small><b>${p[1]}</b></span><em>Change</em></button>${full?`<button class="pq-claim" data-claim="${t.k}">CLAIM</button>`:''}</div></div>`}).join('');
       $('#pqTrack').style.transform=`translateX(${-sel*100}%)`;
-      const st=stock(TIERS[sel]),sk=$('#pqStock');sk.className='pq-stock'+(st.low?' low':'');sk.style.setProperty('--sc',st.c);
-      sk.innerHTML=`<span class="pq-fire">${st.lv<=2?'🔥':'🎁'}</span><span class="pq-lb"><small>TODAY'S ${TIERS[sel].name} PRIZES</small><b>${st.txt}</b></span><span class="pq-meter" aria-label="${st.txt}">${[1,2,3,4].map(k=>`<i class="${k<=st.lv?'on':''}"></i>`).join('')}</span>`;
+      const pl=pool(),pc=$('#pqPool');pc.className='pq-poolc'+(pl.low?' low':'');pc.style.setProperty('--pc',pl.c);
+      pc.innerHTML=`<span class="pq-jar">${jarSVG(pl.r)}</span><span class="pq-pl"><small><i></i>TODAY'S PIECE POOL</small><b class="lv">${pl.txt}</b><span class="pq-seg">${[1,2,3,4,5].map(k=>`<i class="${k<=pl.lv?'on':''}"></i>`).join('')}</span><em>${pl.lv?'One pool for gold, silver &amp; bronze · shared by everyone':'Every piece has been drawn today'} · refills in <b class="resetT">--:--:--</b></em></span>`;
       $('#pqList').innerHTML=S.ms.map(m=>{const D=MT[m.type],p=Math.min(1,m.prog/m.goal),ready=p>=1&&!m.got,t=m.got&&TK[m.got.tier];
-        return`<div class="pq-m${ready?' ready':''}${m.got?' got t-'+m.got.tier:''}${m.got&&m.got.dup?' dup':''}"><span class="pq-mi"><svg viewBox="0 0 24 24">${D.ic}</svg></span><span class="pq-tx"><b>${D.t(m.goal)}</b><span class="pq-bar"><i style="--p:${p*100}%"></i></span><small>${Math.min(m.prog,m.goal)}/${m.goal}${m.got?'':' · reward: 1 mystery piece'}</small></span>
-          ${m.got?`<span class="pq-res"><i></i>${t.name} #${m.got.i+1}${m.got.dup?' · dropped':''}</span>`:ready?`<button class="pq-act pq-get" data-get="${m.id}">${mysterySmall}COLLECT</button>`:`<button class="pq-act pq-go2" data-gom="${m.type}">GO</button>`}</div>`}).join('');
+        return`<div class="pq-m${ready?' ready':''}${m.got?' got t-'+m.got.tier:''}${m.got&&m.got.dup?' dup':''}"><span class="pq-mi"><svg viewBox="0 0 24 24">${D.ic}</svg></span><span class="pq-tx"><b>${D.t(m.goal)}</b><span class="pq-bar"><i style="--p:${p*100}%"></i></span><small>${Math.min(m.prog,m.goal)}/${m.goal}${m.got?'':' · reward: 1 draw from the pool'}</small></span>
+          ${m.got?`<span class="pq-res"><i></i>${t.name} #${m.got.i+1}${m.got.dup?' · dropped':''}</span>`:ready?(pool().lv?`<button class="pq-act pq-get" data-get="${m.id}">${mysterySmall}DRAW</button>`:`<button class="pq-act pq-get" disabled>POOL EMPTY</button>`):`<button class="pq-act pq-go2" data-gom="${m.type}">GO</button>`}</div>`}).join('');
       wireSwipe()}
     const mysterySmall='<svg viewBox="0 0 24 24"><path d="M5 5h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4h-4a2 2 0 1 0-4 0H5v-4a2 2 0 1 0 0-4z" fill="#1b1c19"/></svg>';
     function select(i,anim){sel=Math.max(0,Math.min(2,i));S.sel=sel;save();paint()}
@@ -6161,11 +6261,11 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
     // ---- collect + flip ----
     const rv=$('#pqRv');let cur=null;
     function roll(){const r=Math.random();let acc=0,t=TIERS[2];for(const x of [TIERS[0],TIERS[1],TIERS[2]]){acc+=x.w;if(r<acc){t=x;break}}return{tier:t.k,i:Math.floor(Math.random()*t.n)}}
-    function collect(id){const m=S.ms.find(x=>x.id===id);if(!m||m.got||m.prog<m.goal)return;
-      const g=roll(),T=S.tiers[g.tier];g.dup=T.have.includes(g.i);m.got=g;if(!g.dup)T.have.push(g.i);save();cur=g;
+    function collect(id){const m=S.ms.find(x=>x.id===id);if(!m||m.got||m.prog<m.goal)return;if(!pool().lv){toast('Today\'s pool is empty · it refills at midnight');return}
+      S.draws=(S.draws||0)+1;const g=roll(),T=S.tiers[g.tier];g.dup=T.have.includes(g.i);m.got=g;if(!g.dup)T.have.push(g.i);save();cur=g;
       const t=TK[g.tier];rv.className='pq-rv t-'+g.tier+(g.dup?' dup':'');
       rv.innerHTML=`<span class="pq-swirl"></span><span class="pq-burst"></span><span class="pq-sp">${Array.from({length:22},()=>`<i style="left:${(Math.random()*100).toFixed(1)}%;top:${(20+Math.random()*60).toFixed(1)}%;--t:${(1.6+Math.random()*2).toFixed(2)}s;--dl:${(Math.random()*2).toFixed(2)}s"></i>`).join('')}</span>
-        <span class="pq-k">MISSION COMPLETE</span><div class="pq-h" id="pqRvH">MYSTERY PIECE</div>
+        <span class="pq-k">MISSION COMPLETE</span><div class="pq-h" id="pqRvH"><span>DRAWN</span> FROM THE POOL</div><span class="pq-rvjar">${jarSVG(pool().r)}</span>
         <div class="pq-card" id="pqCard" role="button" tabindex="0" aria-label="Flip the piece"><div class="pq-in"><div class="pq-fc">${mystery}</div><div class="pq-fc pq-bk">${pieceSVG(t,g.i,220)}</div></div><span class="stampd">DUPLICATE</span></div>
         <span class="pq-tap">TAP TO FLIP</span>
         <div class="pq-res" id="pqRvR"></div><div class="pq-acts" id="pqRvA"></div>`;
@@ -6202,24 +6302,24 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
       sheet(k,`${t.name} PUZZLE · ${t.n} PIECES`,'Pick your prize','Finish this puzzle and this is what you win. You can change it any time.',body(),`<button class="sec" data-sh="x">Cancel</button><button class="pri" data-sh="ok">LOCK IT IN</button>`);
       $('#pqShB').onclick=e=>{const b=e.target.closest('[data-p]');if(!b)return;buzz();pick=+b.dataset.p;$('#pqShB').innerHTML=body();SFX.play('coin')};
       $('#pqShF').onclick=e=>{const b=e.target.closest('[data-sh]');if(!b)return;buzz();if(b.dataset.sh==='ok'){S.tiers[k].prize=pick;save();toast(`${t.name[0]+t.name.slice(1).toLowerCase()} prize: ${t.pool[pick][1]}`)}closeSheet();paint()}}
-    function openClaim(k){const t=TK[k],p=prizeOf(t),st=stock(t),out=st.lv===0;
-      sheet(k,`${t.name} PUZZLE COMPLETE`,'Claim your prize',null,`<div class="pq-cl" style="--pbg:${p[3]}"><span class="art">${PA[p[0]]||''}</span><b>${p[1]}</b><small>${out?'Today\'s '+t.name.toLowerCase()+' prizes are all gone. Your puzzle stays complete, so come back tomorrow to claim.':`Today's ${t.name.toLowerCase()} prizes: <b style="color:${st.c==='#c6f432'?'#3f6c05':st.c}">${st.txt}</b>. Claiming resets this puzzle so you can start again.`}</small></div>`,
+    function openClaim(k){const t=TK[k],p=prizeOf(t),out=false;
+      sheet(k,`${t.name} PUZZLE COMPLETE`,'Claim your prize',null,`<div class="pq-cl" style="--pbg:${p[3]}"><span class="art">${PA[p[0]]||''}</span><b>${p[1]}</b><small>${out?'Today\'s '+t.name.toLowerCase()+' prizes are all gone. Your puzzle stays complete, so come back tomorrow to claim.':`You did it! Claiming resets your ${t.name.toLowerCase()} puzzle so you can start again.`}</small></div>`,
         `<button class="sec" data-sh="x">Later</button><button class="pri" data-sh="ok"${out?' disabled':''}>${out?'GONE FOR TODAY':'CLAIM PRIZE'}</button>`);
       $('#pqShB').onclick=null;
       $('#pqShF').onclick=e=>{const b=e.target.closest('[data-sh]');if(!b)return;buzz();closeSheet();if(b.dataset.sh!=='ok')return;
         const d=new Date(),date=`${d.getDate()} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]}`;
         S.claims.push({tier:k,prize:S.tiers[k].prize,day:S.day,date});S.tiers[k].have=[];save();
         WON.unshift({art:p[0],name:p[1],bg:p[3],place:t.k,pq:true,from:`Puzzle Quest · ${t.name[0]+t.name.slice(1).toLowerCase()} puzzle`,date,st:'act',step:1,note:'Confirm your address so we can start packing.',btn:['Confirm address','warn']});
-        rv.className='pq-rv t-'+k;rv.innerHTML=`<span class="pq-swirl"></span><span class="pq-burst"></span><span class="pq-k">${t.name} PUZZLE</span><div class="pq-h"><span>PRIZE</span> CLAIMED!</div>
-          <div class="pq-card"><div class="pq-in" style="animation:none"><div class="pq-fc" style="transform:none"><div class="pq-cl" style="--pbg:${p[3]}"><span class="art">${PA[p[0]]||''}</span></div></div></div></div>
+        rv.className='pq-rv claim t-'+k;rv.innerHTML=`<span class="pq-swirl"></span><span class="pq-burst"></span><span class="pq-k">${t.name} PUZZLE</span><div class="pq-h"><span>PRIZE</span> CLAIMED!</div>
+          <div class="pq-card"><div class="pq-in" style="animation:none"><div class="pq-fc pq-bk"><div class="pq-cl" style="--pbg:${p[3]}"><span class="art">${PA[p[0]]||''}</span></div></div></div></div>
           <div class="pq-res"><p><b>${p[1]}</b> is yours! Confirm your address in My prizes and we'll ship it. Your ${t.name.toLowerCase()} puzzle starts fresh.</p></div>
           <div class="pq-acts"><button class="pq-pl" data-rv="prizes"><span>SEE MY PRIZES</span></button><button class="pq-dr" data-rv="close"><span>KEEP PLAYING</span></button></div>`;
         rv.classList.add('open','flipped');SFX.play('win');setTimeout(()=>confetti(rv),200);setTimeout(()=>confetti(rv),900);paint()}}
     function openRules(){const t=TIERS[sel];sheet(t.k,'HOW IT WORKS','Puzzle Quest',null,`<div class="pq-rules">
-      <div><i>1</i><span><b>Finish a daily mission</b> to earn a mystery piece. There are 3 new missions every day.</span></div>
+      <div><i>1</i><span><b>Finish a daily mission</b> to draw a piece from <b>today's pool</b>. One pool holds gold, silver and bronze pieces, it's shared by everyone and refills at midnight.</span></div>
       <div><i>2</i><span><b>Flip it</b> to see its colour and number. Gold, silver and bronze pieces fit their own puzzle.</span></div>
       <div><i>3</i><span><b>New piece?</b> Place it. <b>Already have it?</b> It gets dropped.</span></div>
-      <div><i>4</i><span><b>Complete a puzzle</b> to claim the prize you picked. The puzzle then resets. Prizes are limited each day.</span></div>
+      <div><i>4</i><span><b>Complete a puzzle</b> to claim the prize you picked. The puzzle then resets. When today's pool runs dry, come back tomorrow.</span></div>
       <div class="pq-odds">${TIERS.map(x=>`<div class="t-${x.k}"><b>${x.name}</b><small>${x.n} pieces</small><small>${x.k==='gold'?'Rare':x.k==='silver'?'Uncommon':'Common'}</small></div>`).join('')}</div></div>`,`<button class="pri" data-sh="x">GOT IT</button>`);
       $('#pqShB').onclick=null;$('#pqShF').onclick=e=>{if(e.target.closest('[data-sh]')){buzz();closeSheet()}}}
     addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(sh.classList.contains('open'))closeSheet();else if(rv.classList.contains('open')&&rv.classList.contains('flipped')){const b=rv.querySelector('[data-rv]');b&&b.click()}});
