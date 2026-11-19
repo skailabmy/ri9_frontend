@@ -3100,6 +3100,116 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .pf-hero.pf-ok{animation:pfOk .7s cubic-bezier(.3,1.6,.5,1)}
 @keyframes pfOk{40%{transform:scale(1.03);box-shadow:0 0 0 4px var(--lime),0 24px 40px -22px #1e2a0899}}
 
+/* ===================== QUESTION SETS & TWISTS ===================== */
+/* drill: twisted questions are longer */
+#s-drill[data-tw="long"] .qbox:not(.has-img):not(.has-stim) p,#s-drill[data-tw="noise"] .qbox:not(.has-img):not(.has-stim) p{font-size:15.5px;line-height:1.32;letter-spacing:0}
+#s-drill[data-tw="multi"] .qbox:not(.has-img):not(.has-stim) p{font-size:17px;line-height:1.3;letter-spacing:0}
+#s-drill[data-tw="multi"] .an span.v{font-size:15px;line-height:1.15}
+#s-drill[data-tw] .qbox small{line-height:1.3}
+/* challenge screen: set + twist row */
+.msx{width:100%;display:flex;align-items:center;gap:8px;margin:10px 0 2px;padding:6px 8px 6px 6px;border-radius:16px 5px 16px 5px;background:#f6f9ee;border:1.5px solid #edf2e1;text-align:left;transition:transform .12s}
+.msx:active{transform:scale(.98)}
+.msx .sxs{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;width:46px;height:40px;border-radius:12px 4px 12px 4px;background:#1b1c19;color:var(--lime);line-height:1}
+.msx .sxs small{font-size:8px;font-weight:800;letter-spacing:1px;color:#ffffffa0}
+.msx .sxs b{font-family:var(--f-display);font-weight:400;font-size:19px;transform:skewX(-8deg)}
+.msx .sxs em{font-style:normal;font-size:11px;color:#ffffff80}
+.msx .sxt{flex:1;min-width:0;display:flex;align-items:center;gap:8px}
+.msx .sxt>svg{width:28px;height:28px;flex:none;padding:5px;border-radius:9px 3px 9px 3px;background:#fff;fill:none;stroke:#1b1c19;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;box-shadow:0 2px 0 #dfe8c9}
+.msx .sxt small{display:block;font-size:8.5px;font-weight:800;letter-spacing:1.1px;color:#5d6650}
+.msx .sxt b{display:block;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msx .sxc{flex:none;display:flex;align-items:center;gap:2px;height:30px;padding:0 9px 0 11px;border-radius:999px;background:#1b1c19;color:#fff;font-size:11px;font-weight:800}
+.msx .sxc svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+/* picker sheet */
+.sxp-bd{position:absolute;inset:0;z-index:26;background:#1b1c1980;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s}
+.sxp-bd.open{opacity:1;pointer-events:auto}
+.sxp{position:absolute;left:10px;right:10px;bottom:10px;max-height:calc(100% - 30px);z-index:27;display:flex;flex-direction:column;border-radius:44px 10px 44px 10px;background:#fff;overflow:hidden;box-shadow:0 30px 60px -20px #000;transform:translateY(112%);transition:transform .5s cubic-bezier(.2,1.2,.3,1)}
+.sxp.open{transform:none}
+.sxph{position:relative;flex:none;padding:18px 20px 14px;background:linear-gradient(160deg,#f4ffc4,#d7fb5c);overflow:hidden}
+.sxph::before{content:"";position:absolute;inset:-50%;background:repeating-linear-gradient(118deg,transparent 0 16px,#ffffff66 16px 19px);animation:lines 1.6s linear infinite}
+.sxph>*{position:relative}
+.sxph small{display:block;font-size:10px;font-weight:800;letter-spacing:1.8px;color:#4b6a12}
+.sxph h4{margin:2px 0 0;padding-right:44px;font-family:var(--f-display);font-weight:400;font-size:28px;line-height:1.05;transform:skewX(-8deg);transform-origin:0 50%}
+.sxpx{position:absolute!important;right:14px;top:14px;width:36px;height:36px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 3px 0 #a4d61a}
+.sxpx svg{width:13px;height:13px;fill:none;stroke:#1b1c19;stroke-width:3;stroke-linecap:round}
+.sxpb{overflow-y:auto;padding:12px 14px 6px;scrollbar-width:none}.sxpb::-webkit-scrollbar{display:none}
+.sxpl{display:flex;align-items:baseline;gap:8px;margin:6px 4px 8px;font-size:10.5px;font-weight:800;letter-spacing:1.5px;color:#5d6650}
+.sxpl em{font-style:normal;font-weight:600;letter-spacing:.2px;color:#8a9478}
+.sxsets{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px}
+.sxset{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px 7px;border-radius:16px 5px 16px 5px;background:#f6f9ee;border:1.5px solid #edf2e1;transition:all .2s}
+.sxset b{display:grid;place-items:center;height:28px;font-family:var(--f-display);font-weight:400;font-size:24px;transform:skewX(-8deg)}
+.sxset b svg{width:18px;height:18px;fill:none;stroke:#8a9478;stroke-width:2.4;stroke-linecap:round;transform:skewX(8deg)}
+.sxset small{font-size:8px;font-weight:800;letter-spacing:.5px;color:#5d6650;white-space:nowrap}
+.sxset.done{background:#f1fcd2;border-color:#d6ee8f}
+.sxset.done small{color:#3f6c05}
+.sxset.lock{opacity:.55}
+.sxset.on{background:#1b1c19;border-color:#1b1c19;color:var(--lime);box-shadow:0 3px 0 #000;transform:translateY(-2px)}
+.sxset.on small{color:#ffffffb3}
+.sxtws{display:flex;flex-direction:column;gap:7px}
+.sxtw{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:18px 6px 18px 6px;background:#f6f9ee;border:1.5px solid #edf2e1;text-align:left;transition:all .2s}
+.sxtw .ti{width:38px;height:38px;flex:none;border-radius:12px 4px 12px 4px;background:#fff;display:grid;place-items:center;box-shadow:0 2px 0 #dfe8c9}
+.sxtw .ti svg{width:20px;height:20px;fill:none;stroke:#1b1c19;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.sxtw .tx{flex:1;min-width:0}
+.sxtw .tx b{display:block;font-size:14.5px;font-weight:700}
+.sxtw .tx small{display:block;font-size:11px;font-weight:600;color:#5d6650;margin-top:1px}
+.sxtw .sp{flex:none;text-align:right;line-height:1}
+.sxtw .sp b{display:block;font-family:var(--f-display);font-weight:400;font-size:20px;transform:skewX(-8deg)}
+.sxtw .sp small{font-size:8px;font-weight:800;letter-spacing:1px;color:#8a9478}
+.sxtw .sp em{font-style:normal;font-size:9px;font-weight:800;letter-spacing:.8px;padding:3px 7px;border-radius:999px;background:#e4f8a8;color:#3f6c05}
+.sxtw.on{background:#f1fcd2;border-color:var(--lime);box-shadow:0 3px 0 #a4d61a}
+.sxtw.on .ti{background:var(--lime)}
+.sxpf{flex:none;padding:8px 14px 16px}
+.sxpf button{width:100%;height:52px;border-radius:18px 6px 18px 6px;background:#1b1c19;color:var(--lime);font-size:14.5px;font-weight:800;letter-spacing:.8px;box-shadow:0 4px 0 #000}
+/* result: next set / twist panel */
+.res.has-nx{padding-top:40px}
+.res.has-nx .badge3{transform:scale(.62);margin:-26px 0 -30px}
+.res.has-nx h2{font-size:38px;margin-top:14px}
+.res.has-nx .earn{margin-top:8px}
+.res.has-nx .chk{margin-top:12px}
+.res.has-nx .dots6{margin-top:10px}
+.nx{width:100%;margin-top:12px;padding:12px 12px 12px;border-radius:26px 7px 26px 7px;background:#1b1c19;color:#fff;box-shadow:0 14px 26px -16px #000}
+.res.show .nx{animation:up .5s cubic-bezier(.2,1.2,.4,1) .25s both}
+.nxh{display:flex;align-items:center;gap:10px}
+.nxh>div{flex:1;min-width:0}
+.nxh small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1.5px;color:#ffffff8c}
+.nxh b{display:block;margin-top:2px;font-family:var(--f-display);font-weight:400;font-size:22px;line-height:1;transform:skewX(-8deg);transform-origin:0 50%}
+.nxh b span{color:var(--lime)}
+.nxp{flex:none;display:flex;gap:3px}
+.nxp i{width:22px;height:24px;border-radius:7px 2px 7px 2px;display:grid;place-items:center;font-style:normal;font-family:var(--f-display);font-size:12px;background:#ffffff14;color:#ffffffa0;transform:skewX(-6deg)}
+.nxp i svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;transform:skewX(6deg)}
+.nxp i.done{background:var(--lime);color:#1b1c19}
+.nxp i.open{box-shadow:inset 0 0 0 1.5px var(--lime);color:var(--lime)}
+.nxp i.lock{color:#ffffff4d}
+.nxp i.cur{outline:2px solid #fff;outline-offset:1px}
+.nxgo{width:100%;height:46px;margin-top:10px;border-radius:15px 5px 15px 5px;display:flex;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:#1b1c19;font-family:var(--f-display);font-size:20px;letter-spacing:.8px;box-shadow:0 4px 0 #5f840a}
+.nxgo span{transform:skewX(-8deg)}
+.nxgo svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.nxgo:active{transform:translateY(3px);box-shadow:0 1px 0 #5f840a}
+.nxl{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:11px 2px 7px;font-size:9.5px;font-weight:800;letter-spacing:1.2px;color:#ffffff8c}
+.nxl em{font-style:normal;letter-spacing:.3px;color:var(--lime);white-space:nowrap}
+.nxtw{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.nxtw button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 7px;border-radius:14px 4px 14px 4px;background:#ffffff0f;border:1px solid #ffffff1a;color:#fff;transition:all .2s}
+.nxtw button svg{width:20px;height:20px;fill:none;stroke:var(--lime);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.nxtw button b{font-size:10.5px;font-weight:700;line-height:1.1;white-space:nowrap}
+.nxtw button small{font-size:9px;font-weight:800;color:#ffffff80}
+.nxtw button.on{background:var(--lime);color:#1b1c19;border-color:var(--lime)}
+.nxtw button.on svg{stroke:#1b1c19}.nxtw button.on small{color:#1b1c19b3}
+.nxtw button:active{transform:scale(.94)}
+/* stats: twist strength slide */
+.tws .twr{display:flex;flex-direction:column;gap:3px;margin-top:7px}
+.tws .twr>div{display:grid;grid-template-columns:96px 1fr 36px;align-items:center;gap:8px;height:17px}
+.tws .tl{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;white-space:nowrap}
+.tws .tl svg{width:15px;height:15px;flex:none;fill:none;stroke:#1b1c19;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.tws .tb{height:7px;border-radius:4px;background:#eef1e6;overflow:hidden;transform:skewX(-20deg)}
+.tws .tb i{display:block;height:100%;width:var(--p);border-radius:4px;background:linear-gradient(90deg,#8fc914,#c6f432)}
+.tws.anim .tb i{animation:fillw 1s cubic-bezier(.2,1,.3,1) both}
+.tws .twr b{font-family:var(--f-display);font-weight:400;font-size:14px;text-align:right;transform:skewX(-8deg)}
+.tws .twr .nt{opacity:.45}
+.tws .twf{margin-top:6px;font-size:10.5px;font-weight:600;color:#5d6650}
+.tws .twf b{color:#1b1c19}
+/* chapter rows */
+.cr .cm .setc{color:#3f6c05;font-weight:800}
+.cr .cm .twc{color:#5b47d6;font-weight:800}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -3217,9 +3327,9 @@ input,textarea{-webkit-user-select:text;user-select:text}
     </div>
     <div class="aseg in2" id="stSeg" style="--d:.04s"><span class="k" id="stK"></span><button class="on" data-p="week">THIS WEEK</button><button data-p="all">ALL TIME</button></div>
     <div class="ovs in2" id="ovs" style="--a:up .55s cubic-bezier(.2,1.2,.4,1);--d:.08s">
-      <div class="ovt" id="ovt"><div class="ovsl"><div class="ovw" id="ovw"></div></div><div class="ovsl"><div class="ovw wk2" id="wk"></div></div></div>
+      <div class="ovt" id="ovt"><div class="ovsl"><div class="ovw" id="ovw"></div></div><div class="ovsl"><div class="ovw wk2" id="wk"></div></div><div class="ovsl"><div class="ovw wk2 tws" id="tws"></div></div></div>
     </div>
-    <div class="ovd" id="ovd"><button class="on" aria-label="Overview"></button><button aria-label="Questions this week"></button></div>
+    <div class="ovd" id="ovd"><button class="on" aria-label="Overview"></button><button aria-label="Questions this week"></button><button aria-label="Twist strength"></button></div>
     <div class="lab2 slab in2" style="--d:.12s"><span>ALL SUBJECTS</span><span id="slCount">4 subjects</span></div>
     <div class="slist scroll" id="sgrid"></div>
   </section>
@@ -3404,6 +3514,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
         <div class="ck2" id="ckT"><span class="st"></span><small>TIME</small><b id="ckTv">0:38.2</b><em id="ckTn">Limit 1:00</em></div>
       </div>
       <div class="dots6" id="resDots"></div>
+      <div class="nx" id="resNx" hidden></div>
       <div class="acts">
         <button class="go3d" id="resAgain"><span class="lbl">TRY AGAIN</span><span class="chev"><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg></span></button>
         <button class="lnk2" id="resBack">Pick another challenge</button>
@@ -3542,7 +3653,8 @@ input,textarea{-webkit-user-select:text;user-select:text}
     <div class="mgrid" id="mgrid"></div>
     <div class="mpanel in2" id="mpanel" style="--a:up .6s cubic-bezier(.2,1.2,.4,1);--d:.3s">
       <div class="mstats" id="mstats"></div>
-      <div class="mbest"><span><svg viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4c0 3 1.5 4.5 3.5 5M17 6h3c0 3-1.5 4.5-3.5 5M12 14v4M8 21h8"/></svg>Your best</span><b id="mbest">7:42</b></div>
+      <button class="msx" id="msx" aria-label="Change question set and twist"></button>
+      <div class="mbest" hidden><span><svg viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4c0 3 1.5 4.5 3.5 5M17 6h3c0 3-1.5 4.5-3.5 5M12 14v4M8 21h8"/></svg>Your best</span><b id="mbest">7:42</b></div>
       <button class="go3d" id="mgo"><span class="lbl" id="mgoT">START SPEED RUN</span><span class="chev"><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg></span></button>
     </div>
   </section>
@@ -3604,6 +3716,13 @@ input,textarea{-webkit-user-select:text;user-select:text}
     <div class="pd-hero"><span class="pd-place" id="pdPlace"></span><button class="pd-close" id="pdClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><div class="pd-art" id="pdArt"></div><span class="pd-val" id="pdVal"></span></div>
     <div class="pd-body" id="pdBody"></div>
     <div class="pd-act" id="pdAct"></div>
+  </div>
+  <div class="sxp-bd" id="sxpBd"></div>
+  <div class="sxp" id="sxp" role="dialog" aria-modal="true" aria-labelledby="sxpT">
+    <div class="sxph"><small id="sxpS"></small><h4 id="sxpT"></h4><button class="sxpx" id="sxpX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="sxpb"><div class="sxpl">QUESTION SET <em>finish a set to unlock the next</em></div><div class="sxsets" id="sxpSets"></div>
+      <div class="sxpl">TWIST <em>a harder take on the same set</em></div><div class="sxtws" id="sxpTw"></div></div>
+    <div class="sxpf"><button id="sxpGo">DONE</button></div>
   </div>
   <div class="toast" id="toast" role="status"></div>
 </main>
@@ -3968,6 +4087,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   function moveSeg(){const b=document.querySelector('#seg button.on');segK.style.width=b.offsetWidth+'px';segK.style.transform=`translateX(${b.offsetLeft}px)`}
   segBtns.forEach(b=>b.addEventListener('click',()=>{if(b.classList.contains('on'))return;buzz();segBtns.forEach(x=>x.classList.toggle('on',x===b));lob.period=b.dataset.p;moveSeg();renderLobby(true)}));
   function renderFields(){
+    window.SETS&&window.SETS.onField();
     const s=SUBJ[lob.subj],chs=CHAPTERS[lob.subj];
     $('#fSubjI').innerHTML=`<svg viewBox="0 0 24 24">${s.ico}</svg>`;$('#fSubjV').textContent=s.name;$('#fSubjL').textContent=`${yr().short.toUpperCase()} · SUBJECT`;$('#qSubjL').textContent=`${yr().short.toUpperCase()} · SUBJECT`;
     $('#fChN').textContent=lob.ch+1;$('#fChL').textContent=`CHAPTER ${lob.ch+1} OF ${chs.length}`;$('#fChV').textContent=chs[lob.ch];
@@ -4317,6 +4437,128 @@ input,textarea{-webkit-user-select:text;user-select:text}
     else qs=shuffle(BANK[subj].slice()).slice(0,6).map(([q,c,w])=>({q,c,o:shuffle([c,...w])}));
     qs=withMedia(qs,subj);qs.forEach(q=>{q.o=[...new Set(q.o.map(String))]});return qs;
   }
+
+  /* =================== QUESTION SETS & TWISTS =================== */
+  // Each chapter has NSETS fixed sets (seeded variants). Finishing a set unlocks the next.
+  // A twist rebuilds the same set with extra complexity; accuracy is tracked per chapter and per twist.
+  const SETS=(()=>{
+    const NSETS=5;
+    const TW={
+      long:{n:'Wordy',d:'Same skill, longer question to read',i:'<path d="M4 6h16M4 10h16M4 14h16M4 18h9"/>'},
+      close:{n:'Close call',d:'Answers look almost the same',i:'<path d="M4 9c2.7-2.7 5.3 2.7 8 0s5.3-2.7 8 0M4 15c2.7-2.7 5.3 2.7 8 0s5.3-2.7 8 0"/>'},
+      multi:{n:'Multi-step',d:'Two steps to reach the answer',i:'<path d="M4 19h5v-5h5V9h5V4"/>'},
+      noise:{n:'Extra info',d:'Spot what matters, ignore the rest',i:'<circle cx="10.5" cy="10.5" r="6"/><path d="M20 20l-5-5M8 10.5h5"/>'}
+    };
+    const TWK=['long','close','multi','noise'];
+    let S;try{S=JSON.parse(localStorage.getItem('qdSets')||'null')}catch(_){S=null}
+    if(!S||!S.c)S={c:{},tw:{}};
+    const save=()=>{try{localStorage.setItem('qdSets',JSON.stringify(S))}catch(_){}};
+    const key=(s=lob.subj,c=lob.ch)=>`${lob.year}|${s}|${c}`;
+    const ch=(s,c)=>S.c[key(s,c)]||{u:1,done:{},ok:0,n:0,tw:{}};
+    const pct=o=>o&&o.n?Math.round(o.ok/o.n*100):null;
+    lob.set=null;lob.tw=null;let lastKey=key();
+    const cur=()=>{const p=ch(lob.subj,lob.ch);return Math.min(lob.set||p.u,p.u)};
+    function onField(){const k=key();if(k!==lastKey){lastKey=k;lob.set=null;lob.tw=null}paintRow()}
+
+    // ---- generation ----
+    const hs=s=>{let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0};
+    function seeded(seed,f){const o=Math.random;Math.random=rng(seed);try{return f()}finally{Math.random=o}}
+    const isNum=s=>/^-?\d+(\.\d+)?$/.test(s),dec=s=>(String(s).split('.')[1]||'').length,fmt=(v,d)=>d?v.toFixed(d):String(Math.round(v));
+    const MONEY=/^RM(\d+\.\d{2})$/,FRAC=/^(\d+)\/(\d+)$/;
+    const uniq=a=>[...new Set(a.map(String))];
+    const swapEnd=s=>{const t=String(s),i=t.length-1;return t[i]!==t[i-1]&&/\d/.test(t[i])&&/\d/.test(t[i-1])?t.slice(0,i-1)+t[i]+t[i-1]:null};
+    function nearMiss(c){c=String(c);let w=[];
+      if(isNum(c)){const d=dec(c),n=+c,st=d?Math.pow(10,-d):1;w=[swapEnd(c),fmt(n+st,d),fmt(n-st,d),fmt(n+2*st,d),fmt(n+10*st,d)]}
+      else if(MONEY.test(c)){const v=+c.match(MONEY)[1];w=[swapEnd(c),'RM'+(v+.1).toFixed(2),'RM'+(v-.1).toFixed(2),'RM'+(v+1).toFixed(2),'RM'+(v+.01).toFixed(2)]}
+      else if(FRAC.test(c)){const[,a,d]=c.match(FRAC).map(Number);w=[`${a+1}/${d}`,`${a}/${d+1}`,a>1?`${a-1}/${d}`:null,d>2?`${a}/${d-1}`:null,`${d}/${a}`]}
+      else{const L=c.length,out=new Set();if(L>=4){for(let i=1;i<L-2;i++)if(/[a-z]/i.test(c[i])&&/[a-z]/i.test(c[i+1]))out.add(c.slice(0,i)+c[i+1]+c[i]+c.slice(i+2));
+          for(let i=1;i<L-1;i++)if(/[a-z]/i.test(c[i])){out.add(c.slice(0,i)+c.slice(i+1));out.add(c.slice(0,i)+c[i]+c.slice(i))}}
+        w=shuffle([...out])}
+      return uniq(w.filter(x=>x&&x!==c&&!String(x).startsWith('-')&&!String(x).startsWith('RM-'))).slice(0,3)}
+    const NM=['Aisyah','Daniel','Mei Ling','Arjun','Farah','Haziq','Priya','Wei Jie'];
+    const STORY={
+      0:[n=>`${n} is helping at the school book fair. While counting the money and books, the teacher stops to check the working:`,n=>`On Sports Day, ${n} is keeping score for Team Merah. Before the next race, the teacher asks a quick question:`,n=>`${n}'s family is planning a trip to Melaka. In the car, ${n}'s older brother gives a little puzzle:`],
+      1:[n=>`During English class, ${n}'s group is writing a story about a rainy holiday. Before they continue, the teacher checks one thing:`,n=>`${n} is reading a comic at the library. A speech bubble has a missing word, so ${n} asks a friend:`],
+      2:[n=>`Semasa kelas Bahasa Melayu, ${n} dan rakan-rakan sedang menyiapkan majalah sekolah. Cikgu ingin menguji mereka:`,n=>`${n} sedang membaca buku cerita di perpustakaan. Kawannya bertanya satu soalan:`],
+      3:[n=>`On a school trip to the science centre, ${n} stops at an exhibit about the world around us. A guide asks the group:`,n=>`${n} is doing a project for the school science fair. Before presenting, the teacher asks:`]};
+    const NOISE={
+      0:['The canteen sells nasi lemak for RM3.50 and 128 pupils are in Year 4.','A bus leaves at 7:45 a.m. with 36 seats and 4 doors.','The hall is 25 m long and 14 lights are switched on.','Each box holds 12 pencils and there are 9 boxes on the shelf.'],
+      1:['There are 32 pupils in the class and the lesson started at 9:15 a.m.','The book has 148 pages and a red cover.','It rained for 3 hours and the field was closed.'],
+      2:['Kelas itu ada 30 orang murid dan loceng berbunyi pada pukul 10.30 pagi.','Buku itu ada 96 halaman dan kulitnya berwarna biru.'],
+      3:['The lab has 12 microscopes and today it is 31°C outside.','The trip cost RM15 and the bus had 40 seats.','A group of 6 pupils used 3 magnifying glasses.']};
+    const pick=a=>a[Math.floor(Math.random()*a.length)];
+    const F={
+      long:(qs,s)=>qs.map(q=>q.img||q.stim?q:({...q,q:`${pick(STORY[s]||STORY[0])(pick(NM))} ${q.q}`})),
+      noise:(qs,s)=>qs.map(q=>q.img||q.stim?q:({...q,q:`${pick(NOISE[s]||NOISE[0])} ${q.q}`})),
+      close:qs=>qs.map(q=>{const w=nearMiss(q.c);return w.length<3?q:{...q,o:shuffle([q.c,...w])}}),
+      multi:(qs,s,c)=>{const extra=makeQs(s,c);return qs.map((q,i)=>{if(q.img||q.stim)return q;const v=String(q.c);
+        if(isNum(v)){const d=dec(v),n=+v,k=ri(2,9)*(d?1:(Math.abs(n)>=100?10:1));const add=Math.random()<.6||n-k<0;const r=add?n+k:n-k,ans=fmt(r,d);
+          const o=uniq([ans,fmt(n,d),fmt(add?n-k:n+k,d),fmt(r+(d?Math.pow(10,-d)*10:(k>=10?10:1)),d)]);while(o.length<4)o.push(fmt(r+o.length*(k||1),d));
+          return{...q,q:`${q.q} Then ${add?'add':'take away'} ${k}. What is the final answer?`,c:ans,o:shuffle(o.slice(0,4))}}
+        if(MONEY.test(v)){const m=+v.match(MONEY)[1],k=[1,2,5][ri(0,2)],r=m+k,ans='RM'+r.toFixed(2);
+          return{...q,q:`${q.q} Then add RM${k}.00 for a drink. What is the total?`,c:ans,o:shuffle(uniq([ans,v,'RM'+(m-k>0?m-k:m+k+1).toFixed(2),'RM'+(r+1).toFixed(2)]).slice(0,4))}}
+        const b=extra[i];if(!b||b.img||b.stim)return q;const wa=q.o.filter(x=>x!==q.c),wb=b.o.filter(x=>x!==b.c),J=(x,y)=>`${x} · ${y}`,ans=J(q.c,b.c);
+        const o=uniq([ans,J(q.c,wb[0]),J(wa[0],b.c),J(wa[1]||wa[0],wb[1]||wb[0])]);
+        return{...q,q:`${s===2?'Jawab kedua-dua.':'Answer both.'} ① ${q.q} ② ${b.q}`,c:ans,o:shuffle(o)}})}
+    };
+    function make(subj,c,set,tw){const base=seeded(hs(`${lob.year}|${subj}|${c}|${set}`),()=>makeQs(subj,c));
+      return tw&&F[tw]?seeded(hs(`${lob.year}|${subj}|${c}|${set}|${tw}`),()=>F[tw](base,subj,c,set)):base}
+
+    // ---- tracking ----
+    function record(ok,set,tw){const k=key(),p=S.c[k]||(S.c[k]={u:1,done:{},ok:0,n:0,tw:{}}),t=tw||'base';
+      p.ok+=ok;p.n+=6;(p.tw[t]=p.tw[t]||{ok:0,n:0}).ok+=ok;p.tw[t].n+=6;(S.tw[t]=S.tw[t]||{ok:0,n:0}).ok+=ok;S.tw[t].n+=6;
+      p.done[set]=Math.max(p.done[set]||0,ok);let unlocked=false;if(set>=p.u&&p.u<NSETS){p.u=set+1;unlocked=true}
+      save();paintRow();return{p,unlocked}}
+    const strength=t=>pct(S.tw[t]);
+    function overall(){const tried=TWK.filter(t=>S.tw[t]&&S.tw[t].n);if(!tried.length)return null;return Math.round(tried.reduce((a,t)=>a+pct(S.tw[t]),0)/tried.length)}
+    const ico=(t,cls='')=>`<svg class="${cls}" viewBox="0 0 24 24">${TW[t].i}</svg>`;
+    const lockI='<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',ckI='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+    function pips(p,set){return Array.from({length:NSETS},(_,k)=>{const n=k+1,st=p.done[n]!=null?'done':n<=p.u?'open':'lock';return`<i class="${st}${n===set?' cur':''}">${st==='done'?ckI:st==='lock'?lockI:n}</i>`}).join('')}
+
+    // ---- challenge screen row + picker ----
+    function paintRow(){const r=$('#msx');if(!r)return;const set=cur(),tw=lob.tw;
+      r.innerHTML=`<span class="sxs"><small>SET</small><b>${set}<em>/${NSETS}</em></b></span><span class="sxt">${tw?ico(tw):'<svg viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z"/></svg>'}<span><small>${tw?'TWIST':'MODE'}</small><b>${tw?TW[tw].n:'Classic'}</b></span></span><span class="sxc">Change<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>`}
+    function openPick(){const p=ch(lob.subj,lob.ch),set=cur(),sh=$('#sxp');
+      $('#sxpT').textContent=CHAPTERS[lob.subj][lob.ch];$('#sxpS').textContent=`${SUBJ[lob.subj].name.toUpperCase()} · CHAPTER ${lob.ch+1}`;
+      $('#sxpSets').innerHTML=Array.from({length:NSETS},(_,k)=>{const n=k+1,done=p.done[n]!=null,lock=n>p.u;
+        return`<button class="sxset${n===set?' on':''}${lock?' lock':''}${done?' done':''}" data-set="${n}"${lock?' aria-disabled="true"':''}><b>${lock?lockI:n}</b><small>${lock?'LOCKED':done?`BEST ${p.done[n]}/6`:'NEW'}</small></button>`}).join('');
+      $('#sxpTw').innerHTML=[[null,'Classic','The set as it is'],...TWK.map(t=>[t,TW[t].n,TW[t].d])].map(([t,n,d])=>{const s=t?strength(t):pct(S.tw.base);
+        return`<button class="sxtw${(lob.tw||null)===t?' on':''}" data-tw="${t||''}"><span class="ti">${t?ico(t):'<svg viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z"/></svg>'}</span><span class="tx"><b>${n}</b><small>${d}</small></span><span class="sp">${s==null?'<em>NEW</em>':`<b>${s}%</b><small>YOU</small>`}</span></button>`}).join('');
+      sh.classList.add('open');$('#sxpBd').classList.add('open');SFX.play('pop')}
+    function closePick(){$('#sxp').classList.remove('open');$('#sxpBd').classList.remove('open')}
+
+    // ---- result: next set / twist ----
+    function resultPanel(ok,set,tw){const {p,unlocked}=record(ok,set,tw),nx=$('#resNx'),all=Object.keys(p.done).length>=NSETS;
+      const head=unlocked?`<small>SET ${set} COMPLETE</small><b>SET ${set+1} <span>UNLOCKED!</span></b>`:all&&!tw?`<small>ALL ${NSETS} SETS DONE</small><b>CHAPTER <span>MASTERED</span></b>`:`<small>SET ${set} · ${tw?TW[tw].n.toUpperCase():'CLASSIC'}</small><b>KEEP <span>LEVELLING</span></b>`;
+      const nextSet=set<p.u?set+1:null;
+      nx.innerHTML=`<div class="nxh"><div>${head}</div><span class="nxp">${pips(p,set)}</span></div>
+        ${nextSet?`<button class="nxgo" data-set="${nextSet}"><span>LOAD SET ${nextSet}</span><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>`:''}
+        <div class="nxl"><span>OR TAKE SET ${set} ON WITH A TWIST</span>${overall()!=null?`<em>Twist strength ${overall()}%</em>`:''}</div>
+        <div class="nxtw">${TWK.map(t=>{const s=strength(t);return`<button class="${t===tw?'on':''}" data-tw="${t}" data-set="${set}">${ico(t)}<b>${TW[t].n}</b><small>${s==null?'NEW':s+'%'}</small></button>`}).join('')}</div>`;
+      nx.hidden=false;$('#res').classList.add('has-nx');if(unlocked)setTimeout(()=>SFX.play('unlock'),900)}
+    function hidePanel(){$('#resNx').hidden=true;$('#res').classList.remove('has-nx')}
+
+    // ---- stats ----
+    function statsCard(){const el=$('#tws');if(!el)return;const rows=[['base','Classic',null],...TWK.map(t=>[t,TW[t].n,t])],ov=overall();
+      const tried=TWK.filter(t=>S.tw[t]&&S.tw[t].n).sort((a,b)=>pct(S.tw[b])-pct(S.tw[a]));
+      el.innerHTML=`<div class="wh"><b>Twist strength</b><span>${ov==null?'Try a twist to see this':tried.length>1&&pct(S.tw[tried[0]])!==pct(S.tw[tried[tried.length-1]])?`Best <em>${TW[tried[0]].n}</em> · work on <em style="color:#c23a2f">${TW[tried[tried.length-1]].n}</em>`:`<em>${ov}%</em> overall`}</span></div>
+        <div class="twr">${rows.map(([k,n,t])=>{const o=S.tw[k],v=pct(o);return`<div class="${v==null?'nt':''}"><span class="tl">${t?ico(t):'<svg viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z"/></svg>'}${n}</span><span class="tb"><i style="--p:${v||0}%"></i></span><b>${v==null?'—':v+'%'}</b></div>`}).join('')}</div>
+`}
+    const chapNote=(s,c)=>{const p=ch(s,c),tws=TWK.map(t=>p.tw[t]).filter(o=>o&&o.n),t=tws.length?Math.round(tws.reduce((a,o)=>a+o.ok,0)/tws.reduce((a,o)=>a+o.n,0)*100):null;
+      return`<span class="setc">Set ${Math.min(p.u,NSETS)}/${NSETS}</span>${t!=null?`<span class="twc">Twist ${t}%</span>`:''}`};
+
+    return{NSETS,TW,cur,make,onField,paintRow,openPick,closePick,resultPanel,hidePanel,statsCard,chapNote,
+      pickSet(n){const p=ch(lob.subj,lob.ch);if(n>p.u){toast(`Finish Set ${n-1} to unlock Set ${n}`);return false}lob.set=n;paintRow();return true},
+      pickTw(t){lob.tw=t||null;paintRow()}};
+  })();
+  window.SETS=SETS;
+  $('#msx').addEventListener('click',()=>{buzz();SETS.openPick()});
+  $('#sxp').addEventListener('click',e=>{const s=e.target.closest('.sxset'),t=e.target.closest('.sxtw');
+    if(s){buzz();if(SETS.pickSet(+s.dataset.set))SETS.openPick();return}
+    if(t){buzz();SETS.pickTw(t.dataset.tw);SETS.openPick()}});
+  ['#sxpX','#sxpGo','#sxpBd'].forEach(s=>$(s).addEventListener('click',()=>{buzz();SETS.closePick()}));
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#sxp').classList.contains('open'))SETS.closePick()});
+  SETS.paintRow();
   const fmtS=ms=>{const t=Math.max(0,ms)/1000,m=t/60|0,s=t-m*60;return`${m}:${s<10?'0':''}${s.toFixed(1)}`};
   const fmtL=s=>`${s/60|0}:${String(s%60).padStart(2,'0')}`;
   const D={t:null,qs:[],i:0,ok:0,res:[],ms:0,run:false,t0:0,raf:0};
@@ -4329,7 +4571,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   function renderQ(){
     const q=D.qs[D.i],qb=$('#qbox');qb.className='qbox'+(q.img?' has-img':'')+(q.stim?' has-stim':'');
     const bk='<svg viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5zM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg>';
-    qb.innerHTML=`<small>QUESTION ${D.i+1} OF 6${q.stim?' · '+q.stim.kind.toUpperCase():''}</small><p>${q.q}</p>${q.img?`<div class="qimg">${q.img}</div>`:''}${q.stim?`<button class="rm" id="rmBtn"><i>${bk}</i>Read more<em>${q.stim.title}</em><span class="rmp"></span></button>`:''}`;
+    qb.innerHTML=`<small>QUESTION ${D.i+1} OF 6${D.t&&!D.t.hw&&D.t.id!=='duel'?` · SET ${D.set}${D.tw?' · '+SETS.TW[D.tw].n.toUpperCase():''}`:''}${q.stim?' · '+q.stim.kind.toUpperCase():''}</small><p>${q.q}</p>${q.img?`<div class="qimg">${q.img}</div>`:''}${q.stim?`<button class="rm" id="rmBtn"><i>${bk}</i>Read more<em>${q.stim.title}</em><span class="rmp"></span></button>`:''}`;
     document.querySelectorAll('#segs i').forEach((s,k)=>{s.className=k<D.i?(D.res[k]?'ok':'no'):k===D.i?'cur':''});
     const ck='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',xx='<svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></svg>';
     $('#ans').innerHTML=q.o.map((o,k)=>`<button class="an" data-v="${String(o).replace(/"/g,'&quot;')}"><span class="lt">${'ABCD'[k]}</span><span class="v">${o}</span><span class="mk">${String(o)===q.c?ck:xx}</span></button>`).join('');
@@ -4364,11 +4606,12 @@ input,textarea{-webkit-user-select:text;user-select:text}
       setTimeout(()=>confetti(SCR.drill),350);
       const bt=`${D.ok}/6 · ${fmtS(ms)}`;t.best=bt}
     $('#resBack').textContent=t.hw?'Back to my homework':'Pick another challenge';
+    if(!t.hw)SETS.resultPanel(D.ok,D.set,D.tw);
     if(t.hw&&window.HW)HW.progress(t,D.ok,win);
     window.STK&&STK.afterChallenge();
   }
   function startDrill(t){
-    D.t=t;D.qs=makeQs(lob.subj,lob.ch);D.i=0;D.ok=0;D.res=[];D.ms=0;D.run=false;
+    D.t=t;{const plain=t.id==='duel'||!!t.hw;D.set=plain?1:SETS.cur();D.tw=plain?null:lob.tw;D.qs=plain?makeQs(lob.subj,lob.ch):SETS.make(lob.subj,lob.ch,D.set,D.tw);$('#s-drill').dataset.tw=D.tw||'';SETS.hidePanel()}D.i=0;D.ok=0;D.res=[];D.ms=0;D.run=false;
     const s=$('#s-drill');const[c1,c2,c3,e,tx]=t.btn;s.style.setProperty('--ac',c2);s.style.setProperty('--acd',e);s.style.setProperty('--acs',t.accs);s.style.setProperty('--tx',tx);
     $('#dNameT').textContent=t.name.toUpperCase();$('#dIco').innerHTML=TICO[t.id];$('#dPts').textContent='+'+t.pts;
     $('#dLim').textContent='LIMIT '+fmtL(t.limit);$('#dNeed').textContent=`NEED ${t.need} RIGHT`;$('#dOk').textContent='0';$('#dTime').textContent='0:00.0';$('#dTime').classList.remove('warn');
@@ -4390,6 +4633,8 @@ input,textarea{-webkit-user-select:text;user-select:text}
   $('#sClose').addEventListener('click',closeStim);$('#sBack').addEventListener('click',closeStim);
   $('#dQuit').addEventListener('click',()=>{pause();closeStim();buzz();if(D.t&&D.t.id==='duel'){duelDone(true);return}nav('types')});
   $('#resAgain').addEventListener('click',()=>{buzz();startDrill(D.t);countdownThen(D.t.name,()=>resume())});
+  $('#resNx').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;buzz();lob.set=+b.dataset.set||null;lob.tw=b.dataset.tw||null;SETS.paintRow();
+    startDrill(D.t);countdownThen(lob.tw?SETS.TW[lob.tw].n:'Set '+lob.set,()=>resume())});
   $('#resBack').addEventListener('click',()=>{buzz();nav(D.t&&D.t.hw?'hw':'types')});
 
   window.__D=D;window.__pause=pause;
@@ -4422,7 +4667,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   stBtns.forEach(b=>b.addEventListener('click',()=>{if(b.classList.contains('on'))return;buzz();stBtns.forEach(x=>x.classList.toggle('on',x===b));ST.period=b.dataset.p;moveStK();renderStats(true)}));
   $('#sgrid').addEventListener('click',e=>{const c=e.target.closest('.sr');if(!c)return;buzz();ST.subj=+c.dataset.k;nav('chap')});
   let ovI=0;
-  function ovGo(i){ovI=Math.max(0,Math.min(1,i));$('#ovt').style.transform=`translateX(${-ovI*100}%)`;document.querySelectorAll('#ovd button').forEach((d,k)=>d.classList.toggle('on',k===ovI));if(ovI===1)replay($('#wk'),'anim')}
+  function ovGo(i){ovI=Math.max(0,Math.min(2,i));if(ovI===2){SETS.statsCard();replay($('#tws'),'anim')}$('#ovt').style.transform=`translateX(${-ovI*100}%)`;document.querySelectorAll('#ovd button').forEach((d,k)=>d.classList.toggle('on',k===ovI));if(ovI===1)replay($('#wk'),'anim')}
   document.querySelectorAll('#ovd button').forEach((d,k)=>d.addEventListener('click',()=>{buzz();ovGo(k)}));
   (function(){const el=$('#ovs'),tr=$('#ovt');let sx=null,sy=0,dx=0,w=1,mv=false;
     el.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;dx=0;mv=false;w=el.getBoundingClientRect().width});
@@ -4440,7 +4685,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
     $('#chero').innerHTML=`<span class="ci"><svg viewBox="0 0 24 24">${s.ico}</svg></span><span class="cs"><span><small>ACCURACY</small><b>${x.acc}%</b></span><span><small>AVG SPEED</small><b>${x.spd}s</b></span><span><small>STRONG</small><b>${strong}/${chs.length}</b></span></span>`;
     let list=chs.slice();if(ST.filter==='weak')list.sort((a,b)=>(a.acc??-1)-(b.acc??-1));if(ST.filter==='strong')list.sort((a,b)=>(b.acc??-1)-(a.acc??-1));
     $('#clist').innerHTML=list.map((z,j)=>{const[lv,cl]=lvl(z.acc);return`<button class="cr ${cl}${cl==='st-w'?' weak':''}" data-i="${z.i}" style="--d:${(.05+j*.04).toFixed(2)}s"><span class="cn2">${z.i+1}</span>
-      <span class="cw"><b>${z.n}</b><div class="bar5" style="--dl:${(.2+j*.04).toFixed(2)}s"><i style="--p:${z.acc??0}%"></i></div><span class="cm">${z.tried?`<span>${z.spd}s avg</span><span>${z.qs} questions</span>`:'<span>Start your first drill</span>'}</span></span>
+      <span class="cw"><b>${z.n}</b><div class="bar5" style="--dl:${(.2+j*.04).toFixed(2)}s"><i style="--p:${z.acc??0}%"></i></div><span class="cm">${z.tried?`<span>${z.spd}s avg</span>`:'<span>Not started</span>'}${SETS.chapNote(ST.subj,z.i)}</span></span>
       <span class="cv"><b>${z.acc==null?'—':z.acc+'%'}</b><span>${lv}</span></span><span class="cgo" aria-label="Drill this chapter"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="#c6f432" stroke="none"/></svg></span></button>`}).join('');
     if(anim){replay($('#clist'),'anim2');$('#clist').scrollTop=0}
   }
