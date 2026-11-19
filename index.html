@@ -2480,10 +2480,10 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .pf-lock p b{display:block;color:#fff;font-size:13px}
 .pf-lock button{flex:none;height:38px;padding:0 14px;border-radius:12px 4px 12px 4px;background:var(--lime);color:var(--ink);font-size:12px;font-weight:800;letter-spacing:.4px;box-shadow:0 3px 0 #6f9a0b;transition:transform .12s}
 .pf-lock button:active{transform:translateY(2px);box-shadow:0 1px 0 #6f9a0b}
-#s-prof.edit .pf-lock{background:#c6f4321f;border-color:#c6f43266}
-#s-prof.edit .pf-lock .li{background:var(--lime)}
-#s-prof.edit .pf-lock .li svg{stroke:var(--ink)}
-#s-prof.edit .pf-lock button{background:#ffffff1f;color:#fff;box-shadow:none}
+#s-prof.pend .pf-lock{background:#c6f4321f;border-color:#c6f43266}
+#s-prof.pend .pf-lock .li{background:var(--lime)}
+#s-prof.pend .pf-lock .li svg{stroke:var(--ink)}
+#s-prof.pend .pf-lock button{background:#ffffff1f;color:#fff;box-shadow:none}
 /* section cards */
 .pf-sec{flex:none;padding:14px 14px 16px;border-radius:30px 8px 30px 8px;background:#fff;box-shadow:0 5px 0 var(--pe,#d3e6a6),0 18px 28px -20px #4a6d1288;display:flex;flex-direction:column;gap:12px}
 .pf-sec h5{margin:0;display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:800;letter-spacing:1.5px;color:#5d6650}
@@ -2541,7 +2541,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
 /* save bar */
 .pf-save{position:absolute;left:14px;right:14px;bottom:16px;z-index:6;display:flex;align-items:center;gap:10px;padding:10px 10px 10px 16px;border-radius:26px 8px 26px 8px;background:linear-gradient(180deg,#30322c,#1b1c19);color:#fff;
   box-shadow:0 16px 30px -14px #1b1c19cc,inset 0 1px 0 #ffffff1a;transform:translateY(140%);transition:transform .45s cubic-bezier(.2,1.3,.4,1)}
-#s-prof.edit .pf-save{transform:none}
+#s-prof .pf-save.show{transform:none}
 .pf-save div{flex:1;min-width:0}
 .pf-save small{display:block;font-size:9px;font-weight:800;letter-spacing:1.3px;color:var(--lime)}
 .pf-save b{display:block;font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -3084,6 +3084,22 @@ input,textarea{-webkit-user-select:text;user-select:text}
 @media (max-height:760px){.wt-h{font-size:36px}.wt-p{font-size:13.5px;margin-top:8px}.wt-scene{min-height:0}.wt-win{transform:scale(.86);transform-origin:50% 50%}}
 .wt-res.pop{animation:up .5s cubic-bezier(.2,1.3,.4,1)}
 
+/* profile: edit first, verify to apply */
+.pf-f.pf-edited>span:first-child::after{content:"EDITED";margin-left:auto;padding:2px 7px;border-radius:999px;background:var(--lime);color:#1b1c19;font-size:8.5px;letter-spacing:.8px}
+.pf-f.pf-edited.err>span:first-child::after{display:none}
+.pf-f.pf-edited .pf-in{border-color:#a7d81c;background:#fbfff0}
+.pf-dumo.pf-edited{box-shadow:0 4px 0 #c9781a,0 0 0 3px var(--lime)}
+.pf-chg{display:flex;flex-direction:column;gap:5px;margin-top:12px;text-align:left}
+.pf-chg div{display:grid;grid-template-columns:92px 1fr;align-items:baseline;column-gap:8px;padding:7px 10px;border-radius:12px 4px 12px 4px;background:#f6f9ee;font-size:12px}
+.pf-chg span{grid-row:span 2;font-size:9.5px;font-weight:800;letter-spacing:.8px;color:#5d6650;text-transform:uppercase}
+.pf-chg s{color:#a3ab95;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf-chg b{color:#1b1c19;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf-chg b::before{content:"→ ";color:#6f9a0b}
+.pf-chg i{font-style:italic;font-weight:500}
+.pf-chg .more{display:block;text-align:center;font-weight:700;color:#5d6650}
+.pf-hero.pf-ok{animation:pfOk .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pfOk{40%{transform:scale(1.03);box-shadow:0 0 0 4px var(--lime),0 24px 40px -22px #1e2a0899}}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -3286,7 +3302,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
       </div>
     </form>
 
-    <div class="pf-save" id="pfSave"><div><small>EDITING · VERIFIED</small><b id="pfSaveT">No changes yet</b></div><button type="button" class="x" id="pfCancel">Cancel</button><button type="button" class="go" id="pfSubmit">SAVE</button></div>
+    <div class="pf-save" id="pfSave"><div><small>UNSAVED CHANGES</small><b id="pfSaveT">No changes</b></div><button type="button" class="x" id="pfCancel">Undo</button><button type="button" class="go" id="pfSubmit">VERIFY &amp; SAVE</button></div>
 
     <div class="pf-bd" id="pfBd"></div>
     <div class="pf-md" id="pfOtp" role="dialog" aria-modal="true" aria-labelledby="pfOtpT">
@@ -3294,7 +3310,8 @@ input,textarea{-webkit-user-select:text;user-select:text}
         <svg class="pf-shield" viewBox="0 0 84 84" aria-hidden="true"><circle class="ring" cx="42" cy="42" r="38" fill="none" stroke="#1b1c19" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round" opacity=".35"/><g class="sh"><path d="M42 12 64 20v18c0 15-9.5 26-22 31-12.5-5-22-16-22-31V20z" fill="#1b1c19"/><path d="M42 18 58 24v14c0 11.5-7 20-16 24z" fill="#ffffff1a"/><rect x="33" y="38" width="18" height="14" rx="3" fill="#c6f432"/><path d="M36.5 38v-4a5.5 5.5 0 0 1 11 0v4" fill="none" stroke="#c6f432" stroke-width="3.2"/><circle cx="42" cy="44.5" r="2.2" fill="#1b1c19"/></g></svg>
         <small>SECURITY CHECK</small><h4 id="pfOtpT">ENTER OTP CODE</h4></div>
       <div class="pf-mb">
-        <p>We sent a 6-digit code to <b id="pfOtpTo">t***4@gmail.com</b>. Enter it to unlock your details.</p>
+        <p>To save <b id="pfOtpN">your changes</b>, enter the 6-digit code we sent to <b id="pfOtpTo">t***4@gmail.com</b>.</p>
+        <div class="pf-chg" id="pfChg"></div>
         <div class="pf-otp" id="pfOtpBx"><input id="pfOtpIn" inputmode="numeric" autocomplete="one-time-code" maxlength="6" aria-label="6-digit code"></div>
         <button type="button" class="pf-mbtn" id="pfVerify" disabled>VERIFY</button>
         <div class="pf-rs" id="pfRs"></div>
@@ -4475,38 +4492,39 @@ input,textarea{-webkit-user-select:text;user-select:text}
     const DEF={username:'test4',name:'sean',email:'test4@gmail.com',mobile:'',country:'MY',address:'',school:'',year:lob.year,pname:'',pmobile:'',pemail:'',dumo:'ri9_test4',fam:'7QK2PA',bundles:[]};
     let P;try{P={...DEF,...JSON.parse(localStorage.getItem('qdProfile')||'null')}}catch(_){P={...DEF}}
     const persist=()=>{try{localStorage.setItem('qdProfile',JSON.stringify(P))}catch(_){}};
-    let editing=false,snap=null,dumoNew=null;
-
-    function fill(){KEYS.forEach(k=>{F(k).value=P[k]??''});paintHero();paintBundles();$('#pfDumo').textContent=P.dumo;$('#pfFam').textContent=P.fam.slice(0,3)+'-'+P.fam.slice(3)}
+    let dumoNew=null;
+    const LOCK_I='<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',MAIL_I='<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/>';
+    // fields are always editable; nothing is stored until the emailed code is verified
+    scr.classList.add('edit');
+    function fill(){KEYS.forEach(k=>{F(k).value=P[k]??''});dumoNew=null;paintHero();paintBundles();$('#pfDumo').textContent=P.dumo;$('#pfFam').textContent=P.fam.slice(0,3)+'-'+P.fam.slice(3);
+      form.querySelectorAll('.pf-f.err').forEach(f=>f.classList.remove('err'));paintChanges()}
     function paintHero(){const n=(P.name||P.username||'?').trim();$('#pfAv').textContent=(n[0]||'?').toUpperCase();$('#pfName').textContent=n;
       const y=YEARS.find(x=>x.id===P.year);$('#pfSub').textContent=`@${P.username}${y?' · '+y.label:''}`}
     function paintBundles(){$('#pfBundles').innerHTML=P.bundles.map(b=>`<span><i></i>${pfEsc(b)}</span>`).join('')}
-    function setLocked(lock){editing=!lock;scr.classList.toggle('edit',!lock);
-      form.querySelectorAll('input,textarea').forEach(i=>i.readOnly=lock);form.querySelectorAll('select').forEach(s=>s.disabled=lock);
-      $('#pfLockT').innerHTML=lock?'<b>Details are locked</b>We\'ll email a code to keep your account &amp; prizes safe.':'<b>Unlocked for editing</b>Make your changes, then tap Save.';
-      $('#pfLockI').innerHTML=lock?'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>':'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>';
-      $('#pfEdit').textContent=lock?'Edit details':'Lock';
-      form.querySelectorAll('.pf-f.err').forEach(f=>f.classList.remove('err'));
-      if(!lock){snap={...P};dumoNew=null;paintChanges()}}
-    function changes(){if(!snap)return[];const c=KEYS.filter(k=>String(F(k).value).trim()!==String(snap[k]??'').trim());if(dumoNew&&dumoNew!==snap.dumo)c.push('dumo');return c}
-    function paintChanges(){const c=changes();$('#pfSaveT').textContent=c.length?`${c.length} change${c.length>1?'s':''} · ${c.map(k=>LABEL[k]).join(', ')}`:'No changes yet'}
-    form.addEventListener('input',e=>{if(!editing)return;const f=e.target.closest('.pf-f');f&&f.classList.remove('err');
-      if(e.target.type==='tel')e.target.value=e.target.value.replace(/[^\d ]/g,'');paintChanges()});
-    form.addEventListener('change',()=>editing&&paintChanges());
+    const val=k=>k==='dumo'?(dumoNew||P.dumo):String(F(k).value).trim();
+    function changes(){const c=KEYS.filter(k=>val(k)!==String(P[k]??'').trim());if(dumoNew&&dumoNew!==P.dumo)c.push('dumo');return c}
+    function show(k,v){if(!v)return'<i>empty</i>';if(k==='country')return pfEsc((COUNTRIES.find(c=>c[0]===v)||[,v])[1]);if(k==='year')return pfEsc((YEARS.find(y=>y.id===v)||{label:v}).label);
+      if(k==='mobile'||k==='pmobile')return'+60 '+pfEsc(v);return pfEsc(v.length>26?v.slice(0,25)+'…':v)}
+    function paintChanges(){const c=changes(),n=c.length;
+      form.querySelectorAll('.pf-f[data-k]').forEach(f=>f.classList.toggle('pf-edited',c.includes(f.dataset.k)));$('.pf-dumo').classList.toggle('pf-edited',c.includes('dumo'));
+      $('#pfSave').classList.toggle('show',n>0);scr.classList.toggle('pend',n>0);
+      $('#pfSaveT').textContent=n?`${n} change${n>1?'s':''} · ${c.map(k=>LABEL[k]).join(', ')}`:'No changes';
+      $('#pfLockI').innerHTML=n?MAIL_I:LOCK_I;
+      $('#pfLockT').innerHTML=n?`<b>${n} change${n>1?'s':''} not saved yet</b>Tap Verify &amp; save. We'll email a code to confirm it's you.`:'<b>Protected with a code</b>Edit anything below. Changes only apply after you verify the code we email you.'}
+    form.addEventListener('input',e=>{const f=e.target.closest('.pf-f');f&&f.classList.remove('err');if(e.target.type==='tel')e.target.value=e.target.value.replace(/[^\d ]/g,'');paintChanges()});
+    form.addEventListener('change',paintChanges);
     form.addEventListener('submit',e=>e.preventDefault());
-    // tapping a locked field asks for the OTP
-    form.addEventListener('click',e=>{if(editing)return;if(e.target.closest('.pf-in')){e.preventDefault();buzz();requireOtp()}});
 
     /* ---- modals ---- */
-    const bd=$('#pfBd');let openMd=null;
-    function md(el){openMd&&openMd.classList.remove('open');openMd=el;el.classList.add('open');bd.classList.add('open')}
-    function closeMd(){if(!openMd)return;openMd.classList.remove('open');bd.classList.remove('open');openMd=null;clearInterval(rsT)}
-    bd.addEventListener('click',closeMd);scr.querySelectorAll('[data-pfx]').forEach(b=>b.addEventListener('click',()=>{buzz();closeMd()}));
+    const bd=$('#pfBd');let openMd=null,mdClose=null;
+    function md(el,onClose){openMd&&openMd.classList.remove('open');openMd=el;mdClose=onClose||null;el.classList.add('open');bd.classList.add('open')}
+    function closeMd(silent){if(!openMd)return;openMd.classList.remove('open');bd.classList.remove('open');openMd=null;clearInterval(rsT);const f=mdClose;mdClose=null;if(!silent&&f)f()}
+    bd.addEventListener('click',()=>closeMd());scr.querySelectorAll('[data-pfx]').forEach(b=>b.addEventListener('click',()=>{buzz();closeMd()}));
     addEventListener('keydown',e=>{if(e.key==='Escape'&&openMd)closeMd()});
     function dialog(sub,title,body){$('#pfM2S').textContent=sub;$('#pfM2T').textContent=title;$('#pfM2B').innerHTML=body;md($('#pfMd2'))}
 
-    /* ---- OTP ---- */
-    const ob=$('#pfOtpBx'),oi=$('#pfOtpIn');let rsT,rsLeft=0,afterOtp=null;
+    /* ---- OTP: asked after the changes are made, applies them once verified ---- */
+    const ob=$('#pfOtpBx'),oi=$('#pfOtpIn');let rsT,rsLeft=0,pending=null;
     ob.insertAdjacentHTML('afterbegin',[0,1,2,3,4,5].map(i=>`<span class="bx"></span>${i===2?'<span class="sep"></span>':''}`).join(''));
     const bxs=[...ob.querySelectorAll('.bx')];
     function paintOtp(){const v=oi.value,foc=document.activeElement===oi;bxs.forEach((b,i)=>{b.textContent=v[i]||'';b.classList.toggle('full',!!v[i]);b.classList.toggle('cur',foc&&v.length<6&&i===v.length)});$('#pfVerify').disabled=v.length!==6}
@@ -4515,14 +4533,19 @@ input,textarea{-webkit-user-select:text;user-select:text}
     const mask=e=>{const[u,d]=String(e).split('@');return d?(u.length<=2?u[0]+'*':u[0]+'*'.repeat(Math.min(3,u.length-2))+u.slice(-1))+'@'+d:e};
     function tickRs(){const r=$('#pfRs');if(rsLeft>0){r.textContent=`Resend code in ${rsLeft}s`;rsLeft--}else{clearInterval(rsT);r.innerHTML='Didn\'t get it? <button type="button" id="pfResend">Resend code</button>';$('#pfResend').onclick=()=>{buzz();startRs();toast('New code sent')}}}
     function startRs(){clearInterval(rsT);rsLeft=59;tickRs();rsT=setInterval(tickRs,1000)}
-    function requireOtp(then){if(editing){then&&then();return}afterOtp=then||null;oi.value='';ob.classList.remove('bad','ok');$('#pfVerify').innerHTML='VERIFY';
-      $('#pfOtpTo').textContent=mask(P.email);paintOtp();md($('#pfOtp'));startRs();setTimeout(()=>oi.focus({preventScroll:true}),350);toast('Code sent to your email')}
-    $('#pfVerify').addEventListener('click',()=>{const v=oi.value,b=$('#pfVerify');if(v.length!==6||b.dataset.busy)return;buzz();b.dataset.busy=1;b.innerHTML='<span class="spin"></span>CHECKING';
+    function askOtp(c){pending={vals:Object.fromEntries(KEYS.map(k=>[k,val(k)])),dumo:dumoNew,c};
+      oi.value='';ob.classList.remove('bad','ok');$('#pfVerify').innerHTML='VERIFY &amp; SAVE';$('#pfOtpTo').textContent=mask(P.email);
+      $('#pfOtpN').textContent=`${c.length} change${c.length>1?'s':''}`;
+      $('#pfChg').innerHTML=c.slice(0,4).map(k=>`<div><span>${LABEL[k]}</span><s>${show(k,k==='dumo'?P.dumo:String(P[k]??''))}</s><b>${show(k,val(k))}</b></div>`).join('')+(c.length>4?`<div class="more">+${c.length-4} more</div>`:'');
+      paintOtp();md($('#pfOtp'),()=>{pending=null;toast('Not saved · your changes are still waiting')});startRs();setTimeout(()=>oi.focus({preventScroll:true}),350);toast('Code sent to '+mask(P.email))}
+    $('#pfVerify').addEventListener('click',()=>{const v=oi.value,b=$('#pfVerify');if(v.length!==6||b.dataset.busy||!pending)return;buzz();b.dataset.busy=1;b.innerHTML='<span class="spin"></span>CHECKING';
       setTimeout(()=>{delete b.dataset.busy;
-        if(v==='000000'){b.innerHTML='VERIFY';ob.classList.remove('bad');void ob.offsetWidth;ob.classList.add('bad');SFX.play('wrong');toast('That code doesn\'t match — try again');oi.value='';paintOtp();oi.focus();return}
+        if(v==='000000'){b.innerHTML='VERIFY &amp; SAVE';ob.classList.remove('bad');void ob.offsetWidth;ob.classList.add('bad');SFX.play('wrong');toast('That code doesn\'t match — try again');oi.value='';paintOtp();oi.focus();return}
         ob.classList.add('ok');b.innerHTML='VERIFIED ✓';SFX.play('right');
-        setTimeout(()=>{closeMd();setLocked(false);toast('Verified — you can edit now');const f=afterOtp;afterOtp=null;f&&f()},550)},800)});
-    $('#pfEdit').addEventListener('click',()=>{buzz();if(editing)cancelEdit();else requireOtp()});
+        setTimeout(()=>{const p=pending;pending=null;closeMd(true);apply(p)},550)},800)});
+    function apply(p){const yearChanged=p.vals.year!==P.year;KEYS.forEach(k=>{P[k]=p.vals[k]});if(p.dumo)P.dumo=p.dumo;persist();
+      if(yearChanged&&YEARS.some(y=>y.id===P.year)){setYear(P.year);if(typeof renderFields==='function')renderFields()}
+      fill();replay($('.pf-hero'),'pf-ok');toast(`Verified · ${p.c.length} change${p.c.length>1?'s':''} saved`)}
 
     /* ---- save / cancel ---- */
     const RX={username:/^[a-z0-9_]{3,20}$/i,email:/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,phone:/^\d{8,11}$/};
@@ -4534,20 +4557,18 @@ input,textarea{-webkit-user-select:text;user-select:text}
       form.querySelectorAll('.pf-f').forEach(f=>f.classList.toggle('err',bad.includes(f.dataset.k)));return bad}
     $('#pfSubmit').addEventListener('click',()=>{buzz();const c=changes();if(!c.length){toast('Nothing changed yet');return}
       const bad=validate();if(bad.length){const f=form.querySelector(`.pf-f[data-k="${bad[0]}"]`);f.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});SFX.play('wrong');toast(`Check ${LABEL[bad[0]].toLowerCase()}`);return}
-      const yearChanged=F('year').value!==P.year;
-      KEYS.forEach(k=>{P[k]=String(F(k).value).trim()});if(dumoNew)P.dumo=dumoNew;persist();
-      if(yearChanged&&YEARS.some(y=>y.id===P.year)){setYear(P.year);if(typeof renderFields==='function')renderFields()}
-      setLocked(true);fill();SFX.play('right');toast(`Profile saved · ${c.length} change${c.length>1?'s':''}`)});
-    function cancelEdit(){if(!changes().length){setLocked(true);fill();return}
-      dialog('UNSAVED CHANGES','Discard changes?',`<p>You changed <b>${changes().map(k=>LABEL[k]).join(', ')}</b>. These won't be saved.</p><button type="button" class="pf-mbtn dang" id="pfDisc">DISCARD</button><button type="button" class="pf-mbtn sec" id="pfKeep">Keep editing</button>`);
-      $('#pfDisc').onclick=()=>{buzz();closeMd();setLocked(true);fill();toast('Changes discarded')};$('#pfKeep').onclick=()=>{buzz();closeMd()}}
+      askOtp(c)});
+    function cancelEdit(){const c=changes();if(!c.length)return;
+      dialog('UNSAVED CHANGES','Discard changes?',`<p>You changed <b>${c.map(k=>LABEL[k]).join(', ')}</b>. These won't be saved.</p><button type="button" class="pf-mbtn dang" id="pfDisc">DISCARD</button><button type="button" class="pf-mbtn sec" id="pfKeep">Keep editing</button>`);
+      $('#pfDisc').onclick=()=>{buzz();closeMd();fill();toast('Changes discarded')};$('#pfKeep').onclick=()=>{buzz();closeMd()}}
     $('#pfCancel').addEventListener('click',()=>{buzz();cancelEdit()});
+    $('#pfEdit').hidden=true;
 
-    /* ---- DUMO switch (a detail change, so it needs the OTP too) ---- */
-    $('#pfDumoSw').addEventListener('click',e=>{e.stopPropagation();buzz();requireOtp(()=>{
+    /* ---- DUMO switch: picked here, applied with the other changes after the code ---- */
+    $('#pfDumoSw').addEventListener('click',e=>{e.stopPropagation();buzz();
       const cur=dumoNew||P.dumo,list=[...new Set([cur,P.dumo,'ri9_'+P.username,P.username+'_dumo'])];
-      dialog('DUMO ACCOUNT','Switch account',`<div style="display:flex;flex-direction:column;gap:7px">${list.map(a=>`<button type="button" class="pf-row" data-dumo="${pfEsc(a)}" style="${a===cur?'border-color:var(--lime);background:#f1fcd2':''}"><span class="ri" style="background:#fff0d6;font-family:var(--f-display);color:#ff8a1e">DU</span><div><b>${pfEsc(a)}</b><small>${a===cur?'Connected now':'Tap to connect'}</small></div></button>`).join('')}</div><p class="pf-hint" style="margin-top:12px">Switching takes effect when you save.</p>`);
-      $('#pfM2B').querySelectorAll('[data-dumo]').forEach(b=>b.onclick=()=>{buzz();dumoNew=b.dataset.dumo;$('#pfDumo').textContent=dumoNew;closeMd();paintChanges();toast('DUMO: '+dumoNew)})})});
+      dialog('DUMO ACCOUNT','Switch account',`<div style="display:flex;flex-direction:column;gap:7px">${list.map(a=>`<button type="button" class="pf-row" data-dumo="${pfEsc(a)}" style="${a===cur?'border-color:var(--lime);background:#f1fcd2':''}"><span class="ri" style="background:#fff0d6;font-family:var(--f-display);color:#ff8a1e">DU</span><div><b>${pfEsc(a)}</b><small>${a===P.dumo?'Connected now':a===cur?'Selected · not saved yet':'Tap to select'}</small></div></button>`).join('')}</div><p class="pf-hint" style="margin-top:12px">The switch is saved after you verify the code.</p>`);
+      $('#pfM2B').querySelectorAll('[data-dumo]').forEach(b=>b.onclick=()=>{buzz();dumoNew=b.dataset.dumo===P.dumo?null:b.dataset.dumo;$('#pfDumo').textContent=dumoNew||P.dumo;closeMd();paintChanges()})});
 
     /* ---- family code ---- */
     $('#pfFamCp').addEventListener('click',e=>{e.stopPropagation();buzz();const c=P.fam;
@@ -4570,8 +4591,8 @@ input,textarea{-webkit-user-select:text;user-select:text}
       dialog('ACCOUNT','Log out?',`<p>You'll need your username and password to sign back in as <b>@${pfEsc(P.username)}</b>.</p><button type="button" class="pf-mbtn dang" id="pfOutOk">LOG OUT</button><button type="button" class="pf-mbtn sec" id="pfOutNo">Stay</button>`);
       $('#pfOutOk').onclick=()=>{buzz();closeMd();toast('Logged out — sign-in screen comes next in the build');nav('home')};$('#pfOutNo').onclick=()=>{buzz();closeMd()}});
 
-    window.openProf=()=>{closeMd();if(editing)setLocked(true);fill();replay(form,'anim');form.scrollTop=0};
-    setLocked(true);fill();
+    window.openProf=()=>{closeMd(true);fill();replay(form,'anim');form.scrollTop=0};
+    fill();
   })();
 
 
