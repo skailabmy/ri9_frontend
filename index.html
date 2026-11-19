@@ -3315,6 +3315,191 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .pwd-f .sec{background:#f1f4ea;color:#5d6650}
 .pwd-f .pri{flex:1.6;background:radial-gradient(circle at 35% 28%,#fffbe0 0%,#f2c94c 50%,#c9971c 100%);color:#5c3d00;box-shadow:0 4px 0 #8a6410}
 
+/* ===================== PUZZLE QUEST ===================== */
+:root{--g1:#fff6c2;--g2:#f2c94c;--g3:#a8760f;--s1:#ffffff;--s2:#c9d1d8;--s3:#6f7a84;--b1:#ffd9b5;--b2:#d98a4e;--b3:#7a3d14}
+.t-gold{--m1:var(--g1);--m2:var(--g2);--m3:var(--g3);--mg:#f2c94c;--mt:#5c3d00}
+.t-silver{--m1:var(--s1);--m2:var(--s2);--m3:var(--s3);--mg:#dfe6ec;--mt:#2f3840}
+.t-bronze{--m1:var(--b1);--m2:var(--b2);--m3:var(--b3);--mg:#e09a5f;--mt:#4a210a}
+/* home entry tab (mirrors the S.O.S tab) */
+.pq-tab{position:absolute;right:0;top:262px;z-index:6;width:34px;height:104px;border-radius:16px 0 0 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  background:linear-gradient(180deg,#30322c,#1b1c19);color:#fff;filter:drop-shadow(-4px 8px 12px #2d3d0e44);overflow:visible}
+.pq-tab::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:2px;background:linear-gradient(180deg,#f2c94c,#c9d1d8,#d98a4e)}
+.pq-tab svg{width:20px;height:20px}
+.pq-tab span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:10.5px;font-weight:800;letter-spacing:1.4px}
+.pq-tab b{position:absolute;top:-7px;left:-7px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--lime);color:#1b1c19;font-size:11px;font-weight:900;display:grid;place-items:center;box-shadow:0 0 0 2px #1b1c19,0 0 14px #c6f432}
+.pq-tab.ready{animation:pqTab 2.4s ease-in-out infinite}
+.pq-tab.ready b{animation:hwPop 1.2s ease-in-out infinite}
+@keyframes pqTab{0%,80%,100%{transform:none}85%{transform:translateX(-4px) rotate(-3deg)}90%{transform:translateX(-2px) rotate(2deg)}}
+/* screen */
+#s-pq{color:#fff}
+.pq-bg{position:absolute;left:-2px;right:-2px;top:-200px;bottom:-200px;overflow:hidden;background:radial-gradient(110% 50% at 50% 300px,#3b3215 0%,#1e1d12 40%,#0c0d08 80%)}
+.pq-bg .rays{position:absolute;left:50%;top:480px;width:1200px;height:1200px;margin:-600px 0 0 -600px;background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--mg,#f2c94c) 14%,transparent) 0 6deg,transparent 6deg 16deg);animation:rot 40s linear infinite;
+  -webkit-mask-image:radial-gradient(closest-side,#000 10%,transparent 70%);mask-image:radial-gradient(closest-side,#000 10%,transparent 70%);transition:background .6s}
+.pq-bg .dust{position:absolute;inset:0;background-image:radial-gradient(#ffffff22 1px,transparent 1.5px);background-size:28px 28px;animation:pqDust 12s linear infinite;opacity:.6}
+@keyframes pqDust{to{background-position:0 -280px}}
+#s-pq .gbtn{background:#ffffff12;border:1px solid #ffffff22;box-shadow:none}
+#s-pq .gbtn svg{stroke:#fff}
+#s-pq .ahdr .tt h2{color:#fff}
+#s-pq .ahdr .tt h2 span{background:linear-gradient(135deg,#fff6c2,#f2c94c);color:#1b1c19;box-shadow:3px 3px 0 #000}
+/* tier tabs */
+.pq-tiers{position:absolute;left:14px;right:14px;top:66px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;z-index:3}
+.pq-ti{position:relative;display:flex;align-items:center;gap:8px;height:52px;padding:0 8px 0 6px;border-radius:16px 5px 16px 5px;background:#ffffff0d;border:1.5px solid #ffffff1a;text-align:left;transition:all .25s}
+.pq-ti .pq-md{position:relative;width:38px;height:38px;flex:none}
+.pq-ti .pq-md svg{width:100%;height:100%;transform:rotate(-90deg)}
+.pq-ti .pq-md i{position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--m1),var(--m2) 55%,var(--m3));box-shadow:inset 0 -2px 0 #0003}
+.pq-ti b{display:block;font-size:11px;font-weight:800;letter-spacing:1px;color:var(--mg)}
+.pq-ti small{display:block;font-family:var(--f-display);font-size:16px;line-height:1;color:#fff;transform:skewX(-8deg)}
+.pq-ti small em{font-style:normal;font-size:11px;color:#ffffff80}
+.pq-ti.on{background:linear-gradient(135deg,color-mix(in srgb,var(--m2) 30%,transparent),#ffffff08);border-color:var(--mg);box-shadow:0 0 22px color-mix(in srgb,var(--mg) 40%,transparent)}
+.pq-ti.full::after{content:"CLAIM";position:absolute;top:-8px;right:-4px;padding:2px 6px;border-radius:999px;background:var(--lime);color:#1b1c19;font-size:8.5px;font-weight:900;letter-spacing:.6px;animation:hwPop 1.2s ease-in-out infinite}
+/* board */
+.pq-stage{position:absolute;left:0;right:0;top:128px;height:322px;overflow:hidden;touch-action:pan-y}
+.pq-track{display:flex;height:100%;transition:transform .55s cubic-bezier(.2,1,.25,1)}
+.pq-track.drag{transition:none}
+.pq-slide{flex:0 0 100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:0 16px}
+.pq-frame{position:relative;padding:10px;border-radius:26px 8px 26px 8px;background:linear-gradient(135deg,var(--m1),var(--m2) 35%,var(--m3) 70%,var(--m2));box-shadow:0 0 0 2px #00000055,0 24px 40px -18px #000,0 0 50px color-mix(in srgb,var(--mg) 35%,transparent)}
+.pq-frame::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,transparent 30%,#ffffffa0 45%,transparent 60%);background-size:300% 100%;animation:pqSheen 4s ease-in-out infinite;pointer-events:none;mix-blend-mode:overlay}
+@keyframes pqSheen{0%{background-position:150% 0}60%,100%{background-position:-60% 0}}
+.pq-frame .pq-bolt{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--m3));box-shadow:inset 0 -1px 0 #0005}
+.pq-frame .pq-bolt:nth-of-type(1){left:4px;top:4px}.pq-frame .pq-bolt:nth-of-type(2){right:4px;top:4px}.pq-frame .pq-bolt:nth-of-type(3){left:4px;bottom:4px}.pq-frame .pq-bolt:nth-of-type(4){right:4px;bottom:4px}
+.pq-board{position:relative;display:block;border-radius:16px 5px 16px 5px;overflow:hidden;background:#0c0d08}
+.pq-board svg{display:block}
+.pq-board .pq-miss{transition:opacity .5s}
+.pq-board .pq-miss.pq-go2{opacity:0}
+.pq-board .pq-glowp{fill:none;stroke:var(--lime);stroke-width:3;opacity:0;filter:drop-shadow(0 0 6px #c6f432)}
+.pq-board .pq-glowp.on{animation:pqGlow 1.4s ease-out}
+@keyframes pqGlow{0%{opacity:1;stroke-width:5}100%{opacity:0;stroke-width:1}}
+.pq-fly{position:absolute;left:0;top:0;z-index:4;pointer-events:none;filter:drop-shadow(0 18px 18px #000a)}
+.pq-fly.pq-go2{animation:pqFly .85s cubic-bezier(.3,1.25,.5,1) both}
+@keyframes pqFly{0%{transform:translate(var(--fx),var(--fy)) scale(1.6) rotate(-24deg);opacity:0}25%{opacity:1}100%{transform:none;opacity:1}}
+.pq-done{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(closest-side,#0008,transparent);pointer-events:none;opacity:0;transition:opacity .4s}
+.pq-slide.full .pq-done{opacity:1;pointer-events:auto}
+.pq-done span{padding:8px 14px;border-radius:14px 4px 14px 4px;background:var(--lime);color:#1b1c19;font-family:var(--f-display);font-size:22px;letter-spacing:.6px;transform:rotate(-6deg);box-shadow:4px 4px 0 #000,0 0 30px #c6f432;animation:hotp 1.2s ease-in-out infinite}
+.pq-meta{display:flex;align-items:center;gap:8px;width:100%;max-width:330px}
+.pq-pz{flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:40px;padding:0 6px 0 4px;border-radius:13px 4px 13px 4px;background:#ffffff0f;border:1px solid #ffffff1a;text-align:left}
+.pq-pz .pq-a{width:32px;height:32px;flex:none;border-radius:10px 3px 10px 3px;background:var(--pbg);display:grid;place-items:center}
+.pq-pz .pq-a svg{width:24px;height:24px}
+.pq-pz span{flex:1;min-width:0;line-height:1.1}
+.pq-pz small{display:block;font-size:8.5px;font-weight:800;letter-spacing:1px;color:var(--mg)}
+.pq-pz b{display:block;font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pq-pz em{flex:none;font-style:normal;font-size:10.5px;font-weight:800;padding:4px 8px;border-radius:999px;background:#ffffff1a}
+.pq-claim{flex:none;height:40px;padding:0 14px;border-radius:13px 4px 13px 4px;background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:#1b1c19;font-family:var(--f-display);font-size:17px;letter-spacing:.6px;box-shadow:0 4px 0 #5f840a,0 0 22px #c6f43277;animation:hotp 1.2s ease-in-out infinite}
+/* stock */
+.pq-stock{position:absolute;left:16px;right:16px;top:454px;display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:16px 5px 16px 5px;background:#ffffff0a;border:1px solid #ffffff17}
+.pq-stock .pq-lb{flex:1;min-width:0;line-height:1.15}
+.pq-stock small{display:block;font-size:9px;font-weight:800;letter-spacing:1.3px;color:#ffffff8c}
+.pq-stock b{display:block;font-size:13px;font-weight:800;color:var(--sc)}
+.pq-meter{display:flex;gap:3px}
+.pq-meter i{width:16px;height:14px;border-radius:4px 1px 4px 1px;background:#ffffff14;transform:skewX(-15deg)}
+.pq-meter i.on{background:var(--sc);box-shadow:0 0 8px var(--sc)}
+.pq-stock.low .pq-meter i.on{animation:blink 1s steps(1) infinite}
+.pq-stock .pq-fire{font-size:15px}
+/* missions */
+.pq-ms{position:absolute;left:12px;right:12px;top:512px;bottom:12px;display:flex;flex-direction:column;border-radius:26px 8px 26px 8px;background:linear-gradient(180deg,#ffffff12,#ffffff06);border:1px solid #ffffff1a;padding:12px 12px 10px;overflow:hidden}
+.pq-msh{display:flex;align-items:center;gap:8px;margin:0 2px 8px}
+.pq-msh b{font-family:var(--f-display);font-weight:400;font-size:19px;letter-spacing:.4px;transform:skewX(-8deg)}
+.pq-msh span{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:1px;color:#ffffff8c;font-variant-numeric:tabular-nums}
+.pq-list{flex:1;display:flex;flex-direction:column;gap:7px;overflow-y:auto;scrollbar-width:none}
+.pq-list::-webkit-scrollbar{display:none}
+.pq-m{flex:none;display:flex;align-items:center;gap:10px;padding:9px 9px 9px 10px;border-radius:18px 6px 18px 6px;background:#ffffff0d;border:1px solid #ffffff14}
+.pq-m .pq-mi{width:38px;height:38px;flex:none;border-radius:12px 4px 12px 4px;background:#ffffff14;display:grid;place-items:center}
+.pq-m .pq-mi svg{width:20px;height:20px;fill:none;stroke:var(--lime);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pq-m .pq-tx{flex:1;min-width:0}
+.pq-m .pq-tx b{display:block;font-size:13.5px;font-weight:700}
+.pq-m .pq-tx .pq-bar{height:6px;margin-top:6px;border-radius:4px;background:#ffffff17;overflow:hidden;transform:skewX(-20deg)}
+.pq-m .pq-tx .pq-bar i{display:block;height:100%;width:var(--p);background:linear-gradient(90deg,#8fc914,#c6f432);border-radius:4px;transition:width .6s}
+.pq-m .pq-tx small{display:block;margin-top:4px;font-size:10.5px;font-weight:700;color:#ffffff80}
+.pq-m .pq-act{flex:none;height:38px;padding:0 12px;border-radius:12px 4px 12px 4px;font-size:11.5px;font-weight:800;letter-spacing:.4px;display:flex;align-items:center;gap:6px}
+.pq-m .pq-act.pq-go2{background:#ffffff14;color:#fff}
+.pq-m .pq-act.pq-get{background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:#1b1c19;box-shadow:0 3px 0 #5f840a,0 0 18px #c6f43277;animation:hotp 1.2s ease-in-out infinite}
+.pq-m .pq-act svg{width:16px;height:16px}
+.pq-m.got{opacity:.75}
+.pq-m.got .pq-mi{background:linear-gradient(135deg,var(--m1),var(--m2));}
+.pq-m.got .pq-mi svg{stroke:#1b1c19}
+.pq-m .pq-res{flex:none;display:flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;color:var(--mg)}
+.pq-m .pq-res i{width:16px;height:16px;border-radius:5px 2px 5px 2px;background:linear-gradient(135deg,var(--m1),var(--m2))}
+.pq-m.dup .pq-res{color:#ffffff80;text-decoration:line-through}
+.pq-m.ready{border-color:#c6f43277;box-shadow:0 0 0 1px #c6f43244,inset 0 0 20px #c6f43214}
+/* ---------- reveal overlay ---------- */
+.pq-rv{position:absolute;inset:0;z-index:46;display:flex;flex-direction:column;align-items:center;color:#fff;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .3s;
+  background:radial-gradient(90% 55% at 50% 42%,#2b2a1b 0%,#121209 55%,#060604 100%)}
+.pq-rv.open{opacity:1;pointer-events:auto}
+.pq-rv .pq-burst{position:absolute;left:50%;top:40%;width:1100px;height:1100px;margin:-550px 0 0 -550px;opacity:0;background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--mg) 50%,transparent) 0 7deg,transparent 7deg 18deg);
+  -webkit-mask-image:radial-gradient(closest-side,#000 6%,transparent 66%);mask-image:radial-gradient(closest-side,#000 6%,transparent 66%);transition:opacity .4s;animation:rot 18s linear infinite}
+.pq-rv.flipped .pq-burst{opacity:1}
+.pq-rv .pq-swirl{position:absolute;left:50%;top:40%;width:340px;height:340px;margin:-170px 0 0 -170px;border-radius:50%;background:conic-gradient(from 0deg,#f2c94c,#c9d1d8,#d98a4e,#c6f432,#f2c94c);filter:blur(40px);opacity:.55;animation:rot 4s linear infinite}
+.pq-rv.flipped .pq-swirl{background:var(--mg);opacity:.5}
+.pq-rv .pq-sp{position:absolute;inset:0;pointer-events:none}
+.pq-rv .pq-sp i{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 8px #fff;opacity:0;animation:pqSp var(--t) ease-in-out var(--dl) infinite}
+@keyframes pqSp{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:translateY(-30px) scale(1)}}
+.pq-rv .pq-k{position:relative;margin-top:54px;font-size:11px;font-weight:800;letter-spacing:3px;color:var(--lime)}
+.pq-rv .pq-h{position:relative;margin-top:6px;font-family:var(--f-display);font-weight:400;font-size:42px;line-height:1;transform:skewX(-8deg);text-align:center;min-height:42px}
+.pq-rv .pq-h span{display:inline-block;padding:0 8px;background:linear-gradient(135deg,var(--m1),var(--m2));color:var(--mt);box-shadow:4px 4px 0 #000}
+.pq-rv.flipped .pq-h{animation:slam .55s cubic-bezier(.2,1.2,.4,1) both}
+.pq-card{position:relative;margin-top:28px;width:220px;height:220px;perspective:900px;cursor:pointer}
+.pq-card .pq-in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.3,1.4,.5,1);animation:pqHover 3s ease-in-out infinite}
+@keyframes pqHover{50%{translate:0 -10px}}
+.pq-rv.flipped .pq-card .pq-in{transform:rotateY(180deg)}
+.pq-card .pq-fc{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center}
+.pq-card .pq-fc svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 22px 26px #000c)}
+.pq-card .pq-bk{transform:rotateY(180deg)}
+.pq-card .pq-q{font-family:var(--f-display);font-size:90px;fill:#c6f432}
+.pq-rv:not(.flipped) .pq-card{animation:pqWob 2.2s ease-in-out infinite}
+@keyframes pqWob{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.pq-rv .pq-tap{position:relative;margin-top:22px;font-size:12px;font-weight:800;letter-spacing:2.5px;color:#ffffffb3;animation:blink 1.2s steps(1) infinite}
+.pq-rv.flipped .pq-tap{display:none}
+.pq-rv .pq-res{position:relative;margin-top:22px;text-align:center;opacity:0;transform:translateY(16px);transition:all .5s .5s}
+.pq-rv.flipped .pq-res{opacity:1;transform:none}
+.pq-rv .pq-res p{margin:0;font-size:14px;line-height:1.45;color:#ffffffc4;max-width:300px}
+.pq-rv .pq-res p b{color:#fff}
+.pq-rv .pq-acts{position:absolute;left:18px;right:18px;bottom:22px;display:flex;flex-direction:column;gap:8px;opacity:0;transform:translateY(20px);transition:all .5s .7s;pointer-events:none}
+.pq-rv.flipped .pq-acts{opacity:1;transform:none;pointer-events:auto}
+.pq-rv .pq-acts button{height:58px;border-radius:20px 6px 20px 6px;font-family:var(--f-display);font-size:24px;letter-spacing:1px;display:flex;align-items:center;justify-content:center;gap:10px}
+.pq-rv .pq-acts .pq-pl{background:radial-gradient(circle at 35% 28%,#efff9e 0%,var(--lime) 45%,#98c814 100%);color:#1b1c19;box-shadow:0 5px 0 #5f840a,0 0 30px #c6f43266}
+.pq-rv .pq-acts .pq-dr{background:#ffffff14;border:1.5px solid #ffffff2a;color:#fff}
+.pq-rv .pq-acts span{transform:skewX(-8deg)}
+.pq-rv .stampd{position:absolute;left:50%;top:50%;padding:4px 14px;border:4px solid #ff6b5a;border-radius:12px;color:#ff6b5a;background:#000a;font-family:var(--f-display);font-size:26px;transform:translate(-50%,-50%) rotate(-14deg);opacity:0}
+.pq-rv.dup.flipped .stampd{animation:pqStamp .6s cubic-bezier(.3,1.6,.5,1) .9s both}
+.pq-rv.dropping .pq-card{animation:pqDrop .9s cubic-bezier(.5,0,.8,.4) forwards}
+@keyframes pqDrop{0%{transform:none}25%{transform:translateY(-20px) rotate(-8deg)}100%{transform:translateY(700px) rotate(70deg);opacity:0}}
+/* sheets (prize pool, claim, rules) */
+.pq-bd{position:absolute;inset:0;z-index:47;background:#000a;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s}
+.pq-bd.open{opacity:1;pointer-events:auto}
+.pq-sh{position:absolute;left:10px;right:10px;bottom:10px;max-height:calc(100% - 30px);z-index:48;display:flex;flex-direction:column;border-radius:44px 10px 44px 10px;background:#fff;color:#1b1c19;overflow:hidden;box-shadow:0 30px 60px -20px #000;transform:translateY(112%);transition:transform .5s cubic-bezier(.2,1.2,.3,1)}
+.pq-sh.open{transform:none}
+.pq-shh{position:relative;flex:none;padding:18px 20px 14px;background:linear-gradient(135deg,var(--m1),var(--m2) 60%,var(--m3));color:var(--mt);overflow:hidden}
+.pq-shh::before{content:"";position:absolute;right:-40px;top:-70px;width:220px;height:220px;border-radius:50%;background:repeating-conic-gradient(from 0deg,#ffffff55 0 8deg,transparent 8deg 22deg);animation:rot 16s linear infinite;-webkit-mask-image:radial-gradient(closest-side,#000 30%,transparent);mask-image:radial-gradient(closest-side,#000 30%,transparent)}
+.pq-shh>*{position:relative}
+.pq-shh small{display:block;font-size:10px;font-weight:800;letter-spacing:1.8px}
+.pq-shh h4{margin:3px 0 0;padding-right:44px;font-family:var(--f-display);font-weight:400;font-size:28px;line-height:1.05;color:#1b1c19;transform:skewX(-8deg);transform-origin:0 50%}
+.pq-shh p{margin:5px 0 0;font-size:12px;font-weight:600}
+.pq-shx{position:absolute!important;right:14px;top:14px;width:36px;height:36px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 3px 0 #0002}
+.pq-shx svg{width:13px;height:13px;fill:none;stroke:#1b1c19;stroke-width:3;stroke-linecap:round}
+.pq-shb{overflow-y:auto;padding:14px 14px 6px;scrollbar-width:none}.pq-shb::-webkit-scrollbar{display:none}
+.pq-pool{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pq-pool .pt{padding:12px 8px 10px}
+.pq-shf{flex:none;padding:10px 14px 16px;display:flex;gap:8px}
+.pq-shf button{flex:1;height:52px;border-radius:18px 6px 18px 6px;font-size:14px;font-weight:800;letter-spacing:.6px}
+.pq-shf .pri{flex:2;background:#1b1c19;color:var(--lime);box-shadow:0 4px 0 #000}
+.pq-shf .pri[disabled]{opacity:.4;pointer-events:none}
+.pq-shf .sec{background:#f1f4ea;color:#5d6650}
+.pq-cl{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:6px 0 4px}
+.pq-cl .art{width:150px;height:150px;border-radius:40px 12px 40px 12px;background:var(--pbg);display:grid;place-items:center;box-shadow:0 8px 0 var(--m2),0 0 0 4px #fff,0 0 0 7px var(--m2)}
+.pq-cl .art svg{width:110px;height:110px}
+.pq-cl b{font-size:18px;font-weight:700;margin-top:8px}
+.pq-cl small{font-size:12.5px;color:#5d6650;max-width:290px;line-height:1.4}
+.pq-rules{display:flex;flex-direction:column;gap:9px}
+.pq-rules div{display:flex;gap:11px;align-items:flex-start;padding:10px 12px;border-radius:16px 5px 16px 5px;background:#f6f9ee}
+.pq-rules i{width:28px;height:28px;flex:none;border-radius:9px 3px 9px 3px;background:#1b1c19;color:var(--lime);display:grid;place-items:center;font-style:normal;font-family:var(--f-display);font-size:15px;transform:skewX(-8deg)}
+.pq-rules span{font-size:12.5px;line-height:1.4;color:#3c4236}
+.pq-rules b{color:#1b1c19}
+.pq-odds{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:4px}
+.pq-odds div{flex-direction:column;align-items:center;gap:2px;text-align:center;background:linear-gradient(135deg,var(--m1),var(--m2))!important;color:var(--mt)}
+.pq-odds b{font-size:11px;font-weight:800;letter-spacing:.8px}
+.pq-odds small{font-size:10.5px;font-weight:700}
+@media (max-height:760px){.pq-stage{height:286px}.pq-stock{top:418px}.pq-ms{top:474px}}
+@keyframes pqStamp{0%{opacity:0;transform:translate(-50%,-50%) rotate(-14deg) scale(2.4)}60%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(.92)}100%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg)}}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -3564,6 +3749,20 @@ input,textarea{-webkit-user-select:text;user-select:text}
     <div class="pw-sum in2" id="pwSum" style="--d:.08s"></div>
     <div class="pw-chips in2" id="pwF" style="--d:.1s"></div>
     <div class="pw-list scroll" id="pwList"></div>
+  </section>
+
+  <!-- ===== PUZZLE QUEST ===== -->
+  <section class="screen t-gold" id="s-pq" data-pos="right" aria-label="Puzzle Quest">
+    <div class="pq-bg" aria-hidden="true"><i class="rays"></i><i class="dust"></i></div>
+    <div class="ahdr in2" style="--a:up .5s ease">
+      <button class="gbtn" data-back="home" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="tt"><h2>PUZZLE <span>QUEST</span></h2></div>
+      <button class="gbtn" id="pqInfo" aria-label="How Puzzle Quest works"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/></svg></button>
+    </div>
+    <div class="pq-tiers in2" id="pqTiers" style="--d:.05s"></div>
+    <div class="pq-stage" id="pqStage"><div class="pq-track" id="pqTrack"></div></div>
+    <div class="pq-stock in2" id="pqStock" style="--d:.12s"></div>
+    <div class="pq-ms in2" style="--d:.18s"><div class="pq-msh"><b>TODAY'S MISSIONS</b><span>NEW IN <b class="resetT">--:--:--</b></span></div><div class="pq-list" id="pqList"></div></div>
   </section>
 
   <!-- ===== QUIZ ===== -->
@@ -3851,6 +4050,9 @@ input,textarea{-webkit-user-select:text;user-select:text}
     <div class="pwd-b" id="pwdB"></div>
     <div class="pwd-f" id="pwdF"></div>
   </div>
+  <div class="pq-rv" id="pqRv" role="dialog" aria-modal="true" aria-label="Puzzle piece"></div>
+  <div class="pq-bd" id="pqBd"></div>
+  <div class="pq-sh" id="pqSh" role="dialog" aria-modal="true" aria-labelledby="pqShT"><div class="pq-shh"><small id="pqShS"></small><h4 id="pqShT"></h4><p id="pqShP"></p><button class="pq-shx" id="pqShX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="pq-shb" id="pqShB"></div><div class="pq-shf" id="pqShF"></div></div>
   <div class="toast" id="toast" role="status"></div>
 </main>
 </div>
@@ -4071,7 +4273,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
 
 
   /* =================== SCREENS =================== */
-  const ORDER=['home','stats','chap','prizes','prof','hw','quiz','lobby','past','types','tour','hist','drill','write','tech'], SCR={home:$('#s-home'),stats:$('#s-stats'),chap:$('#s-chap'),prizes:$('#s-prizes'),prof:$('#s-prof'),past:$('#s-past'),hw:$('#s-hw'),quiz:$('#s-quiz'),lobby:$('#s-lobby'),types:$('#s-types'),drill:$('#s-drill'),write:$('#s-write'),tech:$('#s-tech'),tour:$('#s-tour'),hist:$('#s-hist')};
+  const ORDER=['home','stats','chap','prizes','prof','hw','pq','quiz','lobby','past','types','tour','hist','drill','write','tech'], SCR={home:$('#s-home'),stats:$('#s-stats'),chap:$('#s-chap'),prizes:$('#s-prizes'),prof:$('#s-prof'),past:$('#s-past'),pq:$('#s-pq'),hw:$('#s-hw'),quiz:$('#s-quiz'),lobby:$('#s-lobby'),types:$('#s-types'),drill:$('#s-drill'),write:$('#s-write'),tech:$('#s-tech'),tour:$('#s-tour'),hist:$('#s-hist')};
   let curScreen='home';
   function show(name,instant){
     if(!SCR[name])name='home';
@@ -4094,6 +4296,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
     if(name==='prof'&&window.openProf)openProf();
     if(name==='hw'&&window.HW)HW.openList();
     if(name==='past'&&window.PWIN)PWIN.open();
+    if(name==='pq'&&window.PQ)PQ.open();
     if(name==='home'&&window.HW)HW.onHome();
     if(name==='home'&&window.GL&&curScreen!=='home')GL.card(true);
     if(name==='tour'&&curScreen!=='drill'&&curScreen!=='hist')openTour();
@@ -4299,7 +4502,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
     if(SUBJ[lob.subj]&&SUBJ[lob.subj].writing){toast('Writing Drill lives in Daily Challenge. Pick another subject for the quiz.');return}
     const n=QR.rounds.length;if(n>=QR.max){toast('All 9 rounds used. Wait for the prize drop!');return}
     const s=SUBJ[lob.subj],b=QR.rounds[bestIdx()];
-    launch('quiz');
+    launch('quiz');window.PQ&&PQ.track('quiz');
     $('#rChip').textContent=`ROUND ${n+1} OF ${QR.max} · ${s.name.toUpperCase()} CH ${lob.ch+1}`;
     $('#rTl').textContent='One wrong answer ends the round. Be quick!';
     $('#rRing').innerHTML='1<small>LIFE</small>';
@@ -4369,13 +4572,13 @@ input,textarea{-webkit-user-select:text;user-select:text}
     'Snack party box':{d:'A box of tasty snacks to share with friends or family after a big win.',box:['15+ snack packs','Party box'],age:'All ages',kind:'Treats'}
   };
   const PRIZE_VAL={};Object.values(CHP).flat().forEach(it=>{PRIZE_VAL[it[1]]=it[2]});
-  const MEDAL_PD={1:['#fff3a8','#f2c94c','#5c3d00'],2:['#ffffff','#c3c9bc','#3c4236'],3:['#ffd9b5','#e4a06a','#5a2f0f'],4:['#eaf7c6','#a7d81c','#3f5a0a']};
+  const MEDAL_PD={1:['#fff3a8','#f2c94c','#5c3d00'],2:['#ffffff','#c3c9bc','#3c4236'],3:['#ffd9b5','#e4a06a','#5a2f0f'],4:['#eaf7c6','#a7d81c','#3f5a0a'],gold:['#fff3a8','#f2c94c','#5c3d00'],silver:['#ffffff','#c3c9bc','#3c4236'],bronze:['#ffd9b5','#e4a06a','#5a2f0f']};
   const pdOk='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
   let pdCb=null;
   // o: {art,name,bg,val,place,placeLbl,src,mode:'pick'|'won',picked,status:{t,cc,ct,note},btn}
   function openPD(o){const D=PDESC[o.name]||{d:'A great prize you can win in RI9 challenges and quizzes.',box:['Prize as pictured'],age:'All ages',kind:'Prize'},x=$('#pdx'),m=MEDAL_PD[o.place]||MEDAL_PD[4];
     x.style.setProperty('--pbg',o.bg||'#f1fad6');x.style.setProperty('--pm1',m[0]);x.style.setProperty('--pm2',m[1]);x.style.setProperty('--pmt',m[2]);
-    $('#pdArt').innerHTML=PA[o.art]||'';$('#pdPlace').innerHTML=o.place?`<i>${o.place>3?'★':o.place}</i>${o.placeLbl}`:'';$('#pdPlace').hidden=!o.place;
+    $('#pdArt').innerHTML=PA[o.art]||'';$('#pdPlace').innerHTML=o.place?`<i>${typeof o.place!=='number'||o.place>3?'★':o.place}</i>${o.placeLbl}`:'';$('#pdPlace').hidden=!o.place;
     const val=o.val||PRIZE_VAL[o.name]||'';$('#pdVal').textContent=val.replace(/^Worth /,'');$('#pdVal').hidden=!val;
     const ship=D.digital?'Code by email':'Free delivery';
     $('#pdBody').innerHTML=`<small class="k">${(D.kind||'PRIZE').toUpperCase()}${o.src?' · '+o.src.toUpperCase():''}</small><h3 id="pdT">${o.name}</h3><p>${D.d}</p>
@@ -4708,7 +4911,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   }
   $('#ans').addEventListener('click',e=>{const btn=e.target.closest('.an');if(!btn||!D.run)return;pause();
     const q=D.qs[D.i],good=btn.dataset.v===q.c;D.res[D.i]=good;if(good)D.ok++;
-    {let st=0;for(let k=D.i;k>=0&&D.res[k];k--)st++;SFX.play(good?'ok':'no',st-1)}window.GL&&GL.addQ(1);
+    {let st=0;for(let k=D.i;k>=0&&D.res[k];k--)st++;SFX.play(good?'ok':'no',st-1)}window.GL&&GL.addQ(1);window.PQ&&PQ.track('q');
     $('#ans').classList.add('lock');
     document.querySelectorAll('#ans .an').forEach(x=>{if(x===btn)x.classList.add(good?'ok':'no');else if(x.dataset.v===q.c)x.classList.add('ok');else x.classList.add('dim')});
     $('#dOk').textContent=D.ok;const f=$('#flash');f.className='flash';void f.offsetWidth;f.className='flash '+(good?'ok':'no');
@@ -4737,6 +4940,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
     $('#resBack').textContent=t.hw?'Back to my homework':'Pick another challenge';
     if(!t.hw)SETS.resultPanel(D.ok,D.set,D.tw);
     if(t.hw&&window.HW)HW.progress(t,D.ok,win);
+    window.PQ&&PQ.track('ch',win);
     window.STK&&STK.afterChallenge();
   }
   function startDrill(t){
@@ -4823,7 +5027,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   function openChap(){ST.filter='order';document.querySelectorAll('#cfilter button').forEach((x,i)=>x.classList.toggle('on',i===0));renderChap(true)}
 
   /* =================== MY PRIZES =================== */
-  const MEDAL={1:['#fff3a8','#f2c94c','#5c3d00','1ST PLACE'],2:['#ffffff','#c3c9bc','#3c4236','2ND PLACE'],3:['#ffd9b5','#e4a06a','#5a2f0f','3RD PLACE']};
+  const MEDAL={1:['#fff3a8','#f2c94c','#5c3d00','1ST PLACE'],2:['#ffffff','#c3c9bc','#3c4236','2ND PLACE'],3:['#ffd9b5','#e4a06a','#5a2f0f','3RD PLACE'],gold:['#fff3a8','#f2c94c','#5c3d00','GOLD PUZZLE'],silver:['#ffffff','#c3c9bc','#3c4236','SILVER PUZZLE'],bronze:['#ffd9b5','#e4a06a','#5a2f0f','BRONZE PUZZLE']};
   const WON=[
     {art:'scooter',name:'Kick scooter',bg:'#ffe9e6',place:1,from:'Prize Quiz · Week 45',date:'10 Nov',st:'act',step:1,note:'Confirm your address so we can start packing.',btn:['Confirm address','warn']},
     {art:'earbuds',name:'Wireless earbuds',bg:'#f3f5f0',place:2,from:'Prize Quiz · Week 44',date:'3 Nov',st:'ship',step:3,note:'Tracking <b>JNT 7782 1934 MY</b>',btn:['Track']},
@@ -4841,7 +5045,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
       const steps=STEPS.map((l,i)=>{const s=i+1<w.step||w.st==='done'?'done':i+1===w.step?'now':'';return`<div class="stp ${s}"><span class="dot">${s==='done'?ck:''}</span><small>${l}</small><em>${i===0?w.date:''}</em></div>`}).join('');
       return`<div class="pc5 ps-${w.st}${w.st==='ship'?' moving':''}" data-j="${j}" role="button" tabindex="0" aria-label="${w.name}, see details" style="--bgc:${w.bg};--m1:${m[0]};--m2:${m[1]};--mt:${m[2]};--d:${(.08+j*.07).toFixed(2)}s">
         <span class="chip5"><i></i>${STL[w.st]}</span>
-        <div class="top5"><span class="art5">${PA[w.art]}</span><span class="tx5"><span class="md5"><i>${w.place}</i>${m[3]}</span><b>${w.name}</b><small>${w.from}</small><span class="tap5">Prize details<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+        <div class="top5"><span class="art5">${PA[w.art]}</span><span class="tx5"><span class="md5"><i>${w.pq?'★':w.place}</i>${m[3]}</span><b>${w.name}</b><small>${w.from}</small><span class="tap5">Prize details<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
         <div class="trk" style="--tp:${w.st==='done'?1:Math.max(0,(w.step-1)/3)}"><span class="fill"></span>${steps}</div>
         <div class="ft5"><span>${w.note}</span>${w.btn?`<button class="btn5 ${w.btn[1]||''}" data-a="${w.btn[0]}">${w.btn[0]}</button>`:''}</div></div>`}).join('');
     if(anim){replay($('#plist'),'anim');countUpAll($('#psum'),200);$('#plist').scrollTop=0}
@@ -5861,6 +6065,176 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
   window.PWIN=PWIN;
   $('#qPast').addEventListener('click',()=>{buzz();PWIN.go('quiz','quiz')});
   $('#lbPast').addEventListener('click',()=>{buzz();PWIN.go('lb','lobby')});
+
+  /* ===================== PUZZLE QUEST ===================== */
+  // 3 puzzles (gold 12 / silver 9 / bronze 6). 3 daily missions, each pays one mystery piece.
+  // A piece is a colour + a position; flip it to see which. Duplicates are dropped. Full puzzle = claim the picked prize, then it resets.
+  const PQ=(()=>{
+    const TIERS=[
+      {k:'gold',name:'GOLD',cols:4,rows:3,cell:72,w:.18,pool:[0,1,2,4].map(i=>PRIZES[1][i]),cap:30,burn:.85},
+      {k:'silver',name:'SILVER',cols:3,rows:3,cell:72,w:.32,pool:[0,1,2,3].map(i=>PRIZES[2][i]),cap:90,burn:.7},
+      {k:'bronze',name:'BRONZE',cols:3,rows:2,cell:88,w:.5,pool:[0,1,2,3].map(i=>PRIZES[3][i]),cap:240,burn:.55}];
+    const TK=Object.fromEntries(TIERS.map(t=>[t.k,t]));
+    TIERS.forEach(t=>{t.n=t.cols*t.rows;t.W=t.cols*t.cell;t.H=t.rows*t.cell;const r=rng(hash2(t.k));
+      t.h=Array.from({length:t.rows-1},()=>Array.from({length:t.cols},()=>r()<.5?1:-1));t.v=Array.from({length:t.rows},()=>Array.from({length:t.cols-1},()=>r()<.5?1:-1))});
+    function hash2(s){let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0}
+    const day=()=>{const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+    const MT={
+      q:{t:n=>`Answer ${n} questions`,ic:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.7M12 17v.2"/>',go:'lobby'},
+      ch:{t:n=>`Complete ${n} challenge${n>1?'s':''}`,ic:'<path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z"/>',go:'lobby'},
+      win:{t:n=>`Beat ${n} challenge${n>1?'s':''}`,ic:'<path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4c0 3 1.5 4.5 3.5 5M17 6h3c0 3-1.5 4.5-3.5 5M12 14v4M8 21h8"/>',go:'lobby'},
+      quiz:{t:()=>'Play a Prize Quiz round',ic:'<path d="M12 20.5s-8.5-4.8-8.5-11A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8.5 2.5c0 6.2-8.5 11-8.5 11z"/>',go:'quiz'}};
+    function missionsFor(d){const r=rng(hash2('m'+d));return[{type:'q',goal:r()<.5?20:30},r()<.6?{type:'ch',goal:r()<.5?2:3}:{type:'win',goal:r()<.6?1:2},{type:'quiz',goal:1}].map((m,i)=>({...m,id:i,prog:0,got:null}))}
+    let S;try{S=JSON.parse(localStorage.getItem('qdPuzzle')||'null')}catch(_){S=null}
+    if(!S||!S.tiers){S={day:day(),ms:[{id:0,type:'q',goal:20,prog:20,got:null},{id:1,type:'ch',goal:3,prog:1,got:null},{id:2,type:'quiz',goal:1,prog:0,got:null}],   // demo: one mission ready to collect
+      tiers:{gold:{have:[0,2,3,5,6,9,10],prize:0},silver:{have:[0,1,4,6,8],prize:0},bronze:{have:[0,1,2,4,5],prize:0}},claims:[],sel:0}}
+    if(S.day!==day()){S.day=day();S.ms=missionsFor(S.day)}
+    const save=()=>{try{localStorage.setItem('qdPuzzle',JSON.stringify(S))}catch(_){}};
+    save();
+    // claimed prizes show up in My prizes
+    S.claims.slice().reverse().forEach(c=>{const t=TK[c.tier],p=t.pool[c.prize]||t.pool[0];WON.unshift({art:p[0],name:p[1],bg:p[3],place:t.k,pq:true,from:`Puzzle Quest · ${t.name[0]+t.name.slice(1).toLowerCase()} puzzle`,date:c.date,st:'act',step:1,note:'Confirm your address so we can start packing.',btn:['Confirm address','warn']})});
+
+    // ---- hidden daily stock -> only a level is shown ----
+    function stock(t){const now=new Date(),f=(now.getHours()*60+now.getMinutes())/1440,j=.85+rng(hash2(t.k+S.day))()*.3;
+      const used=Math.round(t.cap*(.12+t.burn*f)*j)+S.claims.filter(c=>c.tier===t.k&&c.day===S.day).length;const r=Math.max(0,(t.cap-used)/t.cap);
+      return r<=0?{lv:0,txt:'Gone for today',c:'#8a9478'}:r<.12?{lv:1,txt:'Last few left!',c:'#ff6b5a',low:true}:r<.35?{lv:2,txt:'Almost gone',c:'#ff9d1e',low:true}:r<.6?{lv:3,txt:'Going fast',c:'#ffd25e'}:{lv:4,txt:'Plenty left',c:'#c6f432'}}
+
+    // ---- jigsaw geometry ----
+    function edge(P,Q,b,A){const pt=(u,v)=>`${(P[0]+(Q[0]-P[0])*u+b[0]*v).toFixed(1)} ${(P[1]+(Q[1]-P[1])*u+b[1]*v).toFixed(1)}`;
+      if(!A)return`L${pt(1,0)}`;return`L${pt(.36,0)}C${pt(.42,0)} ${pt(.3,A)} ${pt(.5,A)}C${pt(.7,A)} ${pt(.58,0)} ${pt(.64,0)}L${pt(1,0)}`}
+    function piece(t,i){const S2=t.cell,A=S2*.2,r=Math.floor(i/t.cols),c=i%t.cols,x0=c*S2,y0=r*S2,x1=x0+S2,y1=y0+S2;
+      return`M${x0} ${y0}`+edge([x0,y0],[x1,y0],[0,r>0?t.h[r-1][c]:0],r>0?A:0)+edge([x1,y0],[x1,y1],[c<t.cols-1?t.v[r][c]:0,0],c<t.cols-1?A:0)
+        +edge([x1,y1],[x0,y1],[0,r<t.rows-1?t.h[r][c]:0],r<t.rows-1?A:0)+edge([x0,y1],[x0,y0],[c>0?t.v[r][c-1]:0,0],c>0?A:0)+'Z'}
+    const center=(t,i)=>[(i%t.cols+.5)*t.cell,(Math.floor(i/t.cols)+.5)*t.cell];
+    const prizeOf=t=>t.pool[S.tiers[t.k].prize]||t.pool[0];
+    function picture(t,id){const p=prizeOf(t),W=t.W,H=t.H,s=Math.min(W,H)*.82,art=(PA[p[0]]||'').replace('<svg viewBox="0 0 64 64">',`<svg x="${(W-s)/2}" y="${(H-s)/2}" width="${s}" height="${s}" viewBox="0 0 64 64">`);
+      return`<radialGradient id="${id}g" cx="50%" cy="45%" r="70%"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="${p[3]}"/><stop offset="1" stop-color="${t.k==='gold'?'#f2c94c':t.k==='silver'?'#b9c3cc':'#d98a4e'}"/></radialGradient>`
+        +`<g id="${id}i"><rect width="${W}" height="${H}" fill="url(#${id}g)"/>${Array.from({length:14},(_,k)=>`<path d="M${W/2} ${H/2}L${W/2+Math.cos(k/14*6.283)*W} ${H/2+Math.sin(k/14*6.283)*W}L${W/2+Math.cos((k+.45)/14*6.283)*W} ${H/2+Math.sin((k+.45)/14*6.283)*W}Z" fill="#ffffff" opacity=".22"/>`).join('')}${art}</g>`}
+    function boardSVG(t){const id='pq'+t.k,have=new Set(S.tiers[t.k].have);
+      return`<svg viewBox="0 0 ${t.W} ${t.H}" width="${t.W}" height="${t.H}" aria-hidden="true"><defs>${picture(t,id)}<linearGradient id="${id}m" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a2b22"/><stop offset="1" stop-color="#121309"/></linearGradient></defs>
+        <use href="#${id}i"/>
+        ${Array.from({length:t.n},(_,i)=>have.has(i)?'':`<g class="pq-miss" data-i="${i}"><path d="${piece(t,i)}" fill="url(#${id}m)" stroke="#000" stroke-width="1"/><text x="${center(t,i)[0]}" y="${center(t,i)[1]+7}" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="${t.cell*.3}" fill="#ffffff2e">${i+1}</text></g>`).join('')}
+        ${Array.from({length:t.n},(_,i)=>`<path d="${piece(t,i)}" fill="none" stroke="${have.has(i)?'#ffffff8c':'#ffffff26'}" stroke-width="${have.has(i)?1.2:1}"/>`).join('')}
+        ${Array.from({length:t.n},(_,i)=>`<path class="pq-glowp" data-g="${i}" d="${piece(t,i)}"/>`).join('')}</svg>`}
+    function pieceSVG(t,i,size){const A=t.cell*.2,r=Math.floor(i/t.cols),c=i%t.cols,x=c*t.cell-A,y=r*t.cell-A,s=t.cell+2*A,id='pqp'+t.k+i+Math.random().toString(36).slice(2,6);
+      return`<svg viewBox="${x} ${y} ${s} ${s}" width="${size}" height="${size}"><defs>${picture(t,id)}<clipPath id="${id}c"><path d="${piece(t,i)}"/></clipPath><linearGradient id="${id}r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--m1)"/><stop offset=".5" style="stop-color:var(--m2)"/><stop offset="1" style="stop-color:var(--m3)"/></linearGradient></defs>
+        <g clip-path="url(#${id}c)"><use href="#${id}i"/></g><path d="${piece(t,i)}" fill="none" stroke="url(#${id}r)" stroke-width="${t.cell*.07}"/>
+        <g transform="translate(${center(t,i)[0]} ${center(t,i)[1]})"><circle r="${t.cell*.17}" fill="#1b1c19" stroke="url(#${id}r)" stroke-width="2.5"/><text y="${t.cell*.075}" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="${t.cell*.2}" fill="#fff">${i+1}</text></g></svg>`}
+    const mystery=`<svg viewBox="-24 -24 148 148"><defs><linearGradient id="pqmy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3d36"/><stop offset=".5" stop-color="#1b1c19"/><stop offset="1" stop-color="#0c0d08"/></linearGradient><linearGradient id="pqmr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2c94c"/><stop offset=".5" stop-color="#c9d1d8"/><stop offset="1" stop-color="#d98a4e"/></linearGradient></defs>
+      <path d="M0 0${edge([0,0],[100,0],[0,-1],20).slice(0)}${edge([100,0],[100,100],[1,0],20)}${edge([100,100],[0,100],[0,1],20)}${edge([0,100],[0,0],[-1,0],20)}Z" fill="url(#pqmy)" stroke="url(#pqmr)" stroke-width="4"/>
+      <path d="M8 8h40" stroke="#ffffff22" stroke-width="5" stroke-linecap="round"/><text class="pq-q" x="50" y="82" text-anchor="middle">?</text></svg>`;
+
+    // ---- screen ----
+    let sel=S.sel||0,fx=null;
+    const el=$('#s-pq');
+    function paint(force){const nReady=S.ms.filter(m=>m.prog>=m.goal&&!m.got).length,tab=$('#pqTab');
+      if(tab){tab.querySelector('b').textContent=nReady;tab.querySelector('b').hidden=!nReady;tab.classList.toggle('ready',nReady>0)}
+      if(curScreen!=='pq'&&!force)return;
+      el.className=el.className.replace(/\bt-\w+/g,'').trim()+' t-'+TIERS[sel].k;
+      $('#pqTiers').innerHTML=TIERS.map((t,i)=>{const n=S.tiers[t.k].have.length,C2=2*Math.PI*16;return`<button class="pq-ti t-${t.k}${i===sel?' on':''}${n>=t.n?' full':''}" data-t="${i}" aria-pressed="${i===sel}"><span class="pq-md"><svg viewBox="0 0 38 38"><circle cx="19" cy="19" r="16" fill="none" stroke="#ffffff1a" stroke-width="3.5"/><circle cx="19" cy="19" r="16" fill="none" stroke="var(--mg)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="${C2}" stroke-dashoffset="${C2*(1-n/t.n)}"/></svg><i></i></span><span><b>${t.name}</b><small>${n}<em>/${t.n}</em></small></span></button>`}).join('');
+      $('#pqTrack').innerHTML=TIERS.map(t=>{const n=S.tiers[t.k].have.length,p=prizeOf(t),full=n>=t.n;return`<div class="pq-slide t-${t.k}${full?' full':''}"><div class="pq-frame"><i class="pq-bolt"></i><i class="pq-bolt"></i><i class="pq-bolt"></i><i class="pq-bolt"></i><div class="pq-board" data-k="${t.k}">${boardSVG(t)}<div class="pq-done"><span>COMPLETE!</span></div></div></div>
+        <div class="pq-meta"><button class="pq-pz" data-pool="${t.k}" style="--pbg:${p[3]}"><span class="pq-a">${PA[p[0]]||''}</span><span><small>YOUR ${t.name} PRIZE</small><b>${p[1]}</b></span><em>Change</em></button>${full?`<button class="pq-claim" data-claim="${t.k}">CLAIM</button>`:''}</div></div>`}).join('');
+      $('#pqTrack').style.transform=`translateX(${-sel*100}%)`;
+      const st=stock(TIERS[sel]),sk=$('#pqStock');sk.className='pq-stock'+(st.low?' low':'');sk.style.setProperty('--sc',st.c);
+      sk.innerHTML=`<span class="pq-fire">${st.lv<=2?'🔥':'🎁'}</span><span class="pq-lb"><small>TODAY'S ${TIERS[sel].name} PRIZES</small><b>${st.txt}</b></span><span class="pq-meter" aria-label="${st.txt}">${[1,2,3,4].map(k=>`<i class="${k<=st.lv?'on':''}"></i>`).join('')}</span>`;
+      $('#pqList').innerHTML=S.ms.map(m=>{const D=MT[m.type],p=Math.min(1,m.prog/m.goal),ready=p>=1&&!m.got,t=m.got&&TK[m.got.tier];
+        return`<div class="pq-m${ready?' ready':''}${m.got?' got t-'+m.got.tier:''}${m.got&&m.got.dup?' dup':''}"><span class="pq-mi"><svg viewBox="0 0 24 24">${D.ic}</svg></span><span class="pq-tx"><b>${D.t(m.goal)}</b><span class="pq-bar"><i style="--p:${p*100}%"></i></span><small>${Math.min(m.prog,m.goal)}/${m.goal}${m.got?'':' · reward: 1 mystery piece'}</small></span>
+          ${m.got?`<span class="pq-res"><i></i>${t.name} #${m.got.i+1}${m.got.dup?' · dropped':''}</span>`:ready?`<button class="pq-act pq-get" data-get="${m.id}">${mysterySmall}COLLECT</button>`:`<button class="pq-act pq-go2" data-gom="${m.type}">GO</button>`}</div>`}).join('');
+      wireSwipe()}
+    const mysterySmall='<svg viewBox="0 0 24 24"><path d="M5 5h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4h-4a2 2 0 1 0-4 0H5v-4a2 2 0 1 0 0-4z" fill="#1b1c19"/></svg>';
+    function select(i,anim){sel=Math.max(0,Math.min(2,i));S.sel=sel;save();paint()}
+    let sw=null;
+    function wireSwipe(){if(sw)return;sw=1;const st=$('#pqStage'),tr=$('#pqTrack');let sx=null,sy=0,dx=0,mv=false;
+      st.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;sx=e.clientX;sy=e.clientY;dx=0;mv=false});
+      st.addEventListener('pointermove',e=>{if(sx===null)return;dx=e.clientX-sx;if(!mv){if(Math.abs(dx)<10)return;if(Math.abs(e.clientY-sy)>Math.abs(dx)){sx=null;return}mv=true;tr.classList.add('drag')}
+        tr.style.transform=`translateX(calc(${-sel*100}% + ${dx/(st.getBoundingClientRect().width/st.offsetWidth)}px))`});
+      const up=()=>{if(sx===null)return;sx=null;tr.classList.remove('drag');if(mv&&Math.abs(dx)>50){buzz();select(sel+(dx<0?1:-1))}else tr.style.transform=`translateX(${-sel*100}%)`};
+      st.addEventListener('pointerup',up);st.addEventListener('pointercancel',up)}
+    el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+      if(b.dataset.t){buzz();select(+b.dataset.t);return}
+      if(b.dataset.pool){buzz();openPool(b.dataset.pool);return}
+      if(b.dataset.claim){buzz();openClaim(b.dataset.claim);return}
+      if(b.dataset.get!=null){buzz();collect(+b.dataset.get);return}
+      if(b.dataset.gom){buzz();nav(MT[b.dataset.gom].go);return}
+      if(b.id==='pqInfo'){buzz();openRules()}});
+
+    // ---- collect + flip ----
+    const rv=$('#pqRv');let cur=null;
+    function roll(){const r=Math.random();let acc=0,t=TIERS[2];for(const x of [TIERS[0],TIERS[1],TIERS[2]]){acc+=x.w;if(r<acc){t=x;break}}return{tier:t.k,i:Math.floor(Math.random()*t.n)}}
+    function collect(id){const m=S.ms.find(x=>x.id===id);if(!m||m.got||m.prog<m.goal)return;
+      const g=roll(),T=S.tiers[g.tier];g.dup=T.have.includes(g.i);m.got=g;if(!g.dup)T.have.push(g.i);save();cur=g;
+      const t=TK[g.tier];rv.className='pq-rv t-'+g.tier+(g.dup?' dup':'');
+      rv.innerHTML=`<span class="pq-swirl"></span><span class="pq-burst"></span><span class="pq-sp">${Array.from({length:22},()=>`<i style="left:${(Math.random()*100).toFixed(1)}%;top:${(20+Math.random()*60).toFixed(1)}%;--t:${(1.6+Math.random()*2).toFixed(2)}s;--dl:${(Math.random()*2).toFixed(2)}s"></i>`).join('')}</span>
+        <span class="pq-k">MISSION COMPLETE</span><div class="pq-h" id="pqRvH">MYSTERY PIECE</div>
+        <div class="pq-card" id="pqCard" role="button" tabindex="0" aria-label="Flip the piece"><div class="pq-in"><div class="pq-fc">${mystery}</div><div class="pq-fc pq-bk">${pieceSVG(t,g.i,220)}</div></div><span class="stampd">DUPLICATE</span></div>
+        <span class="pq-tap">TAP TO FLIP</span>
+        <div class="pq-res" id="pqRvR"></div><div class="pq-acts" id="pqRvA"></div>`;
+      rv.classList.add('open');SFX.play('whoosh');setTimeout(()=>SFX.play('sparkle'),300);
+      const card=$('#pqCard'),flip=()=>{if(rv.classList.contains('flipped'))return;buzz();rv.classList.add('flipped');SFX.play(g.dup?'no':'win');try{navigator.vibrate&&navigator.vibrate(g.dup?[40,40,40]:[20,40,60])}catch(_){}
+        const have=S.tiers[g.tier].have.length,done=have>=t.n;
+        $('#pqRvH').innerHTML=g.dup?`<span>${t.name}</span> AGAIN!`:`<span>${t.name}</span> PIECE!`;
+        $('#pqRvR').innerHTML=g.dup?`<p>You already have <b>${t.name.toLowerCase()} piece #${g.i+1}</b>, so this one can't be placed. Drop it and try again tomorrow.</p>`:`<p>Piece <b>#${g.i+1} of ${t.n}</b> for your ${t.name.toLowerCase()} puzzle.${done?' <b>That completes it!</b>':` ${t.n-have} to go.`}</p>`;
+        $('#pqRvA').innerHTML=g.dup?`<button class="pq-dr" data-rv="drop"><span>DROP PIECE</span></button>`:`<button class="pq-pl" data-rv="place"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z" fill="currentColor"/></svg><span>PLACE IT</span></button>`;
+        if(!g.dup)setTimeout(()=>confetti(rv),600)};
+      card.addEventListener('click',flip);card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});setTimeout(()=>card.focus({preventScroll:true}),300);paint()}
+    rv.addEventListener('click',e=>{const b=e.target.closest('[data-rv]');if(!b)return;buzz();const a=b.dataset.rv;
+      if(a==='drop'){rv.classList.add('dropping');SFX.play('whoosh');setTimeout(()=>{rv.classList.remove('open','dropping','flipped');toast('Piece dropped · more missions tomorrow');paint()},900);return}
+      if(a==='place'){const g=cur;rv.classList.remove('open','flipped');fx=g;if(curScreen!=='pq')nav('pq');else{select(TIERS.findIndex(t=>t.k===g.tier));placeFx()}return}
+      if(a==='prizes'){rv.classList.remove('open');nav('prizes');return}
+      if(a==='close'){rv.classList.remove('open');paint()}});
+    function placeFx(){const g=fx;fx=null;if(!g)return;const t=TK[g.tier],idx=TIERS.indexOf(t);if(sel!==idx)select(idx);
+      const bd=el.querySelector(`.pq-board[data-k="${g.tier}"]`);if(!bd)return;
+      const miss=bd.querySelector(`.pq-miss[data-i="${g.i}"]`);// board was re-rendered with the piece already placed: animate it flying in
+      const A=t.cell*.2,c=g.i%t.cols,r=Math.floor(g.i/t.cols),sc=bd.getBoundingClientRect().width/t.W;
+      const fly=document.createElement('div');fly.className='pq-fly';fly.style.left=((c*t.cell-A)*1)+'px';fly.style.top=((r*t.cell-A)*1)+'px';
+      fly.style.setProperty('--fx','0px');fly.style.setProperty('--fy',(t.H+120)+'px');fly.innerHTML=pieceSVG(t,g.i,t.cell+2*A);bd.appendChild(fly);
+      void fly.offsetWidth;fly.classList.add('go');SFX.play('whoosh');
+      setTimeout(()=>{fly.remove();const gp=bd.querySelector(`[data-g="${g.i}"]`);gp&&gp.classList.add('on');SFX.play('pop');try{navigator.vibrate&&navigator.vibrate(25)}catch(_){}
+        if(S.tiers[g.tier].have.length>=t.n){setTimeout(()=>{SFX.play('win');confetti(el);toast(`${t.name} puzzle complete! Claim your prize`)},350)}},850)}
+
+    // ---- prize pool + claim ----
+    const sh=$('#pqSh'),sbd=$('#pqBd');
+    function sheet(tier,sub,title,p,body,foot){sh.className='pq-sh t-'+tier;$('#pqShS').textContent=sub;$('#pqShT').textContent=title;$('#pqShP').textContent=p||'';$('#pqShB').innerHTML=body;$('#pqShF').innerHTML=foot;sh.classList.add('open');sbd.classList.add('open');SFX.play('pop')}
+    function closeSheet(){sh.classList.remove('open');sbd.classList.remove('open')}
+    sbd.addEventListener('click',closeSheet);$('#pqShX').addEventListener('click',()=>{buzz();closeSheet()});
+    function openPool(k){const t=TK[k],cur2=S.tiers[k].prize;let pick=cur2;
+      const body=()=>`<div class="pq-pool">${t.pool.map((p,i)=>`<button class="pt${i===pick?' on':''}" data-p="${i}" style="--bgc:${p[3]}"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="art">${PA[p[0]]||''}</span><b>${p[1]}</b><small>${p[2]}</small></button>`).join('')}</div>`;
+      sheet(k,`${t.name} PUZZLE · ${t.n} PIECES`,'Pick your prize','Finish this puzzle and this is what you win. You can change it any time.',body(),`<button class="sec" data-sh="x">Cancel</button><button class="pri" data-sh="ok">LOCK IT IN</button>`);
+      $('#pqShB').onclick=e=>{const b=e.target.closest('[data-p]');if(!b)return;buzz();pick=+b.dataset.p;$('#pqShB').innerHTML=body();SFX.play('coin')};
+      $('#pqShF').onclick=e=>{const b=e.target.closest('[data-sh]');if(!b)return;buzz();if(b.dataset.sh==='ok'){S.tiers[k].prize=pick;save();toast(`${t.name[0]+t.name.slice(1).toLowerCase()} prize: ${t.pool[pick][1]}`)}closeSheet();paint()}}
+    function openClaim(k){const t=TK[k],p=prizeOf(t),st=stock(t),out=st.lv===0;
+      sheet(k,`${t.name} PUZZLE COMPLETE`,'Claim your prize',null,`<div class="pq-cl" style="--pbg:${p[3]}"><span class="art">${PA[p[0]]||''}</span><b>${p[1]}</b><small>${out?'Today\'s '+t.name.toLowerCase()+' prizes are all gone. Your puzzle stays complete, so come back tomorrow to claim.':`Today's ${t.name.toLowerCase()} prizes: <b style="color:${st.c==='#c6f432'?'#3f6c05':st.c}">${st.txt}</b>. Claiming resets this puzzle so you can start again.`}</small></div>`,
+        `<button class="sec" data-sh="x">Later</button><button class="pri" data-sh="ok"${out?' disabled':''}>${out?'GONE FOR TODAY':'CLAIM PRIZE'}</button>`);
+      $('#pqShB').onclick=null;
+      $('#pqShF').onclick=e=>{const b=e.target.closest('[data-sh]');if(!b)return;buzz();closeSheet();if(b.dataset.sh!=='ok')return;
+        const d=new Date(),date=`${d.getDate()} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]}`;
+        S.claims.push({tier:k,prize:S.tiers[k].prize,day:S.day,date});S.tiers[k].have=[];save();
+        WON.unshift({art:p[0],name:p[1],bg:p[3],place:t.k,pq:true,from:`Puzzle Quest · ${t.name[0]+t.name.slice(1).toLowerCase()} puzzle`,date,st:'act',step:1,note:'Confirm your address so we can start packing.',btn:['Confirm address','warn']});
+        rv.className='pq-rv t-'+k;rv.innerHTML=`<span class="pq-swirl"></span><span class="pq-burst"></span><span class="pq-k">${t.name} PUZZLE</span><div class="pq-h"><span>PRIZE</span> CLAIMED!</div>
+          <div class="pq-card"><div class="pq-in" style="animation:none"><div class="pq-fc" style="transform:none"><div class="pq-cl" style="--pbg:${p[3]}"><span class="art">${PA[p[0]]||''}</span></div></div></div></div>
+          <div class="pq-res"><p><b>${p[1]}</b> is yours! Confirm your address in My prizes and we'll ship it. Your ${t.name.toLowerCase()} puzzle starts fresh.</p></div>
+          <div class="pq-acts"><button class="pq-pl" data-rv="prizes"><span>SEE MY PRIZES</span></button><button class="pq-dr" data-rv="close"><span>KEEP PLAYING</span></button></div>`;
+        rv.classList.add('open','flipped');SFX.play('win');setTimeout(()=>confetti(rv),200);setTimeout(()=>confetti(rv),900);paint()}}
+    function openRules(){const t=TIERS[sel];sheet(t.k,'HOW IT WORKS','Puzzle Quest',null,`<div class="pq-rules">
+      <div><i>1</i><span><b>Finish a daily mission</b> to earn a mystery piece. There are 3 new missions every day.</span></div>
+      <div><i>2</i><span><b>Flip it</b> to see its colour and number. Gold, silver and bronze pieces fit their own puzzle.</span></div>
+      <div><i>3</i><span><b>New piece?</b> Place it. <b>Already have it?</b> It gets dropped.</span></div>
+      <div><i>4</i><span><b>Complete a puzzle</b> to claim the prize you picked. The puzzle then resets. Prizes are limited each day.</span></div>
+      <div class="pq-odds">${TIERS.map(x=>`<div class="t-${x.k}"><b>${x.name}</b><small>${x.n} pieces</small><small>${x.k==='gold'?'Rare':x.k==='silver'?'Uncommon':'Common'}</small></div>`).join('')}</div></div>`,`<button class="pri" data-sh="x">GOT IT</button>`);
+      $('#pqShB').onclick=null;$('#pqShF').onclick=e=>{if(e.target.closest('[data-sh]')){buzz();closeSheet()}}}
+    addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(sh.classList.contains('open'))closeSheet();else if(rv.classList.contains('open')&&rv.classList.contains('flipped')){const b=rv.querySelector('[data-rv]');b&&b.click()}});
+
+    // ---- mission tracking ----
+    function track(type,win){if(S.day!==day()){S.day=day();S.ms=missionsFor(S.day)}let done=0;
+      S.ms.forEach(m=>{if(m.got||m.prog>=m.goal)return;const hit=(m.type==='q'&&type==='q')||(m.type==='ch'&&type==='ch')||(m.type==='win'&&type==='ch'&&win)||(m.type==='quiz'&&type==='quiz');
+        if(hit){m.prog++;if(m.prog>=m.goal)done++}});
+      save();paint();if(done)setTimeout(()=>toast('🧩 Mission complete! Collect your puzzle piece'),type==='q'?0:1600)}
+    return{open(){sel=S.sel||0;paint(true);if(fx)setTimeout(placeFx,500)},track,paint,TIERS};
+  })();
+  window.PQ=PQ;
+  { const tab=document.createElement('button');tab.className='pq-tab in';tab.id='pqTab';tab.style.cssText='--a:slideL .45s ease;--d:.95s';tab.setAttribute('aria-label','Puzzle Quest');
+    tab.innerHTML='<b hidden>0</b><svg viewBox="0 0 24 24"><path d="M5 5h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4h-4a2 2 0 1 0-4 0H5v-4a2 2 0 1 0 0-4z" fill="#f2c94c" stroke="#1b1c19" stroke-width="1.2"/></svg><span>PUZZLE</span>';
+    document.querySelector('#s-home .side').after(tab);tab.addEventListener('click',()=>{buzz();nav('pq')});PQ.paint() }
   window.GL=GL;
   GL.card(true);
 
