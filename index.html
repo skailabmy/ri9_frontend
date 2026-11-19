@@ -3210,6 +3210,15 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .cr .cm .setc{color:#3f6c05;font-weight:800}
 .cr .cm .twc{color:#5b47d6;font-weight:800}
 
+/* homework avatars (list cards) */
+.hw-av{width:38px;height:38px;flex:none;border-radius:13px 4px 13px 4px;display:grid;place-items:center;font-size:12px;font-weight:800;background:var(--avc,#ffd9b8);color:var(--ink);transform:skewX(-6deg)}
+.hw-av>*{transform:skewX(6deg)}
+/* homework lives in the nav: count badge */
+.dnav .hwbd{position:absolute;top:2px;right:0;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#ff4d3a;color:#fff;font-size:10px;font-weight:800;line-height:18px;text-align:center;border:2px solid #1b1c19;z-index:2}
+.dnav button.on .hwbd{border-color:var(--lime)}
+.dnav button.hw-new svg{animation:hwWig 2.8s ease-in-out infinite}
+.dnav button.hw-new .hwbd{animation:hwPop 1.4s ease-in-out infinite}
+
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -3307,7 +3316,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
       <button class="on" data-page="Home" aria-label="Home" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/></svg><span class="nl">Home</span></button>
       <button data-page="Prizes" aria-label="Prizes"><i class="new"></i><svg viewBox="0 0 24 24"><rect x="3.5" y="10" width="17" height="11" rx="1.5"/><rect x="2.5" y="6.5" width="19" height="3.8" rx="1"/><path d="M12 6.5V21M12 6.5C10 2.5 6 3.5 8 6.5M12 6.5c2-4 6-3 4 0"/></svg><span class="nl">Prizes</span></button>
       <button data-page="Statistics" aria-label="Statistics"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M22 20H2"/></svg><span class="nl">Stats</span></button>
-      <button data-page="Leaderboard" aria-label="Leaderboard"><svg viewBox="0 0 24 24"><path d="M8 21V11H3v10zM15 21V4h-6v17zM21 21v-7h-6v7z"/></svg><span class="nl">Ranks</span></button>
+      <button data-page="Homework" aria-label="Homework" id="hwNav"><svg viewBox="0 0 24 24"><rect x="4.5" y="4.5" width="15" height="17" rx="2.5"/><path d="M9 2.8h6a1 1 0 0 1 1 1V6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V3.8a1 1 0 0 1 1-1z"/><path d="M8.5 13l2.5 2.5 4.5-5"/></svg><span class="nl">Homework</span><b class="hwbd" id="hwBd"></b></button>
       <button data-page="Profile" aria-label="Profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span class="nl">Profile</span></button>
     </nav>
   </div>
@@ -3914,7 +3923,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   function moveInd(){const b=document.querySelector('.dnav button.on');if(!b)return;navInd.style.transform=`translateX(${b.offsetLeft}px)`}
 
   navBtns.forEach(b=>b.addEventListener('click',()=>{buzz();navBtns.forEach(x=>{x.classList.toggle('on',x===b);x.toggleAttribute('aria-current',x===b)});{const t0=performance.now();(function f(t){moveInd();if(t-t0<500)requestAnimationFrame(f)})(t0)}
-    const pg=b.dataset.page;if(pg==='Prizes'){setTimeout(()=>nav('prizes'),180);return}if(pg==='Statistics'){setTimeout(()=>nav('stats'),180);return}if(pg==='Profile'){setTimeout(()=>nav('prof'),180);return}
+    const pg=b.dataset.page;if(pg==='Prizes'){setTimeout(()=>nav('prizes'),180);return}if(pg==='Statistics'){setTimeout(()=>nav('stats'),180);return}if(pg==='Profile'){setTimeout(()=>nav('prof'),180);return}if(pg==='Homework'){setTimeout(()=>nav('hw'),180);return}
     if(pg!=='Home'){toast(`${pg} — next page in the build`);clearTimeout(b._t);b._t=setTimeout(()=>navBtns[0].click(),1600)}}));
   window.navHome=()=>{navBtns.forEach((x,i)=>{x.classList.toggle('on',i===0);x.toggleAttribute('aria-current',i===0)});moveInd()};
   function shapeDock(){const d=$('#dock'),W=d.offsetWidth,H=d.offsetHeight,c=W/2,r=30;
@@ -5700,16 +5709,10 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
     const av=i=>`<span class="hw-av" style="--avc:${i.src==='parent'?'#ffd9b8':'#cfe3ff'}"><span>${i.src==='parent'?(i.who[0]+i.who[1]).toUpperCase():'CA'}</span></span>`;
     const col=s=>SCOL[s%SCOL.length];
 
-    /* ---------- header button ---------- */
-    const home=$('#s-home'),btn=document.createElement('button');
-    btn.className='pill hwb in';btn.id='hwBtn';btn.style.cssText='--a:dropIn .5s ease;--d:.09s';
-    btn.innerHTML='<svg viewBox="0 0 24 24"><rect x="4.5" y="4.5" width="15" height="17" rx="2.5"/><path class="pg" d="M9 2.8h6a1 1 0 0 1 1 1V6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V3.8a1 1 0 0 1 1-1z"/><path d="M8.5 13l2.5 2.5 4.5-5"/></svg><span class="bd2" id="hwBd"></span>';
-    $('#sfxB').after(btn);
-    const place=()=>{const w=home.querySelector('.wallet');if(w&&w.offsetWidth)btn.style.right=(w.offsetWidth+12+8)+'px'};
-    place();setTimeout(place,700);document.fonts&&document.fonts.ready.then(place);addEventListener('resize',place);
-    btn.addEventListener('click',()=>{buzz();nav('hw')});
+    /* ---------- nav button (4th slot) ---------- */
+    const btn=$('#hwNav');
     function paintBadge(){const L=items(),nw=L.filter(i=>i.st==='new').length,open=L.filter(i=>i.st==='new'||i.st==='acc').length,b=$('#hwBd');
-      b.textContent=open;b.hidden=!open;btn.classList.toggle('new',nw>0);btn.setAttribute('aria-label',`Homework, ${open} to do${nw?`, ${nw} new`:''}`)}
+      b.textContent=open;b.hidden=!open;btn.classList.toggle('hw-new',nw>0);btn.setAttribute('aria-label',`Homework, ${open} to do${nw?`, ${nw} new`:''}`)}
 
     /* ---------- popup: INCOMING CHALLENGE ---------- */
     const pop=$('#hwp');let queue=[],qi=0,later=new Set(),busy=false,single=false,expT=0,sfxT=[];
