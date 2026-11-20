@@ -221,5 +221,6 @@
     return{card,open,get first(){return!goal},home(){card(true)}};
   })();
   GL.home();
-  if(GL.first)setTimeout(()=>GL.open(true),1400);
+  // auto-open the "Set your target" goal sheet on first run — disabled for now
+  // if(GL.first)setTimeout(()=>GL.open(true),1400);
 })();
