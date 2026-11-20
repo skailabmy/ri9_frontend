@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>RI9 · Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+<div class="safe-fill" aria-hidden="true"></div>
+<div class="bg" aria-hidden="true"><canvas class="emb" data-home="1"></canvas></div>
+
+<div class="viewport" id="vp">
+<main class="stage" id="stage">
+
+  <section class="screen" id="s-home" aria-label="Dashboard">
+    <div class="pill streak in" style="--a:dropIn .5s ease;--d:.05s">
+      <span class="flame-wrap">
+        <svg class="flame" viewBox="0 0 19 25" aria-hidden="true">
+          <path class="o" d="M9.5 0.5c1.4 4.6 7.8 7.4 7.8 14.3a7.8 7.8 0 0 1-15.6 0c0-4.2 2.6-6.1 3.5-9.6 1.3 2.1 1.4 3.9 2.6 4.6.7-3.4.6-6.4 1.7-9.3z" fill="#ff5a2e"/>
+          <path class="i" d="M9.6 11.8c.9 2.8 4.3 3.7 4.3 7.2a4.3 4.3 0 0 1-8.6 0c0-2.2 1.9-3.6 2.1-5.6.8.8 1.2 1.6 1.4 2.4.6-1.3.7-2.6.8-4z" fill="#ffb420"/>
+        </svg>
+        <i class="spark"></i><i class="spark"></i>
+      </span>
+      <b>1</b><small>Day<br>streak</small>
+    </div>
+
+    <button class="pill sfxb in" id="sfxB" style="--a:dropIn .5s ease;--d:.08s" aria-label="Sound effects on" aria-pressed="true"><svg viewBox="0 0 24 24"><path class="spk" d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path class="w1" d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path class="w2" d="M18.2 6.5a8 8 0 0 1 0 11"/><path class="mx" d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>
+
+    <div class="pill wallet in" style="--a:dropIn .5s ease;--d:.1s">
+      <span class="coin" aria-hidden="true"></span>
+      <span class="bal" id="bal" aria-live="polite">****</span>
+      <button class="eye" id="eye" aria-label="Show coin balance">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1b1c19" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3" fill="#1b1c19"/><path id="slash" d="M3.5 3.5l17 17"/></svg>
+      </button>
+    </div>
+
+    <button class="prize in" id="prize" style="--a:cardIn .7s cubic-bezier(.2,1.1,.3,1);--d:.15s" aria-label="Hit your daily goals">
+      <span class="speed"></span>
+      <span class="glow"></span>
+      <img class="art" alt="" src="assets/prize-art.jpg">
+      <span class="sheen"></span>
+      <span class="pz-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#1b1c19" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <span class="pz-l">
+        <span class="pz-title gt" style="display:block">HIT YOUR<br><span>DAILY GOALS</span></span>
+        <span class="bgoal" id="gcard" role="button" tabindex="0" aria-label="Today's goal. Tap to change it."></span>
+      </span>
+    </button>
+
+    <div class="side in" style="--a:slideL .45s ease;--d:.9s">
+      <button class="sos" id="sos" aria-label="S.O.S"><span>S.O.S</span></button>
+      <button class="help" id="help" aria-label="How it works"><svg viewBox="0 0 24 24" fill="none" stroke="#1b1c19" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7"/><circle cx="12" cy="16.8" r=".6" fill="#1b1c19"/></svg></button>
+    </div>
+
+    <section class="chal" aria-label="Daily challenge">
+      <div class="pre in" style="--a:fade .5s ease;--d:.6s">Complete your daily</div>
+      <h1 id="chalWord">CHALLENGE</h1>
+    </section>
+
+    <div class="gbd" id="gbd"></div>
+    <div class="gsh" id="gsh" role="dialog" aria-modal="true" aria-labelledby="gT">
+      <span class="hdl"></span>
+      <div class="gk">DAILY GOAL</div>
+      <h3 id="gT">SET YOUR <span>TARGET</span></h3>
+      <p class="gsub" id="gSub">Like a fitness ring. Close both rings every day to keep your streak alive.</p>
+      <div class="gbig" id="gBig"></div>
+      <div class="grow a"><div class="gh"><span class="gi"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></span><span class="gl"><b>Minutes a day</b><small>Time spent drilling</small></span>
+        <span class="gstep"><button data-g="min" data-d="-1" aria-label="Fewer minutes">−</button><output id="gMin">9</output><button data-g="min" data-d="1" aria-label="More minutes">+</button></span></div>
+        <div class="gchips" data-g="min"><button data-v="5">5<small>CHILL</small></button><button data-v="9">9<small>QUICK</small></button><button data-v="15">15<small>FOCUS</small></button><button data-v="25">25<small>BEAST</small></button></div></div>
+      <div class="grow b"><div class="gh"><span class="gi"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="gl"><b>Questions a day</b><small>Answers in any drill</small></span>
+        <span class="gstep"><button data-g="q" data-d="-1" aria-label="Fewer questions">−</button><output id="gQ">30</output><button data-g="q" data-d="1" aria-label="More questions">+</button></span></div>
+        <div class="gchips" data-g="q"><button data-v="20">20<small>CHILL</small></button><button data-v="30">30<small>QUICK</small></button><button data-v="50">50<small>FOCUS</small></button><button data-v="80">80<small>BEAST</small></button></div></div>
+      <button class="ggo" id="gGo">LOCK IT IN</button>
+    </div>
+
+    <section class="car" id="car" aria-label="Choose a subject. Swipe to change.">
+      <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="#9fd117"/><stop offset="1" stop-color="#d8fb5a"/></linearGradient></defs></svg>
+    </section>
+    <div class="dots" id="dots"></div>
+
+    <div class="dock in" id="dock" style="--a:rise .6s cubic-bezier(.2,1.2,.4,1);--d:.3s">
+      <svg class="shape" aria-hidden="true"><defs><linearGradient id="dk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#30322c"/><stop offset="1" stop-color="#1b1c19"/></linearGradient></defs><path id="dockPath" fill="url(#dk)"/></svg>
+
+      <button class="sidem l" data-mode="quiz" aria-label="Quiz, practice mode">
+        <span class="c"><i class="cping"></i><svg class="qh" viewBox="0 0 24 24"><path d="M12 20.5s-8.5-4.8-8.5-11A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8.5 2.5c0 6.2-8.5 11-8.5 11z" fill="#fff" stroke="none"/><path d="M12.8 8.6 10.9 12l2.7 1.2-1.7 3.3" stroke="#ff4d3a" stroke-width="2.2"/></svg><em class="cbadge">R4</em></span>
+        <span><b>Quiz</b><small>WIN PRIZES</small></span>
+      </button>
+
+      <button class="hero" data-mode="challenge" aria-label="Start daily challenge">
+        <span class="ping"></span>
+        <svg class="ring" viewBox="0 0 106 106"><circle cx="53" cy="53" r="51"/></svg>
+        <svg class="bolt" viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z" fill="#1b1c19"/></svg>
+      </button>
+      <div class="hero-lb"><b>CHALLENGE</b></div>
+
+      <button class="sidem r" data-mode="tournament" aria-label="Tournament, live">
+        <span class="c"><i class="cping"></i><svg class="th" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z" fill="#fff" stroke="none"/><path d="M7 6H4c0 3 1.5 4.5 3.5 5M17 6h3c0 3-1.5 4.5-3.5 5M12 14v4M8 21h8" stroke="#fff" stroke-width="2.2"/></svg><i class="tsp s1"></i><i class="tsp s2"></i></span>
+        <span><b>Tournament</b><small><i></i>LIVE NOW</small></span>
+      </button>
+
+      <nav class="dnav" id="nav" aria-label="Main">
+        <span class="ind" id="navInd"></span>
+        <button class="on" data-page="Home" aria-label="Home" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/></svg><span class="nl">Home</span></button>
+        <button data-page="Prizes" aria-label="Prizes"><i class="new"></i><svg viewBox="0 0 24 24"><rect x="3.5" y="10" width="17" height="11" rx="1.5"/><rect x="2.5" y="6.5" width="19" height="3.8" rx="1"/><path d="M12 6.5V21M12 6.5C10 2.5 6 3.5 8 6.5M12 6.5c2-4 6-3 4 0"/></svg><span class="nl">Prizes</span></button>
+        <button data-page="Statistics" aria-label="Statistics"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M22 20H2"/></svg><span class="nl">Stats</span></button>
+        <button data-page="Homework" aria-label="Homework" id="hwNav"><svg viewBox="0 0 24 24"><rect x="4.5" y="4.5" width="15" height="17" rx="2.5"/><path d="M9 2.8h6a1 1 0 0 1 1 1V6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V3.8a1 1 0 0 1 1-1z"/><path d="M8.5 13l2.5 2.5 4.5-5"/></svg><span class="nl">Homework</span><b class="hwbd" id="hwBd"></b></button>
+        <button data-page="Profile" aria-label="Profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span class="nl">Profile</span></button>
+      </nav>
+    </div>
+
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+</main>
+</div>
+
+<script src="js/home.js"></script>
+</body>
+</html>
