@@ -1,0 +1,15 @@
+{
+  "appId": "com.skailab.ri9",
+  "appName": "RI9 Quiz Drill",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "ios": {
+    "contentInset": "always",
+    "backgroundColor": "#eef6e2"
+  },
+  "android": {
+    "backgroundColor": "#eef6e2"
+  }
+}
