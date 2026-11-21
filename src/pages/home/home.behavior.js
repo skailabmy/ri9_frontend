@@ -1,9 +1,12 @@
-/* ============================================================
+/* RI9 · HOME SCREEN logic — ported verbatim from www/js/home.js.
+   The original was an IIFE; mount() runs the exact same code after
+   the DOM is ready (module scripts are deferred, same timing). */
+export function mount() {/* ============================================================
    RI9 · HOME SCREEN logic — extracted from the prototype.
    UI only for now: all data stays in localStorage mocks and
    cross-screen navigation is stubbed with toasts.
    ============================================================ */
-(function(){
+
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $=s=>document.querySelector(s), root=document.documentElement;
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -170,6 +173,7 @@
   pz.addEventListener('click',()=>toast('Prizes — next screen in the build'));
   $('#sos').addEventListener('click',()=>toast('S.O.S — ask for help'));
   $('#help').addEventListener('click',()=>{buzz();toast('How it works — walkthrough comes next')});
+  $('#pqTab').addEventListener('click',()=>{buzz();toast('Puzzle Quest — next screen in the build')});
   document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{buzz();
     toast(`${b.querySelector('b').textContent} — next screen in the build`)}));
 
@@ -223,4 +227,5 @@
   GL.home();
   // auto-open the "Set your target" goal sheet on first run — disabled for now
   // if(GL.first)setTimeout(()=>GL.open(true),1400);
-})();
+
+}

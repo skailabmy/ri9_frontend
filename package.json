@@ -1,10 +1,14 @@
 {
   "name": "ri9-frontend",
   "version": "1.0.0",
-  "description": "RI9 Quiz Drill — Capacitor-based mobile app (web prototype from the Flutter dumo_drill migration)",
-  "main": "index.js",
+  "description": "RI9 Quiz Drill — Capacitor + Vite + TypeScript + Zustand (web prototype from the Flutter dumo_drill migration)",
+  "type": "module",
   "scripts": {
-    "cap:sync": "npx cap sync",
+    "dev": "vite --host=0.0.0.0 --port=8100",
+    "build": "vite build",
+    "preview": "vite preview --host=0.0.0.0 --port=8100",
+    "typecheck": "tsc --noEmit",
+    "cap:sync": "npm run build && npx cap sync",
     "cap:open:ios": "npx cap open ios",
     "cap:open:android": "npx cap open android",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,15 +20,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/skailabmy/ri9_frontend/issues"
   },
   "homepage": "https://github.com/skailabmy/ri9_frontend#readme",
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0"
+  },
   "dependencies": {
     "@capacitor/android": "^8.6.2",
     "@capacitor/cli": "^8.6.2",
     "@capacitor/core": "^8.6.2",
-    "@capacitor/ios": "^8.6.2"
+    "@capacitor/ios": "^8.6.2",
+    "@capgo/capacitor-updater": "^8.54.2",
+    "zustand": "^5.0.0"
   }
 }

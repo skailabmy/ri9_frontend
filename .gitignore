@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Vite build output (copied into the native projects by cap sync)
+dist/
+
 # Capacitor runtime assets (copied from www/)
 ios/App/App/public/
 android/app/src/main/assets/public/
@@ -23,4 +26,7 @@ android/.idea/
 # Misc
 .DS_Store
 *.log
-.env
+
+# Local env overrides (secrets, personal URLs) — never commit
+.env.local
+.env.*.local
