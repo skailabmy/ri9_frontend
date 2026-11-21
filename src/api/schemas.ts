@@ -95,3 +95,151 @@ export function parseCurrentUserResponse(res: unknown): RawUser {
   }
   return result.data;
 }
+
+/* ---------- user profile (ported from dumo_drill's UserProfile model) ----------
+   Endpoints (dumo_drill/lib/repositories/user_profile_repository.dart):
+     - fetch:   GET  /api/v1/user/profile           → { success, data: {…} }
+                (data is an empty array when no profile row exists yet)
+     - update:  PUT  /api/v2/user/profile           → 3-branch response, see below
+     - verify:  POST /api/v2/user/profile/verify     → { success, data: {…profile} }
+     - resend:  POST /api/v2/user/profile/resend-otp → otp_required payload again */
+
+export const rawUserProfileSchema = z.looseObject({
+  id: z.number().nullable().optional(),
+  user_id: z.number().nullable().optional(),
+  username: z.string().nullable().optional(),
+  fullname: z.string().nullable().optional(),
+  mobile_number: z.string().nullable().optional(),
+  country_code: z.string().nullable().optional(),
+  parent_email: z.string().nullable().optional(),
+  parent_name: z.string().nullable().optional(),
+  parent_mobile_number: z.string().nullable().optional(),
+  parent_country_code: z.string().nullable().optional(),
+  email: z.string().nullable().optional(),
+  school_name: z.string().nullable().optional(),
+  address: z.string().nullable().optional(),
+  age_range_id: z.number().nullable().optional(),
+  country_id: z.number().nullable().optional(),
+  country_name: z.string().nullable().optional(),
+});
+
+export type RawUserProfile = z.infer<typeof rawUserProfileSchema>;
+
+/** GET /api/v1/user/profile — data is a profile object, or an empty
+    array when the user has no profile record yet. */
+export const profileResponseSchema = z.object({
+  success: z.boolean().optional(),
+  data: z.union([rawUserProfileSchema, z.array(z.never()).length(0)]),
+});
+
+/** One selectable verification destination (email / sms). */
+export const availableChannelSchema = z.looseObject({
+  channel: z.string().nullable().optional(),
+  masked_destination: z.string().nullable().optional(),
+});
+
+export type AvailableChannel = z.infer<typeof availableChannelSchema>;
+
+/** PUT /api/v2/user/profile — the backend answers in one of three shapes:
+    1. otp_required      → code was sent; verify next
+    2. channel_required  → caller must pick a channel and re-submit
+    3. bare profile      → updated directly, no verification needed */
+export const otpRequiredDataSchema = z.looseObject({
+  status: z.literal('otp_required'),
+  message: z.string().nullable().optional(),
+  otp_sent_to: z.string().nullable().optional(),
+  masked_destination: z.string().nullable().optional(),
+  expires_in: z.number().nullable().optional(),
+  resend_after: z.number().nullable().optional(),
+});
+
+export type OtpRequiredData = z.infer<typeof otpRequiredDataSchema>;
+
+export const channelRequiredDataSchema = z.looseObject({
+  status: z.literal('channel_required'),
+  message: z.string().nullable().optional(),
+  available_channels: z.array(availableChannelSchema).nullable().optional(),
+});
+
+export type ChannelRequiredData = z.infer<typeof channelRequiredDataSchema>;
+
+export const profileUpdateV2ResponseSchema = z.object({
+  success: z.boolean().optional(),
+  message: z.string().optional(),
+  data: z.union([otpRequiredDataSchema, channelRequiredDataSchema, rawUserProfileSchema]),
+});
+
+export type ProfileUpdateV2Response = z.infer<typeof profileUpdateV2ResponseSchema>;
+
+/* ---------- dropdown sources ---------- */
+
+/** GET /api/v1/countries list item. */
+export const rawCountrySchema = z.looseObject({
+  id: z.number(),
+  country_name: z.string().nullable().optional(),
+});
+
+export type RawCountry = z.infer<typeof rawCountrySchema>;
+
+export const countriesResponseSchema = z.object({
+  success: z.boolean().optional(),
+  data: z.array(rawCountrySchema),
+});
+
+/** GET /api/v1/age-ranges list item. */
+export const rawAgeRangeSchema = z.looseObject({
+  id: z.number(),
+  label: z.string().nullable().optional(),
+  min_age: z.number().nullable().optional(),
+  max_age: z.number().nullable().optional(),
+});
+
+export type RawAgeRange = z.infer<typeof rawAgeRangeSchema>;
+
+export const ageRangesResponseSchema = z.object({
+  success: z.boolean().optional(),
+  data: z.array(rawAgeRangeSchema),
+});
+
+/* ---------- bundles (ported from dumo_drill's bundle_repository.dart) ----------
+   - validate: POST /api/v1/bundles/redeem/validate → { success, data: {…} }
+   - redeem:   POST /api/v1/bundles/redeem          → { success, data: {…} } */
+
+export const bundleSchema = z.looseObject({
+  id: z.number(),
+  name: z.string(),
+  description: z.string().optional(),
+  formatted_price: z.string().nullable().optional(),
+  packages_count: z.number().nullable().optional(),
+});
+
+/** POST /api/v1/bundles/redeem/validate → data */
+export const validateBundleResponseSchema = z.looseObject({
+  code: z.string(),
+  bundle: bundleSchema,
+  is_expired: z.boolean().nullable().optional(),
+  can_be_redeemed: z.boolean(),
+  expires_in_human: z.string().nullable().optional(),
+});
+
+export type ValidateBundleResponse = z.infer<typeof validateBundleResponseSchema>;
+
+const redeemedPackageSchema = z.looseObject({
+  id: z.number(),
+  name: z.string(),
+  description: z.string().nullable().optional(),
+});
+
+/** POST /api/v1/bundles/redeem → data */
+export const redeemBundleResponseSchema = z.looseObject({
+  user_bundle: z.looseObject({
+    id: z.number(),
+    bundle_id: z.number(),
+    bundle_name: z.string(),
+    is_active: z.boolean().nullable().optional(),
+  }),
+  packages: z.union([z.array(redeemedPackageSchema), z.undefined()]),
+  already_owned: z.boolean().nullable().optional(),
+});
+
+export type RedeemBundleResponse = z.infer<typeof redeemBundleResponseSchema>;

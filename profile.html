@@ -15,12 +15,15 @@
 <body>
 <div class="safe-fill" aria-hidden="true"></div>
 
+<!-- backdrop outside the scaled stage — same structure as the home screen -->
+<div class="arena-bg" aria-hidden="true"><canvas class="emb"></canvas></div>
+
 <div class="viewport" id="vp">
 <main class="stage" id="stage">
 
   <!-- ===== PROFILE (student) — ported from the prototype (#s-prof) ===== -->
   <section class="screen play" id="s-prof" aria-label="My profile">
-    <div class="arena-bg" aria-hidden="true"><canvas class="emb"></canvas></div>
+    <div class="pf-load" aria-hidden="true"><span class="spin-lg"></span></div>
     <div class="ahdr in2" style="--a:up .5s ease">
       <button class="gbtn" data-back="home" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <div class="tt"><h2>MY <span>PROFILE</span></h2></div>
@@ -28,8 +31,8 @@
     </div>
     <form class="pf-body scroll" id="pfBody" novalidate autocomplete="on">
       <div class="pf-hero" style="--d:.04s">
-        <div class="pf-top"><span class="pf-av" id="pfAv">S</span>
-          <div class="pf-id"><small><i></i>STUDENT</small><b id="pfName">sean</b><span id="pfSub">@test4 · KSSR Year 4</span></div></div>
+          <div class="pf-top"><span class="pf-av" id="pfAv"></span>
+            <div class="pf-id"><small><i></i>STUDENT</small><b id="pfName"></b><span id="pfSub"></span></div></div>
         <div class="pf-lock"><span class="li"><svg viewBox="0 0 24 24" id="pfLockI"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
           <p id="pfLockT"><b>Details are locked</b>We'll email a code to keep your account & prizes safe.</p>
           <button type="button" id="pfEdit">Edit details</button></div>
@@ -53,7 +56,7 @@
         <h5><i><svg viewBox="0 0 24 24"><path d="M3 9l9-5 9 5-9 5z"/><path d="M7 11.5V16c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4.5"/></svg></i>SCHOOL</h5>
         <label class="pf-f" data-k="school"><span>SCHOOL NAME</span><span class="pf-in"><input name="school" autocomplete="organization" maxlength="80" placeholder="e.g. SK Taman Tun Dr Ismail"></span></label>
         <label class="pf-f" data-k="year"><span>YEAR</span><span class="pf-in sel"><select name="year" id="pfYear"></select><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></label>
-        <div class="pf-f"><span>DUMO ACCOUNT</span><div class="pf-dumo"><span class="dl">DU</span><div><small>CONNECTED</small><b id="pfDumo">ri9_test4</b></div><button type="button" id="pfDumoSw">Switch</button></div></div>
+        <div class="pf-f"><span>DUMO ACCOUNT</span><div class="pf-dumo"><span class="dl">DU</span><div><small>CONNECTED</small><b id="pfDumo"></b></div><button type="button" id="pfDumoSw">Switch</button></div></div>
       </div>
 
       <div class="pf-sec par" style="--d:.2s">
@@ -61,7 +64,7 @@
         <label class="pf-f" data-k="pname"><span>PARENT FULL NAME</span><span class="pf-in"><input name="pname" autocomplete="off" maxlength="60" placeholder="Enter parent full name"></span></label>
         <label class="pf-f" data-k="pmobile"><span>PARENT MOBILE NO.<em>8–11 digits</em></span><span class="pf-in"><span class="cc"><svg viewBox="0 0 28 14"><rect width="28" height="14" fill="#fff"/><path d="M0 1h28M0 3h28M0 5h28M0 7h28M0 9h28M0 11h28M0 13h28" stroke="#d52b1e" stroke-width="1"/><rect width="14" height="8" fill="#0b3b8c"/><circle cx="6" cy="4" r="2.6" fill="#ffd200"/><circle cx="7" cy="4" r="2.2" fill="#0b3b8c"/><circle cx="10.4" cy="4" r="1.2" fill="#ffd200"/></svg>+60</span><input name="pmobile" type="tel" inputmode="numeric" autocomplete="off" placeholder="Enter parent mobile number" maxlength="13"></span></label>
         <label class="pf-f" data-k="pemail"><span>PARENT EMAIL<em>Check the email</em></span><span class="pf-in"><input name="pemail" type="email" inputmode="email" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Enter parent email"></span></label>
-        <div class="pf-fam"><div><small>FAMILY CODE · FOR THE PARENT APP</small><b id="pfFam">7QK-2PA</b><span>Your parent enters this to follow your progress.</span></div><button type="button" id="pfFamCp">Copy</button></div>
+        <div class="pf-fam"><div><small>FAMILY CODE · FOR THE PARENT APP</small><b id="pfFam"></b><span>Your parent enters this to follow your progress.</span></div><button type="button" id="pfFamCp">Copy</button></div>
       </div>
 
       <div class="pf-sec" style="--d:.24s;--pc:#ece9ff;--pe:#d5ceff">
@@ -84,7 +87,7 @@
         <div class="pf-otp" id="pfOtpBx"><input id="pfOtpIn" inputmode="numeric" autocomplete="one-time-code" maxlength="6" aria-label="6-digit code"></div>
         <button type="button" class="pf-mbtn" id="pfVerify" disabled>VERIFY</button>
         <div class="pf-rs" id="pfRs"></div>
-        <div class="pf-hint">Demo: any 6 digits except 000000</div>
+        <div class="pf-hint">Enter the 6-digit code we sent you</div>
       </div>
     </div>
     <div class="pf-md" id="pfMd2" role="dialog" aria-modal="true" aria-labelledby="pfM2T">

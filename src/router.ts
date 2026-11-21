@@ -14,12 +14,14 @@
    ============================================================ */
 import { useAppStore, type Role } from './store/app';
 
-export type PageId = 'home' | 'profile' | 'school' | 'parent';
+export type PageId = 'home' | 'profile' | 'stats' | 'onboarding' | 'school' | 'parent';
 
 /** Canonical paths for programmatic navigation (like go_router's NamedRoutes) */
 export const routes = {
   home: 'index.html',
   profile: 'profile.html',
+  stats: 'stats.html',
+  onboarding: 'onboarding.html',
   school: 'school.html',
   parent: 'parent.html',
 } as const;

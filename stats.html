@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>My Stats</title>
+<meta name="theme-color" content="#eaf7d4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap">
+<link rel="stylesheet" href="/src/pages/stats/stats.css">
+<script type="module" src="/src/pages/stats/stats.ts"></script>
+</head>
+<body>
+<div class="safe-fill" aria-hidden="true"></div>
+
+<!-- backdrop outside the scaled stage — same structure as the home screen -->
+<div class="arena-bg" aria-hidden="true"><canvas class="emb"></canvas></div>
+
+<div class="viewport" id="vp">
+<main class="stage" id="stage">
+
+  <!-- ===== STATS — ported from the prototype (#s-stats, references/index.html) ===== -->
+  <section class="screen play" id="s-stats" aria-label="My stats">
+    <div class="ahdr in2" style="--a:up .5s ease">
+      <button class="gbtn" id="stBack" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="tt"><h2>MY <span>STATS</span></h2></div>
+      <span style="width:42px;flex:none"></span>
+    </div>
+    <div class="aseg in2" id="stSeg" style="--d:.04s"><span class="k" id="stK"></span><button class="on" data-p="week">THIS WEEK</button><button data-p="all">ALL TIME</button></div>
+    <div class="ovs in2" id="ovs" style="--a:up .55s cubic-bezier(.2,1.2,.4,1);--d:.08s">
+      <div class="ovt" id="ovt"><div class="ovsl"><div class="ovw" id="ovw"></div></div><div class="ovsl"><div class="ovw wk2" id="wk"></div></div><div class="ovsl"><div class="ovw wk2 tws" id="tws"></div></div></div>
+    </div>
+    <div class="ovd" id="ovd"><button class="on" aria-label="Overview"></button><button aria-label="Questions this week"></button><button aria-label="Twist strength"></button></div>
+    <div class="lab2 slab in2" style="--d:.12s"><span class="stab" id="stab"><button class="on" data-v="subj">SUBJECTS</button><button data-v="cx">COMPLEXITY</button></span><span id="slCount">4 subjects</span></div>
+    <div class="slist scroll" id="sgrid"></div>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+</main>
+</div>
+</body>
+</html>

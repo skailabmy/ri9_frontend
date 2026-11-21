@@ -29,6 +29,7 @@ export function mount() {/* ====================================================
     const SC=[523.25,587.33,659.25,783.99,880,1046.5,1174.66,1318.51,1567.98];
     const P={
       tap(){tone(1650,{d:.035,type:'triangle',v:.1,to:1100})},
+      whoosh(){nz({d:.24,v:.09,f:500,to:3200,q:.7})}, // screen-transition swoosh (dock nav) — was dropped in the port
       pop(){tone(380,{d:.1,v:.28,to:880})},
       ok(n=0){const b=SC[Math.min(n,SC.length-1)];tone(b,{d:.11,type:'triangle',v:.26});tone(b*1.5,{t:.06,d:.24,type:'triangle',v:.22});tone(b*3,{t:.06,d:.3,v:.06})},
       win(){[523.25,659.25,783.99,1046.5].forEach((f,i)=>tone(f,{t:i*.085,d:.2,type:'triangle',v:.24}));tone(1046.5,{t:.34,d:.7,v:.2});tone(1567.98,{t:.34,d:.7,v:.1});tone(2093,{t:.4,d:.6,v:.05});nz({t:.34,d:.7,v:.05,f:7000,type:'highpass'})},
@@ -186,8 +187,16 @@ export function mount() {/* ====================================================
     requestAnimationFrame(()=>requestAnimationFrame(moveInd));
     const pg=b.dataset.page;
     // Profile — real navigation to the profile page (profile.html),
-    // mirroring the prototype's nav('prof') after the 180ms dock animation.
-    if(pg==='Profile'){setTimeout(()=>{location.href='profile.html'},180);return}
+    // mirroring the prototype's nav('prof') after the 180ms dock animation
+    // (nav() also plays the whoosh transition sound — keep it here).
+    // Statistics — real navigation to the stats page (stats.html),
+    // mirroring the prototype's nav('stats') after the 180ms dock
+    // animation (whoosh transition sound included).
+    // The whoosh must finish playing BEFORE navigation — location.href
+    // destroys the AudioContext instantly, so navigating in the same tick
+    // cuts the sound off before it's audible (whoosh duration is ~240ms).
+    if(pg==='Statistics'){setTimeout(()=>{SFX.play('whoosh');setTimeout(()=>location.href='stats.html',260)},180);return}
+    if(pg==='Profile'){setTimeout(()=>{SFX.play('whoosh');setTimeout(()=>location.href='profile.html',260)},180);return}
     if(pg!=='Home'){toast(`${pg} — next screen in the build`);clearTimeout(b._t);b._t=setTimeout(()=>navBtns[0].click(),1600)}}));
   function shapeDock(){const d=$('#dock'),W=d.offsetWidth,H=d.offsetHeight,c=W/2,r=30;
     $('#dockPath').setAttribute('d',`M0 ${r}Q0 0 ${r} 0L${c-70} 0C${c-50} 0 ${c-54} 50 ${c} 50C${c+54} 50 ${c+50} 0 ${c+70} 0L${W-r} 0Q${W} 0 ${W} ${r}L${W} ${H+80}L0 ${H+80}Z`)}

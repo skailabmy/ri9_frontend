@@ -24,7 +24,23 @@ import {
 
 // Guard is a no-op for now; when auth lands, lock it down:
 // boot({ page: 'home', roles: ['kid'] })
-boot({ page: 'home' });
+
+/* ---------- first-run onboarding gate ----------
+   First-time visitors are sent to the 4-step walkthrough
+   (onboarding.html) before anything mounts. The flag lives in
+   localStorage (`ri9_walkthrough` = 'done', written by
+   onboarding.ts on finish/skip) — plain localStorage persists
+   per-app in the Capacitor WebView on both iOS (WKWebView) and
+   Android (WebView), surviving restarts. */
+const onboardingSeen = ((): boolean => {
+  try { return localStorage.getItem('ri9_walkthrough') === 'done' } catch { return false }
+})();
+
+if (onboardingSeen) {
+  boot({ page: 'home' });
+} else {
+  location.replace('onboarding.html');
+}
 
 // OTA (native only — no-op in browser/dev)
 import { initOta } from '../../ota';
@@ -106,7 +122,7 @@ function bridgeSfx(): void {
   };
 }
 
-void (async () => {
+if (onboardingSeen) void (async () => {
   const splash = document.getElementById('boot');
   try {
     // force=true: a stale cached token could belong to a different

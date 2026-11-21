@@ -64,9 +64,9 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .gbtn:active{transform:scale(.88);background:#ffffff22}
 .gbtn svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 
-/* ---------- arena backdrop ---------- */
-.arena-bg{position:absolute;left:-2px;right:-2px;top:-200px;bottom:-200px;overflow:hidden;background:radial-gradient(130% 55% at 50% 220px,#4a6d12 0%,#1d2a0d 42%,#0d1207 78%)}
-.arena-bg canvas{position:absolute;left:0;top:200px;width:100%;height:calc(100% - 400px)}
+/* ---------- backdrop (fixed to the viewport, same as the home screen) ---------- */
+.arena-bg{position:fixed;inset:0;overflow:hidden;background:linear-gradient(180deg,#e7f5cf 0%,var(--ground) 35%,var(--ground-2) 100%)}
+.arena-bg canvas{position:absolute;left:0;right:0;top:0;bottom:0;width:100%;height:100%}
 
 /* ---------- toast ---------- */
 .toast{position:absolute;left:50%;top:62px;transform:translate(-50%,10px);opacity:0;background:var(--char);color:#fff;padding:9px 16px;border-radius:999px;font-size:12px;z-index:9;transition:all .25s;pointer-events:none;white-space:nowrap}
@@ -75,7 +75,6 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .scroll{overflow-y:auto;scrollbar-width:none}.scroll::-webkit-scrollbar{display:none}
 
 /* ---------- LIGHT ARENA (the app's theme — overrides above) ---------- */
-.arena-bg{background:radial-gradient(120% 55% at 50% 230px,#ffffff 0%,#f2fbd8 35%,#dff4a2 75%,#cdeb78 100%)}
 .gbtn{background:#ffffffd9;border:1px solid #fff;box-shadow:0 6px 14px -8px #4a6d1266}
 .gbtn svg{stroke:var(--ink)}
 .gbtn:active{background:#fff}
@@ -86,6 +85,13 @@ input,textarea{-webkit-user-select:text;user-select:text}
 /* ===================== PROFILE (student) ===================== */
 #s-prof .ahdr .gbtn.pf-out svg{stroke:#c23a2f}
 .pf-body{position:absolute;left:0;right:0;top:66px;bottom:0;padding:6px 16px 120px;display:flex;flex-direction:column;gap:14px}
+/* centered circular spinner while the profile API answers —
+   transparent overlay so the page's own backdrop shows through */
+.pf-load{position:absolute;inset:0;z-index:5;display:none;place-items:center;pointer-events:none}
+#s-prof.loading .pf-load{display:grid;pointer-events:auto}
+.pf-load .spin-lg{position:relative;width:44px;height:44px;border-radius:50%;border:4px solid #c6f43244;border-top-color:var(--lime-2);animation:rot .8s linear infinite}
+/* hide the real form while the spinner is up */
+#s-prof.loading .pf-body{visibility:hidden}
 .pf-body.anim>*{animation:up .5s cubic-bezier(.2,1.2,.4,1) both;animation-delay:var(--d,0s)}
 /* hero */
 .pf-hero{flex:none;position:relative;overflow:hidden;padding:18px 16px 16px;border-radius:44px 10px 44px 10px;color:#fff;
@@ -212,6 +218,19 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .pf-code:focus{border-color:var(--lime);background:#fff}
 /* profile: edit first, verify to apply */
 .pf-f.pf-edited>span:first-child::after{content:"EDITED";margin-left:auto;padding:2px 7px;border-radius:999px;background:var(--lime);color:#1b1c19;font-size:8.5px;letter-spacing:.8px}
+.pf-f.pf-edited.err>span:first-child::after{display:none}
+.pf-f.pf-edited .pf-in{border-color:#a7d81c;background:#fbfff0}
+.pf-dumo.pf-edited{box-shadow:0 4px 0 #c9781a,0 0 0 3px var(--lime)}
+.pf-chg{display:flex;flex-direction:column;gap:5px;margin-top:12px;text-align:left}
+.pf-chg div{display:grid;grid-template-columns:92px 1fr;align-items:baseline;column-gap:8px;padding:7px 10px;border-radius:12px 4px 12px 4px;background:#f6f9ee;font-size:12px}
+.pf-chg span{grid-row:span 2;font-size:9.5px;font-weight:800;letter-spacing:.8px;color:#5d6650;text-transform:uppercase}
+.pf-chg s{color:#a3ab95;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf-chg b{color:#1b1c19;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf-chg b::before{content:"→ ";color:#6f9a0b}
+.pf-chg i{font-style:italic;font-weight:500}
+.pf-chg .more{display:block;text-align:center;font-weight:700;color:#5d6650}
+.pf-hero.pf-ok{animation:pfOk .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pfOk{40%{transform:scale(1.03);box-shadow:0 0 0 4px var(--lime),0 24px 40px -22px #1e2a0899}}
 .pf-body{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14px);mask-image:linear-gradient(180deg,transparent 0,#000 14px)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}

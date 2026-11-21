@@ -14,10 +14,21 @@ import { logRequest, logRequestError, record, type ApiLogEntry } from './logger'
 
 export class ApiError extends Error {
   readonly status: number;
-  constructor(status: number, message: string) {
+  /** Per-field validation errors from 422 responses
+      (mirrors Flutter's UserProfileException.errors). */
+  readonly errors?: Record<string, unknown>;
+  /** Machine-readable error code from the body (e.g. invalid_otp). */
+  readonly errorCode?: string;
+  constructor(
+    status: number,
+    message: string,
+    opts: { errors?: Record<string, unknown>; errorCode?: string } = {},
+  ) {
     super(message);
     this.name = 'ApiError';
     this.status = status;
+    this.errors = opts.errors;
+    this.errorCode = opts.errorCode;
   }
 }
 
@@ -69,14 +80,22 @@ export async function api<T>(path: string, opts: ApiOptions = {}): Promise<T> {
 
     if (!res.ok) {
       let message = `Request failed (${res.status})`;
+      let errors: Record<string, unknown> | undefined;
+      let errorCode: string | undefined;
       try {
-        const errBody = (await res.json()) as { message?: string };
+        const errBody = (await res.json()) as {
+          message?: string;
+          errors?: Record<string, unknown>;
+          error_code?: string;
+        };
         if (errBody?.message) message = errBody.message;
+        if (errBody?.errors) errors = errBody.errors;
+        if (errBody?.error_code) errorCode = errBody.error_code;
       } catch {
         /* non-JSON error body — keep default message */
       }
       finish(res.status, { message });
-      throw new ApiError(res.status, message);
+      throw new ApiError(res.status, message, { errors, errorCode });
     }
 
     const data = (await res.json()) as T;
