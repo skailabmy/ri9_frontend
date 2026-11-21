@@ -10,6 +10,7 @@
    ============================================================ */
 import { API_BASE_URL } from './config';
 import { getToken } from './storage';
+import { logRequest, logRequestError, record, type ApiLogEntry } from './logger';
 
 export class ApiError extends Error {
   readonly status: number;
@@ -32,12 +33,30 @@ interface ApiOptions {
 export async function api<T>(path: string, opts: ApiOptions = {}): Promise<T> {
   const { method = 'GET', body, headers = {}, timeoutMs = 15_000 } = opts;
 
+  const url = `${API_BASE_URL}${path}`;
+  const startedAt = performance.now();
+
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
 
+  /** Build the log entry and emit it (console + in-memory history). */
+  const finish = (status: ApiLogEntry['status'], responseBody?: unknown) => {
+    const entry: ApiLogEntry = {
+      method,
+      url,
+      status,
+      durationMs: Math.round(performance.now() - startedAt),
+      timestamp: new Date().toISOString(),
+      requestBody: body,
+      responseBody,
+    };
+    record(entry);
+    logRequest(entry);
+  };
+
   try {
     const token = getToken();
-    const res = await fetch(`${API_BASE_URL}${path}`, {
+    const res = await fetch(url, {
       method,
       signal: ctrl.signal,
       headers: {
@@ -56,15 +75,20 @@ export async function api<T>(path: string, opts: ApiOptions = {}): Promise<T> {
       } catch {
         /* non-JSON error body — keep default message */
       }
+      finish(res.status, { message });
       throw new ApiError(res.status, message);
     }
 
-    return (await res.json()) as T;
+    const data = (await res.json()) as T;
+    finish(res.status, data);
+    return data;
   } catch (err) {
     if (err instanceof ApiError) throw err;
     if (err instanceof DOMException && err.name === 'AbortError') {
+      logRequestError(method, url, 'Request timed out');
       throw new ApiError(0, 'Request timed out');
     }
+    logRequestError(method, url, err);
     throw new ApiError(0, err instanceof Error ? err.message : 'Network error');
   } finally {
     clearTimeout(timer);

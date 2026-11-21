@@ -34,6 +34,7 @@
     "@capacitor/core": "^8.6.2",
     "@capacitor/ios": "^8.6.2",
     "@capgo/capacitor-updater": "^8.54.2",
+    "zod": "^4.6.7",
     "zustand": "^5.0.0"
   }
 }

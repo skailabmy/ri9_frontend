@@ -78,13 +78,18 @@ export function mount() {/* ====================================================
   const h=$('#chalWord');
   h.innerHTML=[...h.textContent].map((c,i)=>`<span class="in" style="--a:letter .5s cubic-bezier(.2,1.4,.4,1);--d:${(.65+i*.04).toFixed(2)}s"><i style="--w:${(2.6+i*.06).toFixed(2)}s">${c}</i></span>`).join('');
 
-  /* ---------- subjects ---------- */
-  const SUBJ=[
+  /* ---------- subjects — real data via window.RI9_SUBJECTS (set by
+     home.ts from /api/v1/subjects during the splash gate); the mock
+     below is the prototype fallback used when the API is unreachable ---------- */
+  const DEFAULT_ICO=`<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>`;
+  const API_SUBJ=Array.isArray(window.RI9_SUBJECTS)?window.RI9_SUBJECTS:null;
+  const SUBJ=(API_SUBJ&&API_SUBJ.length?API_SUBJ:[
     {name:'Mathematics',avg:10.0,q:17,tr:1.4,ico:`<rect x="3" y="3" width="8" height="8" rx="2"/><path d="M5.5 5.5l3 3M8.5 5.5l-3 3"/><rect x="13" y="3" width="8" height="8" rx="2"/><path d="M15 7h4"/><rect x="3" y="13" width="8" height="8" rx="2"/><path d="M7 15v4M5 17h4"/><rect x="13" y="13" width="8" height="8" rx="2"/><path d="M15 17h4"/><circle class="f" cx="17" cy="15" r=".9"/><circle class="f" cx="17" cy="19" r=".9"/>`},
     {name:'English',avg:8.6,q:15,tr:0.8,ico:`<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19v15H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H19v-3"/><path d="M8 13l2.5-6 2.5 6M8.8 11.2h3.4"/><path d="M14.5 7v6h1.8a1.5 1.5 0 0 0 0-3h-1.8 1.5a1.5 1.5 0 0 0 0-3z"/>`},
     {name:'Bahasa Melayu',avg:9.4,q:16,tr:2.1,ico:`<path d="M3 5h18v11h-9l-5 4v-4H3z"/><path d="M6.5 8v5h2a1.25 1.25 0 0 0 0-2.5h-2 1.6a1.25 1.25 0 0 0 0-2.5z"/><path d="M12 13V8l2.5 3L17 8v5"/>`},
     {name:'Science',avg:12.3,q:14,tr:0.6,ico:`<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 14h9"/><circle class="f" cx="10.5" cy="17" r="1"/><circle class="f" cx="14" cy="18.2" r=".8"/>`}
-  ];
+  ]).map(s=>({name:s.name,q:s.q||0,avg:(typeof s.avg==='number')?s.avg:null,tr:(typeof s.tr==='number')?s.tr:null,
+    ico:s.ico||DEFAULT_ICO,icon:s.icon||null}));
   const N=SUBJ.length, car=$('#car'), cards=[], A0=-200, A1=20; // gauge sweep angles
   const P=(r,a)=>[102+r*Math.cos(a*Math.PI/180),104+r*Math.sin(a*Math.PI/180)];
   function arcPath(r,a,b){const[x1,y1]=P(r,a),[x2,y2]=P(r,b);return`M${x1.toFixed(1)} ${y1.toFixed(1)}A${r} ${r} 0 ${b-a>180?1:0} 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`}
@@ -92,11 +97,12 @@ export function mount() {/* ====================================================
   const score=s=>clamp((20-s.avg)/16,0.05,1); // faster = fuller gauge
   SUBJ.forEach((s,k)=>{
     const el=document.createElement('div');el.className='sc';el.dataset.k=k;
-    el.innerHTML=`<div class="top"><span class="ic"><svg viewBox="0 0 24 24">${s.ico}</svg></span><div><div class="nm">${s.name}</div><div class="kssr">KSSR · ${s.q} MCQs</div></div></div>
+    const ic=s.icon?`<img src="${s.icon}" alt="" style="width:24px;height:24px;object-fit:contain">`:`<svg viewBox="0 0 24 24">${s.ico}</svg>`;
+    el.innerHTML=`<div class="top"><span class="ic">${ic}</span><div><div class="nm">${s.name}</div><div class="kssr">${s.q} MCQs</div></div></div>
       <div class="gauge"><svg viewBox="0 0 204 116">${ticks}<path class="trk" d="${arcPath(90,A0,A1)}"/><path class="val" d="${arcPath(90,A0,A1)}"/>
         <g class="needle"><circle r="13" fill="#c6f432" opacity=".35" class="halo"/><circle r="8.5" fill="#fff" stroke="#1b1c19" stroke-width="3"/></g></svg>
-        <div class="read"><b><span class="v">${s.avg.toFixed(1)}</span><small>s</small></b><div>AVG SPEED</div></div></div>
-      <div class="ft"><span class="trend"><svg viewBox="0 0 10 10"><path d="M5 9 1 3h8z" fill="#3d6b06"/></svg>${s.tr.toFixed(1)}s faster this week</span></div>`;
+        <div class="read"><b><span class="v">${s.avg==null?'0.0':s.avg.toFixed(1)}</span><small>s</small></b><div>AVG SPEED</div></div></div>
+      <div class="ft"><span class="trend"><svg viewBox="0 0 10 10"><path d="M5 9 1 3h8z" fill="#3d6b06"/></svg>${(s.tr??0).toFixed(1)}s faster this week</span></div>`;
     car.appendChild(el);cards.push(el);
     const v=el.querySelector('.val'),L=v.getTotalLength();v.style.strokeDasharray=L;v.style.strokeDashoffset=L;el._val=v;el._L=L;el._needle=el.querySelector('.needle');el._num=el.querySelector('.v');
   });
@@ -106,11 +112,12 @@ export function mount() {/* ====================================================
   function setGauge(el,p){const a=A0+(A1-A0)*p;const[nx,ny]=P(90,a);el._needle.setAttribute('transform',`translate(${nx.toFixed(1)} ${ny.toFixed(1)})`);el._val.style.strokeDashoffset=(el._L*(1-p)).toFixed(1)}
   cards.forEach(el=>setGauge(el,0));
   function animGauge(k,delay){
-    const el=cards[k],s=SUBJ[k],target=score(s);if(reduce){setGauge(el,target);el._num.textContent=s.avg.toFixed(1);return}
+    const el=cards[k],s=SUBJ[k],hasAvg=s.avg!=null,target=hasAvg?score(s):0;
+    if(reduce){setGauge(el,target);el._num.textContent=hasAvg?s.avg.toFixed(1):'0.0';return}
     clearTimeout(el._t);cancelAnimationFrame(el._r);
     el._t=setTimeout(()=>{const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/1100);
       const e=1+2.2*Math.pow(p-1,3)+1.2*Math.pow(p-1,2);setGauge(el,clamp(target*e,0,1));
-      el._num.textContent=(s.avg*(0.4+0.6*Math.min(1,p*1.4))).toFixed(1); if(p>=.72)el._num.textContent=s.avg.toFixed(1);
+      if(hasAvg){el._num.textContent=(s.avg*(0.4+0.6*Math.min(1,p*1.4))).toFixed(1); if(p>=.72)el._num.textContent=s.avg.toFixed(1)}
       if(p<1)el._r=requestAnimationFrame(f)})(t0)},delay||0);
   }
   // layout from continuous position
@@ -150,10 +157,22 @@ export function mount() {/* ====================================================
   addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1)});
 
   /* ---------- balance ---------- */
+  // Real balance arrives via window.RI9_BALANCE (set by home.ts after login);
+  // 1250 is the prototype's mock fallback while the splash/session gate runs.
+  const balEl=$('#bal'),eyeEl=$('#eye');
   let on=false;
-  $('#eye').addEventListener('click',()=>{on=!on;const b=$('#bal');b.classList.toggle('on',on);$('#slash').style.display=on?'none':'';
-    $('#eye').setAttribute('aria-label',on?'Hide coin balance':'Show coin balance');if(!on){b.textContent='****';return}
-    const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/600);b.textContent=Math.round(1250*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(f)})(t0)});
+  // anim=false sets the value directly (no rAF dependency) — used for the
+  // automatic reveal so the balance can never be left stuck at the first
+  // animation frame if rAF is throttled (background tab / WebView).
+  function showBal(anim){on=true;balEl.classList.add('on');$('#slash').style.display='none';
+    eyeEl.setAttribute('aria-label','Hide coin balance');
+    const target=Number(window.RI9_BALANCE??1250);
+    if(anim===false||reduce){balEl.textContent=target.toLocaleString();return}
+    const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/600);balEl.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(f)})(t0)}
+  function hideBal(){on=false;balEl.classList.remove('on');$('#slash').style.display='';eyeEl.setAttribute('aria-label','Show coin balance');balEl.textContent='****'}
+  eyeEl.addEventListener('click',()=>{on?hideBal():showBal()});
+  // Reference-faithful: the wallet stays masked ('****') on load —
+  // the eye toggle is the only way to reveal window.RI9_BALANCE.
 
   /* ---------- toast ---------- */
   let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1700)}
@@ -166,14 +185,18 @@ export function mount() {/* ====================================================
     navBtns.forEach(x=>{x.classList.toggle('on',x===b);x.toggleAttribute('aria-current',x===b)});
     requestAnimationFrame(()=>requestAnimationFrame(moveInd));
     const pg=b.dataset.page;
+    // Profile — real navigation to the profile page (profile.html),
+    // mirroring the prototype's nav('prof') after the 180ms dock animation.
+    if(pg==='Profile'){setTimeout(()=>{location.href='profile.html'},180);return}
     if(pg!=='Home'){toast(`${pg} — next screen in the build`);clearTimeout(b._t);b._t=setTimeout(()=>navBtns[0].click(),1600)}}));
   function shapeDock(){const d=$('#dock'),W=d.offsetWidth,H=d.offsetHeight,c=W/2,r=30;
     $('#dockPath').setAttribute('d',`M0 ${r}Q0 0 ${r} 0L${c-70} 0C${c-50} 0 ${c-54} 50 ${c} 50C${c+54} 50 ${c+50} 0 ${c+70} 0L${W-r} 0Q${W} 0 ${W} ${r}L${W} ${H+80}L0 ${H+80}Z`)}
   shapeDock();moveInd();document.fonts&&document.fonts.ready.then(moveInd);addEventListener('resize',()=>requestAnimationFrame(()=>{shapeDock();moveInd()}));
   pz.addEventListener('click',()=>toast('Prizes — next screen in the build'));
-  $('#sos').addEventListener('click',()=>toast('S.O.S — ask for help'));
-  $('#help').addEventListener('click',()=>{buzz();toast('How it works — walkthrough comes next')});
-  $('#pqTab').addEventListener('click',()=>{buzz();toast('Puzzle Quest — next screen in the build')});
+  // S.O.S + Help — ported from the Flutter SosHelpWidget (url_launcher):
+  // S.O.S opens the support site, Help opens the "Ways to Win" video.
+  $('#sos').addEventListener('click',()=>{buzz();window.open('https://static-site-deploy-skailab.replit.app','_blank')});
+  $('#help').addEventListener('click',()=>{buzz();window.open('https://ik.imagekit.io/zzhbmztll/RI9%20-%20Ways%20to%20Win%20Video.mp4','_blank')});
   document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{buzz();
     toast(`${b.querySelector('b').textContent} — next screen in the build`)}));
 
@@ -201,7 +224,8 @@ export function mount() {/* ====================================================
       <circle class="r1" cx="50" cy="50" r="44" pathLength="100" data-p="${(a*100).toFixed(1)}"/><circle class="r2" cx="50" cy="50" r="31" pathLength="100" data-p="${(b*100).toFixed(1)}"/></svg><span class="ctr">${center}</span></div>`;
     const fill=(root,instant)=>{const go=()=>root.querySelectorAll('.r1,.r2').forEach(c=>c.style.strokeDasharray=`${c.dataset.p} 100`);instant?go():requestAnimationFrame(()=>requestAnimationFrame(go))};
     function card(anim){
-      const g=G(),p=pct(g),c=$('#gcard'),minLeft=Math.max(0,Math.ceil(g.min-prog.sec/60)),qLeft=Math.max(0,g.q-prog.q),all=minLeft===0&&qLeft===0;
+      const c=$('#gcard');if(!c)return; // entry card removed with the prize banner
+      const g=G(),p=pct(g),minLeft=Math.max(0,Math.ceil(g.min-prog.sec/60)),qLeft=Math.max(0,g.q-prog.q),all=minLeft===0&&qLeft===0;
       c.classList.toggle('win',all);
       c.innerHTML=`${ring(p.a,p.b,all?'🔥':'')}<span class="bgs">
           <span class="r a${minLeft?'':' done'}"><i></i><b>${minLeft||'✓'}</b><small>${minLeft?'MIN LEFT':'TIME DONE'}</small></span>
@@ -218,7 +242,7 @@ export function mount() {/* ====================================================
     $('#gsh').addEventListener('click',e=>{const s=e.target.closest('.gstep button');if(s){const k=s.dataset.g,d=+s.dataset.d;
         draft[k]=k==='min'?Math.max(3,Math.min(60,draft.min+d)):Math.max(10,Math.min(200,draft.q+d*5));SFX.play('tick');buzz();sync(k==='min'?'#gMin':'#gQ');return}
       const c=e.target.closest('.gchips button');if(c){const k=c.parentNode.dataset.g;draft[k]=+c.dataset.v;SFX.play('pop');sync(k==='min'?'#gMin':'#gQ')}});
-    $('#gGo').addEventListener('click',()=>{goal={...draft};prog.won=pct().a>=1&&pct().b>=1;save();close();SFX.play('unlock');setTimeout(()=>{card(true);replay($('#gcard'),'nudge')},250);toast(`Daily goal: ${goal.min} min · ${goal.q} questions`)});
+    $('#gGo').addEventListener('click',()=>{goal={...draft};prog.won=pct().a>=1&&pct().b>=1;save();close();SFX.play('unlock');setTimeout(()=>{card(true);const gc=$('#gcard');if(gc)replay(gc,'nudge')},250);toast(`Daily goal: ${goal.min} min · ${goal.q} questions`)});
     $('#gbd').addEventListener('click',()=>{if(goal)close()});
     $('#gcard').addEventListener('click',e=>{e.stopPropagation();e.preventDefault();buzz();open(false)});
     $('#gcard').addEventListener('pointerdown',e=>e.stopPropagation());

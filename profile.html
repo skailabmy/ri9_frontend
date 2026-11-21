@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>My Profile</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#eaf7d4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap">
+<link rel="stylesheet" href="/src/pages/profile/profile.css">
+<script type="module" src="/src/pages/profile/profile.ts"></script>
+</head>
+<body>
+<div class="safe-fill" aria-hidden="true"></div>
+
+<div class="viewport" id="vp">
+<main class="stage" id="stage">
+
+  <!-- ===== PROFILE (student) — ported from the prototype (#s-prof) ===== -->
+  <section class="screen play" id="s-prof" aria-label="My profile">
+    <div class="arena-bg" aria-hidden="true"><canvas class="emb"></canvas></div>
+    <div class="ahdr in2" style="--a:up .5s ease">
+      <button class="gbtn" data-back="home" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="tt"><h2>MY <span>PROFILE</span></h2></div>
+      <button class="gbtn pf-out" id="pfOut" aria-label="Log out"><svg viewBox="0 0 24 24"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M10 16l-4-4 4-4M6 12h10"/></svg></button>
+    </div>
+    <form class="pf-body scroll" id="pfBody" novalidate autocomplete="on">
+      <div class="pf-hero" style="--d:.04s">
+        <div class="pf-top"><span class="pf-av" id="pfAv">S</span>
+          <div class="pf-id"><small><i></i>STUDENT</small><b id="pfName">sean</b><span id="pfSub">@test4 · KSSR Year 4</span></div></div>
+        <div class="pf-lock"><span class="li"><svg viewBox="0 0 24 24" id="pfLockI"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+          <p id="pfLockT"><b>Details are locked</b>We'll email a code to keep your account & prizes safe.</p>
+          <button type="button" id="pfEdit">Edit details</button></div>
+      </div>
+
+      <div class="pf-sec" style="--d:.08s">
+        <h5><i><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></i>ACCOUNT</h5>
+        <label class="pf-f" data-k="username"><span>USERNAME<em>3–20 letters, numbers or _</em></span><span class="pf-in"><input name="username" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="20"></span></label>
+        <label class="pf-f" data-k="name"><span>FULL NAME<em>Required</em></span><span class="pf-in"><input name="name" autocomplete="name" maxlength="60"></span></label>
+        <label class="pf-f" data-k="email"><span>EMAIL<em>Check the email</em></span><span class="pf-in"><input name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false"></span></label>
+      </div>
+
+      <div class="pf-sec" style="--d:.12s;--pc:#dff1ff;--pe:#bfe3ff">
+        <h5><i><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i>CONTACT</h5>
+        <label class="pf-f" data-k="mobile"><span>MOBILE NUMBER<em>8–11 digits</em></span><span class="pf-in"><span class="cc"><svg viewBox="0 0 28 14"><rect width="28" height="14" fill="#fff"/><path d="M0 1h28M0 3h28M0 5h28M0 7h28M0 9h28M0 11h28M0 13h28" stroke="#d52b1e" stroke-width="1"/><rect width="14" height="8" fill="#0b3b8c"/><circle cx="6" cy="4" r="2.6" fill="#ffd200"/><circle cx="7" cy="4" r="2.2" fill="#0b3b8c"/><circle cx="10.4" cy="4" r="1.2" fill="#ffd200"/></svg>+60</span><input name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="12 345 6789" maxlength="13"></span></label>
+        <label class="pf-f" data-k="country"><span>COUNTRY</span><span class="pf-in sel"><select name="country" id="pfCountry"></select><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></label>
+        <label class="pf-f" data-k="address"><span>MAILING ADDRESS<em>Needed to ship prizes</em></span><span class="pf-in"><textarea name="address" autocomplete="street-address" maxlength="200" placeholder="Where should we ship your prizes?"></textarea></span></label>
+      </div>
+
+      <div class="pf-sec" style="--d:.16s;--pc:#fff0d6;--pe:#f3d68a">
+        <h5><i><svg viewBox="0 0 24 24"><path d="M3 9l9-5 9 5-9 5z"/><path d="M7 11.5V16c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4.5"/></svg></i>SCHOOL</h5>
+        <label class="pf-f" data-k="school"><span>SCHOOL NAME</span><span class="pf-in"><input name="school" autocomplete="organization" maxlength="80" placeholder="e.g. SK Taman Tun Dr Ismail"></span></label>
+        <label class="pf-f" data-k="year"><span>YEAR</span><span class="pf-in sel"><select name="year" id="pfYear"></select><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></label>
+        <div class="pf-f"><span>DUMO ACCOUNT</span><div class="pf-dumo"><span class="dl">DU</span><div><small>CONNECTED</small><b id="pfDumo">ri9_test4</b></div><button type="button" id="pfDumoSw">Switch</button></div></div>
+      </div>
+
+      <div class="pf-sec par" style="--d:.2s">
+        <h5><i><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9.5" r="2.5"/><path d="M16 14.2c3 .1 5.5 2 5.5 5.3"/></svg></i>PARENT INFO</h5>
+        <label class="pf-f" data-k="pname"><span>PARENT FULL NAME</span><span class="pf-in"><input name="pname" autocomplete="off" maxlength="60" placeholder="Enter parent full name"></span></label>
+        <label class="pf-f" data-k="pmobile"><span>PARENT MOBILE NO.<em>8–11 digits</em></span><span class="pf-in"><span class="cc"><svg viewBox="0 0 28 14"><rect width="28" height="14" fill="#fff"/><path d="M0 1h28M0 3h28M0 5h28M0 7h28M0 9h28M0 11h28M0 13h28" stroke="#d52b1e" stroke-width="1"/><rect width="14" height="8" fill="#0b3b8c"/><circle cx="6" cy="4" r="2.6" fill="#ffd200"/><circle cx="7" cy="4" r="2.2" fill="#0b3b8c"/><circle cx="10.4" cy="4" r="1.2" fill="#ffd200"/></svg>+60</span><input name="pmobile" type="tel" inputmode="numeric" autocomplete="off" placeholder="Enter parent mobile number" maxlength="13"></span></label>
+        <label class="pf-f" data-k="pemail"><span>PARENT EMAIL<em>Check the email</em></span><span class="pf-in"><input name="pemail" type="email" inputmode="email" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Enter parent email"></span></label>
+        <div class="pf-fam"><div><small>FAMILY CODE · FOR THE PARENT APP</small><b id="pfFam">7QK-2PA</b><span>Your parent enters this to follow your progress.</span></div><button type="button" id="pfFamCp">Copy</button></div>
+      </div>
+
+      <div class="pf-sec" style="--d:.24s;--pc:#ece9ff;--pe:#d5ceff">
+        <h5><i><svg viewBox="0 0 24 24"><rect x="3.5" y="10" width="17" height="11" rx="1.5"/><rect x="2.5" y="6.5" width="19" height="3.8" rx="1"/><path d="M12 6.5V21M12 6.5C10 2.5 6 3.5 8 6.5M12 6.5c2-4 6-3 4 0"/></svg></i>BUNDLE</h5>
+        <button type="button" class="pf-row" id="pfBundle"><span class="ri"><svg viewBox="0 0 24 24"><path d="M3 9V6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v3a3 3 0 0 0 0 6v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-3a3 3 0 0 0 0-6z"/><path d="M14 5v14" stroke-dasharray="2 2"/></svg></span><div><b>Redeem bundle code</b><small>Got a code from school or a voucher?</small></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="pf-bundles" id="pfBundles"></div>
+      </div>
+    </form>
+
+    <div class="pf-save" id="pfSave"><div><small>UNSAVED CHANGES</small><b id="pfSaveT">No changes</b></div><button type="button" class="x" id="pfCancel">Undo</button><button type="button" class="go" id="pfSubmit">VERIFY & SAVE</button></div>
+
+    <div class="pf-bd" id="pfBd"></div>
+    <div class="pf-md" id="pfOtp" role="dialog" aria-modal="true" aria-labelledby="pfOtpT">
+      <div class="pf-mh"><button type="button" class="pf-mx" data-pfx aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <svg class="pf-shield" viewBox="0 0 84 84" aria-hidden="true"><circle class="ring" cx="42" cy="42" r="38" fill="none" stroke="#1b1c19" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round" opacity=".35"/><g class="sh"><path d="M42 12 64 20v18c0 15-9.5 26-22 31-12.5-5-22-16-22-31V20z" fill="#1b1c19"/><path d="M42 18 58 24v14c0 11.5-7 20-16 24z" fill="#ffffff1a"/><rect x="33" y="38" width="18" height="14" rx="3" fill="#c6f432"/><path d="M36.5 38v-4a5.5 5.5 0 0 1 11 0v4" fill="none" stroke="#c6f432" stroke-width="3.2"/><circle cx="42" cy="44.5" r="2.2" fill="#1b1c19"/></g></svg>
+        <small>SECURITY CHECK</small><h4 id="pfOtpT">ENTER OTP CODE</h4></div>
+      <div class="pf-mb">
+        <p>To save <b id="pfOtpN">your changes</b>, enter the 6-digit code we sent to <b id="pfOtpTo">t***4@gmail.com</b>.</p>
+        <div class="pf-chg" id="pfChg"></div>
+        <div class="pf-otp" id="pfOtpBx"><input id="pfOtpIn" inputmode="numeric" autocomplete="one-time-code" maxlength="6" aria-label="6-digit code"></div>
+        <button type="button" class="pf-mbtn" id="pfVerify" disabled>VERIFY</button>
+        <div class="pf-rs" id="pfRs"></div>
+        <div class="pf-hint">Demo: any 6 digits except 000000</div>
+      </div>
+    </div>
+    <div class="pf-md" id="pfMd2" role="dialog" aria-modal="true" aria-labelledby="pfM2T">
+      <div class="pf-mh"><button type="button" class="pf-mx" data-pfx aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><small id="pfM2S"></small><h4 id="pfM2T"></h4></div>
+      <div class="pf-mb" id="pfM2B"></div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+</main>
+</div>
+</body>
+</html>
