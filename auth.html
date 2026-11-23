@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Ri9 Sign In</title>
-<meta name="theme-color" content="#0d0e0c">
+<meta name="theme-color" content="#f6fbe9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500;1,800;1,900&display=swap">
@@ -45,21 +45,21 @@ a{color:inherit}
 .screen[data-pos="under"]{opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s .5s}
 
 /* ============ SPLASH ============ */
-#splash{background:var(--char);align-items:center;justify-content:center;z-index:20;overflow:hidden}
+#splash{background:linear-gradient(180deg,#f6fbe9 0%,#fff 45%,#f3f9e2 100%);align-items:center;justify-content:center;z-index:20;overflow:hidden}
 .warp{position:absolute;inset:-30%;transform:rotate(-24deg)}
-.warp i{position:absolute;left:0;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--lime) 60%,#fff);opacity:0;
+.warp i{position:absolute;left:0;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#b9e43a 60%,#8bdc4f);opacity:0;
   animation:warp var(--t,1.4s) linear infinite;animation-delay:var(--d,0s)}
 @keyframes warp{0%{transform:translateX(-40%);opacity:0}20%{opacity:var(--o,.7)}100%{transform:translateX(160%);opacity:0}}
-.glow{position:absolute;width:140%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,#c6f43233,transparent 70%);animation:breathe 2.4s ease-in-out infinite}
+.glow{position:absolute;width:140%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,#d6f06a66,transparent 70%);animation:breathe 2.4s ease-in-out infinite}
 @keyframes breathe{50%{transform:scale(1.1);opacity:.7}}
 .sp-logo{position:relative;width:62%;max-width:250px;animation:logoIn 1s .15s cubic-bezier(.2,1.3,.4,1) both}
-.sp-logo img{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 40px #c6f43255)}
+.sp-logo img{display:block;width:100%;height:auto;filter:drop-shadow(0 12px 30px #8bdc4f40)}
 @keyframes logoIn{from{opacity:0;transform:skewX(-14deg) scale(.6) translateX(-30px);filter:blur(8px)}}
 .nine{position:relative;display:flex;gap:5px;margin-top:38px;animation:fade .4s .6s both}
-.nine i{width:14px;height:6px;transform:skewX(-24deg);background:#ffffff1f;border-radius:1px}
-.nine i.on{background:var(--lime);box-shadow:0 0 12px #c6f432aa;transition:background .15s,box-shadow .15s}
-.sp-tag{position:relative;margin-top:16px;font-size:11px;letter-spacing:.42em;color:#ffffff70;text-transform:uppercase;font-weight:500;animation:fade .5s .8s both}
-.sp-skip{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,0px));right:22px;font-size:12px;color:#ffffff55;letter-spacing:.1em;text-transform:uppercase}
+.nine i{width:14px;height:6px;transform:skewX(-24deg);background:#16170f14;border-radius:1px}
+.nine i.on{background:linear-gradient(90deg,var(--lime-a),var(--lime-b));box-shadow:0 4px 10px -2px #8bdc4fbb;transition:background .15s,box-shadow .15s}
+.sp-tag{position:relative;margin-top:16px;font-size:11px;letter-spacing:.42em;color:var(--muted-2);text-transform:uppercase;font-weight:500;animation:fade .5s .8s both}
+.sp-skip{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,0px));right:22px;font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 @keyframes fade{from{opacity:0}}
 .wipe{position:absolute;inset:0 -60%;background:var(--lime);transform:translateX(-120%) skewX(-24deg);z-index:30;pointer-events:none}
 .wipe.go{animation:wipe .75s cubic-bezier(.7,0,.3,1) forwards}
@@ -252,7 +252,7 @@ h1{margin:12px 0 6px;font-size:31px;font-weight:500;letter-spacing:-.015em;line-
   <section class="screen" id="splash" data-pos="center" aria-label="Loading Ri9">
     <div class="glow"></div>
     <div class="warp" id="warp" aria-hidden="true"></div>
-    <div class="sp-logo"><img src="https://start.ri9.app/assets/assets/logo.png" alt="Ri9 — Ready in 9" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'logo-fallback',style:'color:#c6f432;font-size:72px;text-align:center',textContent:'Ri9'}))"></div>
+    <div class="sp-logo"><img src="https://start.ri9.app/assets/assets/logo.png" alt="Ri9 — Ready in 9" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'logo-fallback',style:'color:#16170f;font-size:72px;text-align:center',textContent:'Ri9'}))"></div>
     <div class="nine" id="nine" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="sp-tag">Competitive learning</div>
     <button class="sp-skip" id="skip">Skip</button>
@@ -469,7 +469,7 @@ h1{margin:12px 0 6px;font-size:31px;font-weight:500;letter-spacing:-.015em;line-
     if(dir==='fwd'){from.dataset.pos=from.id==='login'?'left':'left';to.dataset.pos='center';history.push(id)}
     else{from.dataset.pos='right';to.dataset.pos='center'}
     to.scrollTop=0;cur=id;
-    document.querySelector('meta[name=theme-color]').content=(id==='login'||id==='splash')?'#0d0e0c':'#ffffff';
+    document.querySelector('meta[name=theme-color]').content=id==='login'?'#0d0e0c':'#ffffff';
     const v=$('#vid');if(id==='login'){v.play().catch(()=>{})}
     setTimeout(()=>{const f=to.querySelector('input:not([hidden] input)');if(f&&id!=='login'&&matchMedia('(hover:hover)').matches)f.focus({preventScroll:true})},560);
   }
@@ -501,7 +501,7 @@ h1{margin:12px 0 6px;font-size:31px;font-weight:500;letter-spacing:-.015em;line-
     if(splashDone)return;splashDone=true;
     const w=$('#wipe');
     if(!reduce){w.classList.add('go');await wait(330)}
-    $('#login').dataset.pos='center';$('#splash').dataset.pos='under';cur='login';history.push('login');
+    $('#login').dataset.pos='center';$('#splash').dataset.pos='under';document.querySelector('meta[name=theme-color]').content='#0d0e0c';cur='login';history.push('login');
     $('#vid').play().catch(()=>{});
     setTimeout(()=>{$('#splash').hidden=true;w.classList.remove('go')},800);
   }
