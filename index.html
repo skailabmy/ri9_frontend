@@ -3678,6 +3678,280 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .pq-splash.go b{animation:slam .6s cubic-bezier(.2,1.2,.4,1) .1s both}
 .pq-splash small{display:inline-block;margin-top:10px;padding:5px 12px;border-radius:999px;background:#1b1c19;color:#fff;font-size:12px;font-weight:800;letter-spacing:1px}
 
+
+/* ===================== MEMORY DRILL ===================== */
+#s-mem{--hl:#ffe14a;--hl2:#fff27f;--hlD:#c9a800;--mm-p:#9b8cff}
+#s-mem .ahdr .tt h2 span{background:var(--hl)}
+#s-mem .mm-sp{width:42px;flex:none}
+.mm-dash{position:absolute;left:0;right:0;top:66px;bottom:98px;padding:6px 14px 24px;overflow-y:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 26px),transparent)}
+.mm-dash::-webkit-scrollbar{display:none}
+
+/* hero: dark card with a living neural net behind three memory rings */
+.mm-hero{position:relative;border-radius:24px 8px 24px 8px;background:radial-gradient(120% 90% at 85% 0%,#3b4a1a 0%,#23251f 45%,#141512 100%);color:#fff;padding:14px 12px 12px;overflow:hidden;
+  box-shadow:0 20px 34px -18px #1b1c19aa,inset 0 1px 0 #ffffff1a,inset 0 0 0 1px #ffffff0d}
+.mm-hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.mm-hero::after{content:"";position:absolute;left:-40%;top:-60%;width:60%;height:220%;background:linear-gradient(90deg,transparent,#ffffff0f,transparent);transform:rotate(18deg);animation:mmSheen 6s ease-in-out infinite;pointer-events:none}
+@keyframes mmSheen{0%,55%{transform:translateX(0) rotate(18deg)}100%{transform:translateX(330%) rotate(18deg)}}
+.mm-hk{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mm-hk small{font-size:10px;font-weight:800;letter-spacing:1.6px;color:#ffffff8c}
+.mm-hk small i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--lime);margin-right:6px;vertical-align:1px;box-shadow:0 0 8px var(--lime);animation:mmBlink 1.6s ease-in-out infinite}
+@keyframes mmBlink{50%{opacity:.25}}
+.mm-rank{height:26px;padding:0 10px 0 6px;border-radius:999px;background:#ffffff14;border:1px solid #ffffff1f;display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:1px}
+.mm-rank em{font-style:normal;font-size:14px}
+.mm-rings{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:10px}
+.mm-r{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
+.mm-r .rg{position:relative;width:92px;height:92px}
+.mm-r svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+.mm-r circle{fill:none;stroke-width:8;stroke-linecap:round}
+.mm-r .tr{stroke:#ffffff12}
+.mm-r .tk{stroke:#ffffff10;stroke-width:14;stroke-dasharray:1 7.6;stroke-linecap:butt}
+.mm-r .fg{stroke:var(--c);stroke-dasharray:264;stroke-dashoffset:264;transition:stroke-dashoffset 1.3s cubic-bezier(.2,.9,.3,1);filter:drop-shadow(0 0 5px var(--c))}
+.mm-r .v{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.mm-r .v b{font-family:var(--f-display);font-weight:400;font-size:25px;letter-spacing:.3px;transform:skewX(-7deg)}
+.mm-r .v b small{font-size:13px;margin-left:1px;color:#ffffffa6}
+.mm-r .v i{font-style:normal;font-size:8.5px;font-weight:800;letter-spacing:1px;color:var(--c);margin-top:4px}
+.mm-r .lb{font-size:10px;font-weight:800;letter-spacing:1.4px;color:#fff}
+.mm-r .sub{font-size:9.5px;font-weight:600;color:#ffffff73;margin-top:-3px}
+.mm-hf{position:relative;display:grid;grid-template-columns:repeat(3,1fr);margin-top:12px;padding-top:10px;border-top:1px dashed #ffffff21}
+.mm-hf div{display:flex;flex-direction:column;align-items:center;gap:1px}
+.mm-hf div+div{border-left:1px solid #ffffff14}
+.mm-hf b{font-family:var(--f-display);font-weight:400;font-size:20px;transform:skewX(-7deg);color:#fff}
+.mm-hf b.y{color:var(--hl)}
+.mm-hf small{font-size:9px;font-weight:800;letter-spacing:1.2px;color:#ffffff73}
+
+/* how-it-works strip, a lime pulse runs along it */
+.mm-how{position:relative;display:flex;justify-content:space-between;margin:16px 4px 4px;padding:0 2px}
+.mm-how::before{content:"";position:absolute;left:24px;right:24px;top:21px;height:2px;background:repeating-linear-gradient(90deg,#1b1c1933 0 5px,transparent 5px 10px)}
+.mm-st{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;width:52px}
+.mm-st span{width:44px;height:44px;border-radius:14px 5px 14px 5px;background:#fff;display:grid;place-items:center;box-shadow:0 3px 0 #dfe6cf,0 10px 18px -12px #4a6d1266;animation:mmStep 6s ease-in-out infinite;animation-delay:calc(var(--k)*1s)}
+.mm-st svg{width:22px;height:22px;fill:none;stroke:#1b1c19;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mm-st small{font-size:9px;font-weight:800;letter-spacing:1px;color:var(--muted)}
+@keyframes mmStep{0%,14%{background:#fff;transform:none}4%,10%{background:var(--lime);transform:translateY(-3px);box-shadow:0 3px 0 #6f9a0b,0 0 18px #c6f43299}}
+.mm-st.hl span{animation-name:mmStepY}
+@keyframes mmStepY{0%,14%{background:#fff;transform:none}4%,10%{background:var(--hl);transform:translateY(-3px);box-shadow:0 3px 0 var(--hlD),0 0 18px #ffe14a99}}
+
+/* history */
+.mm-lh{display:flex;align-items:baseline;justify-content:space-between;margin:18px 4px 8px}
+.mm-lh b{font-family:var(--f-display);font-weight:400;font-size:19px;letter-spacing:.4px;transform:skewX(-7deg)}
+.mm-lh span{font-size:11px;font-weight:700;color:var(--muted)}
+.mm-list{display:flex;flex-direction:column;gap:9px}
+.mm-it{position:relative;display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:12px;padding:9px 12px 9px 9px;background:#fff;border-radius:18px 6px 18px 6px;
+  box-shadow:0 3px 0 #e1e8d2,0 12px 20px -16px #4a6d1266;animation:up .5s cubic-bezier(.2,1,.3,1) both;animation-delay:calc(var(--i)*.05s + .15s)}
+.mm-sc{width:56px;height:56px;border-radius:14px 5px 14px 5px;background:var(--char);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.mm-sc b{font-family:var(--f-display);font-weight:400;font-size:26px;color:var(--lime);transform:skewX(-7deg)}
+.mm-sc small{font-size:8px;font-weight:800;letter-spacing:1.2px;color:#ffffff8c;margin-top:3px}
+.mm-it.best .mm-sc{background:linear-gradient(160deg,#ffe14a,#f5c400)}
+.mm-it.best .mm-sc b{color:var(--ink)}.mm-it.best .mm-sc small{color:#1b1c19a6}
+.mm-ii{min-width:0}
+.mm-ii b{display:block;font-size:14.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mm-ii small{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-top:2px}
+.mm-ii .tg{display:inline-block;font-size:8.5px;font-weight:800;letter-spacing:1px;padding:2px 6px;border-radius:999px;background:var(--hl);color:var(--ink);margin-left:6px;vertical-align:2px}
+.mm-im{display:flex;flex-direction:column;gap:3px;text-align:right}
+.mm-im span{font-size:11px;font-weight:700;color:var(--ink);white-space:nowrap}
+.mm-im span i{font-style:normal;font-size:8.5px;font-weight:800;letter-spacing:.8px;color:var(--muted);margin-right:5px}
+.mm-empty{padding:22px 18px;border-radius:20px 8px 20px 8px;border:2px dashed #1b1c1926;text-align:center;color:var(--muted);font-size:13px;font-weight:600;line-height:1.5}
+.mm-empty b{display:block;font-family:var(--f-display);font-weight:400;font-size:22px;color:var(--ink);transform:skewX(-7deg);margin-bottom:4px}
+
+/* start */
+.mm-gobar{position:absolute;left:14px;right:14px;bottom:20px;z-index:3}
+.mm-go{position:relative;width:100%;height:68px;border-radius:22px 8px 22px 8px;background:linear-gradient(180deg,#dcfb63,#b3e01c);color:var(--ink);box-shadow:0 6px 0 #6f9a0b,0 22px 34px -14px #7ea811cc;
+  display:flex;align-items:center;justify-content:center;gap:12px;overflow:hidden;transition:transform .12s,box-shadow .12s}
+.mm-go:active{transform:translateY(4px);box-shadow:0 2px 0 #6f9a0b,0 12px 24px -14px #7ea811cc}
+.mm-go b{font-family:var(--f-display);font-weight:400;font-size:29px;letter-spacing:.6px;transform:skewX(-8deg)}
+.mm-go svg.br{width:30px;height:30px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mm-go .chev{display:flex}
+.mm-go .chev svg{width:11px;height:22px;fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;animation:mmChev 1.2s infinite;opacity:.2}
+.mm-go .chev svg:nth-child(2){animation-delay:.15s}.mm-go .chev svg:nth-child(3){animation-delay:.3s}
+@keyframes mmChev{30%{opacity:1}}
+.mm-go::after{content:"";position:absolute;top:0;bottom:0;left:-30%;width:24%;background:linear-gradient(90deg,transparent,#ffffffa0,transparent);transform:skewX(-20deg);animation:mmGoSh 3.2s ease-in-out infinite}
+@keyframes mmGoSh{0%,60%{left:-30%}100%{left:130%}}
+
+/* ---------- run overlay ---------- */
+.mm-run{position:absolute;inset:0;z-index:8;display:none;flex-direction:column;background:linear-gradient(180deg,#eef6e2 0%,#f5f9ee 60%,#f8fbf3 100%);clip-path:circle(0 at 50% 95%)}
+.mm-run.on{display:flex;animation:mmOpen .6s cubic-bezier(.6,0,.2,1) forwards}
+.mm-run.close{animation:mmClose .45s cubic-bezier(.6,0,.4,1) forwards}
+@keyframes mmOpen{from{clip-path:circle(0 at 50% 95%)}to{clip-path:circle(150% at 50% 95%)}}
+@keyframes mmClose{from{clip-path:circle(150% at 50% 95%)}to{clip-path:circle(0 at 50% 95%)}}
+.mm-run::before{content:"";position:absolute;inset:0;background-image:radial-gradient(#1b1c1910 1px,transparent 1.3px);background-size:20px 20px;pointer-events:none}
+.mm-top{position:relative;height:66px;flex:none;display:flex;align-items:center;gap:10px;padding:8px 12px 0}
+.mm-steps{flex:1;display:flex;gap:4px;min-width:0}
+.mm-steps i{flex:1;display:flex;flex-direction:column;gap:5px;font-style:normal;min-width:0}
+.mm-steps b{position:relative;height:6px;border-radius:3px;background:#1b1c1914;overflow:hidden}
+.mm-steps b::after{content:"";position:absolute;inset:0;width:0;border-radius:3px;background:var(--ink);transition:width .5s cubic-bezier(.3,.9,.3,1)}
+.mm-steps i.on b::after{width:100%;background:repeating-linear-gradient(115deg,var(--lime) 0 6px,#a7d81c 6px 12px);background-size:200% 100%;animation:mmStripe .8s linear infinite}
+@keyframes mmStripe{to{background-position:-27px 0}}
+.mm-steps i.done b::after{width:100%}
+.mm-steps span{font-size:8.5px;font-weight:800;letter-spacing:1px;color:#1b1c1959;text-align:center;white-space:nowrap;transition:color .3s}
+.mm-steps i.on span{color:var(--ink)}
+.mm-clock{min-width:64px;height:38px;padding:0 10px;border-radius:13px 5px 13px 5px;background:var(--char);color:var(--lime);display:flex;align-items:center;justify-content:center;gap:5px;font-family:var(--f-display);font-size:19px;letter-spacing:.5px;box-shadow:0 3px 0 #000}
+.mm-clock svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round}
+.mm-clock.paused{color:#ffffff59}
+.mm-stage{position:relative;flex:1;min-height:0}
+.mm-ph{position:absolute;inset:0;display:flex;flex-direction:column;padding:4px 14px 18px;animation:mmIn .55s cubic-bezier(.2,1,.3,1) both}
+.mm-ph.out{animation:mmOut .32s ease forwards;pointer-events:none}
+@keyframes mmIn{from{opacity:0;transform:translateX(40px) scale(.98)}}
+@keyframes mmOut{to{opacity:0;transform:translateX(-40px) scale(.98)}}
+.mm-h{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:2px 4px 10px}
+.mm-h h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:28px;line-height:1;letter-spacing:.3px;transform:skewX(-8deg);transform-origin:0 100%}
+.mm-h h3 span{background:var(--hl);padding:0 6px;box-shadow:3px 3px 0 var(--ink);display:inline-block;margin-left:2px}
+.mm-h h3 span.l{background:var(--lime)}
+.mm-h small{font-size:10.5px;font-weight:800;letter-spacing:1.3px;color:var(--muted);white-space:nowrap;padding-bottom:3px}
+
+/* paper */
+.mm-paper{position:relative;background:#fff;border-radius:24px 8px 24px 8px;padding:16px 18px 18px 26px;box-shadow:0 3px 0 #e1e8d2,0 22px 36px -20px #4a6d1277;overflow:auto;scrollbar-width:none}
+.mm-paper::-webkit-scrollbar{display:none}
+.mm-paper::before{content:"";position:absolute;left:14px;top:0;bottom:0;width:2px;background:#ff4d3a26}
+.mm-pm{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.mm-tag{height:22px;padding:0 9px;border-radius:999px;background:var(--char);color:var(--lime);font-size:9.5px;font-weight:800;letter-spacing:1.2px;display:inline-flex;align-items:center}
+.mm-pm b{font-size:13px;font-weight:700;color:var(--muted)}
+.mm-txt{margin:0;font-size:17.5px;line-height:33px;font-weight:500;color:#25271f;background-image:repeating-linear-gradient(180deg,transparent 0 32px,#eef2e6 32px 33px);background-position:0 1px}
+.mm-s{cursor:pointer;border-radius:3px;padding:3px 2px;background-image:linear-gradient(100deg,#ffe14a00 0%,var(--hl) 1.2%,var(--hl2) 48%,var(--hl) 98.8%,#ffe14a00 100%);background-repeat:no-repeat;background-size:0% 82%;background-position:0 70%;
+  transition:background-size .5s cubic-bezier(.3,.9,.3,1),color .3s;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.mm-s.hl{background-size:100% 82%;color:#1b1c19}
+.mm-read .mm-s:not(.hl):active{background-color:#ffe14a33}
+.mm-w{display:inline-block;transition:opacity .2s}
+.mm-txt.poof .mm-s:not(.hl) .mm-w{animation:mmPoof .9s cubic-bezier(.5,0,.8,.4) forwards;animation-delay:var(--dl)}
+@keyframes mmPoof{30%{color:#9aa38a}100%{opacity:0;filter:blur(7px);transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(.4)}}
+.mm-txt.poof{background-image:none;transition:background .6s}
+.mm-txt.poof .mm-s.hl{animation:mmGlow 2.2s ease-in-out .9s infinite}
+@keyframes mmGlow{50%{filter:drop-shadow(0 0 10px #ffe14acc)}}
+.mm-hint{display:flex;align-items:center;gap:10px;margin:12px 4px;font-size:13px;font-weight:600;color:#4b5240;line-height:1.35;min-height:40px}
+.mm-hint .mk{flex:none;width:36px;height:36px;border-radius:12px 4px 12px 4px;background:var(--hl);display:grid;place-items:center;box-shadow:0 3px 0 var(--hlD)}
+.mm-hint .mk svg{width:19px;height:19px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mm-hint b{color:var(--ink)}
+.mm-hint .cnt{margin-left:auto;flex:none;display:flex;gap:4px}
+.mm-hint .cnt i{width:10px;height:22px;border-radius:3px;background:#1b1c1914;transition:background .3s,transform .3s}
+.mm-hint .cnt i.on{background:var(--hl);box-shadow:inset 0 0 0 1.5px var(--hlD);transform:scaleY(1.1)}
+.mm-btn{flex:none;position:relative;height:62px;border-radius:20px 7px 20px 7px;background:var(--char);color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 5px 0 #000,0 18px 26px -16px #000a;transition:transform .12s,box-shadow .12s,opacity .3s,filter .3s}
+.mm-btn b{font-family:var(--f-display);font-weight:400;font-size:23px;letter-spacing:.6px;transform:skewX(-8deg)}
+.mm-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.mm-btn:active{transform:translateY(3px);box-shadow:0 2px 0 #000}
+.mm-btn.lime{background:linear-gradient(180deg,#dcfb63,#b3e01c);color:var(--ink);box-shadow:0 5px 0 #6f9a0b,0 18px 26px -16px #6f9a0bcc}
+.mm-btn.lime:active{box-shadow:0 2px 0 #6f9a0b}
+.mm-btn.yel{background:linear-gradient(180deg,#fff07a,#ffd919);color:var(--ink);box-shadow:0 5px 0 var(--hlD),0 18px 26px -16px #c9a800cc}
+.mm-btn:disabled{opacity:.35;filter:grayscale(1);pointer-events:none}
+.mm-btn.rdy{animation:mmRdy .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes mmRdy{40%{transform:scale(1.04)}}
+.mm-fill{flex:1;min-height:0}
+
+/* recall */
+.mm-rc{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.mm-rc .mm-paper{padding:26px 20px 26px 28px;overflow:visible}
+.mm-rc .mm-txt{font-size:20px;line-height:38px;background-image:repeating-linear-gradient(180deg,transparent 0 37px,#eef2e6 37px 38px)}
+.mm-rc .mm-s{cursor:default}
+.mm-bl{display:inline-block;min-width:calc(var(--w)*1ch + 18px);height:32px;vertical-align:-9px;margin:0 2px;border-radius:9px 3px 9px 3px;border:2.5px dashed #1b1c19;background:#fff;position:relative;text-align:center;line-height:27px;font-weight:800;animation:mmBl 1.4s ease-in-out infinite}
+@keyframes mmBl{50%{border-color:#1b1c1955;background:#fffbe0}}
+.mm-bl.ok{animation:mmPop .45s cubic-bezier(.3,1.6,.5,1);border:2.5px solid #6f9a0b;background:var(--lime);color:var(--ink)}
+.mm-bl.bad{animation:mmPop .45s cubic-bezier(.3,1.6,.5,1);border:2.5px solid var(--ink);background:var(--ink);color:var(--hl)}
+@keyframes mmPop{0%{transform:scale(.6)}60%{transform:scale(1.12)}}
+.mm-rcn{position:absolute;top:-14px;left:20px;height:28px;padding:0 12px;border-radius:10px 4px 10px 4px;background:var(--char);color:var(--hl);display:flex;align-items:center;font-family:var(--f-display);font-size:15px;letter-spacing:.6px;box-shadow:0 3px 0 #000}
+.mm-opts{flex:none;display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:16px}
+.mm-o{position:relative;height:62px;border-radius:18px 6px 18px 6px;background:#fff;box-shadow:0 4px 0 #dbe3cb,0 14px 22px -18px #4a6d1288;font-size:17px;font-weight:700;padding:0 10px;transition:transform .12s,box-shadow .12s,background .2s,opacity .3s;animation:mmOptIn .45s cubic-bezier(.3,1.4,.5,1) both;animation-delay:calc(var(--i)*.06s + .15s)}
+@keyframes mmOptIn{from{opacity:0;transform:translateY(16px) scale(.9)}}
+.mm-o:active{transform:translateY(3px);box-shadow:0 1px 0 #dbe3cb}
+.mm-o.ok{background:var(--lime);box-shadow:0 4px 0 #6f9a0b;animation:mmPop .45s cubic-bezier(.3,1.6,.5,1)}
+.mm-o.bad{background:var(--red);color:#fff;box-shadow:0 4px 0 #b22a1a;animation:mmShake .4s}
+.mm-o.dim{opacity:.35}
+@keyframes mmShake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.mm-o .p1{position:absolute;right:10px;top:-10px;height:24px;padding:0 8px;border-radius:999px;background:var(--char);color:var(--lime);font-family:var(--f-display);font-size:14px;line-height:24px;animation:mmP1 .9s ease forwards}
+@keyframes mmP1{0%{opacity:0;transform:translateY(8px) scale(.6)}25%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-22px)}}
+
+/* review */
+.mm-rv{flex:1;min-height:0;display:flex;flex-direction:column}
+.mm-rv .mm-paper{flex:1;min-height:0}
+.mm-rv .mm-s{cursor:default}
+.mm-cdn{position:relative;flex:none;width:58px;height:58px}
+.mm-cdn svg{width:100%;height:100%;transform:rotate(-90deg)}
+.mm-cdn circle{fill:none;stroke-width:6}
+.mm-cdn .tr{stroke:#1b1c1914}
+.mm-cdn .fg{stroke:var(--ink);stroke-linecap:round;stroke-dasharray:157;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear}
+.mm-cdn b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-display);font-weight:400;font-size:26px;transform:skewX(-8deg)}
+.mm-cdn.hot b{color:var(--red);animation:mmPop .4s}
+.mm-eye{margin:12px 4px 0;font-size:12.5px;font-weight:600;color:#4b5240;text-align:center}
+
+/* hold */
+.mm-hold{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.mm-hold p{margin:0 18px;text-align:center;font-size:13.5px;font-weight:600;line-height:1.45;color:#4b5240}
+.mm-hold p b{color:var(--ink);background:var(--hl);padding:0 4px;border-radius:3px}
+.mm-vault{position:relative;width:250px;height:250px;flex:none}
+.mm-vault .rp{position:absolute;inset:22px;border-radius:50%;border:2px solid #c6f43299;animation:mmRip 2.6s ease-out infinite}
+.mm-vault .rp+.rp{animation-delay:1.3s}
+@keyframes mmRip{from{transform:scale(.9);opacity:1}to{transform:scale(1.35);opacity:0}}
+.mm-vault .core{position:absolute;inset:22px;border-radius:50%;background:radial-gradient(circle at 50% 30%,#3a4a18 0%,#1e1f1c 60%,#121310 100%);box-shadow:0 26px 40px -18px #1b1c19cc,inset 0 0 0 1px #ffffff12,inset 0 -10px 30px #000a;overflow:hidden}
+.mm-vault canvas{position:absolute;inset:0;width:100%;height:100%;border-radius:50%}
+.mm-vault svg.ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+.mm-vault .ring circle{fill:none;stroke-width:9}
+.mm-vault .ring .tr{stroke:#1b1c1914}
+.mm-vault .ring .fg{stroke:var(--lime);stroke-linecap:round;stroke-dasharray:741.4;stroke-dashoffset:741.4;filter:drop-shadow(0 0 8px #c6f432)}
+.mm-vault.max .ring .fg{stroke:var(--hl);filter:drop-shadow(0 0 10px #ffe14a)}
+.mm-vault .rd{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;line-height:1}
+.mm-vault .rd small{font-size:10px;font-weight:800;letter-spacing:2px;color:#ffffff80}
+.mm-vault .rd b{font-family:var(--f-display);font-weight:400;font-size:68px;letter-spacing:1px;transform:skewX(-8deg);margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.mm-vault .rd em{font-style:normal;height:26px;padding:0 12px;border-radius:999px;background:var(--lime);color:var(--ink);font-family:var(--f-display);font-size:16px;letter-spacing:.6px;display:flex;align-items:center;transition:transform .3s}
+.mm-vault.max .rd em{background:var(--hl)}
+.mm-vault .rd em.bump{animation:mmPop .45s cubic-bezier(.3,1.6,.5,1)}
+.mm-vault .fly{position:absolute;left:50%;top:40px;transform:translateX(-50%);font-family:var(--f-display);font-size:30px;color:var(--lime);text-shadow:0 3px 0 #1b1c19;animation:mmFly 1.1s ease-out forwards;pointer-events:none}
+@keyframes mmFly{0%{opacity:0;transform:translate(-50%,20px) scale(.5)}20%{opacity:1;transform:translate(-50%,0) scale(1.2)}100%{opacity:0;transform:translate(-50%,-50px) scale(1)}}
+.mm-pips{display:flex;gap:7px}
+.mm-pips i{width:30px;height:30px;border-radius:10px 4px 10px 4px;background:#fff;box-shadow:0 3px 0 #dbe3cb;display:grid;place-items:center;font-style:normal;font-family:var(--f-display);font-size:13px;color:#1b1c1933;transition:background .3s,color .3s}
+.mm-pips i.on{background:var(--lime);color:var(--ink);box-shadow:0 3px 0 #6f9a0b;animation:mmPop .45s cubic-bezier(.3,1.6,.5,1)}
+.mm-pips i.on.mx{background:var(--hl);box-shadow:0 3px 0 var(--hlD)}
+
+/* quiz */
+.mm-qz{flex:1;min-height:0;display:flex;flex-direction:column}
+.mm-qdots{display:flex;gap:6px}
+.mm-qdots i{width:22px;height:8px;border-radius:4px;background:#1b1c1914;transition:all .3s}
+.mm-qdots i.cur{background:var(--ink);width:30px}
+.mm-qdots i.ok{background:var(--lime-2)}
+.mm-qdots i.bad{background:var(--red)}
+.mm-qc{position:relative;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 4px 4px}
+.mm-qc .q{position:relative;background:var(--char);color:#fff;border-radius:24px 8px 24px 8px;padding:22px 20px 20px;font-size:19.5px;font-weight:700;line-height:1.35;box-shadow:0 5px 0 #000,0 22px 34px -18px #000b;overflow:hidden}
+.mm-qc .q::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(#c6f43233,transparent 70%)}
+.mm-qc .q small{display:block;font-size:10px;font-weight:800;letter-spacing:1.6px;color:var(--lime);margin-bottom:8px}
+.mm-ql{flex:none;display:flex;flex-direction:column;gap:9px;margin-top:16px}
+.mm-qo{position:relative;display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 14px 8px 9px;background:#fff;border-radius:18px 6px 18px 6px;box-shadow:0 4px 0 #dbe3cb;text-align:left;font-size:15px;font-weight:600;line-height:1.25;transition:transform .12s,box-shadow .12s,background .2s,opacity .3s;animation:mmOptIn .45s cubic-bezier(.3,1.4,.5,1) both;animation-delay:calc(var(--i)*.06s + .1s)}
+.mm-qo:active{transform:translateY(3px);box-shadow:0 1px 0 #dbe3cb}
+.mm-qo .k{flex:none;width:36px;height:36px;border-radius:11px 4px 11px 4px;background:#eef3e3;display:grid;place-items:center;font-family:var(--f-display);font-size:17px}
+.mm-qo.ok{background:var(--lime);box-shadow:0 4px 0 #6f9a0b}.mm-qo.ok .k{background:var(--ink);color:var(--lime)}
+.mm-qo.bad{background:var(--red);color:#fff;box-shadow:0 4px 0 #b22a1a;animation:mmShake .4s}.mm-qo.bad .k{background:#ffffff33}
+.mm-qo.dim{opacity:.35}
+.mm-qo .p1{position:absolute;right:12px;top:50%;margin-top:-12px;height:24px;padding:0 8px;border-radius:999px;background:var(--char);color:var(--lime);font-family:var(--f-display);font-size:14px;line-height:24px;animation:mmP1 .9s ease forwards}
+.mm-pts{height:30px;padding:0 11px;border-radius:999px;background:var(--char);color:var(--lime);font-family:var(--f-display);font-size:15px;letter-spacing:.4px;display:flex;align-items:center;gap:6px}
+.mm-pts i{font-style:normal;color:var(--hl)}
+
+/* result */
+.mm-res{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;overflow-y:auto;scrollbar-width:none;padding-top:4px}
+.mm-res h3{margin:4px 0 0;font-family:var(--f-display);font-weight:400;font-size:38px;line-height:1;transform:skewX(-8deg);animation:slam .6s cubic-bezier(.2,1.2,.4,1) .1s both;text-align:center}
+.mm-res h3 span{background:var(--hl);padding:0 8px;box-shadow:4px 4px 0 var(--ink);display:inline-block}
+.mm-res .rk{margin-top:12px;height:28px;padding:0 12px;border-radius:999px;background:#fff;box-shadow:0 3px 0 #dbe3cb;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:1.1px;animation:up .5s .5s both}
+.mm-medal{position:relative;width:170px;height:170px;margin-top:14px;flex:none;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;animation:popIn .7s cubic-bezier(.2,1.3,.4,1) .3s both}
+.mm-medal::after{content:"";position:absolute;inset:0;border-radius:50%;z-index:-1;background:radial-gradient(circle at 50% 30%,#3a4a18,#1e1f1c 65%);box-shadow:0 0 0 8px #fff,0 0 0 10px #1b1c1914,0 30px 40px -20px #1b1c19cc}
+.mm-medal::before{content:"";position:absolute;inset:-34px;border-radius:50%;background:repeating-conic-gradient(from 0deg,#c6f43266 0 8deg,transparent 8deg 22deg);z-index:-1;animation:mmSpin 14s linear infinite;-webkit-mask-image:radial-gradient(circle,#000 55%,transparent 72%);mask-image:radial-gradient(circle,#000 55%,transparent 72%)}
+@keyframes mmSpin{to{transform:rotate(360deg)}}
+.mm-medal b{font-family:var(--f-display);font-weight:400;font-size:72px;line-height:.9;color:var(--lime);transform:skewX(-8deg)}
+.mm-medal small{font-size:10px;font-weight:800;letter-spacing:2px;color:#ffffff99;margin-top:4px}
+.mm-bk{display:flex;gap:8px;margin-top:20px;animation:up .5s .6s both}
+.mm-bk span{height:30px;padding:0 12px;border-radius:10px 4px 10px 4px;background:#fff;box-shadow:0 3px 0 #dbe3cb;display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700}
+.mm-bk span b{font-family:var(--f-display);font-weight:400;font-size:15px}
+.mm-bk span.y{background:var(--hl);box-shadow:0 3px 0 var(--hlD)}
+.mm-tiles{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
+.mm-tl{background:#fff;border-radius:18px 6px 18px 6px;padding:11px 13px;box-shadow:0 3px 0 #e1e8d2;animation:up .5s both;animation-delay:calc(var(--i)*.07s + .7s)}
+.mm-tl small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1.3px;color:var(--muted)}
+.mm-tl b{display:block;font-family:var(--f-display);font-weight:400;font-size:27px;line-height:1.1;transform:skewX(-7deg);transform-origin:0 100%;margin-top:3px}
+.mm-tl i{font-style:normal;font-size:10.5px;font-weight:700;color:var(--muted)}
+.mm-tl i.up{color:#5b8a00}.mm-tl i.dn{color:#d2391f}
+.mm-ra{width:100%;display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin-top:auto;padding-top:16px;flex:none}
+.mm-ra .mm-btn b{font-size:20px}
+.mm-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:9}
+
+/* home entry tab (sits under the Puzzle tab) */
+.mm-tab{position:absolute;right:0;top:374px;z-index:6;width:34px;height:100px;border-radius:16px 0 0 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  background:linear-gradient(180deg,#30322c,#1b1c19);color:#fff;filter:drop-shadow(-4px 8px 12px #2d3d0e44);overflow:visible}
+.mm-tab::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:2px;background:linear-gradient(180deg,#ffe14a,#c6f432)}
+.mm-tab svg{width:20px;height:20px;fill:none;stroke:#ffe14a;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.mm-tab span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:10.5px;font-weight:800;letter-spacing:1.4px}
+.mm-tab i{position:absolute;top:-6px;left:-6px;height:18px;padding:0 5px;border-radius:999px;background:#ffe14a;color:#1b1c19;font-style:normal;font-size:8.5px;font-weight:900;letter-spacing:.6px;display:grid;place-items:center;box-shadow:0 0 0 2px #1b1c19}
+@media (prefers-reduced-motion:reduce){.mm-st span,.mm-go::after,.mm-hero::after,.mm-vault .rp,.mm-medal::before{animation:none}}
 </style>
 
 <div class="safe-fill" aria-hidden="true"></div>
@@ -4246,6 +4520,50 @@ input,textarea{-webkit-user-select:text;user-select:text}
   <div class="pq-rv" id="pqRv" role="dialog" aria-modal="true" aria-label="Puzzle piece"></div>
   <div class="pq-bd" id="pqBd"></div>
   <div class="pq-sh" id="pqSh" role="dialog" aria-modal="true" aria-labelledby="pqShT"><div class="pq-shh"><small id="pqShS"></small><h4 id="pqShT"></h4><p id="pqShP"></p><button class="pq-shx" id="pqShX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="pq-shb" id="pqShB"></div><div class="pq-shf" id="pqShF"></div></div>
+
+  <!-- ===== MEMORY DRILL ===== -->
+  <section class="screen" id="s-mem" data-pos="right" aria-label="Memory drill">
+    <div class="arena-bg" aria-hidden="true"><canvas class="emb"></canvas></div>
+    <div class="ahdr in2" style="--a:up .5s ease">
+      <button class="gbtn" data-back="home" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="tt"><h2>MEMORY <span>DRILL</span></h2></div>
+      <span class="mm-sp"></span>
+    </div>
+    <div class="mm-dash" id="mmDash">
+      <div class="mm-hero in2" style="--a:up .6s cubic-bezier(.2,1.2,.4,1);--d:.05s">
+        <canvas id="mmNet" aria-hidden="true"></canvas>
+        <div class="mm-hk"><small><i></i>YOUR MEMORY · LAST 10</small><span class="mm-rank" id="mmRank"></span></div>
+        <div class="mm-rings" id="mmRings"></div>
+        <div class="mm-hf" id="mmHf"></div>
+      </div>
+      <div class="mm-how in2" style="--d:.12s" aria-label="How it works: read, highlight, recall, review, hold, quiz">
+        <div class="mm-st" style="--k:0"><span><svg viewBox="0 0 24 24"><path d="M3 5.5c3-1.3 6-1.3 9 .5 3-1.8 6-1.8 9-.5V19c-3-1.3-6-1.3-9 .5-3-1.8-6-1.8-9-.5z"/><path d="M12 6v13.5"/></svg></span><small>READ</small></div>
+        <div class="mm-st hl" style="--k:1"><span><svg viewBox="0 0 24 24"><path d="M15 4l5 5-9 9H6v-5z"/><path d="M4 21h9"/></svg></span><small>MARK</small></div>
+        <div class="mm-st" style="--k:2"><span><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="2"/><path d="M7 12h3M14 12h3" stroke-dasharray="1.5 2"/></svg></span><small>RECALL</small></div>
+        <div class="mm-st" style="--k:3"><span><svg viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><small>REVIEW</small></div>
+        <div class="mm-st" style="--k:4"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></span><small>HOLD</small></div>
+        <div class="mm-st" style="--k:5"><span><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><small>QUIZ</small></div>
+      </div>
+      <div class="mm-lh in2" style="--d:.18s"><b>PAST ATTEMPTS</b><span id="mmCnt"></span></div>
+      <div class="mm-list" id="mmList"></div>
+    </div>
+    <div class="mm-gobar in2" style="--a:up .6s cubic-bezier(.2,1.3,.4,1);--d:.25s">
+      <button class="mm-go" id="mmGo" aria-label="Start memory drill">
+        <svg class="br" viewBox="0 0 24 24"><path d="M9.5 3.5A3 3 0 0 0 6.6 6 3 3 0 0 0 4 9.6a3.2 3.2 0 0 0 .4 5.2A3 3 0 0 0 7 19a3 3 0 0 0 5 1V5.5a2.4 2.4 0 0 0-2.5-2z"/><path d="M14.5 3.5A3 3 0 0 1 17.4 6 3 3 0 0 1 20 9.6a3.2 3.2 0 0 1-.4 5.2A3 3 0 0 1 17 19a3 3 0 0 1-5 1"/><path d="M8 10.5c1 0 2 .6 2 1.8M16 10.5c-1 0-2 .6-2 1.8"/></svg>
+        <b>START DRILL</b>
+        <span class="chev"><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg></span>
+      </button>
+    </div>
+    <div class="mm-run" id="mmRun" role="region" aria-label="Memory drill in progress">
+      <div class="mm-top">
+        <button class="gbtn" id="mmQuit" aria-label="Quit drill"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <div class="mm-steps" id="mmSteps"><i><b></b><span>READ</span></i><i><b></b><span>RECALL</span></i><i><b></b><span>REVIEW</span></i><i><b></b><span>HOLD</span></i><i><b></b><span>QUIZ</span></i></div>
+        <div class="mm-clock" id="mmClock" aria-label="Drill time"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4"/></svg><span>0:00</span></div>
+      </div>
+      <div class="mm-stage" id="mmStage" aria-live="polite"></div>
+    </div>
+    <canvas class="mm-fx" id="mmFx" aria-hidden="true"></canvas>
+  </section>
   <div class="toast" id="toast" role="status"></div>
 </main>
 </div>
@@ -4466,7 +4784,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
 
 
   /* =================== SCREENS =================== */
-  const ORDER=['home','stats','chap','cx','prizes','prof','hw','pq','quiz','lobby','past','types','tour','hist','drill','write','tech'], SCR={home:$('#s-home'),stats:$('#s-stats'),chap:$('#s-chap'),cx:$('#s-cx'),prizes:$('#s-prizes'),prof:$('#s-prof'),past:$('#s-past'),pq:$('#s-pq'),hw:$('#s-hw'),quiz:$('#s-quiz'),lobby:$('#s-lobby'),types:$('#s-types'),drill:$('#s-drill'),write:$('#s-write'),tech:$('#s-tech'),tour:$('#s-tour'),hist:$('#s-hist')};
+  const ORDER=['home','stats','chap','cx','prizes','prof','hw','pq','quiz','lobby','past','types','tour','hist','drill','write','tech','mem'], SCR={mem:$('#s-mem'),home:$('#s-home'),stats:$('#s-stats'),chap:$('#s-chap'),cx:$('#s-cx'),prizes:$('#s-prizes'),prof:$('#s-prof'),past:$('#s-past'),pq:$('#s-pq'),hw:$('#s-hw'),quiz:$('#s-quiz'),lobby:$('#s-lobby'),types:$('#s-types'),drill:$('#s-drill'),write:$('#s-write'),tech:$('#s-tech'),tour:$('#s-tour'),hist:$('#s-hist')};
   let curScreen='home';
   function show(name,instant){
     if(!SCR[name])name='home';
@@ -4496,6 +4814,8 @@ input,textarea{-webkit-user-select:text;user-select:text}
     if(name==='tour'&&curScreen!=='drill'&&curScreen!=='hist')openTour();
     if(name==='tour'&&(curScreen==='hist'||curScreen==='drill')){renderTour(false)}
     if(name==='hist')openHist();
+    if(name==='mem'&&window.MEM)MEM.open();
+    if(name!=='mem'&&window.MEM)MEM.leave();
     if(name==='home'&&window.navHome)navHome();
     closePicker();if(typeof closePrize==='function')closePrize();
     if(name!=='past'&&window.PWIN)PWIN.close();
@@ -6715,6 +7035,313 @@ Reply with only JSON: {"score": integer 0-${s.max}, "verdict": "2-4 word headlin
     return{onHome(){setTimeout(check,1900)},openList(){tab='todo';seg.forEach((x,i)=>x.classList.toggle('on',i===0));renderList(true);requestAnimationFrame(moveK)},progress,check};
   })();
   window.HW=HW;
+
+  /* ===================== MEMORY DRILL ===================== */
+  const MEM=(()=>{
+    const KEY='qdMemory',MAXB=6,BONUS_MS=5000,REVIEW_S=8;
+    /* passage bank: 5 sentences each + 5 MCQs (first option is the answer, options are shuffled at runtime) */
+    const BANK=[
+      {id:'water',subj:'SCIENCE',title:'The Water Cycle',s:[
+        'The sun heats water in rivers, lakes and oceans until it turns into vapour.',
+        'This invisible vapour rises high into the sky, where the air is much colder.',
+        'In the cold air, the vapour cools down and forms tiny droplets that gather into clouds.',
+        'When the droplets grow too heavy, they fall back to the ground as rain.',
+        'The rainwater flows into rivers and seas, and the whole cycle begins again.'],
+       q:[['What heats the water at the start of the cycle?','The sun','The wind','The moon','The clouds'],
+          ['What does heated water turn into?','Vapour','Ice','Salt','Sand'],
+          ['Why does the vapour cool down?','The air high in the sky is colder','It touches the ocean','It mixes with smoke','The sun stops shining'],
+          ['When do the droplets fall as rain?','When they grow too heavy','When the wind stops','Only at night','When the clouds turn white'],
+          ['Where does the rainwater flow?','Into rivers and seas','Back up to the sun','Straight into the clouds','Into deep volcanoes']]},
+      {id:'tapir',subj:'ANIMALS',title:'The Malayan Tapir',s:[
+        'The Malayan tapir is a large animal that lives in the rainforests of Malaysia.',
+        'Its body is black at the front and back, with a white patch in the middle like a saddle blanket.',
+        'This pattern helps the tapir hide in the moonlight, because predators see only shapes of light and shadow.',
+        'Tapirs love water and often swim across rivers to escape danger or cool down.',
+        'Baby tapirs are born with stripes and spots that look like watermelon skin.'],
+       q:[['Where does the Malayan tapir live?','The rainforests of Malaysia','Sandy deserts','Snowy mountains','Open grasslands'],
+          ['What colour is the patch in the middle of its body?','White','Black','Brown','Orange'],
+          ['How does its pattern help the tapir?','It helps it hide in the moonlight','It keeps it warm','It attracts friends','It scares away birds'],
+          ['Why do tapirs swim across rivers?','To escape danger or cool down','To catch fish','To build nests','To wash off their stripes'],
+          ['What do the markings on baby tapirs look like?','Watermelon skin','Tiger fur','Zebra hooves','Snake scales']]},
+      {id:'melaka',subj:'HISTORY',title:'The Port of Melaka',s:[
+        'About six hundred years ago, Melaka was one of the busiest ports in the world.',
+        'Traders sailed there from China, India and Arabia, carrying silk, spices and porcelain.',
+        'Monsoon winds pushed their ships towards the Strait of Malacca at certain times of the year.',
+        'Sailors often waited in Melaka for the winds to change before sailing home.',
+        'The rulers built warehouses and made fair trading laws, so merchants felt safe doing business there.'],
+       q:[['How long ago was Melaka one of the busiest ports?','About 600 years ago','About 60 years ago','About 6,000 years ago','Last century'],
+          ['Which goods did the traders carry?','Silk, spices and porcelain','Cars and phones','Only gold coins','Rice and rubber'],
+          ['What pushed the ships towards the Strait?','Monsoon winds','Ocean whales','River currents','Steam engines'],
+          ['Why did sailors wait in Melaka?','For the winds to change','For the king’s birthday','For new ships to be built','For the rain to stop'],
+          ['Why did merchants feel safe in Melaka?','Warehouses and fair trading laws','An army of elephants','Free food for everyone','High walls around the sea']]},
+      {id:'moon',subj:'SPACE',title:'Our Moon',s:[
+        'The Moon is Earth’s only natural satellite and travels around our planet about once a month.',
+        'It does not make its own light; instead, it reflects light from the sun.',
+        'As the Moon moves, we see different amounts of its lit side, which we call phases.',
+        'There is no air on the Moon, so footprints left by astronauts can stay there for millions of years.',
+        'The Moon’s gravity pulls on Earth’s oceans and creates the rise and fall of the tides.'],
+       q:[['How often does the Moon travel around Earth?','About once a month','Once a day','Once a year','Once a week'],
+          ['Where does the Moon’s light come from?','It reflects sunlight','It glows by itself','From its volcanoes','From cities on Earth'],
+          ['What do we call the Moon’s changing shapes?','Phases','Seasons','Orbits','Eclipses'],
+          ['Why can footprints last millions of years?','There is no air','The ground is frozen','Astronauts guard them','They are made of metal'],
+          ['What does the Moon’s gravity create on Earth?','Tides','Earthquakes','Rainbows','Wind']]},
+      {id:'sleep',subj:'HEALTH',title:'Sleep and Your Brain',s:[
+        'While you sleep, your brain is busy sorting the things you learned during the day.',
+        'Important memories are moved into long-term storage, like files saved into a folder.',
+        'Children need about nine to eleven hours of sleep each night to grow and stay focused.',
+        'Screens just before bed make it harder to fall asleep, because bright light tricks the brain into thinking it is daytime.',
+        'A calm routine, such as reading a book, helps the body get ready for rest.'],
+       q:[['What does your brain do while you sleep?','Sorts what you learned','Stops working completely','Forgets everything','Grows new teeth'],
+          ['Moving memories into long-term storage is compared to…','Files saved into a folder','Water in a bottle','Birds in a nest','Coins in a bank'],
+          ['How much sleep do children need each night?','About 9 to 11 hours','About 4 to 5 hours','About 14 to 16 hours','Exactly 7 hours'],
+          ['Why do screens before bed make sleep harder?','Bright light tricks the brain into thinking it is daytime','They are too loud','They make you hungry','They use too much electricity'],
+          ['Which is an example of a calm routine?','Reading a book','Playing video games','Drinking soda','Running outside']]},
+      {id:'paper',subj:'INVENTIONS',title:'The Story of Paper',s:[
+        'Paper was first made in China nearly two thousand years ago by an official named Cai Lun.',
+        'He mixed tree bark, old rags and fishing nets with water to make a soft pulp.',
+        'The pulp was spread thinly on a screen and left to dry in the sun.',
+        'Paper was lighter and cheaper than the silk and bamboo that people wrote on before.',
+        'Over many centuries, the secret of papermaking travelled along trade routes to the rest of the world.'],
+       q:[['Where was paper first made?','China','Egypt','India','Greece'],
+          ['Who first made paper?','Cai Lun','Marco Polo','Zheng He','Confucius'],
+          ['What was mixed with water to make the pulp?','Tree bark, rags and fishing nets','Sand and glass','Rice and milk','Leaves and honey'],
+          ['How did the pulp dry?','On a screen in the sun','Over a fire','Under a heavy rock','In a cold cave'],
+          ['How did papermaking spread?','Along trade routes','Through the internet','Only by royal letters','It never spread']]},
+      {id:'coral',subj:'NATURE',title:'Coral Reefs',s:[
+        'Coral reefs look like colourful rocks, but they are actually built by tiny animals called polyps.',
+        'Each polyp makes a hard skeleton of limestone, and over thousands of years these skeletons pile up into giant reefs.',
+        'Reefs cover less than one percent of the ocean floor, yet they are home to about a quarter of all sea creatures.',
+        'Corals get their bright colours from algae that live inside them and make food from sunlight.',
+        'When the water becomes too warm, the algae leave and the coral turns white, which is called bleaching.'],
+       q:[['What builds coral reefs?','Tiny animals called polyps','Sea turtles','Underwater volcanoes','Fishermen'],
+          ['What is a polyp’s skeleton made of?','Limestone','Wood','Glass','Iron'],
+          ['How much of the ocean floor do reefs cover?','Less than one percent','About half','About a quarter','Almost all of it'],
+          ['Where do corals get their bright colours?','Algae living inside them','Paint from divers','Sand on the seabed','The colour of the sky'],
+          ['What is it called when coral turns white?','Bleaching','Melting','Shedding','Freezing']]},
+      {id:'kinabalu',subj:'GEOGRAPHY',title:'Mount Kinabalu',s:[
+        'Mount Kinabalu in Sabah is the highest mountain in Malaysia, rising more than four thousand metres above sea level.',
+        'Climbers usually take two days to reach the summit, resting overnight at a hut near the top.',
+        'They start the final climb before dawn so they can watch the sunrise from the peak.',
+        'The mountain is home to thousands of plant species, including the giant Rafflesia and many pitcher plants.',
+        'In 2000, Kinabalu Park became one of Malaysia’s first UNESCO World Heritage Sites.'],
+       q:[['In which state is Mount Kinabalu?','Sabah','Sarawak','Pahang','Johor'],
+          ['How high does Mount Kinabalu rise?','More than 4,000 metres','About 400 metres','About 1,000 metres','More than 10,000 metres'],
+          ['Why do climbers start the final climb before dawn?','To watch the sunrise from the peak','To avoid wild animals','Because the hut closes','To beat the rain'],
+          ['Which plants are mentioned?','Rafflesia and pitcher plants','Roses and tulips','Cactus and palms','Bamboo and lotus'],
+          ['What did Kinabalu Park become in 2000?','A UNESCO World Heritage Site','An airport','A new city','A theme park']]}
+    ];
+    const STOP=new Set(('the a an and or but of to in on at by for with from into onto as is are was were be been being it its this that these those they them their there then than so such can could would should will may might must do does did has have had not no very much many more most some any each every all both our your his her he she we you us me my also just only about over under after before when while where which who whom what why how like own because until again once here too out up down off same other few nor within without across along around among between through during near get got make made makes while yet still even').split(' '));
+    let S;try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(_){S={}}
+    if(!Array.isArray(S.h))S.h=[];if(!Array.isArray(S.last))S.last=[];
+    const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(_){}};
+    const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+    const fmt=ms=>{const s=Math.max(0,Math.round(ms/1000));return (s/60|0)+':'+String(s%60).padStart(2,'0')};
+    const vib=p=>{try{navigator.vibrate&&navigator.vibrate(p)}catch(_){}};
+    const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+    const RANKS=[[0,'\u{1F41F}','GOLDFISH'],[4,'\u{1F989}','OWL'],[6.5,'\u{1F42C}','DOLPHIN'],[8.5,'\u{1F418}','ELEPHANT MIND']];
+    const rankOf=sc=>RANKS.reduce((r,x)=>sc>=x[0]?x:r,RANKS[0]);
+    function stats(list){const l=list.slice(0,10);if(!l.length)return null;
+      return{acc:avg(l.map(x=>x.acc)),ms:avg(l.map(x=>x.ms)),delay:avg(l.map(x=>x.delay)),score:avg(l.map(x=>x.score)),best:Math.max(...list.map(x=>x.score)),n:list.length}}
+
+    /* ---------------- dashboard ---------------- */
+    const ring=(c,frac,val,unit,tag,lb,sub)=>`<div class="mm-r" style="--c:${c}"><div class="rg"><svg viewBox="0 0 100 100"><circle class="tk" cx="50" cy="50" r="42"/><circle class="tr" cx="50" cy="50" r="42"/><circle class="fg" cx="50" cy="50" r="42" data-f="${Math.max(0,Math.min(1,frac)).toFixed(3)}"/></svg>
+      <div class="v"><b>${val}${unit?`<small>${unit}</small>`:''}</b><i>${tag}</i></div></div><span class="lb">${lb}</span><span class="sub">${sub}</span></div>`;
+    function paintDash(){
+      const st=stats(S.h),last=S.h[0];
+      const rk=st?rankOf(st.score):null;
+      $('#mmRank').innerHTML=rk?`<em>${rk[1]}</em>${rk[2]}`:'<em>\u{1F9E0}</em>NEW RECRUIT';
+      $('#mmRings').innerHTML=
+        ring('var(--lime)',st?st.acc/100:0,st?Math.round(st.acc):'–',st?'%':'',st?(st.acc>=80?'SHARP':st.acc>=60?'SOLID':'WARMING UP'):'NO DATA','ACCURACY',last?`Last: ${Math.round(last.acc)}%`:'Quiz score')+
+        ring('#ffe14a',st?1-Math.min(1,Math.max(0,(st.ms-60000)/240000)):0,st?fmt(st.ms):'–','',st?(st.ms<120000?'FAST':st.ms<180000?'STEADY':'TAKE YOUR TIME'):'NO DATA','SPEED',last?`Last: ${fmt(last.ms)}`:'Read → quiz')+
+        ring('#9b8cff',st?Math.min(1,st.delay/30000):0,st?Math.round(st.delay/1000):'–',st?'s':'',st?(st.delay>=25000?'DEEP HOLD':st.delay>=10000?'GOOD HOLD':'QUICK'):'NO DATA','AVG DELAY',last?`Last: ${Math.round(last.delay/1000)}s`:'Delayed recall');
+      $('#mmHf').innerHTML=`<div><b>${st?st.n:0}</b><small>DRILLS</small></div><div><b class="y">${st?st.best:'–'}</b><small>BEST PTS</small></div><div><b>${st?st.score.toFixed(1):'–'}</b><small>AVG PTS</small></div>`;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('#mmRings .fg').forEach(c=>c.style.strokeDashoffset=(264*(1-+c.dataset.f)).toFixed(1))));
+      $('#mmCnt').textContent=S.h.length?`${S.h.length} attempt${S.h.length>1?'s':''}`:'';
+      const best=st?st.best:-1;let bestShown=false;
+      $('#mmList').innerHTML=S.h.length?S.h.slice(0,30).map((a,i)=>{const isB=a.score===best&&!bestShown&&S.h.length>1;if(isB)bestShown=true;const d=new Date(a.d);
+        const when=d.toDateString()===new Date().toDateString()?'Today '+d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):d.toLocaleDateString([],{day:'numeric',month:'short'});
+        return`<div class="mm-it${isB?' best':''}" style="--i:${Math.min(i,8)}"><div class="mm-sc"><b>${a.score}</b><small>PTS</small></div>
+          <div class="mm-ii"><b>${esc(a.t)}${isB?'<span class="tg">BEST</span>':''}</b><small>${when} · ${a.mcq}/5 quiz · +${a.bonus} bonus</small></div>
+          <div class="mm-im"><span><i>ACC</i>${Math.round(a.acc)}%</span><span><i>TIME</i>${fmt(a.ms)}</span><span><i>DELAY</i>${Math.round(a.delay/1000)}s</span></div></div>`}).join('')
+        :`<div class="mm-empty"><b>NO ATTEMPTS YET</b>Your first drill takes about 3 minutes.<br>Read, highlight, recall, then quiz.</div>`;
+    }
+
+    /* neural-net canvas behind the hero */
+    let netRaf=0;
+    function net(){cancelAnimationFrame(netRaf);const cv=$('#mmNet');if(!cv)return;const r=cv.getBoundingClientRect();if(!r.width)return;
+      const dpr=Math.min(2,devicePixelRatio||1),W=cv.offsetWidth,H=cv.offsetHeight;cv.width=W*dpr;cv.height=H*dpr;const x=cv.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);
+      const N=Array.from({length:26},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,p:Math.random()*6}));
+      const draw=()=>{x.clearRect(0,0,W,H);
+        for(let i=0;i<N.length;i++){const a=N[i];if(!reduce){a.x+=a.vx;a.y+=a.vy;a.p+=.03}if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;
+          for(let j=i+1;j<N.length;j++){const b=N[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<78){x.strokeStyle=`rgba(198,244,50,${(1-d/78)*.22})`;x.lineWidth=1;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
+          const g=.35+.35*Math.sin(a.p);x.fillStyle=`rgba(198,244,50,${g})`;x.beginPath();x.arc(a.x,a.y,1.6+g,0,7);x.fill()}
+        if(!reduce&&curScreen==='mem'&&!R)netRaf=requestAnimationFrame(draw)};
+      draw()}
+
+    /* ---------------- run ---------------- */
+    let R=null;const run=$('#mmRun'),stage=$('#mmStage'),clock=$('#mmClock');
+    const later=(f,ms)=>{const tk=R&&R.tok;const id=setTimeout(()=>{if(R&&R.tok===tk)f()},ms);return id};
+    function setStep(i){[...$('#mmSteps').children].forEach((e,k)=>{e.classList.toggle('done',k<i);e.classList.toggle('on',k===i)})}
+    function phase(html,cls){const old=stage.querySelector('.mm-ph:not(.out)');if(old){old.classList.add('out');setTimeout(()=>old.remove(),340)}
+      const el=document.createElement('div');el.className='mm-ph '+(cls||'');el.innerHTML=html;stage.appendChild(el);return el}
+    const active=()=>{if(!R)return 0;const now=R.end||performance.now();return now-R.t0-(R.holdMs||0)-(R.hs&&!R.holdMs?now-R.hs:0)};
+    function tickClock(){if(!R)return;clock.querySelector('span').textContent=fmt(active());clock.classList.toggle('paused',!!(R.hs&&!R.holdMs))}
+
+    function pickPassage(){const pool=BANK.filter(p=>!S.last.includes(p.id));return (pool.length?pool:BANK)[Math.random()*(pool.length||BANK.length)|0]}
+
+    function start(){buzz();SFX.play('go');
+      const p=pickPassage();R={tok:Math.random(),p,hl:new Set(),t0:performance.now(),holdMs:0,hs:0,rOk:0,qOk:0,bonus:0,quitArm:0};
+      cancelAnimationFrame(netRaf);
+      stage.innerHTML='';run.classList.remove('close');run.classList.add('on');
+      R.clk=setInterval(tickClock,250);tickClock();read()}
+
+    /* A + B: read and highlight */
+    const maxHl=()=>R.p.s.length-1;
+    function read(){setStep(0);const p=R.p;
+      const el=phase(`<div class="mm-h"><h3>READ &amp; <span>MARK</span></h3><small>${p.s.length} SENTENCES</small></div>
+        <div class="mm-paper mm-read" style="flex:1;min-height:0"><div class="mm-pm"><span class="mm-tag">${p.subj}</span><b>${esc(p.title)}</b></div>
+        <p class="mm-txt" id="mmTxt">${p.s.map((s,i)=>`<span class="mm-s" data-i="${i}" role="button" tabindex="0" aria-pressed="false">${esc(s)}</span>`).join(' ')}</p></div>
+        <div class="mm-hint" id="mmHint"><span class="mk"><svg viewBox="0 0 24 24"><path d="M15 4l5 5-9 9H6v-5z"/><path d="M4 21h9"/></svg></span><span id="mmHintT">Read it, then <b>tap 2–${maxHl()} key sentences</b> to highlight them.</span><span class="cnt" id="mmHc">${Array.from({length:maxHl()},()=>'<i></i>').join('')}</span></div>
+        <button class="mm-btn lime" id="mmLock" disabled><b>LOCK IN HIGHLIGHTS</b><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>`);
+      const txt=el.querySelector('#mmTxt'),lock=el.querySelector('#mmLock');
+      const toggle=s=>{if(R.locked)return;const i=+s.dataset.i;
+        if(R.hl.has(i)){R.hl.delete(i);s.classList.remove('hl');SFX.play('flip')}
+        else{if(R.hl.size>=maxHl()){toast(`Max ${maxHl()} — something has to vanish!`);SFX.play('err');return}R.hl.add(i);s.classList.add('hl');SFX.play('rise',R.hl.size);vib(8)}
+        s.setAttribute('aria-pressed',R.hl.has(i));
+        el.querySelectorAll('#mmHc i').forEach((c,k)=>c.classList.toggle('on',k<R.hl.size));
+        const ok=R.hl.size>=2;if(ok&&lock.disabled){lock.classList.remove('rdy');void lock.offsetWidth;lock.classList.add('rdy')}lock.disabled=!ok;
+        lock.querySelector('b').textContent=ok?`LOCK IN ${R.hl.size} HIGHLIGHTS`:'LOCK IN HIGHLIGHTS'};
+      txt.addEventListener('click',e=>{const s=e.target.closest('.mm-s');if(s)toggle(s)});
+      txt.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('mm-s')){e.preventDefault();toggle(e.target)}});
+      lock.addEventListener('click',()=>vanish(el,txt,lock))}
+
+    /* C: everything but the highlights dissolves */
+    function vanish(el,txt,lock){if(R.locked)return;R.locked=true;buzz();SFX.play('whoosh');
+      txt.querySelectorAll('.mm-s:not(.hl)').forEach(s=>{s.innerHTML=s.textContent.split(' ').map(w=>`<span class="mm-w" style="--dx:${(Math.random()*60-30).toFixed(0)}px;--dy:${(-20-Math.random()*50).toFixed(0)}px;--r:${(Math.random()*40-20).toFixed(0)}deg;--dl:${(Math.random()*.55).toFixed(2)}s">${esc(w)}</span>`).join(' ');s.removeAttribute('role');s.removeAttribute('tabindex')});
+      txt.querySelectorAll('.mm-s.hl').forEach(s=>{s.removeAttribute('role');s.removeAttribute('tabindex')});
+      requestAnimationFrame(()=>txt.classList.add('poof'));
+      later(()=>SFX.play('sparkle'),500);
+      lock.disabled=true;
+      later(()=>{el.querySelector('#mmHintT').innerHTML='<b>Only your highlights remain.</b> Burn them into memory, then test yourself.';el.querySelector('#mmHc').remove();
+        lock.disabled=false;lock.className='mm-btn';lock.innerHTML='<b>TEST MY RECALL</b><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';lock.classList.add('rdy');
+        lock.onclick=()=>{buzz();buildRecall();recall(0)}},1500)}
+
+    /* D: fill-the-blank on each highlighted sentence */
+    const toks=s=>[...s.matchAll(/[A-Za-z][A-Za-z’'-]*[A-Za-z]|[A-Za-z]/g)].map(m=>({w:m[0],i:m.index}));
+    function buildRecall(){const p=R.p,all=p.s.flatMap((s,si)=>toks(s).map((t,k)=>({...t,si,k})));
+      const proper=new Set(all.filter(t=>t.k>0&&/^[A-Z]/.test(t.w)).map(t=>t.w.toLowerCase()));
+      const disp=w=>proper.has(w.toLowerCase())?w:w.toLowerCase();
+      const pool=[...new Map(all.filter(t=>t.w.length>=4&&!STOP.has(t.w.toLowerCase())).map(t=>[t.w.toLowerCase(),disp(t.w)])).entries()];
+      R.rc=[...R.hl].sort((a,b)=>a-b).map(si=>{const s=p.s[si],ts=toks(s).filter(t=>!STOP.has(t.w.toLowerCase()));
+        let c=ts.filter(t=>t.w.length>=5);if(!c.length)c=ts.filter(t=>t.w.length>=4);if(!c.length)c=toks(s);
+        const a=c[Math.random()*c.length|0],al=a.w.toLowerCase();
+        const ds=shuf(pool.filter(([l])=>l!==al)).slice(0,3).map(x=>x[1]);
+        return{si,s,a,opts:shuf([disp(a.w),...ds]),ans:disp(a.w)}})}
+    function recall(k){setStep(1);const it=R.rc[k];if(!it)return review();
+      const before=esc(it.s.slice(0,it.a.i)),after=esc(it.s.slice(it.a.i+it.a.w.length));
+      const el=phase(`<div class="mm-h"><h3>FILL THE <span>GAP</span></h3><small>${k+1} OF ${R.rc.length}</small></div>
+        <div class="mm-rc"><div class="mm-paper"><span class="mm-rcn">RECALL ${k+1}/${R.rc.length}</span><p class="mm-txt"><span class="mm-s hl">${before}<span class="mm-bl" id="mmBl" style="--w:${Math.max(4,it.a.w.length)}"></span>${after}</span></p></div></div>
+        <div class="mm-opts">${it.opts.map((o,i)=>`<button class="mm-o" style="--i:${i}" data-o="${esc(o)}">${esc(o)}</button>`).join('')}</div>`);
+      let done=false;
+      el.querySelector('.mm-opts').addEventListener('click',e=>{const b=e.target.closest('.mm-o');if(!b||done)return;done=true;
+        const ok=b.dataset.o===it.ans,bl=el.querySelector('#mmBl');bl.textContent=it.a.w;bl.classList.add(ok?'ok':'bad');
+        el.querySelectorAll('.mm-o').forEach(x=>{if(x===b)x.classList.add(ok?'ok':'bad');else if(x.dataset.o===it.ans)x.classList.add('ok');else x.classList.add('dim')});
+        if(ok){R.rOk++;SFX.play('ok',R.rOk);vib(12)}else{SFX.play('no');vib([30,40,30])}
+        later(()=>recall(k+1),ok?950:1500)})}
+
+    /* E: full text for 8 seconds */
+    function review(){setStep(2);SFX.play('whoosh');const p=R.p;
+      const el=phase(`<div class="mm-h"><h3>FINAL <span class="l">LOOK</span></h3><div class="mm-cdn" id="mmCd"><svg viewBox="0 0 60 60"><circle class="tr" cx="30" cy="30" r="25"/><circle class="fg" cx="30" cy="30" r="25"/></svg><b>${REVIEW_S}</b></div></div>
+        <div class="mm-rv"><div class="mm-paper"><div class="mm-pm"><span class="mm-tag">${p.subj}</span><b>${esc(p.title)}</b></div><p class="mm-txt">${p.s.map((s,i)=>`<span class="mm-s${R.hl.has(i)?' hl':''}">${esc(s)}</span>`).join(' ')}</p></div>
+        <p class="mm-eye">Scan the <b>whole</b> paragraph — the quiz can ask about any of it.</p></div>`);
+      const cd=el.querySelector('#mmCd'),fg=cd.querySelector('.fg'),num=cd.querySelector('b');let n=REVIEW_S;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{fg.style.strokeDashoffset=(157/REVIEW_S).toFixed(1)}));
+      const step=()=>{n--;if(n<=0){SFX.play('pop');return hold()}num.textContent=n;fg.style.strokeDashoffset=(157*(1-n/REVIEW_S)+157/REVIEW_S).toFixed(1);
+        if(n<=3){cd.classList.remove('hot');void cd.offsetWidth;cd.classList.add('hot');SFX.play('count')}else SFX.play('tick');later(step,1000)};
+      later(step,1000)}
+
+    /* F: delayed-retrieval hold, +1 per 5 s */
+    function hold(){setStep(3);R.hs=performance.now();R.bonus=0;
+      const el=phase(`<div class="mm-h"><h3>HOLD IT <span>IN</span></h3><small>CLOCK PAUSED</small></div>
+        <div class="mm-hold"><div class="mm-vault" id="mmV"><i class="rp"></i><i class="rp"></i><div class="core"><canvas id="mmVc"></canvas></div>
+          <svg class="ring" viewBox="0 0 250 250"><circle class="tr" cx="125" cy="125" r="118"/><circle class="fg" id="mmVr" cx="125" cy="125" r="118"/></svg>
+          <div class="rd"><small>DELAY</small><b id="mmVt">0:00</b><em id="mmVb">+0 BONUS</em></div></div>
+          <div class="mm-pips" id="mmPips">${Array.from({length:MAXB},(_,i)=>`<i>+1</i>`).join('')}</div>
+          <p>Text is gone. Keep it in your head — <b>every 5s you wait = +1 point</b> (max +${MAXB}). Waiting trains delayed recall.</p></div>
+        <button class="mm-btn lime" id="mmQs"><b>START QUIZ NOW</b><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>`);
+      const vt=el.querySelector('#mmVt'),vr=el.querySelector('#mmVr'),vb=el.querySelector('#mmVb'),V=el.querySelector('#mmV'),pips=[...el.querySelectorAll('#mmPips i')];
+      /* swirling particles in the vault core */
+      const cv=el.querySelector('#mmVc'),dpr=Math.min(2,devicePixelRatio||1),CW=206;cv.width=CW*dpr;cv.height=CW*dpr;const cx=cv.getContext('2d');cx.setTransform(dpr,0,0,dpr,0,0);
+      const P=Array.from({length:40},()=>({a:Math.random()*7,r:30+Math.random()*68,s:(.004+Math.random()*.01)*(Math.random()<.5?-1:1),z:Math.random()}));
+      const tk=R.tok;
+      const loop=()=>{if(!R||R.tok!==tk||R.holdMs)return;const el2=performance.now()-R.hs;
+        vt.textContent=fmt(el2);const nb=Math.min(MAXB,el2/BONUS_MS|0);
+        vr.style.strokeDashoffset=nb>=MAXB?0:(741.4*(1-(el2%BONUS_MS)/BONUS_MS)).toFixed(1);
+        if(nb>R.bonus){R.bonus=nb;pips.forEach((p,i)=>{p.classList.toggle('on',i<nb);p.classList.toggle('mx',nb>=MAXB)});
+          vb.textContent=`+${nb} BONUS`;vb.classList.remove('bump');void vb.offsetWidth;vb.classList.add('bump');
+          const f=document.createElement('b');f.className='fly';f.textContent='+1';V.appendChild(f);setTimeout(()=>f.remove(),1200);
+          SFX.play('coin');vib(15);if(nb>=MAXB){V.classList.add('max');vb.textContent=`MAX +${MAXB}`;SFX.play('sparkle')}}
+        cx.clearRect(0,0,CW,CW);const sp=nb>=MAXB?2:1+nb*.15;
+        P.forEach(q=>{if(!reduce)q.a+=q.s*sp;const x=CW/2+Math.cos(q.a)*q.r,y=CW/2+Math.sin(q.a)*q.r*.9;cx.fillStyle=nb>=MAXB?`rgba(255,225,74,${.3+q.z*.6})`:`rgba(198,244,50,${.25+q.z*.6})`;cx.beginPath();cx.arc(x,y,.8+q.z*1.6,0,7);cx.fill()});
+        requestAnimationFrame(loop)};
+      requestAnimationFrame(loop);
+      el.querySelector('#mmQs').addEventListener('click',()=>{if(R.holdMs)return;buzz();R.holdMs=performance.now()-R.hs;R.bonus=Math.min(MAXB,R.holdMs/BONUS_MS|0);quiz(0)})}
+
+    /* MCQ x5 */
+    function quiz(k){setStep(4);if(!R.qs)R.qs=R.p.q.map(q=>({q:q[0],a:q[1],o:shuf(q.slice(1))}));
+      const it=R.qs[k];if(!it)return finish();
+      const el=phase(`<div class="mm-h"><div class="mm-qdots">${R.qs.map((_,i)=>`<i class="${i<k?(R.qr[i]?'ok':'bad'):i===k?'cur':''}"></i>`).join('')}</div><span class="mm-pts"><span id="mmPt">${R.qOk}</span> PTS <i>+${R.bonus}</i></span></div>
+        <div class="mm-qc"><div class="q"><small>QUESTION ${k+1} OF ${R.qs.length}</small>${esc(it.q)}</div></div>
+        <div class="mm-ql">${it.o.map((o,i)=>`<button class="mm-qo" style="--i:${i}" data-o="${i}"><span class="k">${'ABCD'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>`);
+      R.qr=R.qr||[];let done=false;
+      el.querySelector('.mm-ql').addEventListener('click',e=>{const b=e.target.closest('.mm-qo');if(!b||done)return;done=true;
+        const ok=it.o[+b.dataset.o]===it.a;R.qr[k]=ok;
+        el.querySelectorAll('.mm-qo').forEach(x=>{const v=it.o[+x.dataset.o];if(x===b)x.classList.add(ok?'ok':'bad');else if(v===it.a)x.classList.add('ok');else x.classList.add('dim')});
+        if(ok){R.qOk++;el.querySelector('#mmPt').textContent=R.qOk;const p1=document.createElement('b');p1.className='p1';p1.textContent='+1';b.appendChild(p1);SFX.play('ok',R.qOk);vib(12)}else{SFX.play('no');vib([30,40,30])}
+        const d=el.querySelectorAll('.mm-qdots i')[k];d.className=ok?'ok':'bad';
+        later(()=>quiz(k+1),ok?1000:1600)})}
+
+    /* result */
+    function finish(){setStep(5);R.end=performance.now();clearInterval(R.clk);tickClock();
+      const prev=stats(S.h),ms=active(),acc=R.qOk/R.qs.length*100,score=R.qOk+R.bonus;
+      const rec={d:Date.now(),id:R.p.id,t:R.p.title,sj:R.p.subj,mcq:R.qOk,acc,ms:Math.round(ms),delay:Math.round(R.holdMs),bonus:R.bonus,score,rc:R.rOk,rn:R.rc.length};
+      const isBest=!S.h.length||score>Math.max(...S.h.map(x=>x.score));
+      S.h.unshift(rec);S.h=S.h.slice(0,60);S.last=[R.p.id,...S.last.filter(x=>x!==R.p.id)].slice(0,3);save();
+      try{window.GL&&GL.addQ(R.qs.length+R.rc.length)}catch(_){}
+      const rk=rankOf(score);
+      const dl=(v,p,fmtD,lowGood)=>{if(p==null)return'<i>First drill — baseline set</i>';const d=v-p;if(Math.abs(d)<.5)return'<i>Same as your avg</i>';const good=lowGood?d<0:d>0;return`<i class="${good?'up':'dn'}">${good?'▲':'▼'} ${fmtD(Math.abs(d))} vs avg</i>`};
+      const el=phase(`<div class="mm-res"><h3>DRILL <span>DONE</span></h3><div class="rk">${isBest&&S.h.length>1?'\u{1F3C6} NEW PERSONAL BEST · ':''}${rk[1]} ${rk[2]}</div>
+        <div class="mm-medal"><b id="mmSc">0</b><small>POINTS</small></div>
+        <div class="mm-bk"><span><b>${R.qOk}/5</b> quiz</span><span class="y"><b>+${R.bonus}</b> delay bonus</span><span><b>${R.rOk}/${R.rc.length}</b> recall</span></div>
+        <div class="mm-tiles">
+          <div class="mm-tl" style="--i:0"><small>ACCURACY</small><b>${Math.round(acc)}%</b>${dl(acc,prev&&prev.acc,v=>Math.round(v)+'%')}</div>
+          <div class="mm-tl" style="--i:1"><small>SPEED</small><b>${fmt(ms)}</b>${dl(ms/1000,prev&&prev.ms/1000,v=>Math.round(v)+'s',true)}</div>
+          <div class="mm-tl" style="--i:2"><small>DELAY HELD</small><b>${Math.round(R.holdMs/1000)}s</b>${dl(R.holdMs/1000,prev&&prev.delay/1000,v=>Math.round(v)+'s')}</div>
+          <div class="mm-tl" style="--i:3"><small>PASSAGE</small><b style="font-size:19px;line-height:1.5">${esc(R.p.title)}</b><i>${R.p.subj}</i></div>
+        </div>
+        <div class="mm-ra"><button class="mm-btn" id="mmDash2"><b>DASHBOARD</b></button><button class="mm-btn lime" id="mmAgain"><b>GO AGAIN</b><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 4v4h-4M20 12a8 8 0 0 1-14 5.3M4 20v-4h4"/></svg></button></div></div>`);
+      const sc=el.querySelector('#mmSc');let n=0;const up=()=>{if(n>=score)return;n++;sc.textContent=n;SFX.play('rise',n);later(up,110)};later(up,700);
+      later(()=>{SFX.play('win');confetti()},700+score*110);
+      el.querySelector('#mmDash2').addEventListener('click',()=>{buzz();close()});
+      el.querySelector('#mmAgain').addEventListener('click',()=>{buzz();abort();start()})}
+
+    function confetti(){if(reduce)return;const cv=$('#mmFx'),x=cv.getContext('2d'),dpr=Math.min(2,devicePixelRatio||1),W=cv.offsetWidth,H=cv.offsetHeight;cv.width=W*dpr;cv.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);
+      const cl=['#c6f432','#ffe14a','#ffffff','#9b8cff','#1b1c19'];const ps=Array.from({length:110},()=>{const a=-Math.PI/2+(Math.random()-.5)*2.2,v=7+Math.random()*9;return{x:W/2,y:H*.32,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:3+Math.random()*4,c:cl[Math.random()*5|0],l:1,rt:Math.random()*6}});
+      (function f(){x.clearRect(0,0,W,H);let a=false;ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.3;p.vx*=.985;p.l-=.011;p.rt+=.2;if(p.l>0){a=true;x.save();x.globalAlpha=p.l;x.translate(p.x,p.y);x.rotate(p.rt);x.fillStyle=p.c;x.fillRect(-p.r/2,-p.r,p.r,p.r*2);x.restore()}});if(a)requestAnimationFrame(f);else x.clearRect(0,0,W,H)})()}
+
+    function abort(){if(!R)return;clearInterval(R.clk);R.tok=null;R=null}
+    function close(){abort();run.classList.add('close');setTimeout(()=>{run.classList.remove('on','close');stage.innerHTML=''},450);paintDash();setTimeout(net,460)}
+    let quitT=0;
+    $('#mmQuit').addEventListener('click',()=>{buzz();if(R&&R.end){close();return}
+      if(Date.now()-quitT<2200){quitT=0;close();toast('Drill abandoned — not saved');return}quitT=Date.now();toast('Tap ✕ again to quit · this drill won’t be saved')});
+    $('#mmGo').addEventListener('click',start);
+    return{open(){if(R)return;paintDash();setTimeout(net,80)},leave(){cancelAnimationFrame(netRaf);if(R){abort();run.classList.remove('on','close');stage.innerHTML=''}}};
+  })();
+  window.MEM=MEM;
+  { const tab=document.createElement('button');tab.className='mm-tab in';tab.id='mmTab';tab.style.cssText='--a:slideL .45s ease;--d:1s';tab.setAttribute('aria-label','Memory drill');
+    tab.innerHTML='<i>NEW</i><svg viewBox="0 0 24 24"><path d="M9.5 3.5A3 3 0 0 0 6.6 6 3 3 0 0 0 4 9.6a3.2 3.2 0 0 0 .4 5.2A3 3 0 0 0 7 19a3 3 0 0 0 5 1V5.5a2.4 2.4 0 0 0-2.5-2z"/><path d="M14.5 3.5A3 3 0 0 1 17.4 6 3 3 0 0 1 20 9.6a3.2 3.2 0 0 1-.4 5.2A3 3 0 0 1 17 19a3 3 0 0 1-5 1"/></svg><span>MEMORY</span>';
+    (document.querySelector('#pqTab')||document.querySelector('#s-home .side')).after(tab);tab.addEventListener('click',()=>{buzz();nav('mem')}) }
   if(WT.needed())setTimeout(()=>WT.open(()=>{if(GL.first)GL.open(true);HW.check()}),500);
   else if(GL.first)setTimeout(()=>GL.open(true),1400);
   show(location.hash.slice(1)||'home',true);
