@@ -71,7 +71,7 @@ declare global {
         (read by home.behavior.js when the wallet is un-masked) */
     RI9_BALANCE?: number;
     /** Subjects for the carousel (window.RI9_SUBJECTS), from
-        /api/v1/subjects — Flutter: homeScreenSubjectsProvider */
+        /api/v2/user/subject-stats — Flutter: homeScreenSubjectsProvider */
     RI9_SUBJECTS?: CarouselSubject[];
     /** Page toast (same pattern as profile.behavior.js) — set by
         mount() in home.behavior.js, used to surface API failures */
@@ -113,8 +113,11 @@ function applySubjects(subjects: Subject[]): void {
   window.RI9_SUBJECTS = subjects.map((s) => ({
     name: s.name,
     q: s.questionCount,
-    avg: null, // daily-subject-averages endpoint — not wired yet
-    tr: null, // trend comes with the averages endpoint too
+    // live values from /api/v2/user/subject-stats: gauge avg speed
+    // and the weekly "Xs faster" trend (null → resting gauge /
+    // "No trend data" copy in home.behavior.js)
+    avg: s.avgSpeedSeconds ?? null,
+    tr: s.trendSeconds ?? null,
     ico: null, // API gives icon_url images, not inline SVGs
     icon: s.iconUrl ?? null,
   }));
@@ -173,7 +176,7 @@ async function loadDashboard(): Promise<void> {
       ? await Promise.all([
           // /user/streak — Flutter: user_streak_repository
           fetchUserStreak().catch((e) => { dataError ??= e; return null; }),
-          // /subjects — Flutter: homeScreenSubjectsProvider
+          // /v2/user/subject-stats — Flutter: homeScreenSubjectsProvider
           fetchSubjects(3).catch((e) => { dataError ??= e; return null; }),
         ])
       : [null, null];

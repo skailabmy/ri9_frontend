@@ -67,20 +67,38 @@ export const streakResponseSchema = z.object({
   data: z.object({ current_streak: z.number() }),
 });
 
-/** GET /api/v1/subjects list item — categories[] drives the
-    "KSSR · N MCQs" question count. */
-export const rawSubjectSchema = z.looseObject({
+/** GET /api/v2/user/subject-stats speed_trend object. */
+export const subjectSpeedTrendSchema = z.looseObject({
+  /** 'faster' | 'slower' | 'same' | 'no_data' */
+  trend: z.string().nullable().optional(),
+  difference_seconds: z.number().nullable().optional(),
+  percentage_change: z.number().nullable().optional(),
+  this_week_average_seconds: z.number().nullable().optional(),
+  last_week_average_seconds: z.number().nullable().optional(),
+});
+
+export type RawSubjectSpeedTrend = z.infer<typeof subjectSpeedTrendSchema>;
+
+/** GET /api/v2/user/subject-stats list item (UserSubjectStatsV2Controller). */
+export const rawSubjectStatSchema = z.looseObject({
   id: z.number(),
   name: z.string(),
   icon_url: z.string().nullable().optional(),
-  priority: z.number().optional(),
-  categories: z.array(z.unknown()).optional(),
+  priority: z.number().nullable().optional(),
+  /** MCQ questions matching the user's age range (or general ones) —
+      drives the "KSSR · N MCQs" line */
+  mcq_questions_count: z.number().nullable().optional(),
+  /** current avg answer speed (this week if played, else overall) */
+  average_speed_seconds: z.number().nullable().optional(),
+  speed_trend: subjectSpeedTrendSchema.nullable().optional(),
 });
 
-/** GET /api/v1/subjects?… → { success, data: […] } */
-export const subjectsResponseSchema = z.object({
+export type RawSubjectStat = z.infer<typeof rawSubjectStatSchema>;
+
+/** GET /api/v2/user/subject-stats → { success, data: […] } */
+export const subjectStatsResponseSchema = z.object({
   success: z.boolean().optional(),
-  data: z.array(rawSubjectSchema),
+  data: z.array(rawSubjectStatSchema),
 });
 
 /** GET /api/v1/auth/me — the endpoint sometimes answers flat

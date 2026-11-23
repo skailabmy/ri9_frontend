@@ -2,8 +2,14 @@
    RI9 · Auth API — ported from dumo_drill's AuthRepository +
    User model (Flutter). Endpoints mirror
    dumo_drill/lib/core/constants.dart:
-     - login:          POST /api/v1/auth/login
+     - login:          POST /api/v2/auth/login (AuthV2Controller —
+                       wraps the v1 login and additionally ensures
+                       the user's Dumo account in the background;
+                       response shape is unchanged)
      - current user:   GET  /api/v1/auth/me
+     - subject stats:  GET  /api/v2/user/subject-stats
+                       (UserSubjectStatsV2Controller — per-subject
+                       avg speed + weekly trend for the carousel)
 
    All request inputs and API responses are validated at runtime
    with Zod schemas (src/api/schemas.ts) — no blind `as` casts.
@@ -15,7 +21,8 @@ import {
   loginResponseSchema,
   parseCurrentUserResponse,
   streakResponseSchema,
-  subjectsResponseSchema,
+  subjectStatsResponseSchema,
+  type RawSubjectStat,
   type RawUser,
 } from './schemas';
 
@@ -55,16 +62,18 @@ function mapRawUser(raw: RawUser): User {
   };
 }
 
-/** POST /api/v1/auth/login — { success, data: { user, token } }
-    Credentials are validated client-side first (UX layer — the
-    backend re-validates as the source of truth). */
+/** POST /api/v2/auth/login — { success, data: { user, token } }
+    (AuthV2Controller::login — same envelope as v1, plus background
+    Dumo account provisioning. Credentials are validated client-side
+    first (UX layer — the backend re-validates as the source of
+    truth). */
 export async function login(
   username: string,
   password: string,
 ): Promise<LoginData> {
   const creds = validateCredentials(username, password);
   const res = loginResponseSchema.parse(
-    await api<unknown>('/api/v1/auth/login', {
+    await api<unknown>('/api/v2/auth/login', {
       method: 'POST',
       body: { username: creds.username, password: creds.password },
     }),
@@ -97,24 +106,54 @@ export interface Subject {
   name: string;
   iconUrl?: string | null;
   priority: number;
-  /** derived from categories[] length — drives the "KSSR · N MCQs" line */
+  /** current avg answer speed in seconds (v2 subject-stats) —
+      drives the carousel gauge; null = render the resting "0.0s" */
+  avgSpeedSeconds?: number | null;
+  /** seconds FASTER than last week; null = no trend data.
+      Negative values (slower) are kept for data fidelity but the
+      carousel copy only supports the "faster" wording. */
+  trendSeconds?: number | null;
+  /** mcq_questions_count — MCQs matching the user's age range
+      (or general ones); drives the "KSSR · N MCQs" line */
   questionCount: number;
 }
 
-/** GET /api/v1/subjects?active=true&home_screen=true
-    Port of subjectsProvider(3): sort by priority (highest first),
-    take `limit`. Used by homeScreenSubjectsProvider on the Flutter
-    home screen. */
+/** Map speed_trend to a signed seconds delta for the carousel's
+    "Xs faster this week" line. Only 'faster' yields a positive
+    number; slower/same/no_data → null (the UI shows "No trend
+    data" rather than a misleading "0.0s faster" / "-2.1s faster"). */
+function mapSpeedTrend(trend: RawSubjectStat['speed_trend']): number | null {
+  if (trend?.trend !== 'faster' || typeof trend.difference_seconds !== 'number') {
+    return null;
+  }
+  return trend.difference_seconds;
+}
+
+/** GET /api/v2/user/subject-stats (UserSubjectStatsV2Controller)
+    Port of homeScreenSubjectsProvider: the endpoint already filters
+    by age-range + content access and sorts by priority (desc) then
+    name (asc) — we only take `limit`. Each row carries the avg
+    speed gauge value and the weekly trend the carousel renders. */
 export async function fetchSubjects(limit = 3): Promise<Subject[]> {
-  const res = subjectsResponseSchema.parse(
-    await api<unknown>('/api/v1/subjects?active=true&home_screen=true'),
+  const res = subjectStatsResponseSchema.parse(
+    await api<unknown>('/api/v2/user/subject-stats'),
   );
   const mapped: Subject[] = res.data.map((s) => ({
     id: s.id,
     name: s.name,
     iconUrl: s.icon_url ?? null,
     priority: s.priority ?? 0,
-    questionCount: Array.isArray(s.categories) ? s.categories.length : 0,
+    // The backend answers 0.0 when the user has no attempts
+    // ($thisWeekAvg ?? ($stat ? average : 0.0)) — normalize that
+    // placeholder to null, otherwise the carousel's score formula
+    // ((20-avg)/16, where lower = better) reads 0s as "instant"
+    // and pins the gauge at 100%.
+    avgSpeedSeconds:
+      typeof s.average_speed_seconds === 'number' && s.average_speed_seconds > 0
+        ? s.average_speed_seconds
+        : null,
+    trendSeconds: mapSpeedTrend(s.speed_trend),
+    questionCount: s.mcq_questions_count ?? 0,
   }));
   mapped.sort((a, b) => b.priority - a.priority);
   return limit != null ? mapped.slice(0, limit) : mapped;
