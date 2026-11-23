@@ -244,7 +244,11 @@ function confetti(): void {
     <div class="wt-top"><div class="wt-prog">${STEPS.map(() => '<i><b></b></i>').join('')}</div><button class="wt-skip" id="wtSkip">Skip</button></div>
     <div class="wt-track" id="wtTrack">${STEPS.map((s, k) => `<section class="wt-s wt-s${k + 1}" aria-hidden="true"><div class="wt-scene">${s.s}</div><div class="wt-txt"><div class="wt-n"><i>${k + 1}</i>STEP ${k + 1} OF ${STEPS.length}</div><h2 class="wt-h">${s.h}</h2><p class="wt-p">${s.p}</p></div></section>`).join('')}</div>
     <div class="wt-bot"><button class="wt-back" id="wtBack" aria-label="Previous step"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button class="wt-next" id="wtNext"></button></div>`;
-  stage.appendChild(el);
+  /* Append to <body> (NOT #stage): #stage lives inside .viewport, which is
+     inset by the iOS safe areas — the overlay would stop at the notch /
+     home-indicator edges. At body level .wt is position:fixed and covers
+     the full screen; safe-area padding is handled inside .wt-top/.wt-bot. */
+  document.body.appendChild(el);
 
   const track = $('#wtTrack')!, slides = $$('.wt-s'), bars = $$('.wt-prog i');
   let i = 0;

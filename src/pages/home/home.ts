@@ -13,6 +13,7 @@
 import { boot } from '../../router';
 import { mount } from './home.behavior';
 import { useAppStore } from '../../store/app';
+import { mountPullToRefresh } from '../../utils/pullToRefresh';
 import {
   ensureSession,
   effectiveCoinBalance,
@@ -21,6 +22,7 @@ import {
   type Subject,
   type User,
 } from '../../api/auth';
+import { ApiError } from '../../api/client';
 
 // Guard is a no-op for now; when auth lands, lock it down:
 // boot({ page: 'home', roles: ['kid'] })
@@ -71,7 +73,16 @@ declare global {
     /** Subjects for the carousel (window.RI9_SUBJECTS), from
         /api/v1/subjects — Flutter: homeScreenSubjectsProvider */
     RI9_SUBJECTS?: CarouselSubject[];
+    /** Page toast (same pattern as profile.behavior.js) — set by
+        mount() in home.behavior.js, used to surface API failures */
+    toast?(msg: string): void;
   }
+}
+
+/** Same message extraction as profile.behavior.js's pickErrMsg:
+    prefer the server's message, fall back to a friendly default. */
+function pickErrMsg(e: unknown, fallback: string): string {
+  return e instanceof ApiError && e.message ? e.message : fallback;
 }
 
 function setStreak(value: number): void {
@@ -87,6 +98,15 @@ function applyUser(user: User, streak: number | null): void {
   // the real value is cached here and only shown when the user taps
   // the eye (home.behavior.js reads window.RI9_BALANCE on toggle).
   window.RI9_BALANCE = effectiveCoinBalance(user);
+
+  // Pull-to-refresh path: the wallet may already be REVEALED (class
+  // 'on' is toggled by home.behavior.js's showBal/hideBal). Repaint
+  // the live number in place; when masked, the eye toggle simply
+  // reads the fresh window.RI9_BALANCE next time.
+  const bal = document.getElementById('bal');
+  if (booted && user && bal?.classList.contains('on')) {
+    bal.textContent = effectiveCoinBalance(user).toLocaleString();
+  }
 }
 
 function applySubjects(subjects: Subject[]): void {
@@ -122,30 +142,81 @@ function bridgeSfx(): void {
   };
 }
 
-if (onboardingSeen) void (async () => {
+/* ---------- load (or reload) the dashboard's API data ----------
+   Runs once during boot behind the splash, and again on every
+   pull-to-refresh. On refresh the splash is gone, so results are
+   painted straight onto the live DOM:
+   - streak pill (#streakN) and the revealed wallet number update in place
+   - window.RI9_SUBJECTS / window.RI9_BALANCE always carry fresh values
+   The subject carousel itself is NOT rebuilt (its cards, gauges and
+   drag physics are baked by mount()) — subject changes show up on the
+   next page load; everything else is live. */
+let booted = false;
+
+async function loadDashboard(): Promise<void> {
   const splash = document.getElementById('boot');
+  let loginError: unknown = null;
+  let dataError: unknown = null;
   try {
     // force=true: a stale cached token could belong to a different
     // account — always re-login with the demo credentials.
-    const user = await ensureSession(DEMO_USERNAME, DEMO_PASSWORD, true);
+    // ensureSession never throws (returns null on failure) — the raw
+    // error arrives via the onError callback instead.
+    const user = await ensureSession(
+      DEMO_USERNAME,
+      DEMO_PASSWORD,
+      true,
+      (e) => { loginError = e; },
+    );
     // These must run AFTER ensureSession or they 401 (no token yet).
-    const [streak, subjects] = await Promise.all([
-      user
-        ? fetchUserStreak().catch(() => null) // /user/streak — Flutter: user_streak_repository
-        : Promise.resolve(null),
-      user
-        ? fetchSubjects(3).catch(() => null) // /subjects — Flutter: homeScreenSubjectsProvider
-        : Promise.resolve(null),
-    ]);
+    const [streak, subjects] = user
+      ? await Promise.all([
+          // /user/streak — Flutter: user_streak_repository
+          fetchUserStreak().catch((e) => { dataError ??= e; return null; }),
+          // /subjects — Flutter: homeScreenSubjectsProvider
+          fetchSubjects(3).catch((e) => { dataError ??= e; return null; }),
+        ])
+      : [null, null];
     if (user) applyUser(user, streak);
     if (subjects) applySubjects(subjects);
   } finally {
-    // Run the prototype logic (SFX engine, carousel, goal rings, dock nav)
-    // AFTER the data lands, while the splash still covers the screen.
-    mount();
-    bridgeSfx();
-    // Lift the white splash even if the API is unreachable —
-    // the dashboard falls back to the prototype's mock values.
-    splash?.remove();
+    if (!booted) {
+      booted = true;
+      // Run the prototype logic (SFX engine, carousel, goal rings, dock
+      // nav) AFTER the data lands, while the splash still covers it.
+      mount();
+      bridgeSfx();
+      // Pull-to-refresh — armed once the page is interactive. The goal
+      // sheet/backdrop and any open overlay opt out via `disabled`.
+      // Home never scrolls, so the default document scroller check
+      // (scrollTop 0) is always true.
+      mountPullToRefresh({
+        refresh: () => loadDashboard(),
+        disabled: () =>
+          document.querySelector('#gbd.open, #gsh.open') !== null,
+      });
+      // Lift the white splash even if the API is unreachable — the
+      // dashboard then shows ZERO values (streak 0 · balance 0 ·
+      // zeroed carousel) instead of the old mock numbers.
+      splash?.remove();
+      // Surface the failure as a toast, mirroring the profile page's
+      // pickErrMsg + toast pattern (window.toast is set by mount()).
+      if (loginError) {
+        window.toast?.(pickErrMsg(loginError, 'Login failed — could not reach the server'));
+      } else if (dataError) {
+        window.toast?.(pickErrMsg(dataError, 'Could not load dashboard data'));
+      }
+    } else {
+      // pull-to-refresh completed — report the outcome
+      if (loginError) {
+        window.toast?.(pickErrMsg(loginError, 'Refresh failed — could not reach the server'));
+      } else if (dataError) {
+        window.toast?.(pickErrMsg(dataError, 'Could not refresh dashboard data'));
+      } else {
+        window.toast?.('Dashboard updated');
+      }
+    }
   }
-})();
+}
+
+if (onboardingSeen) void loadDashboard();

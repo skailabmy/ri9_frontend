@@ -13,9 +13,10 @@
 <script type="module" src="/src/pages/profile/profile.ts"></script>
 </head>
 <body>
-<div class="safe-fill" aria-hidden="true"></div>
-
-<!-- backdrop outside the scaled stage — same structure as the home screen -->
+<!-- backdrop outside the scaled stage — covers the FULL screen (incl. iOS
+     notch / home-indicator areas); content inside .viewport is inset by
+     the safe areas. No .safe-fill needed: this page has no dark dock,
+     the light backdrop blends into the safe strips. -->
 <div class="arena-bg" aria-hidden="true"><canvas class="emb"></canvas></div>
 
 <div class="viewport" id="vp">

@@ -15,14 +15,17 @@
    ============================================================ */
 
 /* ===================== WALKTHROUGH (first run) ===================== */
-.wt{position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;color:#fff;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .35s;
+/* fixed (not absolute) + appended to <body> so the gradient covers the
+   FULL screen, including the iOS notch / home-indicator areas */
+.wt{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;color:#fff;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .35s;
   background:radial-gradient(120% 60% at 50% 32%,#3f5a0d 0%,#1d2a0d 42%,#0b0f06 82%);touch-action:pan-y}
 .wt.open{opacity:1;pointer-events:auto}
 .wt-rays{position:absolute;left:50%;top:230px;width:1100px;height:1100px;margin:-550px 0 0 -550px;background:repeating-conic-gradient(from 0deg,#c6f43212 0 6deg,transparent 6deg 16deg);animation:rot 34s linear infinite;
   -webkit-mask-image:radial-gradient(closest-side,#000 10%,transparent 70%);mask-image:radial-gradient(closest-side,#000 10%,transparent 70%);pointer-events:none}
 .wt-speed{position:absolute;inset:-40%;background:repeating-linear-gradient(118deg,transparent 0 46px,#c6f4320b 46px 49px);animation:lines 1.4s linear infinite;pointer-events:none}
 /* top */
-.wt-top{position:relative;z-index:2;flex:none;display:flex;align-items:center;gap:10px;height:56px;padding:0 14px}
+.wt-top{position:relative;z-index:2;flex:none;display:flex;align-items:center;gap:10px;min-height:56px;box-sizing:border-box;
+  padding:max(0px,env(safe-area-inset-top,0px)) 14px 0}
 .wt-prog{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
 .wt-prog i{height:6px;border-radius:4px;background:#ffffff1f;overflow:hidden;transform:skewX(-20deg)}
 .wt-prog i b{display:block;height:100%;width:0;background:var(--lime);box-shadow:0 0 10px #c6f432;transition:width .45s cubic-bezier(.2,1,.3,1)}
@@ -43,7 +46,8 @@
 .wt-s.on .wt-txt>*{animation:wtUp .55s cubic-bezier(.2,1.2,.4,1) both}
 .wt-s.on .wt-h{animation-delay:.08s!important}.wt-s.on .wt-p{animation-delay:.16s!important}
 /* bottom */
-.wt-bot{position:relative;z-index:2;flex:none;display:flex;align-items:center;gap:10px;padding:14px 18px 18px}
+.wt-bot{position:relative;z-index:2;flex:none;display:flex;align-items:center;gap:10px;
+  padding:14px 18px calc(18px + env(safe-area-inset-bottom,0px))}
 .wt-back{width:54px;height:58px;flex:none;border-radius:18px 6px 18px 6px;background:#ffffff12;border:1px solid #ffffff1f;display:grid;place-items:center;transition:opacity .25s}
 .wt-back svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 .wt-back[disabled]{display:none}

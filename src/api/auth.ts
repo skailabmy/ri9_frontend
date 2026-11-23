@@ -139,25 +139,31 @@ export { getToken, setToken, clearToken };
  * 2. no/stale token → login (demo credentials until the auth UI lands),
  *    cache the token, then fetch the user.
  * Returns null when the backend is unreachable — the UI still mounts.
+ * Failures are NOT thrown (the null contract stays), but the raw error
+ * is surfaced through `onError` so callers can toast it (home.ts).
  */
 export async function ensureSession(
   username: string,
   password: string,
   /** Skip the cached-token fast path and always re-login. */
   force = false,
+  /** Receives the raw login/`/me` error so the UI can show a toast. */
+  onError?: (e: unknown) => void,
 ): Promise<User | null> {
   if (!force && getToken()) {
     try {
       return await fetchCurrentUser();
-    } catch {
+    } catch (e) {
       clearToken(); // stale token — fall through to fresh login
+      onError?.(e);
     }
   }
   try {
     const { token } = await login(username, password);
     setToken(token);
     return await fetchCurrentUser();
-  } catch {
+  } catch (e) {
+    onError?.(e);
     return null;
   }
 }

@@ -27,6 +27,7 @@ import {
   redeemBundleCode,
 } from '../../api/profile';
 import { ApiError } from '../../api/client';
+import { mountPullToRefresh } from '../../utils/pullToRefresh';
 
 export function mount() {
 
@@ -89,6 +90,10 @@ export function mount() {
   /* ---------- toast ---------- */
   let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1700)}
   window.toast=toast;
+
+  /* Set by the PROFILE boot IIFE below once the loaders exist —
+     re-runs loadStatic() + loadProfile() for pull-to-refresh. */
+  let pullRefresh=null;
 
   /* =================== PROFILE (student) =================== */
   (async function(){
@@ -282,9 +287,30 @@ export function mount() {
       catch(e){toast(pickErrMsg(e,'Could not load your profile'))}
       scr.classList.remove('loading'); /* done — hide the spinner, reveal the form */
       fill();form.classList.add('anim')} /* staggered card entry once data is in */
+
+    /* pull-to-refresh hook — re-pull the dropdowns + profile from the
+       API behind the page's centered spinner. A refresh while the form
+       has UNSAVED edits would clobber them, so bail with a hint. */
+    pullRefresh=async()=>{
+      if(changes().length){toast('Save or discard your changes first');return}
+      if(openMd)closeMd(true);
+      scr.classList.add('loading');
+      await loadStatic();
+      await loadProfile()};
+
     scr.classList.add('loading'); /* spinner shows while the API answers */
     await loadStatic();
     await loadProfile();
   })();
+
+  /* ---------- pull-to-refresh (touch) ----------
+     The page scrolls inside .pf-body, so the gesture only arms when
+     that container is at scrollTop 0. Modals (pfBd backdrop) and an
+     in-flight Verify & save opt out. */
+  mountPullToRefresh({
+    refresh:async()=>{if(pullRefresh)await pullRefresh()},
+    scroller:()=>$('#pfBody'),
+    disabled:()=>$('#pfBd').classList.contains('open')||$('#pfSubmit').disabled,
+  });
 
 }

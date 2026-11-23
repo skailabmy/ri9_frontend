@@ -80,15 +80,15 @@ export function mount() {/* ====================================================
   h.innerHTML=[...h.textContent].map((c,i)=>`<span class="in" style="--a:letter .5s cubic-bezier(.2,1.4,.4,1);--d:${(.65+i*.04).toFixed(2)}s"><i style="--w:${(2.6+i*.06).toFixed(2)}s">${c}</i></span>`).join('');
 
   /* ---------- subjects — real data via window.RI9_SUBJECTS (set by
-     home.ts from /api/v1/subjects during the splash gate); the mock
-     below is the prototype fallback used when the API is unreachable ---------- */
+     home.ts from /api/v1/subjects during the splash gate). When the
+     API fails, a single "No subjects yet" placeholder renders —
+     no mock names or numbers (gauge rests at 0.0s, "0 MCQs").
+     A truly empty list would break the carousel layout (division
+     by N=0), so the placeholder keeps N=1. ---------- */
   const DEFAULT_ICO=`<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>`;
   const API_SUBJ=Array.isArray(window.RI9_SUBJECTS)?window.RI9_SUBJECTS:null;
   const SUBJ=(API_SUBJ&&API_SUBJ.length?API_SUBJ:[
-    {name:'Mathematics',avg:10.0,q:17,tr:1.4,ico:`<rect x="3" y="3" width="8" height="8" rx="2"/><path d="M5.5 5.5l3 3M8.5 5.5l-3 3"/><rect x="13" y="3" width="8" height="8" rx="2"/><path d="M15 7h4"/><rect x="3" y="13" width="8" height="8" rx="2"/><path d="M7 15v4M5 17h4"/><rect x="13" y="13" width="8" height="8" rx="2"/><path d="M15 17h4"/><circle class="f" cx="17" cy="15" r=".9"/><circle class="f" cx="17" cy="19" r=".9"/>`},
-    {name:'English',avg:8.6,q:15,tr:0.8,ico:`<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19v15H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H19v-3"/><path d="M8 13l2.5-6 2.5 6M8.8 11.2h3.4"/><path d="M14.5 7v6h1.8a1.5 1.5 0 0 0 0-3h-1.8 1.5a1.5 1.5 0 0 0 0-3z"/>`},
-    {name:'Bahasa Melayu',avg:9.4,q:16,tr:2.1,ico:`<path d="M3 5h18v11h-9l-5 4v-4H3z"/><path d="M6.5 8v5h2a1.25 1.25 0 0 0 0-2.5h-2 1.6a1.25 1.25 0 0 0 0-2.5z"/><path d="M12 13V8l2.5 3L17 8v5"/>`},
-    {name:'Science',avg:12.3,q:14,tr:0.6,ico:`<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 14h9"/><circle class="f" cx="10.5" cy="17" r="1"/><circle class="f" cx="14" cy="18.2" r=".8"/>`}
+    {name:'No subjects yet',avg:null,q:0,tr:null,ico:null}
   ]).map(s=>({name:s.name,q:s.q||0,avg:(typeof s.avg==='number')?s.avg:null,tr:(typeof s.tr==='number')?s.tr:null,
     ico:s.ico||DEFAULT_ICO,icon:s.icon||null}));
   const N=SUBJ.length, car=$('#car'), cards=[], A0=-200, A1=20; // gauge sweep angles
@@ -103,7 +103,7 @@ export function mount() {/* ====================================================
       <div class="gauge"><svg viewBox="0 0 204 116">${ticks}<path class="trk" d="${arcPath(90,A0,A1)}"/><path class="val" d="${arcPath(90,A0,A1)}"/>
         <g class="needle"><circle r="13" fill="#c6f432" opacity=".35" class="halo"/><circle r="8.5" fill="#fff" stroke="#1b1c19" stroke-width="3"/></g></svg>
         <div class="read"><b><span class="v">${s.avg==null?'0.0':s.avg.toFixed(1)}</span><small>s</small></b><div>AVG SPEED</div></div></div>
-      <div class="ft"><span class="trend"><svg viewBox="0 0 10 10"><path d="M5 9 1 3h8z" fill="#3d6b06"/></svg>${(s.tr??0).toFixed(1)}s faster this week</span></div>`;
+      <div class="ft"><span class="trend"><svg viewBox="0 0 10 10"><path d="M5 9 1 3h8z" fill="#3d6b06"/></svg>${s.tr==null?'No trend data':s.tr.toFixed(1)+'s faster this week'}</span></div>`;
     car.appendChild(el);cards.push(el);
     const v=el.querySelector('.val'),L=v.getTotalLength();v.style.strokeDasharray=L;v.style.strokeDashoffset=L;el._val=v;el._L=L;el._needle=el.querySelector('.needle');el._num=el.querySelector('.v');
   });
@@ -159,7 +159,7 @@ export function mount() {/* ====================================================
 
   /* ---------- balance ---------- */
   // Real balance arrives via window.RI9_BALANCE (set by home.ts after login);
-  // 1250 is the prototype's mock fallback while the splash/session gate runs.
+  // 0 is the fallback so a failed login/API never shows fake coins.
   const balEl=$('#bal'),eyeEl=$('#eye');
   let on=false;
   // anim=false sets the value directly (no rAF dependency) — used for the
@@ -167,7 +167,7 @@ export function mount() {/* ====================================================
   // animation frame if rAF is throttled (background tab / WebView).
   function showBal(anim){on=true;balEl.classList.add('on');$('#slash').style.display='none';
     eyeEl.setAttribute('aria-label','Hide coin balance');
-    const target=Number(window.RI9_BALANCE??1250);
+    const target=Number(window.RI9_BALANCE??0);
     if(anim===false||reduce){balEl.textContent=target.toLocaleString();return}
     const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/600);balEl.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(f)})(t0)}
   function hideBal(){on=false;balEl.classList.remove('on');$('#slash').style.display='';eyeEl.setAttribute('aria-label','Show coin balance');balEl.textContent='****'}
