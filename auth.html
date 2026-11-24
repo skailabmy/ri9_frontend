@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ri9 Sign In</title>
+<meta name="theme-color" content="#f6fbe9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500;1,800;1,900&display=swap">
+<link rel="stylesheet" href="/src/components/sheet/sheet.css">
+<link rel="stylesheet" href="/src/pages/auth/auth.css">
+<script type="module" src="/src/pages/auth/auth.ts"></script>
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ================= SPLASH ================= -->
+  <section class="screen" id="splash" data-pos="center" aria-label="Loading Ri9">
+    <div class="glow"></div>
+    <div class="warp" id="warp" aria-hidden="true"></div>
+    <div class="sp-logo"><img src="https://start.ri9.app/assets/assets/logo.png" alt="Ri9 — Ready in 9" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'logo-fallback',style:'color:#16170f;font-size:72px;text-align:center',textContent:'Ri9'}))"></div>
+    <div class="nine" id="nine" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="sp-tag">Competitive learning</div>
+    <button class="sp-skip" id="skip">Skip</button>
+  </section>
+
+  <!-- ================= LOGIN ================= -->
+  <section class="screen" id="login" data-pos="under" aria-label="Log in">
+    <video class="vid" id="vid" src="https://start.ri9.app/assets/assets/login.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+    <div class="shade"></div>
+    <div class="logo-tab"><img src="https://start.ri9.app/assets/assets/logo.png" alt="Ri9 — Ready in 9" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'logo-fallback',textContent:'Ri9'}))"></div>
+    <button class="sos" id="sosBtn" aria-label="S.O.S — get help signing in"><b>S.O.S</b><span>?</span></button>
+
+    <form class="lg-bot" id="loginForm" novalidate autocomplete="on">
+      <div class="lg-title in" style="--d:.1s">LOGIN
+        <svg viewBox="0 0 34 22" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round" aria-hidden="true"><path class="ch" d="M4 3l8 8-8 8"/><path class="ch" d="M15 3l8 8-8 8"/><path class="ch" d="M26 3l8 8-8 8" opacity=".35"/></svg>
+      </div>
+      <div class="lg-err" id="lgErr" role="alert" hidden></div>
+      <div class="lg-row in" id="lgRow" style="--d:.2s">
+        <label class="sk sk-u"><span class="sr">Username</span><input id="lgUser" name="username" placeholder="Username" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+        <label class="sk sk-p"><span class="sr">Password</span><input id="lgPass" name="password" type="password" placeholder="Password" autocomplete="current-password">
+          <button type="button" class="eye" data-eye="lgPass" aria-label="Show password"></button></label>
+        <button class="go-btn" id="lgGo" type="submit" aria-label="Log in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="lg-links in" style="--d:.3s">
+        <button type="button" data-go="register">New? Register Now!</button>
+        <button type="button" data-go="forgot">Forgot Password?</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ================= REGISTER ================= -->
+  <section class="screen light" id="register" data-pos="right" aria-label="Create account">
+    <div class="speed" data-speed></div>
+    <div class="lt-top">
+      <button class="back" data-back aria-label="Back to login"></button>
+      <button class="country" data-country aria-haspopup="dialog"><span class="fl" data-cflag></span><span data-cname></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+    </div>
+    <form class="lt-body" id="regForm" novalidate>
+      <h1 class="in">Create Account</h1>
+      <p class="sub in" style="--d:.05s">Start your competitive learning today</p>
+
+      <div class="fld in" style="--d:.1s" data-f="user">
+        <label class="box"><span class="sr">Username</span><svg data-ic="user"></svg><input id="rgUser" placeholder="Username" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="20"><span class="tick"><svg data-ic="check"></svg></span></label>
+        <span class="err" aria-live="polite"></span>
+      </div>
+      <div class="swap in" style="--d:.12s"><button type="button" data-swap="reg">Use mobile</button></div>
+
+      <div class="fld in" style="--d:.15s" data-f="contact">
+        <label class="box" data-mode="email"><span class="sr">Email</span><svg data-ic="mail"></svg><input id="rgEmail" type="email" placeholder="Email" autocomplete="email" autocapitalize="none" spellcheck="false"><span class="tick"><svg data-ic="check"></svg></span></label>
+        <label class="box" data-mode="mobile" hidden><span class="sr">Mobile number</span><span class="dial" data-dial></span><input id="rgPhone" type="tel" inputmode="numeric" placeholder="Mobile number" autocomplete="tel-national"><span class="tick"><svg data-ic="check"></svg></span></label>
+        <span class="err" aria-live="polite"></span>
+      </div>
+
+      <div class="fld in" style="--d:.2s" data-f="pass">
+        <label class="box"><span class="sr">Password</span><svg data-ic="lock"></svg><input id="rgPass" type="password" placeholder="Password" autocomplete="new-password"><button type="button" class="eye" data-eye="rgPass" aria-label="Show password"></button></label>
+        <span class="err" aria-live="polite"></span>
+      </div>
+      <div class="meter" id="rgMeter" hidden><i></i><i></i><i></i><i></i></div>
+      <div class="meter-lbl" id="rgMeterLbl" hidden><span>Password strength</span><b></b></div>
+
+      <div class="fld in" style="--d:.25s" data-f="confirm">
+        <label class="box"><span class="sr">Confirm password</span><svg data-ic="lock"></svg><input id="rgConfirm" type="password" placeholder="Confirm Password" autocomplete="new-password"><button type="button" class="eye" data-eye="rgConfirm" aria-label="Show password"></button></label>
+        <span class="err" aria-live="polite"></span>
+      </div>
+
+      <button class="cta in" style="--d:.3s" type="submit" id="rgGo">Register</button>
+      <p class="terms in" style="--d:.33s">By registering you agree to our <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>.</p>
+      <p class="foot in" style="--d:.36s">Already have an account?<button type="button" data-back>Login</button></p>
+    </form>
+  </section>
+
+  <!-- ================= FORGOT PASSWORD ================= -->
+  <section class="screen light" id="forgot" data-pos="right" aria-label="Forgot password">
+    <div class="speed" data-speed></div>
+    <div class="lt-top">
+      <button class="back" data-back aria-label="Back to login"></button>
+      <button class="country" data-country aria-haspopup="dialog" data-only-mobile hidden><span class="fl" data-cflag></span><span data-cname></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+    </div>
+    <form class="lt-body" id="fpForm" novalidate>
+      <h1 class="in">Forgot Password</h1>
+      <p class="sub in" style="--d:.05s" id="fpSub">Enter your email to receive a reset link</p>
+      <div class="fld in" style="--d:.08s" data-f="fp-user" hidden>
+        <label class="box"><span class="sr">Username</span><svg data-ic="user"></svg><input id="fpUser" placeholder="Username" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="20"><span class="tick"><svg data-ic="check"></svg></span></label>
+        <span class="err" aria-live="polite"></span>
+      </div>
+      <div class="fld in" style="--d:.1s" data-f="contact">
+        <label class="box" data-mode="email"><span class="sr">Email</span><svg data-ic="mail"></svg><input id="fpEmail" type="email" placeholder="Email" autocomplete="email" autocapitalize="none" spellcheck="false"></label>
+        <label class="box" data-mode="mobile" hidden><span class="sr">Mobile number</span><span class="dial" data-dial></span><input id="fpPhone" type="tel" inputmode="numeric" placeholder="Mobile number" autocomplete="tel-national"></label>
+        <span class="err" aria-live="polite"></span>
+      </div>
+      <div class="swap in" style="--d:.12s"><button type="button" data-swap="fp">Use mobile</button></div>
+      <button class="cta in" style="--d:.15s" type="submit" id="fpGo">Send reset link</button>
+      <p class="foot in" style="--d:.2s">Remember your password?<button type="button" data-back>Login</button></p>
+    </form>
+  </section>
+
+  <!-- ================= EMAIL LINK SENT ================= -->
+  <section class="screen light" id="sent" data-pos="right" aria-label="Check your email">
+    <div class="speed" data-speed></div>
+    <div class="lt-top"><button class="back" data-back aria-label="Back"></button></div>
+    <div class="lt-body">
+      <div class="badge-ic"><svg data-ic="mailopen"></svg></div>
+      <h1 class="in">Check your inbox</h1>
+      <p class="sub in" style="--d:.05s">We've sent a password reset link to <b id="sentTo"></b>. The link expires in 30 minutes.</p>
+      <button class="cta in" style="--d:.1s" type="button" id="openMail">Open email app</button>
+      <div class="resend in" style="--d:.15s"><span>Didn't get it? Check spam, or</span><button type="button" id="sentResend">Resend</button></div>
+      <p class="foot in" style="--d:.2s">Wrong address?<button type="button" data-back>Change email</button></p>
+      <div class="done-actions"><button class="cta ghost" type="button" data-home>Back to login</button></div>
+    </div>
+  </section>
+
+  <!-- ================= OTP ================= -->
+  <section class="screen light" id="otp" data-pos="right" aria-label="Verify code">
+    <div class="speed" data-speed></div>
+    <div class="lt-top"><button class="back" data-back aria-label="Back"></button></div>
+    <form class="lt-body" id="otpForm" novalidate>
+      <div class="badge-ic"><svg data-ic="phone"></svg></div>
+      <h1 class="in" id="otpTitle">Verify your number</h1>
+      <p class="sub in" style="--d:.05s">Enter the 6-digit code we sent by SMS to <b id="otpTo"></b></p>
+      <div class="otp in" style="--d:.1s" id="otpBoxes" role="group" aria-label="6-digit verification code"></div>
+      <span class="err" id="otpErr" aria-live="polite"></span>
+      <div class="resend in" style="--d:.12s"><span id="otpTimer"></span><button type="button" id="otpResend" disabled>Resend code</button></div>
+      <button class="cta in" style="--d:.15s" type="submit" id="otpGo" disabled>Verify</button>
+      <p class="foot in" style="--d:.22s">Wrong details?<button type="button" data-back>Change it</button></p>
+    </form>
+  </section>
+
+  <!-- ================= SET NEW PASSWORD ================= -->
+  <section class="screen light" id="reset" data-pos="right" aria-label="Set new password">
+    <div class="speed" data-speed></div>
+    <div class="lt-top"><button class="back" data-back aria-label="Back"></button></div>
+    <form class="lt-body" id="rsForm" novalidate>
+      <div class="badge-ic"><svg data-ic="key"></svg></div>
+      <h1 class="in">Set New Password</h1>
+      <p class="sub in" style="--d:.05s">Your number is verified. Choose a new password you haven't used before.</p>
+      <div class="fld in" style="--d:.1s" data-f="pass">
+        <label class="box"><span class="sr">New password</span><svg data-ic="lock"></svg><input id="rsPass" type="password" placeholder="New Password" autocomplete="new-password"><button type="button" class="eye" data-eye="rsPass" aria-label="Show password"></button></label>
+        <span class="err" aria-live="polite"></span>
+      </div>
+      <ul class="rules in" style="--d:.12s" id="rsRules">
+        <li data-r="len"><i><svg data-ic="check"></svg></i>At least 8 characters</li>
+        <li data-r="mix"><i><svg data-ic="check"></svg></i>Upper &amp; lowercase letters</li>
+        <li data-r="num"><i><svg data-ic="check"></svg></i>At least one number</li>
+      </ul>
+      <div class="fld in" style="--d:.15s" data-f="confirm">
+        <label class="box"><span class="sr">Confirm new password</span><svg data-ic="lock"></svg><input id="rsConfirm" type="password" placeholder="Confirm New Password" autocomplete="new-password"><button type="button" class="eye" data-eye="rsConfirm" aria-label="Show password"></button></label>
+        <span class="err" aria-live="polite"></span>
+      </div>
+      <button class="cta in" style="--d:.2s" type="submit" id="rsGo">Update password</button>
+    </form>
+  </section>
+
+  <!-- ================= SUCCESS ================= -->
+  <section class="screen light" id="done" data-pos="right" aria-label="Done">
+    <div class="speed" data-speed></div>
+    <div class="lt-body">
+      <div class="done">
+        <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="#16170f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <h1 id="doneTitle">All set!</h1>
+        <p class="sub" id="doneSub"></p>
+      </div>
+      <div class="done-actions"><button class="cta" type="button" data-home id="doneGo">Go to login</button></div>
+    </div>
+  </section>
+
+  <!-- sheets (global bottom sheet component) -->
+  <div class="scrim" id="scrim"></div>
+
+  <div class="sheet" id="countrySheet" role="dialog" aria-modal="true" aria-labelledby="csT">
+    <div class="grab"></div>
+    <h2 id="csT">Select your country</h2>
+    <p class="s">Used for your mobile number and local leaderboards.</p>
+    <div id="countryList" role="listbox"></div>
+  </div>
+
+  <div class="sheet" id="sosSheet" role="dialog" aria-modal="true" aria-labelledby="ssT">
+    <div class="grab"></div>
+    <h2 id="ssT">Need help?</h2>
+    <p class="s">Pick what's going on and we'll get you back in.</p>
+    <button class="opt" data-sos="forgot"><span class="ic"><svg data-ic="key"></svg></span><span class="t"><b>I forgot my password</b><small>Reset with email or mobile</small></span></button>
+    <button class="opt" data-sos="user"><span class="ic"><svg data-ic="user"></svg></span><span class="t"><b>I forgot my username</b><small>Ask a parent, or check your welcome email</small></span></button>
+    <button class="opt hot" data-sos="support"><span class="ic"><svg data-ic="chat"></svg></span><span class="t"><b>Chat with support</b><small>We reply within a few minutes</small></span></button>
+  </div>
+
+  <div class="toast" id="toast" role="status"><i></i><span></span></div>
+  <div class="wipe" id="wipe"></div>
+</div>
+</body>
+</html>

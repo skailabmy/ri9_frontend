@@ -35,6 +35,77 @@ export function validateCredentials(username: string, password: string): Credent
   return result.data;
 }
 
+/** Username input schema (letters, numbers, _ and . only, 3-20 chars). */
+export const usernameInputSchema = z
+  .string()
+  .trim()
+  .min(1, 'Choose a username.')
+  .min(3, 'At least 3 characters.')
+  .max(20, 'At most 20 characters.')
+  .regex(/^[a-zA-Z0-9_.]+$/, 'Letters, numbers, _ and . only.');
+
+/** Email input schema. */
+export const emailInputSchema = z
+  .string()
+  .trim()
+  .min(1, 'Enter your email.')
+  .email('Enter a valid email address.');
+
+/** Phone number helper (digit length verification per country). */
+export function createPhoneInputSchema(minDigits = 8, maxDigits = 12, countryName = 'your country') {
+  return z
+    .string()
+    .trim()
+    .min(1, 'Enter your mobile number.')
+    .refine((v) => {
+      const d = v.replace(/\D/g, '').replace(/^0+/, '');
+      return d.length >= minDigits && d.length <= maxDigits + 1;
+    }, `Enter a valid ${countryName} mobile number.`);
+}
+
+/** Password creation schema (8+ chars, uppercase, lowercase, number). */
+export const passwordCreationSchema = z
+  .string()
+  .min(1, 'Create a password.')
+  .min(8, 'At least 8 characters.')
+  .regex(/[a-z]/, 'Must contain a lowercase letter.')
+  .regex(/[A-Z]/, 'Must contain an uppercase letter.')
+  .regex(/\d/, 'Must contain at least one number.');
+
+/** Password reset schema with confirmation check. */
+export const passwordResetFormSchema = z
+  .object({
+    password: passwordCreationSchema,
+    confirmPassword: z.string().min(1, 'Re-enter your password.'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match.",
+    path: ['confirmPassword'],
+  });
+
+/** Register form schema. */
+export const registerFormSchema = z
+  .object({
+    username: usernameInputSchema,
+    contactMode: z.enum(['email', 'mobile']),
+    email: z.string().optional(),
+    phone: z.string().optional(),
+    password: passwordCreationSchema,
+    confirmPassword: z.string().min(1, 'Re-enter your password.'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match.",
+    path: ['confirmPassword'],
+  });
+
+/** OTP 6-digit schema. */
+export const otpInputSchema = z
+  .string()
+  .trim()
+  .length(6, 'Enter the full 6-digit code.')
+  .regex(/^\d{6}$/, 'Code must only contain numbers.')
+  .refine((v) => v !== '000000', 'That code is incorrect. Check the SMS and try again.');
+
 /* ---------- API responses (snake_case wire format) ---------- */
 
 /** Backend User row — looseObject keeps unknown fields so future
@@ -193,8 +264,18 @@ export type ProfileUpdateV2Response = z.infer<typeof profileUpdateV2ResponseSche
 
 /** GET /api/v1/countries list item. */
 export const rawCountrySchema = z.looseObject({
-  id: z.number(),
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)),
   country_name: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  country_code: z.string().nullable().optional(),
+  dial_code: z.string().nullable().optional(),
+  phone_code: z.string().nullable().optional(),
+  iso_code: z.string().nullable().optional(),
+  iso2: z.string().nullable().optional(),
+  code: z.string().nullable().optional(),
+  country_emoji: z.string().nullable().optional(),
+  flag_url: z.string().nullable().optional(),
+  is_active: z.boolean().nullable().optional(),
 });
 
 export type RawCountry = z.infer<typeof rawCountrySchema>;
@@ -202,6 +283,22 @@ export type RawCountry = z.infer<typeof rawCountrySchema>;
 export const countriesResponseSchema = z.object({
   success: z.boolean().optional(),
   data: z.array(rawCountrySchema),
+  detected_country: rawCountrySchema.nullable().optional(),
+});
+
+export const registerResponseSchema = z.looseObject({
+  success: z.boolean().optional(),
+  message: z.string().optional(),
+  data: z.any().optional(),
+});
+
+export const verifyRegistrationResponseSchema = z.looseObject({
+  success: z.boolean().optional(),
+  message: z.string().optional(),
+  data: z.looseObject({
+    user: rawUserSchema,
+    token: z.string(),
+  }).optional(),
 });
 
 /** GET /api/v1/age-ranges list item. */

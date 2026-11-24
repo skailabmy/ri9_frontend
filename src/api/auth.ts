@@ -99,6 +99,276 @@ export function effectiveCoinBalance(user: User): number {
   return coins > 0 ? coins : 0;
 }
 
+export interface RegisterParams {
+  username: string;
+  password: string;
+  email?: string;
+  mobileNumber?: string;
+  countryCode?: string;
+  countryId?: number;
+  referer?: string;
+  avatarUrl?: string;
+  ageRangeId?: number;
+}
+
+export interface VerifyRegistrationParams {
+  username: string;
+  otp: string;
+  email?: string;
+  mobileNumber?: string;
+  countryCode?: string;
+  countryId?: number;
+  referer?: string;
+}
+
+/** POST /api/v1/auth/register — registers user and triggers OTP */
+export async function registerUser(params: RegisterParams): Promise<{ success: boolean; message?: string }> {
+  const body: Record<string, unknown> = {
+    username: params.username,
+    password: params.password,
+  };
+  if (params.email) body.email = params.email;
+  if (params.mobileNumber) body.mobile_number = params.mobileNumber;
+  if (params.countryCode) body.country_code = params.countryCode;
+  if (params.countryId != null) body.country_id = params.countryId;
+  if (params.referer) body.referer = params.referer;
+  if (params.avatarUrl) body.avatar_url = params.avatarUrl;
+  if (params.ageRangeId != null) body.age_range_id = params.ageRangeId;
+
+  const res = (await api<unknown>('/api/v1/auth/register', {
+    method: 'POST',
+    body,
+  })) as { success?: boolean; message?: string };
+
+  return {
+    success: res.success ?? true,
+    message: res.message,
+  };
+}
+
+/** POST /api/v1/auth/verify-registration — verifies OTP and logs in */
+export async function verifyRegistration(params: VerifyRegistrationParams): Promise<LoginData> {
+  const body: Record<string, unknown> = {
+    username: params.username,
+    otp: params.otp,
+  };
+  if (params.email) body.email = params.email;
+  if (params.mobileNumber) body.mobile_number = params.mobileNumber;
+  if (params.countryCode) body.country_code = params.countryCode;
+  if (params.countryId != null) body.country_id = params.countryId;
+  if (params.referer) body.referer = params.referer;
+
+  const res = loginResponseSchema.parse(
+    await api<unknown>('/api/v1/auth/verify-registration', {
+      method: 'POST',
+      body,
+    }),
+  );
+
+  return { user: mapRawUser(res.data.user), token: res.data.token };
+}
+
+/** POST /api/v1/auth/resend-registration-otp — resends verification OTP */
+export async function resendRegistrationOtp(params: {
+  username: string;
+  email?: string;
+  mobileNumber?: string;
+  countryCode?: string;
+}): Promise<void> {
+  const body: Record<string, unknown> = {
+    username: params.username,
+  };
+  if (params.email) body.email = params.email;
+  if (params.mobileNumber) body.mobile_number = params.mobileNumber;
+  if (params.countryCode) body.country_code = params.countryCode;
+
+  await api<unknown>('/api/v1/auth/resend-registration-otp', {
+    method: 'POST',
+    body,
+  });
+}
+
+/** POST /api/v1/auth/forgot-password — sends password reset link to email */
+export async function forgotPasswordEmail(email: string): Promise<{ success: boolean; message?: string }> {
+  const res = (await api<unknown>('/api/v1/auth/forgot-password', {
+    method: 'POST',
+    body: { email },
+  })) as { success?: boolean; message?: string };
+  return {
+    success: res.success ?? true,
+    message: res.message,
+  };
+}
+
+/** POST /api/v1/auth/forgot-password-sms — sends SMS OTP for password reset */
+export async function forgotPasswordSms(params: {
+  username: string;
+  mobileNumber: string;
+  countryCode?: string;
+}): Promise<{
+  success: boolean;
+  message?: string;
+  otpSentTo?: string | null;
+  maskedDestination?: string | null;
+  resendAfter?: number | null;
+}> {
+  const body: Record<string, unknown> = {
+    username: params.username,
+    mobile_number: params.mobileNumber,
+  };
+  if (params.countryCode) {
+    body.country_code = params.countryCode.replace('+', '');
+  }
+
+  const res = (await api<unknown>('/api/v1/auth/forgot-password-sms', {
+    method: 'POST',
+    body,
+  })) as {
+    success?: boolean;
+    message?: string;
+    data?: {
+      otp_sent_to?: string;
+      masked_destination?: string;
+      resend_after?: number;
+    };
+  };
+
+  return {
+    success: res.success ?? true,
+    message: res.message,
+    otpSentTo: res.data?.otp_sent_to ?? null,
+    maskedDestination: res.data?.masked_destination ?? null,
+    resendAfter: res.data?.resend_after ?? 60,
+  };
+}
+
+/** POST /api/v1/auth/verify-reset-password-sms — verifies SMS OTP and gets reset_token */
+export async function verifyResetPasswordSms(params: {
+  username: string;
+  mobileNumber: string;
+  otp: string;
+}): Promise<string> {
+  const res = (await api<unknown>('/api/v1/auth/verify-reset-password-sms', {
+    method: 'POST',
+    body: {
+      username: params.username,
+      mobile_number: params.mobileNumber,
+      otp: params.otp,
+    },
+  })) as {
+    data?: {
+      reset_token?: string;
+    };
+  };
+
+  const resetToken = res.data?.reset_token;
+  if (!resetToken) {
+    throw new Error('Verification failed: reset token missing');
+  }
+  return resetToken;
+}
+
+/** POST /api/v1/auth/resend-reset-password-sms — resends SMS OTP */
+export async function resendResetPasswordSms(params: {
+  username: string;
+  mobileNumber: string;
+}): Promise<void> {
+  await api<unknown>('/api/v1/auth/resend-reset-password-sms', {
+    method: 'POST',
+    body: {
+      username: params.username,
+      mobile_number: params.mobileNumber,
+    },
+  });
+}
+
+/** POST /api/v1/auth/reset-password-sms — sets new password using reset_token */
+export async function resetPasswordSms(params: {
+  resetToken: string;
+  password: string;
+  passwordConfirmation: string;
+}): Promise<boolean> {
+  const res = (await api<unknown>('/api/v1/auth/reset-password-sms', {
+    method: 'POST',
+    body: {
+      reset_token: params.resetToken,
+      password: params.password,
+      password_confirmation: params.passwordConfirmation,
+    },
+  })) as { success?: boolean };
+
+  return res.success ?? true;
+}
+
+/** Country entry with normalized fields for the UI */
+export interface UiCountry {
+  id: number;
+  name: string;
+  code: string;
+  dialCode: string;
+  flag: string;
+  minDigits: number;
+  maxDigits: number;
+}
+
+/** Helper to convert ISO country code to emoji flag */
+export function isoToEmoji(code: string): string {
+  if (!code || code.length !== 2) return '🌐';
+  const offset = 127397;
+  return String.fromCodePoint(...code.toUpperCase().split('').map((c) => c.charCodeAt(0) + offset));
+}
+
+/** GET /api/v1/countries along with detected country */
+export async function fetchCountriesWithDetected(): Promise<{
+  countries: UiCountry[];
+  detectedCountry?: UiCountry | null;
+}> {
+  const res = (await api<unknown>('/api/v1/countries')) as {
+    data?: RawCountry[];
+    detected_country?: RawCountry;
+  };
+
+  const mapCountry = (raw: RawCountry): UiCountry => {
+    const code = (raw.code || raw.iso_code || raw.iso2 || '').toUpperCase();
+    const dial = (raw.dial_code || raw.country_code || raw.phone_code || '+60').toString().trim();
+    const normalizedDial = dial.startsWith('+') ? dial : `+${dial}`;
+    const name = raw.name || raw.country_name || code || 'Unknown';
+    const flag = raw.country_emoji || (code ? isoToEmoji(code) : '🌐');
+
+    return {
+      id: Number(raw.id) || 0,
+      name,
+      code,
+      dialCode: normalizedDial,
+      flag,
+      minDigits: 7,
+      maxDigits: 12,
+    };
+  };
+
+  const rawList = res?.data || [];
+  const countries = rawList.map(mapCountry);
+
+  let detectedCountry: UiCountry | null = null;
+  if (res?.detected_country) {
+    const rawDetected = res.detected_country;
+    const detectedName = (rawDetected.name || rawDetected.country_name || '').toLowerCase();
+    const detectedCode = (rawDetected.code || rawDetected.iso_code || rawDetected.iso2 || '').toUpperCase();
+    const detectedDial = (rawDetected.dial_code || rawDetected.country_code || '').toString().trim();
+
+    detectedCountry =
+      countries.find(
+        (c) =>
+          (c.id && c.id === rawDetected.id) ||
+          (c.code && c.code === detectedCode) ||
+          (c.dialCode && detectedDial && c.dialCode.replace('+', '') === detectedDial.replace('+', '')) ||
+          (detectedName && c.name.toLowerCase() === detectedName),
+      ) || mapCountry(rawDetected);
+  }
+
+  return { countries, detectedCountry };
+}
+
 /** Carousel subject (mirrors dumo_drill's Subject model, trimmed to
     what the web carousel renders). */
 export interface Subject {
@@ -173,36 +443,55 @@ export async function fetchUserStreak(): Promise<number> {
 export { getToken, setToken, clearToken };
 
 /**
- * Establish an API session before the home screen mounts:
- * 1. cached token → validate it with /me
- * 2. no/stale token → login (demo credentials until the auth UI lands),
- *    cache the token, then fetch the user.
- * Returns null when the backend is unreachable — the UI still mounts.
- * Failures are NOT thrown (the null contract stays), but the raw error
- * is surfaced through `onError` so callers can toast it (home.ts).
+ * Logout the current user:
+ * Calls POST /api/v1/auth/logout on backend (ignoring network/API errors),
+ * clears local storage token, and clears persisted user session info.
+ */
+export async function logout(): Promise<void> {
+  const token = getToken();
+  if (token) {
+    try {
+      await api<unknown>('/api/v1/auth/logout', { method: 'POST' });
+    } catch {
+      // Ignore API errors during logout - local cleanup proceeds
+    }
+  }
+  clearToken();
+}
+
+/**
+ * Establish or restore an API session before the home screen mounts:
+ * 1. cached token exists → validate it with /me
+ * 2. username & password provided → authenticate, cache token, and fetch user
+ * Returns null when unauthenticated or unreachable.
  */
 export async function ensureSession(
-  username: string,
-  password: string,
-  /** Skip the cached-token fast path and always re-login. */
+  username?: string,
+  password?: string,
+  /** Skip the cached-token fast path and re-login if credentials provided. */
   force = false,
-  /** Receives the raw login/`/me` error so the UI can show a toast. */
+  /** Receives the raw login/`/me` error so callers can toast it. */
   onError?: (e: unknown) => void,
 ): Promise<User | null> {
   if (!force && getToken()) {
     try {
       return await fetchCurrentUser();
     } catch (e) {
-      clearToken(); // stale token — fall through to fresh login
+      clearToken(); // stale token
       onError?.(e);
     }
   }
-  try {
-    const { token } = await login(username, password);
-    setToken(token);
-    return await fetchCurrentUser();
-  } catch (e) {
-    onError?.(e);
-    return null;
+
+  if (username && password) {
+    try {
+      const { token } = await login(username, password);
+      setToken(token);
+      return await fetchCurrentUser();
+    } catch (e) {
+      onError?.(e);
+      return null;
+    }
   }
+
+  return null;
 }

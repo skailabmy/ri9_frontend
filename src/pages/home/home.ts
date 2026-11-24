@@ -49,10 +49,33 @@ if (onboardingSeen) {
 import { initOta } from '../../ota';
 initOta();
 
-/* ---------- session gate: white splash → login → live data ----------
-   Demo credentials for now — replaced by the real login screen later. */
-const DEMO_USERNAME = 'test';
-const DEMO_PASSWORD = '123456';
+/* ---------- stage fit (390×820 scaled to viewport) ----------
+   Run fit early so --ox and --s are applied immediately upon load,
+   preventing the layout from defaulting to left: 0px. */
+(function fitEarly(): void {
+  const root = document.documentElement;
+  const fit = (): void => {
+    const vp = document.getElementById('vp');
+    if (!vp) return;
+    const vw = vp.clientWidth, vh = vp.clientHeight;
+    if (!vw || !vh) return;
+    const s = Math.min(vw / 390, vh / 812, 1.5);
+    const W = Math.min(vw / s, 520), H = vh / s;
+    root.style.setProperty('--s', s.toFixed(4));
+    root.style.setProperty('--W', W.toFixed(1));
+    root.style.setProperty('--H', H.toFixed(1));
+    root.style.setProperty('--ox', ((vw - W * s) / 2).toFixed(1) + 'px');
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fit);
+  } else {
+    fit();
+  }
+  addEventListener('resize', fit);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fit);
+})();
+
+/* ---------- session gate: session check → live data ---------- */
 
 /** Card shape consumed by home.behavior.js's carousel builder.
     avg/tr stay null until the daily-averages endpoint is wired —
@@ -149,16 +172,22 @@ async function loadDashboard(): Promise<void> {
   let loginError: unknown = null;
   let dataError: unknown = null;
   try {
-    // force=true: a stale cached token could belong to a different
-    // account — always re-login with the demo credentials.
+    // Validates cached token via /me (or resolves user) without hardcoded credentials.
     // ensureSession never throws (returns null on failure) — the raw
     // error arrives via the onError callback instead.
     const user = await ensureSession(
-      DEMO_USERNAME,
-      DEMO_PASSWORD,
-      true,
+      undefined,
+      undefined,
+      false,
       (e) => { loginError = e; },
     );
+
+    // If unauthenticated, redirect to auth page
+    if (!user && !getToken()) {
+      location.replace('auth.html');
+      return;
+    }
+
     // These must run AFTER ensureSession or they 401 (no token yet).
     const [streak, subjects] = user
       ? await Promise.all([

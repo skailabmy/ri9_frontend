@@ -13,8 +13,9 @@
    to the kid home page before any UI mounts.
    ============================================================ */
 import { useAppStore, type Role } from './store/app';
+import { getToken } from './api/storage';
 
-export type PageId = 'home' | 'profile' | 'stats' | 'challenge' | 'onboarding' | 'school' | 'parent';
+export type PageId = 'home' | 'profile' | 'stats' | 'challenge' | 'onboarding' | 'auth' | 'school' | 'parent';
 
 /** Canonical paths for programmatic navigation (like go_router's NamedRoutes) */
 export const routes = {
@@ -23,9 +24,13 @@ export const routes = {
   stats: 'stats.html',
   challenge: 'challenge.html',
   onboarding: 'onboarding.html',
+  auth: 'auth.html',
   school: 'school.html',
   parent: 'parent.html',
 } as const;
+
+/** Pages accessible without being logged in */
+const PUBLIC_PAGES: readonly PageId[] = ['auth', 'onboarding'] as const;
 
 interface BootOptions {
   /** Which page is booting */
@@ -37,8 +42,25 @@ interface BootOptions {
 
 /** go_router-style guard + page bootstrap. Called before mount() on every page. */
 export function boot({ page, roles }: BootOptions): void {
-  const { role } = useAppStore.getState();
+  const token = getToken();
 
+  // 1. Auth guard: if not authenticated and trying to access a protected page, bounce to auth
+  if (!token && !PUBLIC_PAGES.includes(page)) {
+    location.replace(routes.auth);
+    return;
+  }
+
+  // 2. Guest-only guard: if authenticated and on auth page, bounce to home
+  if (token && page === 'auth') {
+    const forceAuth = /[?&#]auth\b/.test(location.search + location.hash);
+    if (!forceAuth) {
+      location.replace(routes.home);
+      return;
+    }
+  }
+
+  // 3. Role guard
+  const { role } = useAppStore.getState();
   if (roles?.length && (!role || !roles.includes(role))) {
     location.replace(routes.home);
     return;

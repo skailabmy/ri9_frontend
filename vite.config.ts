@@ -17,6 +17,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: resolve(root, 'index.html'),
+        auth: resolve(root, 'auth.html'),
         onboarding: resolve(root, 'onboarding.html'),
         profile: resolve(root, 'profile.html'),
         stats: resolve(root, 'stats.html'),

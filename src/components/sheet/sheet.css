@@ -1,0 +1,156 @@
+/* ============================================================
+   RI9 · Global Sheet Styles
+   Shared stylesheet for reusable bottom sheets and scrim backdrop.
+   ============================================================ */
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: #0d0e0c88;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 40;
+}
+
+.scrim.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 41;
+  background: #fff;
+  border-radius: 26px 26px 0 0;
+  padding: 10px 18px calc(22px + env(safe-area-inset-bottom, 0px));
+  transform: translateY(105%);
+  visibility: hidden;
+  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1), visibility 0s 0.45s;
+  max-height: 80%;
+  overflow-y: auto;
+  color: var(--ink, #16170f);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.sheet.open {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+
+.sheet .grab {
+  width: 42px;
+  height: 5px;
+  border-radius: 3px;
+  background: #dcdfd6;
+  margin: 0 auto 14px;
+}
+
+.sheet h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.sheet p.s {
+  margin: 0 0 16px;
+  color: var(--muted, #9a9e93);
+  font-size: 13.5px;
+}
+
+.opt {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 12px;
+  border-radius: 14px;
+  text-align: left;
+  transition: background 0.15s ease;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.opt:active,
+.opt:hover {
+  background: #f3f5ee;
+}
+
+.opt .fl {
+  font-size: 22px;
+  width: 28px;
+  text-align: center;
+}
+
+.opt .n {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.opt .c {
+  color: var(--muted, #9a9e93);
+  font-size: 14px;
+}
+
+.opt .ck {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink, #16170f);
+  color: var(--lime, #c6f432);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+}
+
+.opt .ck svg {
+  width: 12px;
+  height: 12px;
+}
+
+.opt[aria-selected="true"] .ck {
+  opacity: 1;
+}
+
+.opt .ic {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: #f1f4ea;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.opt .ic svg {
+  width: 21px;
+  height: 21px;
+}
+
+.opt .t {
+  flex: 1;
+}
+
+.opt .t b {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.opt .t small {
+  color: var(--muted, #9a9e93);
+  font-size: 12.5px;
+}
+
+.opt.hot .ic {
+  background: var(--ink, #16170f);
+  color: var(--lime, #c6f432);
+}

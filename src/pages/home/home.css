@@ -50,8 +50,8 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .bg{position:fixed;inset:0;overflow:hidden;background:linear-gradient(180deg,#e7f5cf 0%,var(--ground) 35%,var(--ground-2) 100%)}
 .bg canvas{position:absolute;left:0;right:0;top:0;bottom:0;width:100%;height:100%}
 
-.viewport{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px);overflow:hidden}
-.stage{position:absolute;left:var(--ox,0px);top:0;width:calc(var(--W,390)*1px);height:calc(var(--H,820)*1px);transform:scale(var(--s));transform-origin:0 0}
+.viewport{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px);overflow:hidden;display:flex;justify-content:center}
+.stage{position:absolute;left:var(--ox,calc((100% - var(--W, 390px) * var(--s, 1)) / 2));top:0;width:calc(var(--W,390)*1px);height:calc(var(--H,820)*1px);transform:scale(var(--s));transform-origin:0 0}
 
 /* ---------- top pills ---------- */
 .pill{position:absolute;top:6px;height:40px;display:flex;align-items:center;gap:8px;border-radius:26px 6px 26px 6px;background:#ffffffcc;

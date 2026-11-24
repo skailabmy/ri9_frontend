@@ -28,6 +28,7 @@ import {
   validateBundleCode,
   redeemBundleCode,
 } from '../../api/profile';
+import { logout } from '../../api/auth';
 import { ApiError } from '../../api/client';
 import { mountPullToRefresh } from '../../utils/pullToRefresh';
 
@@ -268,10 +269,27 @@ export function mount() {
           closeMd();SFX.play('right');toast(r.already_owned?'That bundle is already on your account':'Unlocked: '+r.user_bundle.bundle_name)}
         catch(err){rb.disabled=false;rb.innerHTML='REDEEM';markFieldErrors(err);SFX.play('wrong');toast(pickErrMsg(err,'That code doesn\'t look right — check it and try again'))}}});
 
-    /* ---- log out (still mocked until the auth UI lands) ---- */
+    /* ---- log out (migrated from dumo_drill profile_screen + auth_provider) ---- */
     $('#pfOut').addEventListener('click',()=>{buzz();
       dialog('ACCOUNT','Log out?',`<p>You'll need your username and password to sign back in as <b>@${pfEsc(P.username)}</b>.</p><button type="button" class="pf-mbtn dang" id="pfOutOk">LOG OUT</button><button type="button" class="pf-mbtn sec" id="pfOutNo">Stay</button>`);
-      $('#pfOutOk').onclick=()=>{buzz();closeMd();toast('Logged out');setTimeout(()=>{location.href='index.html'},400)};$('#pfOutNo').onclick=()=>{buzz();closeMd()}});
+      const okBtn=$('#pfOutOk');
+      const noBtn=$('#pfOutNo');
+      okBtn.onclick=async()=>{
+        buzz();
+        okBtn.disabled=true;
+        if(noBtn) noBtn.disabled=true;
+        okBtn.innerHTML='<span class="spin"></span>LOGGING OUT...';
+        try{
+          await logout();
+        }finally{
+          useAppStore.setState({ role: null, meName: null, coinBalance: null, subjects: null });
+          closeMd();
+          toast('Logged out');
+          setTimeout(()=>{location.href='auth.html'},400);
+        }
+      };
+      if(noBtn) noBtn.onclick=()=>{buzz();closeMd()};
+    });
 
     /* ---- back to the dashboard (prototype: data-back="home") ---- */
     scr.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',()=>{buzz();
