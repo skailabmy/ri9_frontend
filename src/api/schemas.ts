@@ -261,3 +261,53 @@ export const redeemBundleResponseSchema = z.looseObject({
 });
 
 export type RedeemBundleResponse = z.infer<typeof redeemBundleResponseSchema>;
+
+/* ---------- leaderboard summary (LeaderboardController::summary) ----------
+   GET /api/v1/leaderboard/summary?period=today|week
+   Returns the top-3 podium for the current board window plus the
+   authenticated user's standing. user_id/username/avatar_url are null
+   for unclaimed podium positions (empty board → all-null rows with 0s). */
+
+/** GET /api/v1/leaderboard/summary top_three item. */
+export const rawPodiumPlayerSchema = z.looseObject({
+  position: z.number(),
+  user_id: z.number().nullable().optional(),
+  username: z.string().nullable().optional(),
+  avatar_url: z.string().nullable().optional(),
+  points: z.number().nullable().optional(),
+  challenges_completed_count: z.number().nullable().optional(),
+  total_coins: z.number().nullable().optional(),
+  accuracy: z.number().nullable().optional(),
+  speed: z.number().nullable().optional(),
+});
+
+export type RawPodiumPlayer = z.infer<typeof rawPodiumPlayerSchema>;
+
+/** GET /api/v1/leaderboard/summary user_standing object (null when
+    unauthenticated). current_rank is null when the user hasn't ranked. */
+export const rawUserStandingSchema = z.looseObject({
+  is_top_three: z.boolean().nullable().optional(),
+  is_top_ten: z.boolean().nullable().optional(),
+  current_rank: z.number().nullable().optional(),
+  current_points: z.number().nullable().optional(),
+  top_10_threshold_points: z.number().nullable().optional(),
+  points_to_reach_top_10: z.number().nullable().optional(),
+});
+
+export type RawUserStanding = z.infer<typeof rawUserStandingSchema>;
+
+/** GET /api/v1/leaderboard/summary → { success, data: {…} } */
+export const leaderboardSummaryResponseSchema = z.object({
+  success: z.boolean().optional(),
+  data: z.looseObject({
+    /** 'today' | 'week' */
+    period: z.string().optional(),
+    sort_rule: z.string().nullable().optional(),
+    start_date: z.string().nullable().optional(),
+    end_date: z.string().nullable().optional(),
+    top_three: z.array(rawPodiumPlayerSchema),
+    user_standing: rawUserStandingSchema.nullable().optional(),
+  }),
+});
+
+export type RawLeaderboardSummary = z.infer<typeof leaderboardSummaryResponseSchema>;

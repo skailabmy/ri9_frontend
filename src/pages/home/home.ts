@@ -7,8 +7,9 @@
 
    Session gate (ported from the Flutter HomeScreen): a white
    splash covers the screen while login + /me + subjects resolve,
-   the fetched values are injected as window.RI9_* globals, then
-   the splash is lifted and mount() builds the UI from them.
+   the fetched values are written into the Zustand app store
+   (src/store/app.ts), then the splash is lifted and mount()
+   builds the UI from them.
    ============================================================ */
 import { boot } from '../../router';
 import { mount } from './home.behavior';
@@ -65,19 +66,6 @@ interface CarouselSubject {
   icon: string | null;
 }
 
-declare global {
-  interface Window {
-    /** Real coin balance, revealed only via the eye toggle
-        (read by home.behavior.js when the wallet is un-masked) */
-    RI9_BALANCE?: number;
-    /** Subjects for the carousel (window.RI9_SUBJECTS), from
-        /api/v2/user/subject-stats — Flutter: homeScreenSubjectsProvider */
-    RI9_SUBJECTS?: CarouselSubject[];
-    /** Page toast (same pattern as profile.behavior.js) — set by
-        mount() in home.behavior.js, used to surface API failures */
-    toast?(msg: string): void;
-  }
-}
 
 /** Same message extraction as profile.behavior.js's pickErrMsg:
     prefer the server's message, fall back to a friendly default. */
@@ -95,14 +83,14 @@ function applyUser(user: User, streak: number | null): void {
   setStreak(streak ?? user.streakActivity ?? 0);
 
   // Coin balance stays MASKED ('****') like the reference prototype —
-  // the real value is cached here and only shown when the user taps
-  // the eye (home.behavior.js reads window.RI9_BALANCE on toggle).
-  window.RI9_BALANCE = effectiveCoinBalance(user);
+  // the real value goes into the store and is only shown when the
+  // user taps the eye (home.behavior.js reads store.coinBalance).
+  useAppStore.getState().setCoinBalance(effectiveCoinBalance(user));
 
   // Pull-to-refresh path: the wallet may already be REVEALED (class
   // 'on' is toggled by home.behavior.js's showBal/hideBal). Repaint
   // the live number in place; when masked, the eye toggle simply
-  // reads the fresh window.RI9_BALANCE next time.
+  // reads the fresh store.coinBalance next time.
   const bal = document.getElementById('bal');
   if (booted && user && bal?.classList.contains('on')) {
     bal.textContent = effectiveCoinBalance(user).toLocaleString();
@@ -110,7 +98,7 @@ function applyUser(user: User, streak: number | null): void {
 }
 
 function applySubjects(subjects: Subject[]): void {
-  window.RI9_SUBJECTS = subjects.map((s) => ({
+  useAppStore.getState().setSubjects(subjects.map((s): CarouselSubject => ({
     name: s.name,
     q: s.questionCount,
     // live values from /api/v2/user/subject-stats: gauge avg speed
@@ -120,7 +108,7 @@ function applySubjects(subjects: Subject[]): void {
     tr: s.trendSeconds ?? null,
     ico: null, // API gives icon_url images, not inline SVGs
     icon: s.iconUrl ?? null,
-  }));
+  })));
 }
 
 /* ---------- bridge: page SFX toggle ↔ persisted Zustand store ----------
@@ -150,7 +138,7 @@ function bridgeSfx(): void {
    pull-to-refresh. On refresh the splash is gone, so results are
    painted straight onto the live DOM:
    - streak pill (#streakN) and the revealed wallet number update in place
-   - window.RI9_SUBJECTS / window.RI9_BALANCE always carry fresh values
+   - store.subjects / store.coinBalance always carry fresh values
    The subject carousel itself is NOT rebuilt (its cards, gauges and
    drag physics are baked by mount()) — subject changes show up on the
    next page load; everything else is live. */
@@ -203,20 +191,21 @@ async function loadDashboard(): Promise<void> {
       // zeroed carousel) instead of the old mock numbers.
       splash?.remove();
       // Surface the failure as a toast, mirroring the profile page's
-      // pickErrMsg + toast pattern (window.toast is set by mount()).
+      // pickErrMsg + toast pattern (the page's popup subscribes to
+      // the store's toastSeq, fed by showToast).
       if (loginError) {
-        window.toast?.(pickErrMsg(loginError, 'Login failed — could not reach the server'));
+        useAppStore.getState().showToast(pickErrMsg(loginError, 'Login failed — could not reach the server'));
       } else if (dataError) {
-        window.toast?.(pickErrMsg(dataError, 'Could not load dashboard data'));
+        useAppStore.getState().showToast(pickErrMsg(dataError, 'Could not load dashboard data'));
       }
     } else {
       // pull-to-refresh completed — report the outcome
       if (loginError) {
-        window.toast?.(pickErrMsg(loginError, 'Refresh failed — could not reach the server'));
+        useAppStore.getState().showToast(pickErrMsg(loginError, 'Refresh failed — could not reach the server'));
       } else if (dataError) {
-        window.toast?.(pickErrMsg(dataError, 'Could not refresh dashboard data'));
+        useAppStore.getState().showToast(pickErrMsg(dataError, 'Could not refresh dashboard data'));
       } else {
-        window.toast?.('Dashboard updated');
+        useAppStore.getState().showToast('Dashboard updated');
       }
     }
   }

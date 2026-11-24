@@ -1,3 +1,5 @@
+import { useAppStore } from '../../store/app';
+
 /* RI9 · PROFILE SCREEN logic — ported from the prototype
    (references/index.html, #s-prof IIFE). The prototype was a
    hash-navigated single document; here the profile is its own
@@ -89,7 +91,10 @@ export function mount() {
 
   /* ---------- toast ---------- */
   let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1700)}
-  window.toast=toast;
+  // API failures surfaced from other modules go through the store's
+  // showToast — repaint whenever the toastSeq counter ticks.
+  let lastToastSeq=useAppStore.getState().toastSeq;
+  useAppStore.subscribe(s=>{if(s.toastSeq!==lastToastSeq){lastToastSeq=s.toastSeq;toast(s.toastMsg||'')}});
 
   /* Set by the PROFILE boot IIFE below once the loaders exist —
      re-runs loadStatic() + loadProfile() for pull-to-refresh. */

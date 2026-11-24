@@ -20,6 +20,7 @@ export default defineConfig({
         onboarding: resolve(root, 'onboarding.html'),
         profile: resolve(root, 'profile.html'),
         stats: resolve(root, 'stats.html'),
+        challenge: resolve(root, 'challenge.html'),
       },
     },
   },

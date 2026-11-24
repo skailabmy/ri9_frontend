@@ -1,3 +1,5 @@
+import { useAppStore } from '../../store/app';
+
 /* RI9 · STATS SCREEN logic — ported verbatim from the prototype
    (references/index.html, #s-stats block). The prototype was a
    hash-navigated single document; here the stats screen is its
@@ -64,7 +66,10 @@ export function mount() {
 
   /* ---------- toast ---------- */
   let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1700)}
-  window.toast=toast;
+  // API failures surfaced from other modules go through the store's
+  // showToast — repaint whenever the toastSeq counter ticks.
+  let lastToastSeq=useAppStore.getState().toastSeq;
+  useAppStore.subscribe(s=>{if(s.toastSeq!==lastToastSeq){lastToastSeq=s.toastSeq;toast(s.toastMsg||'')}});
 
   /* ---------- helpers (ported from the prototype) ---------- */
   /* entity map built with unicode escapes so the literal sequences

@@ -1,3 +1,5 @@
+import { useAppStore } from '../../store/app';
+
 /* RI9 · HOME SCREEN logic — ported verbatim from www/js/home.js.
    The original was an IIFE; mount() runs the exact same code after
    the DOM is ready (module scripts are deferred, same timing). */
@@ -79,14 +81,15 @@ export function mount() {/* ====================================================
   const h=$('#chalWord');
   h.innerHTML=[...h.textContent].map((c,i)=>`<span class="in" style="--a:letter .5s cubic-bezier(.2,1.4,.4,1);--d:${(.65+i*.04).toFixed(2)}s"><i style="--w:${(2.6+i*.06).toFixed(2)}s">${c}</i></span>`).join('');
 
-  /* ---------- subjects — real data via window.RI9_SUBJECTS (set by
-     home.ts from /api/v1/subjects during the splash gate). When the
-     API fails, a single "No subjects yet" placeholder renders —
-     no mock names or numbers (gauge rests at 0.0s, "0 MCQs").
-     A truly empty list would break the carousel layout (division
-     by N=0), so the placeholder keeps N=1. ---------- */
+  /* ---------- subjects — real data via the zustand store's subjects
+     slice (written by home.ts from /api/v2/user/subject-stats during
+     the splash gate). When the API fails, a single "No subjects yet"
+     placeholder renders — no mock names or numbers (gauge rests at
+     0.0s, "0 MCQs"). A truly empty list would break the carousel
+     layout (division by N=0), so the placeholder keeps N=1. ---------- */
   const DEFAULT_ICO=`<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>`;
-  const API_SUBJ=Array.isArray(window.RI9_SUBJECTS)?window.RI9_SUBJECTS:null;
+  const STORE_SUBJ=useAppStore.getState().subjects;
+  const API_SUBJ=Array.isArray(STORE_SUBJ)?STORE_SUBJ:null;
   const SUBJ=(API_SUBJ&&API_SUBJ.length?API_SUBJ:[
     {name:'No subjects yet',avg:null,q:0,tr:null,ico:null}
   ]).map(s=>({name:s.name,q:s.q||0,avg:(typeof s.avg==='number')?s.avg:null,tr:(typeof s.tr==='number')?s.tr:null,
@@ -158,8 +161,9 @@ export function mount() {/* ====================================================
   addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1)});
 
   /* ---------- balance ---------- */
-  // Real balance arrives via window.RI9_BALANCE (set by home.ts after login);
-  // 0 is the fallback so a failed login/API never shows fake coins.
+  // Real balance lives in the zustand store's coinBalance slice
+  // (written by home.ts after login); 0 is the fallback so a failed
+  // login/API never shows fake coins.
   const balEl=$('#bal'),eyeEl=$('#eye');
   let on=false;
   // anim=false sets the value directly (no rAF dependency) — used for the
@@ -167,17 +171,21 @@ export function mount() {/* ====================================================
   // animation frame if rAF is throttled (background tab / WebView).
   function showBal(anim){on=true;balEl.classList.add('on');$('#slash').style.display='none';
     eyeEl.setAttribute('aria-label','Hide coin balance');
-    const target=Number(window.RI9_BALANCE??0);
+    const target=Number(useAppStore.getState().coinBalance??0);
     if(anim===false||reduce){balEl.textContent=target.toLocaleString();return}
     const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/600);balEl.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(f)})(t0)}
   function hideBal(){on=false;balEl.classList.remove('on');$('#slash').style.display='';eyeEl.setAttribute('aria-label','Show coin balance');balEl.textContent='****'}
   eyeEl.addEventListener('click',()=>{on?hideBal():showBal()});
   // Reference-faithful: the wallet stays masked ('****') on load —
-  // the eye toggle is the only way to reveal window.RI9_BALANCE.
+  // the eye toggle is the only way to reveal store.coinBalance.
 
   /* ---------- toast ---------- */
   let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1700)}
-  window.toast=toast;
+  // TS-side API failures (home.ts) request toasts via the store's
+  // showToast — repaint whenever the toastSeq counter ticks (seq,
+  // not msg, so the same message can fire twice in a row).
+  let lastToastSeq=useAppStore.getState().toastSeq;
+  useAppStore.subscribe(s=>{if(s.toastSeq!==lastToastSeq){lastToastSeq=s.toastSeq;toast(s.toastMsg||'')}});
 
   /* ---------- dock nav (stubs — other screens come next) ---------- */
   const navBtns=[...document.querySelectorAll('.dnav button')],navInd=$('#navInd');
@@ -207,7 +215,14 @@ export function mount() {/* ====================================================
   $('#sos').addEventListener('click',()=>{buzz();window.open('https://static-site-deploy-skailab.replit.app','_blank')});
   $('#help').addEventListener('click',()=>{buzz();window.open('https://ik.imagekit.io/zzhbmztll/RI9%20-%20Ways%20to%20Win%20Video.mp4','_blank')});
   document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{buzz();
-    toast(`${b.querySelector('b').textContent} — next screen in the build`)}));
+    const label=b.querySelector('b');
+    // Challenge — real navigation to the lobby page (challenge.html),
+    // mirroring the prototype's nav('lobby'): whoosh plays BEFORE the
+    // redirect so it stays audible (location.href kills the AudioContext).
+    if(b.dataset.mode==='challenge'){setTimeout(()=>{SFX.play('whoosh');setTimeout(()=>location.href='challenge.html',260)},180);return}
+    // Quiz + Tournament — still stubs. The challenge hero button has no
+    // <b> label (index.html), so fall back to its data-mode for the toast.
+    toast(`${label?label.textContent:b.dataset.mode} — next screen in the build`)}));
 
   /* ---------- sound toggle + locked shell ---------- */
   (function(){const b=$('#sfxB'),st=document.querySelector('.streak');
