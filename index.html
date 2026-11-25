@@ -5638,19 +5638,18 @@ input,textarea{-webkit-user-select:text;user-select:text}
     const bk='<svg viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5zM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg>';
     qb.innerHTML=`<small>QUESTION ${D.i+1} OF 6${D.t&&!D.t.hw&&D.t.id!=='duel'?` · SET ${D.set}${D.tw?' · '+SETS.TW[D.tw].n.toUpperCase():''}`:''}${q.stim?' · '+q.stim.kind.toUpperCase():''}</small><p>${q.q}</p>${q.img?`<div class="qimg">${q.img}</div>`:''}${q.stim?`<button class="rm" id="rmBtn"><i>${bk}</i>Read more<em>${q.stim.title}</em><span class="rmp"></span></button>`:''}`;
     document.querySelectorAll('#segs i').forEach((s,k)=>{s.className=k<D.i?(D.res[k]?'ok':'no'):k===D.i?'cur':''});
-    const ck='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',xx='<svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></svg>';
-    $('#ans').innerHTML=q.o.map((o,k)=>`<button class="an" data-v="${String(o).replace(/"/g,'&quot;')}"><span class="lt">${'ABCD'[k]}</span><span class="v">${o}</span><span class="mk">${String(o)===q.c?ck:xx}</span></button>`).join('');
+    $('#ans').innerHTML=q.o.map((o,k)=>`<button class="an" data-v="${String(o).replace(/"/g,'&quot;')}"><span class="lt">${'ABCD'[k]}</span><span class="v">${o}</span><span class="mk"></span></button>`).join('');
     const b=$('#qbox'),a=$('#ans');replay(b,'inq');replay(a,'inq');a.classList.remove('lock');
   }
   $('#ans').addEventListener('click',e=>{const btn=e.target.closest('.an');if(!btn||!D.run)return;pause();
     const q=D.qs[D.i],good=btn.dataset.v===q.c;D.res[D.i]=good;D.pick[D.i]=btn.dataset.v;if(good)D.ok++;
     {let st=0;for(let k=D.i;k>=0&&D.res[k];k--)st++;SFX.play(good?'ok':'no',st-1)}window.GL&&GL.addQ(1);window.PQ&&PQ.track('q');
     $('#ans').classList.add('lock');
-    document.querySelectorAll('#ans .an').forEach(x=>{if(x===btn)x.classList.add(good?'ok':'no');else if(x.dataset.v===q.c)x.classList.add('ok');else x.classList.add('dim')});
+    document.querySelectorAll('#ans .an').forEach(x=>{if(x===btn){x.classList.add(good?'ok':'no');x.querySelector('.mk').innerHTML=good?'<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>':'<svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></svg>'}else x.classList.add('dim')});
     $('#dOk').textContent=D.ok;const f=$('#flash');f.className='flash';void f.offsetWidth;f.className='flash '+(good?'ok':'no');
     if(good)replay($('#plus1'),'go');try{navigator.vibrate&&navigator.vibrate(good?12:[30,40,30])}catch(_){}
     document.querySelectorAll('#segs i')[D.i].className=good?'ok':'no';
-    setTimeout(()=>{D.i++;if(D.i>=6){RV.open(true);return}$('#qbox').classList.add('outq');setTimeout(()=>{renderQ();resume()},200)},good?520:900)});
+    setTimeout(()=>{D.i++;if(D.i>=6){RV.open(true);return}$('#qbox').classList.add('outq');setTimeout(()=>{renderQ();resume()},200)},good?520:700)});
   function finish(){
     if(D.t&&D.t.id==='duel'){duelDone();return}
     const t=D.t,ms=D.ms,accOk=D.ok>=t.need,timeOk=ms<=t.limit*1000,win=accOk&&timeOk;
