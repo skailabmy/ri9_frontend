@@ -397,7 +397,16 @@ button:focus-visible{outline:2px solid var(--char);outline-offset:3px;border-rad
 .ttl h1{margin:2px 0 0;font-family:var(--f-display);font-weight:400;font-size:46px;line-height:1;letter-spacing:.5px;transform:skewX(-8deg);text-shadow:0 4px 0 #0007,0 0 30px #c6f43233}
 .screen.play .ttl h1{animation:slam .6s cubic-bezier(.2,1.2,.4,1) .1s both}
 
-.mgrid{position:absolute;left:10px;right:10px;top:134px;bottom:232px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px}
+.mgrid{position:absolute;left:0;right:0;top:126px;bottom:236px;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.mgrid::-webkit-scrollbar{display:none}
+.mpg{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;padding:8px 10px 12px;box-sizing:border-box}
+.mc.empty{background:transparent;box-shadow:none;border:2px dashed #b9cf8a88;pointer-events:none}
+.mc.empty::before,.mc.empty::after{display:none}
+.mdots{position:absolute;left:0;right:0;bottom:222px;display:flex;justify-content:center;gap:6px;height:8px}
+.mdots[hidden]{display:none}
+.mdots button{width:8px;height:8px;padding:0;border-radius:4px;background:#1b1c1926;transition:width .3s,background .3s}
+.mdots button.on{width:24px;background:var(--ink)}
+.mdots::before{content:"";position:absolute;inset:-12px 30%}
 .mc{--g:linear-gradient(150deg,#e6ff7a,#b6e51f 55%,#6f9a0b);--edge:#4f7406;--glow:#c6f432;--tx:#1b1c19;
   position:relative;border-radius:24px;overflow:hidden;text-align:left;color:var(--tx);background:var(--g);padding:12px 12px 12px;display:flex;flex-direction:column;justify-content:space-between;min-height:0;
   box-shadow:0 5px 0 var(--edge),0 18px 30px -16px #000;transition:transform .3s cubic-bezier(.3,1.5,.5,1),filter .3s,opacity .3s,box-shadow .3s}
@@ -428,6 +437,12 @@ button:focus-visible{outline:2px solid var(--char);outline-offset:3px;border-rad
 .mc .df i.on{background:currentColor}
 .mgrid.anim .mc{animation:cardIn3 .7s cubic-bezier(.2,1.35,.4,1) both}
 .mgrid.anim .mc:nth-child(2){animation-delay:.08s}.mgrid.anim .mc:nth-child(3){animation-delay:.16s}.mgrid.anim .mc:nth-child(4){animation-delay:.24s}
+.mc[data-t="warm"]{--g:linear-gradient(150deg,#9ff3e4,#36d1b6 50%,#11917c);--edge:#0a5e50;--glow:#36d1b6;--tx:#062a24}
+.mc[data-t="blitz"]{--g:linear-gradient(150deg,#ffb3dc,#ff4fa8 50%,#c41d74);--edge:#7d0f49;--glow:#ff4fa8;--tx:#fff}
+.mc[data-t="iron"]{--g:linear-gradient(150deg,#9ec5ff,#3d7cf2 50%,#1d45b0);--edge:#122c75;--glow:#3d7cf2;--tx:#fff}
+.mc.sel .wave{transform-box:view-box;transform-origin:12px 12px;animation:beat 1.6s ease-in-out infinite}
+.mc.sel .zap{transform-box:view-box;transform-origin:12px 12px;animation:tgt .7s ease-in-out infinite}
+.mc.sel .shld{transform-box:view-box;transform-origin:12px 12px;animation:flip 2.6s cubic-bezier(.6,0,.3,1) infinite}
 @keyframes cardIn3{from{opacity:0;transform:translateY(60px) scale(.7) rotate(-6deg)}}
 .mc.sel .hand{transform-box:view-box;transform-origin:12px 13px;animation:rot 1.4s linear infinite}
 .mc.sel .beat{transform-box:view-box;transform-origin:12px 13px;animation:beat 1s ease-in-out infinite}
@@ -1051,6 +1066,132 @@ button:focus-visible{outline:2px solid var(--char);outline-offset:3px;border-rad
 .stim .back2{width:100%;height:58px;border-radius:22px 8px 22px 8px;display:flex;align-items:center;justify-content:center;gap:10px;background:#1b1c19;color:#fff;font-family:var(--f-display);font-size:22px;letter-spacing:.8px;box-shadow:0 5px 0 #000}
 .stim .back2 span{transform:skewX(-9deg)}
 .stim .back2 svg{width:20px;height:20px;fill:none;stroke:var(--ac);stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* ===== challenge review · explanation · ask bot ===== */
+.res .lrow{display:flex;justify-content:center;gap:4px}
+.res .lrow .lnk2{flex:1}
+.res #resRev{display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#1b1c19}
+.res #resRev svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.rv,.xp,.bot{position:absolute;inset:0;display:flex;flex-direction:column;background:#f7f9f3;color:#1b1c19;transition:transform .45s cubic-bezier(.2,1,.3,1),visibility 0s .45s;visibility:hidden}
+.rv{z-index:13;transform:translateY(102%)}
+.xp{z-index:14;transform:translateX(102%);background:#fbfdf6}
+.bot{z-index:15;transform:translateX(102%);background:#f2f5ec}
+.rv.open,.xp.open,.bot.open{transform:none;visibility:visible;transition:transform .45s cubic-bezier(.2,1,.3,1),visibility 0s}
+.rvh,.xph,.both{flex:none;display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #e6ecd8;background:#fff}
+.rvx,.xpx,.botx{width:42px;height:42px;flex:none;border-radius:16px 6px 16px 6px;background:#f1f5e6;display:grid;place-items:center}
+.rvx:active,.xpx:active,.botx:active{transform:scale(.9)}
+.rvx svg,.xpx svg,.botx svg{width:20px;height:20px;fill:none;stroke:#1b1c19;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.rvh .tt,.xph .tt,.both .tt{flex:1;min-width:0}
+.rvh small,.xph small{display:block;font-size:10px;font-weight:800;letter-spacing:1.4px;color:var(--acd)}
+.rvh h3{margin:2px 0 0;font-family:var(--f-display);font-weight:400;font-size:28px;line-height:1;letter-spacing:.4px;transform:skewX(-8deg);transform-origin:0 100%}
+.rvh h3 span{background:var(--ac);color:var(--tx);padding:0 6px;box-shadow:2px 2px 0 #1b1c19;display:inline-block}
+.rvsc{flex:none;text-align:right}
+.rvsc b{display:block;font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1;transform:skewX(-8deg);font-variant-numeric:tabular-nums}
+.rvsc b em{font-style:normal;font-size:18px;color:#8a927c}
+.rvsc small{display:block;margin-top:3px;font-size:10.5px;font-weight:700;color:#6b7360;letter-spacing:.3px}
+.rvbar{flex:none;display:flex;gap:6px;padding:12px 16px 2px}
+.rvbar i{flex:1;height:8px;border-radius:3px;transform:skewX(-20deg);background:#e2e8d4}
+.rvbar i.ok{background:#8fc914}.rvbar i.no{background:#ff5a4e}
+.rvtip{flex:none;margin:10px 16px 0;font-size:12.5px;font-weight:600;color:#5d6650;display:flex;align-items:center;gap:6px}
+.rvtip svg{width:15px;height:15px;flex:none;fill:none;stroke:var(--acd);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.rvl{flex:1;min-height:0;overflow-y:auto;padding:10px 14px 16px;display:flex;flex-direction:column;gap:10px}
+.rvi{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;padding:12px 12px 12px 12px;border-radius:22px 6px 22px 6px;background:#fff;box-shadow:0 4px 0 #dfe8c9;transition:transform .15s}
+.rvi:active{transform:translateY(3px);box-shadow:0 1px 0 #dfe8c9}
+.rvi .n{position:relative;width:38px;height:38px;flex:none;border-radius:13px 4px 13px 4px;display:grid;place-items:center;font-family:var(--f-display);font-size:20px;color:#fff;transform:skewX(-6deg)}
+.rvi.ok .n{background:#7cb20f;box-shadow:0 3px 0 #4f7406}.rvi.no .n{background:#e0382c;box-shadow:0 3px 0 #8a1a12}
+.rvi .n i{position:absolute;right:-6px;bottom:-6px;width:20px;height:20px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 1px 3px #0003}
+.rvi .n i svg{width:11px;height:11px;fill:none;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.rvi.ok .n i svg{stroke:#4f7406}.rvi.no .n i svg{stroke:#c23a2f}
+.rvi .m{flex:1;min-width:0}
+.rvi .m small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1.2px}
+.rvi.ok .m small{color:#4f7406}.rvi.no .m small{color:#c23a2f}
+.rvi .m b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:3px;font-size:14.5px;font-weight:700;line-height:1.3}
+.rvi .m .a{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.rvi .m .a span{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:8px 3px 8px 3px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rvi .m .a .y{background:#ffe7e3;color:#a3241a;text-decoration:line-through;text-decoration-thickness:1.5px}
+.rvi.ok .m .a .y{background:#eefad0;color:#3f6c05;text-decoration:none}
+.rvi .m .a .c{background:#eefad0;color:#3f6c05}
+.rvi>svg{width:18px;height:18px;flex:none;align-self:center;fill:none;stroke:#9aa38b;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.rv.open .rvi{animation:up .45s cubic-bezier(.2,1.2,.4,1) both}
+.rv.open .rvi:nth-child(2){animation-delay:.04s}.rv.open .rvi:nth-child(3){animation-delay:.08s}.rv.open .rvi:nth-child(4){animation-delay:.12s}.rv.open .rvi:nth-child(5){animation-delay:.16s}.rv.open .rvi:nth-child(6){animation-delay:.2s}
+.rvf,.xpf{flex:none;padding:10px 14px 14px;border-top:1px solid #e6ecd8;background:#fff}
+.rvf .go3d{width:100%;transform:skewX(-6deg)}
+.rvf .go3d .lbl,.rvf .go3d .chev{transform:skewX(6deg)}
+.rvf .go3d .lbl{font-size:24px}
+.xph .xpst{flex:none;display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 11px;border-radius:12px 4px 12px 4px;font-size:12px;font-weight:800;letter-spacing:.6px}
+.xph .xpst svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.xph .xpst.ok{background:#eefad0;color:#3f6c05}.xph .xpst.no{background:#ffe7e3;color:#c23a2f}
+.xph b.xpnm{display:block;font-size:16px;font-weight:700}
+.xpb{flex:1;min-height:0;overflow-y:auto;padding:16px 16px 20px}
+.xpq{padding:16px;border-radius:26px 8px 26px 8px;background:var(--acs);font-size:18px;font-weight:700;line-height:1.35}
+.xpq .qimg{background:#fff}
+.xpq details{margin-top:12px;font-size:14px;font-weight:500;line-height:1.55;color:#2d3325}
+.xpq summary{cursor:pointer;font-size:12px;font-weight:800;letter-spacing:.8px;color:var(--acd)}
+.xpq details p{margin:8px 0 0}
+.xpo{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.xpo div{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px 5px 16px 5px;background:#fff;border:2px solid #e6ecd8;font-size:15px;font-weight:600}
+.xpo .lt{width:28px;height:28px;flex:none;border-radius:9px 3px 9px 3px;display:grid;place-items:center;background:#f1f5e6;font-weight:800;font-size:13px}
+.xpo .v{flex:1;min-width:0}
+.xpo em{flex:none;font-style:normal;font-size:10px;font-weight:800;letter-spacing:.8px;padding:3px 7px;border-radius:7px 2px 7px 2px}
+.xpo .c{border-color:#8fc914;background:#f4fde0}.xpo .c .lt{background:#7cb20f;color:#fff}.xpo .c em{background:#7cb20f;color:#fff}
+.xpo .y{border-color:#ff8a7c;background:#fff3f1}.xpo .y .lt{background:#e0382c;color:#fff}.xpo .y em{background:#e0382c;color:#fff}
+.xpo .dim{opacity:.55}
+.xpw{margin-top:16px;padding:14px 16px 16px;border-radius:8px 26px 8px 26px;background:#1b1c19;color:#fff}
+.xpw h4{margin:0;display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:400;font-size:22px;letter-spacing:.6px;transform:skewX(-8deg);transform-origin:0 100%;color:var(--ac)}
+.xpw h4 svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.xpw p{margin:8px 0 0;font-size:15px;line-height:1.6;color:#e9ecdf}
+.xpw p b{color:#fff;background:linear-gradient(transparent 60%,color-mix(in srgb,var(--ac) 45%,transparent) 60%)}
+.xpw .yr{margin-top:10px;padding-top:10px;border-top:1px dashed #ffffff33;font-size:13.5px;color:#ffb4aa}
+.xpw .yr b{color:#fff}
+.xp.open .xpq,.xp.open .xpo,.xp.open .xpw{animation:up .45s cubic-bezier(.2,1.2,.4,1) both}
+.xp.open .xpo{animation-delay:.06s}.xp.open .xpw{animation-delay:.12s}
+.xpf{display:flex;gap:8px}
+.xpnv{width:56px;height:58px;flex:none;border-radius:20px 6px 20px 6px;background:#f1f5e6;display:grid;place-items:center;box-shadow:0 4px 0 #dfe8c9}
+.xpnv:disabled{opacity:.35}
+.xpnv svg{width:20px;height:20px;fill:none;stroke:#1b1c19;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.askb{flex:1;height:58px;border-radius:22px 8px 22px 8px;display:flex;align-items:center;justify-content:center;gap:10px;background:#1b1c19;color:#fff;font-family:var(--f-display);font-size:22px;letter-spacing:.8px;box-shadow:0 5px 0 #000;transition:transform .15s}
+.askb:active{transform:translateY(4px);box-shadow:0 1px 0 #000}
+.askb span{transform:skewX(-9deg)}
+.askb i{width:34px;height:34px;border-radius:12px 4px 12px 4px;background:var(--ac);display:grid;place-items:center}
+.askb i svg{width:20px;height:20px;fill:none;stroke:#1b1c19;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.bav{width:42px;height:42px;flex:none;border-radius:16px 6px 16px 6px;background:var(--ac);display:grid;place-items:center;box-shadow:0 3px 0 var(--acd)}
+.bav svg{width:24px;height:24px;fill:none;stroke:#1b1c19;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.both b{display:block;font-size:16px;font-weight:800}
+.both small{display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;color:#6b7360}
+.both small i{width:7px;height:7px;border-radius:50%;background:#7cb20f;box-shadow:0 0 0 3px #7cb20f33}
+.botl{flex:1;min-height:0;overflow-y:auto;padding:16px 14px 10px;display:flex;flex-direction:column;gap:10px}
+.bm{max-width:84%;padding:10px 13px;font-size:14.5px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;animation:bmIn .3s cubic-bezier(.2,1.2,.4,1) both}
+.bm.b{align-self:flex-start;background:#fff;border-radius:6px 20px 20px 20px;box-shadow:0 2px 0 #dfe8c9}
+.bm.u{align-self:flex-end;background:#1b1c19;color:#fff;border-radius:20px 6px 20px 20px}
+.bm b{font-weight:700}
+.bm.b b{background:linear-gradient(transparent 60%,color-mix(in srgb,var(--ac) 55%,transparent) 60%)}
+.bm .pq{display:block;margin-top:8px;padding:9px 11px;border-radius:12px 4px 12px 4px;background:var(--acs);font-weight:600}
+.bm.typing{display:flex;gap:4px;padding:14px 16px}
+.bm.typing i{width:7px;height:7px;border-radius:50%;background:#9aa38b;animation:tdot 1s ease-in-out infinite}
+.bm.typing i:nth-child(2){animation-delay:.15s}.bm.typing i:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+@keyframes bmIn{from{opacity:0;transform:translateY(10px) scale(.96)}}
+.botq{flex:none;margin:0 12px 8px;display:flex;align-items:center;gap:10px;padding:9px 9px 9px 12px;border-radius:18px 6px 18px 6px;background:#fff;border:2px dashed color-mix(in srgb,var(--acd) 45%,transparent)}
+.botq .m{flex:1;min-width:0}
+.botq small{display:block;font-size:9.5px;font-weight:800;letter-spacing:1.2px;color:var(--acd)}
+.botq b{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.botq button{flex:none;display:inline-flex;align-items:center;gap:5px;height:34px;padding:0 11px;border-radius:12px 4px 12px 4px;background:var(--ac);color:var(--tx);font-size:12px;font-weight:800;letter-spacing:.3px;box-shadow:0 3px 0 var(--acd)}
+.botq button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--acd)}
+.botq button svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.botq.used button{background:#f1f5e6;color:#5d6650;box-shadow:0 3px 0 #dfe8c9}
+.botch{flex:none;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:0 12px 8px}
+.botch::-webkit-scrollbar{display:none}
+.botch button{flex:none;height:32px;padding:0 12px;border-radius:999px;background:#fff;border:1px solid #dfe8c9;font-size:12.5px;font-weight:700;color:#3f4636}
+.botch button:active{background:#f1f5e6}
+.botc{flex:none;display:flex;align-items:flex-end;gap:8px;padding:10px 12px 14px;background:#fff;border-top:1px solid #e6ecd8}
+.botc textarea{flex:1;min-width:0;resize:none;max-height:120px;min-height:46px;padding:12px 14px;border-radius:18px 6px 18px 6px;border:2px solid #e2e8d4;background:#f7f9f3;font:inherit;font-size:15px;line-height:1.4;color:#1b1c19;outline:none;transition:border-color .2s}
+.botc textarea:focus{border-color:var(--ac);background:#fff}
+.botc textarea.tapulse{animation:taf .6s ease}
+@keyframes taf{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 80%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
+.botc .snd{width:46px;height:46px;flex:none;border-radius:16px 5px 16px 5px;background:#1b1c19;display:grid;place-items:center;box-shadow:0 3px 0 #000;transition:opacity .2s,transform .15s}
+.botc .snd:disabled{opacity:.3}
+.botc .snd:not(:disabled):active{transform:translateY(2px)}
+.botc .snd svg{width:20px;height:20px;fill:none;stroke:var(--ac);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .stim .back2:active{transform:translateY(4px);box-shadow:0 1px 0 #000}
 
 
@@ -4303,8 +4444,27 @@ input,textarea{-webkit-user-select:text;user-select:text}
       <div class="nx" id="resNx" hidden></div>
       <div class="acts">
         <button class="go3d" id="resAgain"><span class="lbl">TRY AGAIN</span><span class="chev"><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg></span></button>
-        <button class="lnk2" id="resBack">Pick another challenge</button>
+        <div class="lrow"><button class="lnk2" id="resRev"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>Review answers</button><button class="lnk2" id="resBack">Pick another challenge</button></div>
       </div>
+    </div>
+    <div class="rv" id="rv" role="dialog" aria-modal="true" aria-labelledby="rvT">
+      <div class="rvh"><button class="rvx" id="rvX" aria-label="Back to results" hidden><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div class="tt"><small id="rvS">ALL 6 ANSWERED</small><h3 id="rvT">REVIEW <span>ANSWERS</span></h3></div><div class="rvsc"><b id="rvSc">0<em>/6</em></b><small id="rvTm">0:00.0</small></div></div>
+      <div class="rvbar" id="rvBar"></div>
+      <p class="rvtip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/></svg>Tap any question to see the answer and why.</p>
+      <div class="rvl" id="rvL"></div>
+      <div class="rvf"><button class="go3d" id="rvGo"><span class="lbl" id="rvGoT">SEE RESULTS</span><span class="chev"><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg></span></button></div>
+    </div>
+    <div class="xp" id="xp" role="dialog" aria-modal="true" aria-labelledby="xpN">
+      <div class="xph"><button class="xpx" id="xpX" aria-label="Back to review"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div class="tt"><small>EXPLANATION</small><b class="xpnm" id="xpN">Question 1 of 6</b></div><span class="xpst" id="xpP"></span></div>
+      <div class="xpb" id="xpB"></div>
+      <div class="xpf"><button class="xpnv" id="xpPrev" aria-label="Previous question"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button class="askb" id="xpAsk"><i><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 12h.01M15 12h.01M9.5 15.5h5"/></svg></i><span>ASK BOT</span></button><button class="xpnv" id="xpNext" aria-label="Next question"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
+    </div>
+    <div class="bot" id="bot" role="dialog" aria-modal="true" aria-labelledby="botN">
+      <div class="both"><button class="botx" id="botX" aria-label="Back to explanation"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><span class="bav"><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 12h.01M15 12h.01M9.5 15.5h5"/></svg></span><div class="tt"><b id="botN">RI9 Buddy</b><small><i></i>Online · your study helper</small></div></div>
+      <div class="botl" id="botL" aria-live="polite"></div>
+      <div class="botq" id="botQ"><div class="m"><small id="botQn">QUESTION 1</small><b id="botQt">Question</b></div><button id="botPush"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Push to message</button></div>
+      <div class="botch" id="botCh"></div>
+      <div class="botc"><textarea id="botIn" rows="1" placeholder="Type your question…" aria-label="Message"></textarea><button class="snd" id="botSend" aria-label="Send" disabled><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2.5-6.5z"/><path d="M11.5 13.5 20 4"/></svg></button></div>
     </div>
   </section>
 
@@ -4437,7 +4597,8 @@ input,textarea{-webkit-user-select:text;user-select:text}
       <span style="width:42px;flex:none"></span>
     </div>
     <div class="ttl"><small>CHOOSE YOUR</small><h1>CHALLENGE</h1></div>
-    <div class="mgrid" id="mgrid"></div>
+    <div class="mgrid" id="mgrid" aria-roledescription="carousel"></div>
+    <div class="mdots" id="mdots" role="tablist" aria-label="Challenge pages"></div>
     <div class="mpanel in2" id="mpanel" style="--a:up .6s cubic-bezier(.2,1.2,.4,1);--d:.3s">
       <div class="mstats" id="mstats"></div>
       <button class="msx" id="msx" aria-label="Change question set and twist"></button>
@@ -4799,7 +4960,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
     if(name!==curScreen||instant){const el=SCR[name];el.classList.remove('play');void el.offsetWidth;el.classList.add('play')}
     if(name==='lobby'&&curScreen!=='types')openLobby();
     if(name==='types'&&curScreen!=='drill')openTypes();
-    if(name==='types'&&curScreen==='drill')selectType(selT,true);
+    if(name==='types'&&curScreen==='drill'){selectType(selT,true);goPage(selT/4|0,true)}
     if(name==='quiz'&&name!==curScreen)openQuiz();
     if(name==='stats'&&curScreen!=='chap')openStats();
     if(name==='chap')openChap();
@@ -5175,7 +5336,10 @@ input,textarea{-webkit-user-select:text;user-select:text}
     speed:'<circle cx="12" cy="13" r="8"/><path d="M10 2.5h4M12 2.5V5M18.5 6.5l1.2-1.2"/><g class="hand"><path d="M12 13V8.5"/></g>',
     sudden:'<g class="beat"><path d="M12 20.5s-8.5-4.8-8.5-11A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8.5 2.5c0 6.2-8.5 11-8.5 11z"/><path d="M12.6 8.5 10.8 12l2.6 1.2-1.6 3.3"/></g>',
     attack:'<g class="flip"><path d="M6 3h12M6 21h12"/><path d="M7.5 3c0 5 9 6 9 9s-9 4-9 9M16.5 3c0 5-9 6-9 9s9 4 9 9"/></g>',
-    perfect:'<g class="tgt"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></g><circle cx="12" cy="12" r="1.2"/>'
+    perfect:'<g class="tgt"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></g><circle cx="12" cy="12" r="1.2"/>',
+    warm:'<g class="wave"><path d="M12 3c2.5 3 5 5.5 5 9.5a5 5 0 0 1-10 0C7 8.5 9.5 6 12 3z"/><path d="M12 17a2.2 2.2 0 0 1-2.2-2.2"/></g>',
+    blitz:'<g class="zap"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z"/></g>',
+    iron:'<g class="shld"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/></g><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/>'
   };
   const TYPES=[
     {id:'speed',accs:'#eefad0',accd:'#3f6c05',name:'Speed Run',badge:'POPULAR',diff:1,best:'5/6 · 0:52.4',acc:'#c6f432',tag:'Get 4 of 6 right within 1 minute.',need:4,limit:60,pts:40,
@@ -5185,20 +5349,40 @@ input,textarea{-webkit-user-select:text;user-select:text}
     {id:'attack',accs:'#fff0d6',accd:'#a65d07',name:'Time Attack',diff:2,best:'—',acc:'#ffb436',tag:'5 of 6 right in 40 seconds.',need:5,limit:40,pts:90,
       btn:['#ffdc85','#ffae2e','#f08a12','#9a4605','#2a1406','#ffae2e77']},
     {id:'perfect',accs:'#eeeaff',accd:'#5b47d6',name:'Lightning 6',badge:'NEW',diff:3,best:'—',acc:'#a593ff',tag:'All 6 right in 30 seconds.',need:6,limit:30,pts:150,
-      btn:['#cfc3ff','#8f7cff','#6d52ef','#3a2496','#ffffff','#8f7cff77']}
+      btn:['#cfc3ff','#8f7cff','#6d52ef','#3a2496','#ffffff','#8f7cff77']},
+    {id:'warm',accs:'#ddf8f2',accd:'#0a7a66',name:'Warm Up',diff:1,best:'6/6 · 1:12.8',acc:'#36d1b6',tag:'Just 3 of 6 right in 2 minutes.',need:3,limit:120,pts:20,
+      btn:['#a6f5e7','#36d1b6','#17a58c','#0a5e50','#062a24','#36d1b677']},
+    {id:'blitz',accs:'#ffe3f1',accd:'#b0145f',name:'Blitz',badge:'HOT',diff:3,best:'—',acc:'#ff4fa8',tag:'4 of 6 right in 25 seconds.',need:4,limit:25,pts:120,
+      btn:['#ffb3dc','#ff4fa8','#e0288a','#7d0f49','#ffffff','#ff4fa877']},
+    {id:'iron',accs:'#e2ecff',accd:'#1d45b0',name:'Iron Mind',badge:'PRO',diff:3,best:'—',acc:'#3d7cf2',tag:'All 6 right in 45 seconds. No slips.',need:6,limit:45,pts:200,
+      btn:['#b5d2ff','#3d7cf2','#2a5fd6','#122c75','#ffffff','#3d7cf277']}
   ];
   TYPES.forEach(t=>{t.stats=[['6','questions'],[t.need===6?'6/6':`${t.need}/6`,'to pass'],[`${t.limit/60|0}:${String(t.limit%60).padStart(2,'0')}`,'time limit'],['+'+t.pts,'points']]});
 
   let selT=0;
-  $('#mgrid').innerHTML=TYPES.map((t,i)=>`<button class="mc" data-i="${i}" data-t="${t.id}" aria-pressed="false">
+  const PER=4,NPG=Math.max(1,Math.ceil(TYPES.length/PER));
+  const typeCard=(t,i)=>`<button class="mc" data-i="${i}" data-t="${t.id}" aria-pressed="false">
     <span class="wm3"><svg viewBox="0 0 24 24">${TICO[t.id]}</svg></span>
     <span class="top"><span class="mi"><svg viewBox="0 0 24 24">${TICO[t.id]}</svg></span><span class="cn"><i></i>+${t.pts}</span></span>
     <span>${t.badge?`<span class="bdg${t.badge==='HOT'?' hot':''}">${t.badge}</span>`:''}<span class="nm5">${t.name.toUpperCase()}</span><span class="tg5">${t.tag}</span><span class="df">${[1,2,3].map(k=>`<i class="${k<=t.diff?'on':''}"></i>`).join('')}</span></span>
-  </button>`).join('');
+  </button>`;
+  $('#mgrid').innerHTML=Array.from({length:NPG},(_,p)=>`<div class="mpg" role="group" aria-label="Page ${p+1} of ${NPG}">${Array.from({length:PER},(_,k)=>{const i=p*PER+k;return TYPES[i]?typeCard(TYPES[i],i):'<span class="mc empty" aria-hidden="true"></span>'}).join('')}</div>`).join('');
+  $('#mdots').innerHTML=Array.from({length:NPG},(_,p)=>`<button role="tab" aria-label="Page ${p+1}" data-p="${p}"></button>`).join('');$('#mdots').hidden=NPG<2;
+  let tPage=-1;
+  function paintDots(p){if(p===tPage)return;tPage=p;document.querySelectorAll('#mdots button').forEach((b,k)=>{b.classList.toggle('on',k===p);b.setAttribute('aria-selected',k===p)})}
+  function goPage(p,instant){const g=$('#mgrid');p=Math.max(0,Math.min(NPG-1,p));g.scrollTo({left:p*g.clientWidth,behavior:instant||reduce?'auto':'smooth'});paintDots(p)}
+  $('#mgrid').addEventListener('scroll',()=>{const g=$('#mgrid');if(g.clientWidth)paintDots(Math.round(g.scrollLeft/g.clientWidth))},{passive:true});
+  $('#mdots').addEventListener('click',e=>{const b=e.target.closest('button');if(b){buzz();goPage(+b.dataset.p)}});
+  // mouse drag-to-scroll for desktop preview
+  {const g=$('#mgrid');let x0=null,l0=0,moved=false;
+    g.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;x0=e.clientX;l0=g.scrollLeft;moved=false});
+    addEventListener('pointermove',e=>{if(x0==null)return;const dx=e.clientX-x0;if(Math.abs(dx)>6){moved=true;g.style.scrollSnapType='none';g.style.scrollBehavior='auto';g.scrollLeft=l0-dx}});
+    addEventListener('pointerup',e=>{if(x0==null)return;const dx=e.clientX-x0;x0=null;g.style.scrollSnapType='';g.style.scrollBehavior='';if(moved){const cur=Math.round(l0/g.clientWidth);goPage(Math.abs(dx)>g.clientWidth*.18?cur+(dx<0?1:-1):cur)}});
+    g.addEventListener('click',e=>{if(moved){e.stopPropagation();e.preventDefault();moved=false}},true)}
   function selectType(i,first){
     selT=i;const t=TYPES[i];
     $('#mgrid').classList.add('has');
-    document.querySelectorAll('#mgrid .mc').forEach((c,k)=>{c.classList.toggle('sel',k===i);c.setAttribute('aria-pressed',k===i)});
+    document.querySelectorAll('#mgrid .mc[data-i]').forEach(c=>{const k=+c.dataset.i;c.classList.toggle('sel',k===i);c.setAttribute('aria-pressed',k===i)});
     const p=$('#mpanel');p.style.setProperty('--acc',t.acc);p.style.setProperty('--accs',t.accs);p.style.setProperty('--accd',t.accd);
     $('#mstats').innerHTML=t.stats.map(s=>`<div><b>${s[0]}</b><small>${s[1]}</small></div>`).join('');
     $('#mbest').textContent=t.best;$('#mgoT').textContent='START '+t.name.toUpperCase();
@@ -5210,7 +5394,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   function openTypes(){
     const sj=SUBJ[lob.subj];
     $('#tchip').innerHTML=`<i><svg viewBox="0 0 24 24">${sj.ico}</svg></i><span>${sj.name} · Ch ${lob.ch+1} ${CHAPTERS[lob.subj][lob.ch]}</span>`;
-    selectType(0,true);replay($('#mgrid'),'anim');
+    selectType(0,true);goPage(0,true);replay($('#mgrid'),'anim');
   }
   function launchType(t){playChallenge(t);return;
     const s=SUBJ[lob.subj];
@@ -5255,19 +5439,19 @@ input,textarea{-webkit-user-select:text;user-select:text}
   };
   const MEDIA={
     0:{img:[
-      ()=>{const h=ri(1,12),m=[0,15,30,45][ri(0,3)],f=(a,b)=>`${a}:${String(b).padStart(2,'0')}`;return{q:'What time does the clock show?',img:SV.clock(h,m),c:f(h,m),o:shuffle([f(h,m),f(h%12+1,m),f(h,(m+30)%60),f(m/5||12,h*5%60)])}},
-      ()=>{const L=['Mon','Tue','Wed','Thu'],v=L.map(()=>ri(1,8)*5),i=ri(0,3);return{q:`Books read by Class 4A. How many on ${L[i]}?`,img:SV.bars(L,v,40),c:String(v[i]),o:opts(v[i],near(v[i],5))}},
-      ()=>{const n=[4,6,8][ri(0,2)],k=ri(1,n-1);return{q:'What fraction of the circle is shaded?',img:SV.pie(n,k),c:`${k}/${n}`,o:shuffle([`${k}/${n}`,`${n-k}/${n}`,`${k}/${n+2}`,`${n}/${k}`].filter((v,i,a)=>a.indexOf(v)===i).concat([`${k+1}/${n}`]).slice(0,4))}}],
-      stim:[()=>{const m=ri(2,3),a=ri(2,4),tot=(m*4.5+3.2+a*1.1).toFixed(2);return{q:`How much does Mei Ling pay altogether?`,c:`RM${tot}`,o:shuffle([`RM${tot}`,`RM${(+tot+1.1).toFixed(2)}`,`RM${(+tot-4.5).toFixed(2)}`,`RM${(+tot+3.2).toFixed(2)}`]),
+      ()=>{const h=ri(1,12),m=[0,15,30,45][ri(0,3)],f=(a,b)=>`${a}:${String(b).padStart(2,'0')}`;return{q:'What time does the clock show?',x:`The short hand shows the hour: it is at <b>${h}</b>. The long hand shows the minutes: it points to <b>${m/5||12}</b>, which means ${m} minutes. So the time is <b>${f(h,m)}</b>.`,img:SV.clock(h,m),c:f(h,m),o:shuffle([f(h,m),f(h%12+1,m),f(h,(m+30)%60),f(m/5||12,h*5%60)])}},
+      ()=>{const L=['Mon','Tue','Wed','Thu'],v=L.map(()=>ri(1,8)*5),i=ri(0,3);return{q:`Books read by Class 4A. How many on ${L[i]}?`,x:`Find the <b>${L[i]}</b> bar, then read straight across to the number scale on the left. The top of the bar lines up with <b>${v[i]}</b>.`,img:SV.bars(L,v,40),c:String(v[i]),o:opts(v[i],near(v[i],5))}},
+      ()=>{const n=[4,6,8][ri(0,2)],k=ri(1,n-1);return{q:'What fraction of the circle is shaded?',x:`The circle is cut into <b>${n} equal parts</b> (the denominator) and <b>${k}</b> of them are shaded (the numerator). So the shaded fraction is <b>${k}/${n}</b>.`,img:SV.pie(n,k),c:`${k}/${n}`,o:shuffle([`${k}/${n}`,`${n-k}/${n}`,`${k}/${n+2}`,`${n}/${k}`].filter((v,i,a)=>a.indexOf(v)===i).concat([`${k+1}/${n}`]).slice(0,4))}}],
+      stim:[()=>{const m=ri(2,3),a=ri(2,4),tot=(m*4.5+3.2+a*1.1).toFixed(2);return{q:`How much does Mei Ling pay altogether?`,x:`Milk: ${m} × RM4.50 = RM${(m*4.5).toFixed(2)}. Bread: RM3.20. Apples: ${a} × RM1.10 = RM${(a*1.1).toFixed(2)}. She buys no eggs, so leave them out. Total: RM${(m*4.5).toFixed(2)} + RM3.20 + RM${(a*1.1).toFixed(2)} = <b>RM${tot}</b>. The RM50 is extra information you don't need.`,c:`RM${tot}`,o:shuffle([`RM${tot}`,`RM${(+tot+1.1).toFixed(2)}`,`RM${(+tot-4.5).toFixed(2)}`,`RM${(+tot+3.2).toFixed(2)}`]),
         stim:{kind:'Price list',title:'Shopping at Kedai Ah Seng',img:SV.shop,text:[`Mei Ling's mother gives her RM50 to buy groceries at Kedai Runcit Ah Seng after school.`,`She buys <b>${m} bottles of milk</b>, <b>1 loaf of bread</b> and <b>${a} apples</b>. She does not buy any eggs because there are still some at home.`,`Uncle Ah Seng packs everything into one bag and gives her the change.`]}}}]},
-    1:{img:[()=>{const n=ri(2,5),w=['two','three','four','five'];return{q:'Which sentence matches the picture?',img:SV.apples(n),c:`There are ${w[n-2]} apples.`,o:shuffle([`There are ${w[n-2]} apples.`,`There is ${n===2?'three':'one'} apple.`,`There are ${w[(n-1)%4]} apples.`,'There are no apples.'])}}],
-      stim:[()=>({q:'Why did Sam stop running near the finish line?',c:'To help Ravi who fell',o:shuffle(['To help Ravi who fell','He was too tired','He dropped his shoe','The race was over']),
+    1:{img:[()=>{const n=ri(2,5),w=['two','three','four','five'];return{q:'Which sentence matches the picture?',x:`Count the apples: there are <b>${w[n-2]}</b>. When there is more than one we use <b>"There are"</b>, so the answer is "There are ${w[n-2]} apples."`,img:SV.apples(n),c:`There are ${w[n-2]} apples.`,o:shuffle([`There are ${w[n-2]} apples.`,`There is ${n===2?'three':'one'} apple.`,`There are ${w[(n-1)%4]} apples.`,'There are no apples.'])}}],
+      stim:[()=>({q:'Why did Sam stop running near the finish line?',x:'The story says <b>Ravi tripped and fell</b>, and Sam <b>stopped and helped Ravi up</b>. He was not tired and the race was not over: he chose to help his friend.',c:'To help Ravi who fell',o:shuffle(['To help Ravi who fell','He was too tired','He dropped his shoe','The race was over']),
         stim:{kind:'Story',title:"Sam's Big Race",img:SV.race,text:['It was Sports Day and Sam had trained for weeks. When the whistle blew, he shot forward like an arrow.','Near the finish line, his friend <b>Ravi tripped and fell</b>. Sam could hear the crowd cheering his name, but he <b>stopped and helped Ravi up</b>.','They crossed the line together. Sam did not win a medal that day, but the whole school clapped the loudest for him.']}})]},
-    2:{img:[()=>{const n=ri(2,5),w=['dua','tiga','empat','lima'];return{q:'Berapakah bilangan epal dalam gambar?',img:SV.apples(n),c:`${w[n-2]} biji`,o:shuffle(w.map(x=>`${x} biji`))}}],
-      stim:[()=>({q:'Mengapakah Aminah memakai topi?',c:'Cuaca sangat panas',o:shuffle(['Cuaca sangat panas','Hari hujan','Dia sakit kepala','Guru menyuruhnya']),
+    2:{img:[()=>{const n=ri(2,5),w=['dua','tiga','empat','lima'];return{q:'Berapakah bilangan epal dalam gambar?',x:`Kira epal dalam gambar satu per satu. Ada <b>${n}</b> biji epal, jadi jawapannya <b>${w[n-2]} biji</b>.`,img:SV.apples(n),c:`${w[n-2]} biji`,o:shuffle(w.map(x=>`${x} biji`))}}],
+      stim:[()=>({q:'Mengapakah Aminah memakai topi?',x:'Petikan menyatakan pagi itu <b>cuaca sangat panas</b>. Perkataan <b>"Oleh itu"</b> menunjukkan sebab Aminah memakai topi.',c:'Cuaca sangat panas',o:shuffle(['Cuaca sangat panas','Hari hujan','Dia sakit kepala','Guru menyuruhnya']),
         stim:{kind:'Petikan',title:'Hari Sukan Sekolah',img:SV.race,text:['Hari Sukan Sekolah Kebangsaan Taman Desa diadakan pada hari Sabtu.','Pagi itu <b>cuaca sangat panas</b>. Oleh itu, Aminah <b>memakai topi</b> dan membawa sebotol air.','Aminah menyertai acara lari 100 meter. Dia berlari sekuat hati dan mendapat tempat kedua.']}})]},
-    3:{img:[()=>({q:'Which part of the plant is labelled X?',img:SV.plant,c:'Root',o:shuffle(['Root','Stem','Leaf','Flower'])})],
-      stim:[()=>({q:'What happens when water vapour cools in the sky?',c:'It forms clouds',o:shuffle(['It forms clouds','It becomes ice on land','It turns into soil','It disappears forever']),
+    3:{img:[()=>({q:'Which part of the plant is labelled X?',x:'X points to the part <b>under the soil</b>. That part holds the plant in place and takes in water, so it is the <b>root</b>. The stem, leaves and flower grow above the ground.',img:SV.plant,c:'Root',o:shuffle(['Root','Stem','Leaf','Flower'])})],
+      stim:[()=>({q:'What happens when water vapour cools in the sky?',x:'The text says that high in the sky the water vapour <b>cools and forms tiny droplets</b> that gather as <b>clouds</b>. This step is called <b>condensation</b>.',c:'It forms clouds',o:shuffle(['It forms clouds','It becomes ice on land','It turns into soil','It disappears forever']),
         stim:{kind:'Diagram + text',title:'The Water Cycle',img:SV.cycle,text:['The Sun heats water in rivers and seas. The water turns into <b>water vapour</b> and rises. This is called <b>evaporation</b>.','High in the sky, the air is cold. The water vapour <b>cools and forms tiny droplets</b> that gather as <b>clouds</b>. This is called <b>condensation</b>.','When the droplets become heavy, they fall as rain. This is <b>precipitation</b>.']}})]}
   };
   function withMedia(qs,subj){const M=MEDIA[subj];if(!M)return qs;
@@ -5278,25 +5462,25 @@ input,textarea{-webkit-user-select:text;user-select:text}
   function opts(correct,wrongs){const set=[...new Set([correct,...wrongs].map(String))].filter((v,i)=>i===0||v!==String(correct));while(set.length<4)set.push(String(Number(correct)+set.length*3));return shuffle(set.slice(0,4))}
   const near=(n,step=1)=>{const w=new Set();while(w.size<3){const d=ri(1,4)*step*(Math.random()<.5?-1:1);if(n+d>=0&&n+d!==n)w.add(+(n+d).toFixed(2))}return[...w]};
   const MATHQ=[
-    ()=>{const t=ri(0,2);if(t===0){const a=ri(120,899),b=ri(100,899);return[`What is ${a} + ${b}?`,a+b,near(a+b,10)]}
-      if(t===1){const a=ri(500,999),b=ri(100,480);return[`What is ${a} − ${b}?`,a-b,near(a-b,10)]}
-      const a=ri(12,49),b=ri(3,9);return[`What is ${a} × ${b}?`,a*b,near(a*b,b)]},
-    ()=>{const d=[4,6,8,10,12][ri(0,4)],a=ri(1,d-2),b=ri(1,d-1-a);return[`${a}/${d} + ${b}/${d} = ?`,`${a+b}/${d}`,[`${a+b}/${d*2}`,`${a+b+1}/${d}`,`${a*b}/${d}`]]},
-    ()=>{const a=ri(11,89)/10,b=ri(11,89)/10,c=+(a+b).toFixed(1);return[`What is ${a} + ${b}?`,c,near(c,.1).map(v=>+v.toFixed(1))]},
-    ()=>{const p=[10,20,25,50,75][ri(0,4)],n=[40,80,120,200,360][ri(0,4)],c=n*p/100;return[`What is ${p}% of ${n}?`,c,near(c,5)]},
-    ()=>{const a=ri(3,19),b=ri(2,9),c=ri(1,9);const tot=a+b+c/10;return[`RM${a}.00 + RM${b}.${c}0 = ?`,`RM${tot.toFixed(2)}`,[`RM${(tot+1).toFixed(2)}`,`RM${(tot-.5).toFixed(2)}`,`RM${(a+b).toFixed(2)}`]]},
-    ()=>{const h=ri(1,4),m=[15,30,45][ri(0,2)],c=h*60+m;return[`${h} h ${m} min = ? minutes`,c,near(c,15)]},
-    ()=>{const m=ri(2,9),cm=ri(1,9)*10,c=m*100+cm;return[`${m} m ${cm} cm = ? cm`,c,[m*10+cm,c+100,c-10]]},
-    ()=>{const a=ri(10,30),b=ri(10,30),c0=ri(10,30),s=a+b+c0,adj=s%3;const c=c0+(3-adj)%3;const avg=(a+b+c)/3;return[`Average of ${a}, ${b} and ${c}?`,avg,near(avg,1)]}
+    ()=>{const t=ri(0,2);if(t===0){const a=ri(120,899),b=ri(100,899);return[`What is ${a} + ${b}?`,a+b,near(a+b,10),`Line up the place values and add from the ones column, carrying 1 whenever a column goes past 9. ${a} + ${b} = <b>${a+b}</b>.`]}
+      if(t===1){const a=ri(500,999),b=ri(100,480);return[`What is ${a} − ${b}?`,a-b,near(a-b,10),`Subtract column by column starting from the ones. If the top digit is smaller, borrow 1 from the next column. ${a} − ${b} = <b>${a-b}</b>. Check: ${a-b} + ${b} = ${a}.`]}
+      const a=ri(12,49),b=ri(3,9);return[`What is ${a} × ${b}?`,a*b,near(a*b,b),`Split ${a} into ${a-a%10} and ${a%10}. ${a-a%10} × ${b} = ${(a-a%10)*b} and ${a%10} × ${b} = ${a%10*b}. Add them: ${(a-a%10)*b} + ${a%10*b} = <b>${a*b}</b>.`]},
+    ()=>{const d=[4,6,8,10,12][ri(0,4)],a=ri(1,d-2),b=ri(1,d-1-a);return[`${a}/${d} + ${b}/${d} = ?`,`${a+b}/${d}`,[`${a+b}/${d*2}`,`${a+b+1}/${d}`,`${a*b}/${d}`],`Both fractions have the same denominator (${d}), so keep it and add only the numerators: ${a} + ${b} = ${a+b}. The answer is <b>${a+b}/${d}</b>. Don't add the denominators.`]},
+    ()=>{const a=ri(11,89)/10,b=ri(11,89)/10,c=+(a+b).toFixed(1);return[`What is ${a} + ${b}?`,c,near(c,.1).map(v=>+v.toFixed(1)),`Line up the decimal points, then add as normal: tenths first, then ones. ${a} + ${b} = <b>${c}</b>.`]},
+    ()=>{const p=[10,20,25,50,75][ri(0,4)],n=[40,80,120,200,360][ri(0,4)],c=n*p/100;return[`What is ${p}% of ${n}?`,c,near(c,5),`${p}% means ${p} out of every 100. Find 1% first: ${n} ÷ 100 = ${n/100}. Then multiply by ${p}: ${n/100} × ${p} = <b>${c}</b>.`]},
+    ()=>{const a=ri(3,19),b=ri(2,9),c=ri(1,9);const tot=a+b+c/10;return[`RM${a}.00 + RM${b}.${c}0 = ?`,`RM${tot.toFixed(2)}`,[`RM${(tot+1).toFixed(2)}`,`RM${(tot-.5).toFixed(2)}`,`RM${(a+b).toFixed(2)}`],`Add the ringgit: RM${a} + RM${b} = RM${a+b}. Then add the sen: 0 sen + ${c}0 sen = ${c}0 sen. Total: <b>RM${tot.toFixed(2)}</b>.`]},
+    ()=>{const h=ri(1,4),m=[15,30,45][ri(0,2)],c=h*60+m;return[`${h} h ${m} min = ? minutes`,c,near(c,15),`1 hour = 60 minutes, so ${h} h = ${h} × 60 = ${h*60} min. Add the extra ${m} min: ${h*60} + ${m} = <b>${c} minutes</b>.`]},
+    ()=>{const m=ri(2,9),cm=ri(1,9)*10,c=m*100+cm;return[`${m} m ${cm} cm = ? cm`,c,[m*10+cm,c+100,c-10],`1 m = 100 cm, so ${m} m = ${m} × 100 = ${m*100} cm. Add the ${cm} cm: ${m*100} + ${cm} = <b>${c} cm</b>.`]},
+    ()=>{const a=ri(10,30),b=ri(10,30),c0=ri(10,30),s=a+b+c0,adj=s%3;const c=c0+(3-adj)%3;const avg=(a+b+c)/3;return[`Average of ${a}, ${b} and ${c}?`,avg,near(avg,1),`Add all the numbers: ${a} + ${b} + ${c} = ${a+b+c}. Then divide by how many numbers there are (3): ${a+b+c} ÷ 3 = <b>${avg}</b>.`]}
   ];
   const BANK={
-    1:[['She ___ to school every day.','walks',['walk','walking','walked']],['Pick the noun: "The cat sleeps."','cat',['sleeps','the','quickly']],['Opposite of "ancient"','modern',['old','huge','quiet']],['They ___ playing football now.','are',['is','was','be']],['Plural of "child"','children',['childs','childes','childrens']],['Which is a verb?','jump',['blue','table','happy']],['"I have ___ apple."','an',['a','the','some']],['Past tense of "run"','ran',['runned','runs','running']]],
-    2:[['Lawan "tinggi"','rendah',['besar','panjang','lebar']],['Kata nama: "Adik makan nasi."','nasi',['makan','adik makan','dengan']],['Imbuhan: ___tulis','menulis',['mentulis','mtulis','menjulis']],['Sinonim "gembira"','suka',['sedih','marah','takut']],['Jamak "pokok"','pokok-pokok',['pokoks','pokokan','berpokok']],['"Ali pergi ___ sekolah."','ke',['di','dari','pada']],['Peribahasa: "Bagai aur dengan ___"','tebing',['sungai','batu','pokok']],['Kata kerja?','berlari',['merah','meja','cantik']]],
-    3:[['Plants make food by…','photosynthesis',['digestion','respiration','evaporation']],['Which is a mammal?','whale',['shark','frog','eagle']],['Water boils at…','100°C',['50°C','0°C','212°C']],['Which conducts electricity?','copper',['wood','plastic','rubber']],['Closest star to Earth','the Sun',['Sirius','the Moon','Polaris']],['Gas we breathe in to live','oxygen',['carbon dioxide','nitrogen','helium']],['Light travels in…','straight lines',['circles','zigzags','curves']],['A magnet attracts…','iron',['glass','paper','aluminium']]]
+    1:[['She ___ to school every day.','walks',['walk','walking','walked'],'"She" is one person and "every day" tells us it is a habit, so we use the simple present with <b>-s</b>: she <b>walks</b>.'],['Pick the noun: "The cat sleeps."','cat',['sleeps','the','quickly'],'A noun is a person, animal, place or thing. <b>cat</b> is an animal. "sleeps" is a verb and "the" is an article.'],['Opposite of "ancient"','modern',['old','huge','quiet'],'"Ancient" means very old. The opposite is <b>modern</b>, which means new or from today. "Old" means the same thing, not the opposite.'],['They ___ playing football now.','are',['is','was','be'],'"Now" means it is happening at this moment (present continuous). With "they" we use <b>are</b> + -ing: they are playing.'],['Plural of "child"','children',['childs','childes','childrens'],'"Child" is an irregular noun. It doesn\'t take -s; its plural is <b>children</b>.'],['Which is a verb?','jump',['blue','table','happy'],'A verb is an action word. You can <b>jump</b>. "Blue" and "happy" are adjectives and "table" is a noun.'],['"I have ___ apple."','an',['a','the','some'],'"Apple" starts with a vowel sound (a), so we use <b>an</b> instead of "a".'],['Past tense of "run"','ran',['runned','runs','running'],'"Run" is an irregular verb. Its past tense is <b>ran</b>, not "runned".']],
+    2:[['Lawan "tinggi"','rendah',['besar','panjang','lebar'],'Lawan bermaksud makna yang bertentangan. Lawan bagi "tinggi" ialah <b>rendah</b>.'],['Kata nama: "Adik makan nasi."','nasi',['makan','adik makan','dengan'],'Kata nama ialah nama benda, orang atau tempat. <b>nasi</b> ialah benda. "makan" ialah kata kerja.'],['Imbuhan: ___tulis','menulis',['mentulis','mtulis','menjulis'],'Apabila awalan meN- bertemu kata dasar bermula dengan huruf <b>t</b>, huruf t digugurkan dan menjadi "men-": <b>menulis</b>.'],['Sinonim "gembira"','suka',['sedih','marah','takut'],'Sinonim ialah perkataan yang sama maksud. "Gembira" sama maksud dengan <b>suka</b>.'],['Jamak "pokok"','pokok-pokok',['pokoks','pokokan','berpokok'],'Dalam Bahasa Melayu, jamak dibentuk dengan menggandakan kata nama: <b>pokok-pokok</b>.'],['"Ali pergi ___ sekolah."','ke',['di','dari','pada'],'Kata sendi <b>ke</b> digunakan untuk menunjukkan arah atau tujuan. Ali bergerak menuju sekolah.'],['Peribahasa: "Bagai aur dengan ___"','tebing',['sungai','batu','pokok'],'Peribahasa lengkapnya ialah <b>"Bagai aur dengan tebing"</b>, bermaksud saling tolong-menolong.'],['Kata kerja?','berlari',['merah','meja','cantik'],'Kata kerja ialah perbuatan. <b>berlari</b> ialah perbuatan. "merah" dan "cantik" ialah kata adjektif, "meja" ialah kata nama.']],
+    3:[['Plants make food by…','photosynthesis',['digestion','respiration','evaporation'],'Plants use sunlight, water and carbon dioxide to make their own food. This process is called <b>photosynthesis</b>.'],['Which is a mammal?','whale',['shark','frog','eagle'],'Mammals breathe air with lungs, are warm-blooded and feed milk to their babies. A <b>whale</b> does all of these. A shark is a fish.'],['Water boils at…','100°C',['50°C','0°C','212°C'],'At sea level, pure water boils at <b>100°C</b>. 0°C is when it freezes. 212 is the boiling point in °F, not °C.'],['Which conducts electricity?','copper',['wood','plastic','rubber'],'Metals let electricity flow through them. <b>Copper</b> is a metal, which is why it\'s used in wires. Wood, plastic and rubber are insulators.'],['Closest star to Earth','the Sun',['Sirius','the Moon','Polaris'],'<b>The Sun</b> is a star, and it is the closest one to Earth. The Moon is not a star, and Sirius and Polaris are much further away.'],['Gas we breathe in to live','oxygen',['carbon dioxide','nitrogen','helium'],'Our bodies need <b>oxygen</b> to release energy from food. We breathe out carbon dioxide.'],['Light travels in…','straight lines',['circles','zigzags','curves'],'Light travels in <b>straight lines</b>. That\'s why shadows form when an object blocks the light.'],['A magnet attracts…','iron',['glass','paper','aluminium'],'Magnets attract some metals, such as <b>iron</b>. Glass and paper are not metals, and aluminium is a metal that is not magnetic.']]
   };
   function makeQs(subj,ch){
-    let qs;if(subj===0){const g=MATHQ[ch]||MATHQ[0];qs=Array.from({length:6},()=>{const[q,c,w]=g();return{q,c:String(c),o:opts(c,w)}})}
-    else qs=shuffle(BANK[subj].slice()).slice(0,6).map(([q,c,w])=>({q,c,o:shuffle([c,...w])}));
+    let qs;if(subj===0){const g=MATHQ[ch]||MATHQ[0];qs=Array.from({length:6},()=>{const[q,c,w,x]=g();return{q,x,c:String(c),o:opts(c,w)}})}
+    else qs=shuffle(BANK[subj].slice()).slice(0,6).map(([q,c,w,x])=>({q,x,c,o:shuffle([c,...w])}));
     qs=withMedia(qs,subj);qs.forEach(q=>{q.o=[...new Set(q.o.map(String))]});return qs;
   }
 
@@ -5364,12 +5548,12 @@ input,textarea{-webkit-user-select:text;user-select:text}
       multi:(qs,s,c)=>{const extra=makeQs(s,c);return qs.map((q,i)=>{if(q.img||q.stim)return q;const v=String(q.c);
         if(isNum(v)){const d=dec(v),n=+v,k=ri(2,9)*(d?1:(Math.abs(n)>=100?10:1));const add=Math.random()<.6||n-k<0;const r=add?n+k:n-k,ans=fmt(r,d);
           const o=uniq([ans,fmt(n,d),fmt(add?n-k:n+k,d),fmt(r+(d?Math.pow(10,-d)*10:(k>=10?10:1)),d)]);while(o.length<4)o.push(fmt(r+o.length*(k||1),d));
-          return{...q,q:`${q.q} Then ${add?'add':'take away'} ${k}. What is the final answer?`,c:ans,o:shuffle(o.slice(0,4))}}
+          return{...q,q:`${q.q} Then ${add?'add':'take away'} ${k}. What is the final answer?`,x:`<b>Step 1:</b> ${q.x||`The first answer is ${v}.`}<br><b>Step 2:</b> ${add?'Add':'Take away'} ${k}: ${v} ${add?'+':'−'} ${k} = <b>${ans}</b>.`,c:ans,o:shuffle(o.slice(0,4))}}
         if(MONEY.test(v)){const m=+v.match(MONEY)[1],k=[1,2,5][ri(0,2)],r=m+k,ans='RM'+r.toFixed(2);
-          return{...q,q:`${q.q} Then add RM${k}.00 for a drink. What is the total?`,c:ans,o:shuffle(uniq([ans,v,'RM'+(m-k>0?m-k:m+k+1).toFixed(2),'RM'+(r+1).toFixed(2)]).slice(0,4))}}
+          return{...q,q:`${q.q} Then add RM${k}.00 for a drink. What is the total?`,x:`<b>Step 1:</b> ${q.x||`The first total is ${v}.`}<br><b>Step 2:</b> Add the drink: ${v} + RM${k}.00 = <b>${ans}</b>.`,c:ans,o:shuffle(uniq([ans,v,'RM'+(m-k>0?m-k:m+k+1).toFixed(2),'RM'+(r+1).toFixed(2)]).slice(0,4))}}
         const b=extra[i];if(!b||b.img||b.stim)return q;const wa=q.o.filter(x=>x!==q.c),wb=b.o.filter(x=>x!==b.c),J=(x,y)=>`${x} · ${y}`,ans=J(q.c,b.c);
         const o=uniq([ans,J(q.c,wb[0]),J(wa[0],b.c),J(wa[1]||wa[0],wb[1]||wb[0])]);
-        return{...q,q:`${s===2?'Jawab kedua-dua.':'Answer both.'} ① ${q.q} ② ${b.q}`,c:ans,o:shuffle(o)}})}
+        return{...q,q:`${s===2?'Jawab kedua-dua.':'Answer both.'} ① ${q.q} ② ${b.q}`,x:`<b>①</b> ${q.x||q.c}<br><b>②</b> ${b.x||b.c}<br>So the pair is <b>${ans}</b>.`,c:ans,o:shuffle(o)}})}
     };
     function make(subj,c,set,tw){const base=seeded(hs(`${lob.year}|${subj}|${c}|${set}`),()=>makeQs(subj,c));
       return tw&&F[tw]?seeded(hs(`${lob.year}|${subj}|${c}|${set}|${tw}`),()=>F[tw](base,subj,c,set)):base}
@@ -5442,7 +5626,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
   SETS.paintRow();
   const fmtS=ms=>{const t=Math.max(0,ms)/1000,m=t/60|0,s=t-m*60;return`${m}:${s<10?'0':''}${s.toFixed(1)}`};
   const fmtL=s=>`${s/60|0}:${String(s%60).padStart(2,'0')}`;
-  const D={t:null,qs:[],i:0,ok:0,res:[],ms:0,run:false,t0:0,raf:0};
+  const D={t:null,qs:[],i:0,ok:0,res:[],pick:[],ms:0,run:false,t0:0,raf:0};
   function drillTick(t){if(!D.run)return;const ms=D.ms+(t-D.t0);const lim=D.t.limit*1000;
     $('#dTime').textContent=fmtS(ms);$('#sTime').textContent=fmtS(ms);$('#dTime').classList.toggle('warn',ms>lim*.8);
     const f=Math.max(0,1-ms/lim);$('#tbarI').style.transform=`scaleX(${f})`;$('#tbar').classList.toggle('low',f<.2);
@@ -5459,14 +5643,14 @@ input,textarea{-webkit-user-select:text;user-select:text}
     const b=$('#qbox'),a=$('#ans');replay(b,'inq');replay(a,'inq');a.classList.remove('lock');
   }
   $('#ans').addEventListener('click',e=>{const btn=e.target.closest('.an');if(!btn||!D.run)return;pause();
-    const q=D.qs[D.i],good=btn.dataset.v===q.c;D.res[D.i]=good;if(good)D.ok++;
+    const q=D.qs[D.i],good=btn.dataset.v===q.c;D.res[D.i]=good;D.pick[D.i]=btn.dataset.v;if(good)D.ok++;
     {let st=0;for(let k=D.i;k>=0&&D.res[k];k--)st++;SFX.play(good?'ok':'no',st-1)}window.GL&&GL.addQ(1);window.PQ&&PQ.track('q');
     $('#ans').classList.add('lock');
     document.querySelectorAll('#ans .an').forEach(x=>{if(x===btn)x.classList.add(good?'ok':'no');else if(x.dataset.v===q.c)x.classList.add('ok');else x.classList.add('dim')});
     $('#dOk').textContent=D.ok;const f=$('#flash');f.className='flash';void f.offsetWidth;f.className='flash '+(good?'ok':'no');
     if(good)replay($('#plus1'),'go');try{navigator.vibrate&&navigator.vibrate(good?12:[30,40,30])}catch(_){}
     document.querySelectorAll('#segs i')[D.i].className=good?'ok':'no';
-    setTimeout(()=>{D.i++;if(D.i>=6){finish();return}$('#qbox').classList.add('outq');setTimeout(()=>{renderQ();resume()},200)},good?520:900)});
+    setTimeout(()=>{D.i++;if(D.i>=6){RV.open(true);return}$('#qbox').classList.add('outq');setTimeout(()=>{renderQ();resume()},200)},good?520:900)});
   function finish(){
     if(D.t&&D.t.id==='duel'){duelDone();return}
     const t=D.t,ms=D.ms,accOk=D.ok>=t.need,timeOk=ms<=t.limit*1000,win=accOk&&timeOk;
@@ -5493,7 +5677,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
     window.STK&&STK.afterChallenge();
   }
   function startDrill(t){
-    D.t=t;{const plain=t.id==='duel'||!!t.hw;D.set=plain?1:SETS.cur();D.tw=plain?null:lob.tw;D.qs=plain?makeQs(lob.subj,lob.ch):SETS.make(lob.subj,lob.ch,D.set,D.tw);$('#s-drill').dataset.tw=D.tw||'';SETS.hidePanel()}D.i=0;D.ok=0;D.res=[];D.ms=0;D.run=false;
+    D.t=t;{const plain=t.id==='duel'||!!t.hw;D.set=plain?1:SETS.cur();D.tw=plain?null:lob.tw;D.qs=plain?makeQs(lob.subj,lob.ch):SETS.make(lob.subj,lob.ch,D.set,D.tw);$('#s-drill').dataset.tw=D.tw||'';SETS.hidePanel()}D.i=0;D.ok=0;D.res=[];D.pick=[];D.ms=0;D.run=false;RV.closeAll();
     const s=$('#s-drill');const[c1,c2,c3,e,tx]=t.btn;s.style.setProperty('--ac',c2);s.style.setProperty('--acd',e);s.style.setProperty('--acs',t.accs);s.style.setProperty('--tx',tx);
     $('#dNameT').textContent=t.name.toUpperCase();$('#dIco').innerHTML=TICO[t.id];$('#dPts').textContent='+'+t.pts;
     $('#dLim').textContent='LIMIT '+fmtL(t.limit);$('#dNeed').textContent=`NEED ${t.need} RIGHT`;$('#dOk').textContent='0';$('#dTime').textContent='0:00.0';$('#dTime').classList.remove('warn');
@@ -5518,6 +5702,83 @@ input,textarea{-webkit-user-select:text;user-select:text}
   $('#resNx').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;buzz();lob.set=+b.dataset.set||null;lob.tw=b.dataset.tw||null;SETS.paintRow();
     startDrill(D.t);countdownThen(lob.tw?SETS.TW[lob.tw].n:'Set '+lob.set,()=>resume())});
   $('#resBack').addEventListener('click',()=>{buzz();nav(D.t&&D.t.hw?'hw':'types')});
+  $('#resRev').addEventListener('click',()=>{buzz();RV.open(false)});
+
+  /* =================== REVIEW · EXPLANATION · ASK BOT =================== */
+  const RV=(()=>{
+    const CK='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',XX='<svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></svg>',CHV='<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>';
+    const plain=h=>{const d=document.createElement('div');d.innerHTML=String(h);return d.textContent.replace(/\s+/g,' ').trim()};
+    const e=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const why=q=>q.x||`The correct answer is <b>${e(q.c)}</b>.`;
+    let post=false,xi=0;
+    function open(isPost){post=isPost;const n=D.qs.length;
+      $('#rvS').textContent=isPost?`ALL ${n} ANSWERED`:(D.t&&D.t.name?D.t.name.toUpperCase():'CHALLENGE');
+      $('#rvSc').innerHTML=`${D.ok}<em>/${n}</em>`;$('#rvTm').textContent=fmtS(D.ms);
+      $('#rvBar').innerHTML=D.res.map(r=>`<i class="${r?'ok':'no'}"></i>`).join('');
+      $('#rvX').hidden=isPost;$('#rvGoT').textContent=isPost?'SEE RESULTS':'BACK TO RESULTS';
+      $('#rvL').innerHTML=D.qs.map((q,i)=>{const ok=!!D.res[i],y=D.pick[i];
+        return`<button class="rvi ${ok?'ok':'no'}" data-i="${i}"><span class="n">${i+1}<i>${ok?CK:XX}</i></span><span class="m"><small>QUESTION ${i+1} · ${ok?'CORRECT':'WRONG'}</small><b>${e(plain(q.q))}</b><span class="a">${y!=null?`<span class="y">${ok?'✓ ':''}${e(y)}</span>`:'<span class="y">No answer</span>'}${ok?'':`<span class="c">✓ ${e(q.c)}</span>`}</span></span>${CHV}</button>`}).join('');
+      $('#rvL').scrollTop=0;$('#rv').classList.add('open');SFX.play('pop')}
+    function close(){$('#rv').classList.remove('open')}
+    function openX(i){xi=i;const q=D.qs[i],ok=!!D.res[i],y=D.pick[i],n=D.qs.length;
+      $('#xpN').textContent=`Question ${i+1} of ${n}`;
+      const P=$('#xpP');P.className='xpst '+(ok?'ok':'no');P.innerHTML=(ok?CK:XX)+(ok?'CORRECT':'WRONG');
+      const opts=q.o.map((o,k)=>{o=String(o);const c=o===q.c,me=o===y;const cls=c?'c':me?'y':'dim';
+        return`<div class="${cls}"><span class="lt">${'ABCD'[k]}</span><span class="v">${o}</span>${c&&me?'<em>YOUR ANSWER</em>':c?'<em>CORRECT</em>':me?'<em>YOUR ANSWER</em>':''}</div>`}).join('');
+      const stim=q.stim?`<details><summary>${e(q.stim.kind.toUpperCase())} · ${e(q.stim.title)}</summary>${q.stim.text.map(t=>`<p>${t}</p>`).join('')}</details>`:'';
+      $('#xpB').innerHTML=`<div class="xpq">${q.q}${q.img?`<div class="qimg">${q.img}</div>`:''}${stim}</div>
+        <div class="xpo">${opts}</div>
+        <div class="xpw"><h4><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>WHY?</h4><p>${why(q)}</p>${ok?'':`<p class="yr">You picked <b>${e(y??'nothing')}</b>. The right answer is <b>${e(q.c)}</b>.</p>`}</div>`;
+      $('#xpPrev').disabled=i===0;$('#xpNext').disabled=i===n-1;
+      $('#xpB').scrollTop=0;const x=$('#xp');if(x.classList.contains('open'))replay(x,'open');x.classList.add('open')}
+    function closeX(){$('#xp').classList.remove('open')}
+
+    /* ---- bot ---- */
+    let ctx=null,practice=null,busy=false;
+    const bubble=(who,html)=>{const m=document.createElement('div');m.className='bm '+who;m.innerHTML=html;$('#botL').appendChild(m);$('#botL').scrollTop=1e6;return m};
+    const qText=q=>`${plain(q.q)}\nOptions: ${q.o.map((o,k)=>`${'ABCD'[k]}) ${plain(o)}`).join('  ')}`;
+    function openBot(){const q=D.qs[xi];ctx={q,i:xi,pick:D.pick[xi],ok:!!D.res[xi]};practice=null;
+      $('#botL').innerHTML='';$('#botIn').value='';autoGrow();
+      $('#botQn').textContent=`QUESTION ${xi+1} · ${ctx.ok?'CORRECT':'WRONG'}`;$('#botQt').textContent=plain(q.q);$('#botQ').classList.remove('used');$('#botPush').lastChild.textContent='Push to message';
+      $('#botCh').innerHTML=[`Why is it ${plain(q.c)}?`,'Explain step by step','Give me a hint','Give me a similar question'].map(t=>`<button>${e(t)}</button>`).join('');
+      bubble('b',`Hi! I'm <b>RI9 Buddy</b>. I can help with question ${xi+1}.\nTap <b>Push to message</b> to drop the question into your message, add what's confusing you, then send.`);
+      $('#bot').classList.add('open');SFX.play('pop')}
+    function closeBot(){$('#bot').classList.remove('open');$('#botIn').blur()}
+    function autoGrow(){const t=$('#botIn');t.style.height='auto';t.style.height=Math.min(120,t.scrollHeight)+'px';$('#botSend').disabled=!t.value.trim()||busy}
+    function insert(txt,sep){const t=$('#botIn'),v=t.value;t.value=v?(v.replace(/\s+$/,'')+(sep||'\n')+txt):txt;autoGrow();t.focus();t.setSelectionRange(t.value.length,t.value.length);t.scrollTop=1e6;replay(t,'tapulse')}
+    // Reply engine (offline). Swap askBot() for a real API call later; it returns a Promise of HTML.
+    function askBot(text){const q=ctx.q,low=text.toLowerCase(),x=why(q),sents=plain(x).split(/(?<=[.!?])\s+/).filter(Boolean);
+      if(practice){const p=practice,hit=p.o.find(o=>low.trim()===String(o).toLowerCase()||low.includes(String(o).toLowerCase()))||(/^[a-d]\)?$/i.test(text.trim())?p.o['abcd'.indexOf(text.trim()[0].toLowerCase())]:null);
+        if(hit!=null){practice=null;return Promise.resolve(String(hit)===p.c?`<b>Correct!</b> Nice work.\n${p.x||''}`:`Not quite. You said <b>${e(hit)}</b>, but the answer is <b>${e(p.c)}</b>.\n${p.x||''}`)}}
+      if(/similar|another|practi[cs]e|more like|try one/.test(low)){const nq=makeQs(lob.subj,lob.ch).find(z=>!z.img&&!z.stim)||makeQs(lob.subj,lob.ch)[0];practice=nq;
+        return Promise.resolve(`Here's one like it. Reply with your answer and I'll check it:<span class="pq">${nq.q}<br>${nq.o.map((o,k)=>`${'ABCD'[k]}) ${o}`).join('&nbsp;&nbsp; ')}</span>`)}
+      if(/hint|clue|tip/.test(low))return Promise.resolve(`Here's a hint: ${e(sents[0]||'Read the question again slowly.')}\nTry it again in your head before peeking at the full answer.`);
+      if(/step|break.?down|slow|how do|how to|working/.test(low))return Promise.resolve(`Let's go step by step:\n${sents.map((t,i)=>`<b>${i+1}.</b> ${e(t)}`).join('\n')}\nSo the answer is <b>${e(plain(q.c))}</b>.`);
+      if(/thank|thanks|ok|got it|faham|terima kasih/.test(low)&&low.length<30)return Promise.resolve('Anytime! Want a similar question to practise?');
+      const mine=ctx.pick!=null&&!ctx.ok?`\nYou chose <b>${e(plain(ctx.pick))}</b>. That one doesn't fit because the working above gives <b>${e(plain(q.c))}</b>.`:'';
+      return Promise.resolve(`The answer is <b>${e(plain(q.c))}</b>.\n${x}${mine}\nAsk me for a <b>hint</b>, the <b>steps</b>, or a <b>similar question</b>.`)}
+    function send(){const t=$('#botIn'),v=t.value.trim();if(!v||busy)return;buzz();busy=true;
+      bubble('u',e(v));t.value='';autoGrow();
+      const ty=bubble('b typing','<i></i><i></i><i></i>'),t0=performance.now();
+      askBot(v).then(html=>{setTimeout(()=>{ty.remove();bubble('b',html);busy=false;autoGrow();SFX.play('pop')},Math.max(0,700+Math.random()*600-(performance.now()-t0)))})
+        .catch(()=>{ty.remove();bubble('b','Sorry, I could not answer that right now. Try again in a moment.');busy=false;autoGrow()})}
+
+    $('#rvL').addEventListener('click',ev=>{const b=ev.target.closest('.rvi');if(b){buzz();openX(+b.dataset.i)}});
+    $('#rvGo').addEventListener('click',()=>{buzz();close();if(post){post=false;setTimeout(finish,reduce?0:200)}});
+    $('#rvX').addEventListener('click',()=>{buzz();close()});
+    $('#xpX').addEventListener('click',()=>{buzz();closeX()});
+    $('#xpPrev').addEventListener('click',()=>{if(xi>0){buzz();openX(xi-1)}});
+    $('#xpNext').addEventListener('click',()=>{if(xi<D.qs.length-1){buzz();openX(xi+1)}});
+    $('#xpAsk').addEventListener('click',()=>{buzz();openBot()});
+    $('#botX').addEventListener('click',()=>{buzz();closeBot()});
+    $('#botPush').addEventListener('click',()=>{buzz();insert(qText(ctx.q)+'\n');$('#botQ').classList.add('used');$('#botPush').lastChild.textContent='Push again'});
+    $('#botCh').addEventListener('click',ev=>{const b=ev.target.closest('button');if(b){buzz();insert(b.textContent,' ')}});
+    $('#botIn').addEventListener('input',autoGrow);
+    $('#botIn').addEventListener('keydown',ev=>{if(ev.key==='Enter'&&!ev.shiftKey&&!ev.isComposing){ev.preventDefault();send()}});
+    $('#botSend').addEventListener('click',send);
+    addEventListener('keydown',ev=>{if(ev.key!=='Escape')return;if($('#bot').classList.contains('open'))closeBot();else if($('#xp').classList.contains('open'))closeX();else if($('#rv').classList.contains('open')&&!post)close()});
+    return{open,closeAll(){post=false;closeBot();closeX();close()}};
+  })();
 
   window.__D=D;window.__pause=pause;
 
