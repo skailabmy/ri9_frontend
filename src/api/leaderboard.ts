@@ -25,6 +25,7 @@ import {
   type RawWeeklyBoardHistoryItem,
   type RawQuizSessionHistoryItem,
   type RawBoardWinner,
+  type RawWeeklyBoardPrize,
   type RawOngoingWeeklyBoard,
   type RawSelectablePrize,
   type RawUserPrizeSelection,
@@ -223,6 +224,22 @@ function parseImageString(img: string | null | undefined): string | null {
   return img;
 }
 
+/** Safely resolve the first usable image URL from a prize's
+    product_images field, which the API returns as either an
+    object ({ original, thumb, ... }) or an array of strings. */
+function pickProductImage(
+  rawImages: { original?: string | null; thumb?: string | null } | string[] | null | undefined,
+): string | null {
+  if (!rawImages) return null;
+  if (Array.isArray(rawImages)) return rawImages[0] ?? null;
+  return (
+    rawImages.original ||
+    rawImages.thumb ||
+    Object.values(rawImages).find((v): v is string => typeof v === 'string') ||
+    null
+  );
+}
+
 function mapBoardPrize(raw: RawWeeklyBoardPrize, defaultPos = 1): BoardPrize {
   const name =
     raw.formatted_prize?.title ||
@@ -235,12 +252,7 @@ function mapBoardPrize(raw: RawWeeklyBoardPrize, defaultPos = 1): BoardPrize {
     'Prize';
 
   const rawImages = raw.formatted_prize?.product_images || raw.product_images;
-  const imageFromObject =
-    typeof rawImages === 'object' && !Array.isArray(rawImages)
-      ? rawImages?.original || rawImages?.thumb || Object.values(rawImages)[0]
-      : Array.isArray(rawImages)
-        ? rawImages[0]
-        : null;
+  const imageFromObject = pickProductImage(rawImages);
 
   const rawImgStr =
     raw.formatted_prize?.product_image ||
@@ -315,12 +327,7 @@ function mapBoardWinner(raw: RawBoardWinner, defaultPosition = 1): BoardWinner {
 
   const prizeImage =
     raw.formatted_prize?.product_image ||
-    (typeof raw.formatted_prize?.product_images === 'object' &&
-    !Array.isArray(raw.formatted_prize?.product_images)
-      ? raw.formatted_prize?.product_images?.original || Object.values(raw.formatted_prize?.product_images)[0]
-      : Array.isArray(raw.formatted_prize?.product_images)
-        ? raw.formatted_prize?.product_images[0]
-        : null) ||
+    pickProductImage(raw.formatted_prize?.product_images) ||
     parseImageString(raw.prize?.product_image) ||
     raw.prize?.image_url ||
     raw.formatted_prize?.image_url ||
