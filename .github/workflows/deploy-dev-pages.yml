@@ -46,8 +46,10 @@ jobs:
       - name: Build (development mode)
         run: npm run build -- --mode development
 
-      - name: Setup Pages
+      - name: Setup Pages (enable/switch source to GitHub Actions)
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
