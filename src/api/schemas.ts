@@ -113,8 +113,8 @@ export const otpInputSchema = z
     old `...(raw as unknown as User)` spread). */
 export const rawUserSchema = z.looseObject({
   id: z.number().optional(),
-  username: z.string().optional(),
-  email: z.string().optional(),
+  username: z.string().nullable().optional(),
+  email: z.string().nullable().optional(),
   avatar_url: z.string().nullable().optional(),
   /** coins_balance */
   coins_balance: z.number().nullable().optional(),

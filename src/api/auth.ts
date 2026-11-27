@@ -53,8 +53,8 @@ export interface LoginData {
 function mapRawUser(raw: RawUser): User {
   return {
     id: raw.id,
-    username: raw.username,
-    email: raw.email,
+    username: raw.username ?? undefined,
+    email: raw.email ?? undefined,
     avatarUrl: raw.avatar_url ?? null,
     coinsBalance: raw.coins_balance ?? null,
     dumoBonusCoins: raw.dumo_bonus_coins ?? null,
