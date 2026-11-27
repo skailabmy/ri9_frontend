@@ -6,3 +6,8 @@
    not a native rebuild.
    ============================================================ */
 export const API_BASE_URL: string = import.meta.env.VITE_API_BASE_URL ?? '/api';
+
+/** CloudFront CDN base URL for static app assets, products & prize images */
+export const CLOUDFRONT_APP_URL: string =
+  import.meta.env.VITE_CLOUDFRONT_APP_URL ?? 'https://d4p30divqiye2.cloudfront.net/app';
+

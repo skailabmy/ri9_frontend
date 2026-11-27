@@ -22,6 +22,7 @@ import {
   parseCurrentUserResponse,
   streakResponseSchema,
   subjectStatsResponseSchema,
+  type RawCountry,
   type RawSubjectStat,
   type RawUser,
 } from './schemas';
@@ -429,13 +430,36 @@ export async function fetchSubjects(limit = 3): Promise<Subject[]> {
   return limit != null ? mapped.slice(0, limit) : mapped;
 }
 
+export interface UserStreakDetails {
+  currentStreak: number;
+  streakStartedAt?: string | null;
+  isActiveToday?: boolean | null;
+  streakIncreasedToday?: boolean | null;
+  streakResetToday?: boolean | null;
+  weekActivity?: Record<string, boolean | null>;
+}
+
+/** GET /api/v1/user/streak → full UserStreakDetails */
+export async function fetchUserStreakDetails(): Promise<UserStreakDetails> {
+  const res = streakResponseSchema.parse(await api<unknown>('/api/v1/user/streak'));
+  const d = res.data;
+  return {
+    currentStreak: d.current_streak,
+    streakStartedAt: d.streak_started_at,
+    isActiveToday: d.is_active_today,
+    streakIncreasedToday: d.streak_increased_today,
+    streakResetToday: d.streak_reset_today,
+    weekActivity: d.week_activity,
+  };
+}
+
 /** GET /api/v1/user/streak → data.current_streak
     (Flutter: user_streak_repository.dart. The current backend's
     /me no longer returns streak_activity, so the dashboard streak
     pill uses this dedicated endpoint instead.) */
 export async function fetchUserStreak(): Promise<number> {
-  const res = streakResponseSchema.parse(await api<unknown>('/api/v1/user/streak'));
-  return res.data.current_streak;
+  const details = await fetchUserStreakDetails();
+  return details.currentStreak;
 }
 
 /* ---------- session lifecycle (token cache lives in storage.ts) ---------- */

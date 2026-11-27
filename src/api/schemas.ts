@@ -133,9 +133,16 @@ export const loginResponseSchema = z.object({
   data: z.object({ user: rawUserSchema, token: z.string().min(1) }),
 });
 
-/** GET /api/v1/user/streak → { data: { current_streak } } */
+/** GET /api/v1/user/streak → full streak details */
 export const streakResponseSchema = z.object({
-  data: z.object({ current_streak: z.number() }),
+  data: z.looseObject({
+    current_streak: z.number().optional().default(0),
+    streak_started_at: z.string().nullable().optional(),
+    is_active_today: z.boolean().nullable().optional(),
+    streak_increased_today: z.boolean().nullable().optional(),
+    streak_reset_today: z.boolean().nullable().optional(),
+    week_activity: z.record(z.string(), z.boolean().nullable()).optional(),
+  }),
 });
 
 /** GET /api/v2/user/subject-stats speed_trend object. */
@@ -264,7 +271,8 @@ export type ProfileUpdateV2Response = z.infer<typeof profileUpdateV2ResponseSche
 
 /** GET /api/v1/countries list item. */
 export const rawCountrySchema = z.looseObject({
-  id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)).optional(),
+  country_id: z.number().or(z.string().transform((v) => Number(v) || 0)).optional(),
   country_name: z.string().nullable().optional(),
   name: z.string().nullable().optional(),
   country_code: z.string().nullable().optional(),
@@ -408,3 +416,391 @@ export const leaderboardSummaryResponseSchema = z.object({
 });
 
 export type RawLeaderboardSummary = z.infer<typeof leaderboardSummaryResponseSchema>;
+
+/* ---------- weekly boards history (WeeklyBoardController::history) ----------
+   GET /api/v1/weekly-boards/history?filter=all|won|played
+   Returns historical weekly boards enriched with user participation and stats. */
+
+export const rawBoardWinnerSchema = z.looseObject({
+  user_id: z.number().nullable().optional(),
+  username: z.string().nullable().optional(),
+  user_name: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  fullname: z.string().nullable().optional(),
+  avatar_url: z.string().nullable().optional(),
+  position: z.number().nullable().optional(),
+  prize_id: z.number().nullable().optional(),
+  prize_name: z.string().nullable().optional(),
+  prize_title: z.string().nullable().optional(),
+  score: z.number().nullable().optional(),
+  points: z.number().nullable().optional(),
+  prize: z
+    .looseObject({
+      id: z.number().nullable().optional(),
+      product_name: z.string().nullable().optional(),
+      name: z.string().nullable().optional(),
+      title: z.string().nullable().optional(),
+      product_image: z.string().nullable().optional(),
+      image_url: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+  formatted_prize: z
+    .looseObject({
+      id: z.number().nullable().optional(),
+      title: z.string().nullable().optional(),
+      name: z.string().nullable().optional(),
+      product_images: z
+        .looseObject({
+          original: z.string().nullable().optional(),
+          thumb: z.string().nullable().optional(),
+        })
+        .or(z.array(z.string()))
+        .nullable()
+        .optional(),
+      product_image: z.string().nullable().optional(),
+      image_url: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+  user: z
+    .looseObject({
+      id: z.number().nullable().optional(),
+      username: z.string().nullable().optional(),
+      user_name: z.string().nullable().optional(),
+      name: z.string().nullable().optional(),
+      fullname: z.string().nullable().optional(),
+      avatar_url: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+  metadata: z
+    .looseObject({
+      username: z.string().nullable().optional(),
+      user_name: z.string().nullable().optional(),
+      challenges_completed: z.number().nullable().optional(),
+      total_coins: z.number().nullable().optional(),
+      accuracy: z.number().nullable().optional(),
+      speed: z.number().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+});
+
+export type RawBoardWinner = z.infer<typeof rawBoardWinnerSchema>;
+
+export const rawWeeklyBoardPrizeSchema = z.looseObject({
+  id: z.number().optional(),
+  name: z.string().nullable().optional(),
+  title: z.string().nullable().optional(),
+  position: z.number().nullable().optional(),
+  prize_id: z.number().nullable().optional(),
+  image_url: z.string().nullable().optional(),
+  product_image: z.string().nullable().optional(),
+  prize: z
+    .looseObject({
+      id: z.number().nullable().optional(),
+      product_name: z.string().nullable().optional(),
+      name: z.string().nullable().optional(),
+      title: z.string().nullable().optional(),
+      product_image: z.string().nullable().optional(),
+      image_url: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+  product_images: z
+    .looseObject({
+      original: z.string().nullable().optional(),
+      thumb: z.string().nullable().optional(),
+    })
+    .or(z.array(z.string()))
+    .nullable()
+    .optional(),
+  formatted_prize: z
+    .looseObject({
+      id: z.number().nullable().optional(),
+      title: z.string().nullable().optional(),
+      name: z.string().nullable().optional(),
+      product_images: z
+        .looseObject({
+          original: z.string().nullable().optional(),
+          thumb: z.string().nullable().optional(),
+        })
+        .or(z.array(z.string()))
+        .nullable()
+        .optional(),
+      product_image: z.string().nullable().optional(),
+      image_url: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+  description: z.string().nullable().optional(),
+});
+
+export type RawWeeklyBoardPrize = z.infer<typeof rawWeeklyBoardPrizeSchema>;
+
+export const rawWeeklyBoardHistoryItemSchema = z.looseObject({
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  title: z.string().nullable().optional(),
+  start_date: z.string().nullable().optional(),
+  end_date: z.string().nullable().optional(),
+  sort_rule: z.string().nullable().optional(),
+  winners: z.array(rawBoardWinnerSchema).optional(),
+  prizes: z.array(rawWeeklyBoardPrizeSchema).optional(),
+  user_won: z.boolean().nullable().optional(),
+  user_played: z.boolean().nullable().optional(),
+  user_winning_details: rawBoardWinnerSchema.nullable().optional(),
+});
+
+export type RawWeeklyBoardHistoryItem = z.infer<typeof rawWeeklyBoardHistoryItemSchema>;
+
+export const weeklyBoardHistoryStatsSchema = z.looseObject({
+  total_boards: z.number().nullable().optional(),
+  boards_won: z.number().nullable().optional(),
+  boards_played: z.number().nullable().optional(),
+});
+
+export type WeeklyBoardHistoryStats = z.infer<typeof weeklyBoardHistoryStatsSchema>;
+
+export const weeklyBoardHistoryResponseSchema = z.looseObject({
+  status: z.string().optional(),
+  stats: weeklyBoardHistoryStatsSchema.optional(),
+  filter: z.string().optional(),
+  data: z.array(rawWeeklyBoardHistoryItemSchema).optional(),
+  message: z.string().nullable().optional(),
+});
+
+export type RawWeeklyBoardHistoryResponse = z.infer<typeof weeklyBoardHistoryResponseSchema>;
+
+/* ---------- quiz sessions history (QuizSessionController::history) ----------
+   GET /api/v1/quiz-sessions/history?filter=all|won|played
+   Returns historical quiz sessions enriched with user participation and stats. */
+
+export const rawQuizSessionHistoryItemSchema = z.looseObject({
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  title: z.string().nullable().optional(),
+  start_date: z.string().nullable().optional(),
+  end_date: z.string().nullable().optional(),
+  winners: z.array(rawBoardWinnerSchema).optional(),
+  prizes: z.array(rawWeeklyBoardPrizeSchema).optional(),
+  user_won: z.boolean().nullable().optional(),
+  user_played: z.boolean().nullable().optional(),
+  user_winning_details: rawBoardWinnerSchema.nullable().optional(),
+});
+
+export type RawQuizSessionHistoryItem = z.infer<typeof rawQuizSessionHistoryItemSchema>;
+
+export const quizSessionHistoryStatsSchema = z.looseObject({
+  total_sessions: z.number().nullable().optional(),
+  sessions_won: z.number().nullable().optional(),
+  sessions_played: z.number().nullable().optional(),
+});
+
+export type QuizSessionHistoryStats = z.infer<typeof quizSessionHistoryStatsSchema>;
+
+export const quizSessionHistoryResponseSchema = z.looseObject({
+  status: z.string().optional(),
+  stats: quizSessionHistoryStatsSchema.optional(),
+  filter: z.string().optional(),
+  data: z.array(rawQuizSessionHistoryItemSchema).optional(),
+  message: z.string().nullable().optional(),
+});
+
+export type RawQuizSessionHistoryResponse = z.infer<typeof quizSessionHistoryResponseSchema>;
+
+/* ---------- ongoing weekly boards (WeeklyBoardController::ongoing) ----------
+   GET /api/v1/weekly-boards/ongoing
+   Returns current ongoing weekly boards with selectable prizes and user prize selections. */
+
+export const rawSelectablePrizeSchema = z.looseObject({
+  prize_id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  prize_name: z.string().nullable().optional(),
+  product_name: z.string().nullable().optional(),
+  product_description: z.string().nullable().optional(),
+  product_image: z.string().nullable().optional(),
+  is_default: z.boolean().nullable().optional(),
+});
+
+export type RawSelectablePrize = z.infer<typeof rawSelectablePrizeSchema>;
+
+export const rawUserPrizeSelectionSchema = z.looseObject({
+  prize_id: z.number().or(z.string().transform((v) => Number(v) || 0)).nullable().optional(),
+  prize_name: z.string().nullable().optional(),
+  product_name: z.string().nullable().optional(),
+  selected_at: z.string().nullable().optional(),
+});
+
+export type RawUserPrizeSelection = z.infer<typeof rawUserPrizeSelectionSchema>;
+
+export const rawOngoingWeeklyBoardSchema = z.looseObject({
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  title: z.string().nullable().optional(),
+  start_date: z.string().nullable().optional(),
+  end_date: z.string().nullable().optional(),
+  sort_rule: z.string().nullable().optional(),
+  status: z.string().nullable().optional(),
+  my_prize_selections: z
+    .record(z.string(), rawUserPrizeSelectionSchema)
+    .or(z.array(rawUserPrizeSelectionSchema))
+    .nullable()
+    .optional(),
+  selectable_prizes: z
+    .record(z.string(), z.array(rawSelectablePrizeSchema))
+    .nullable()
+    .optional(),
+  prizes: z.array(rawWeeklyBoardPrizeSchema).optional(),
+});
+
+export type RawOngoingWeeklyBoard = z.infer<typeof rawOngoingWeeklyBoardSchema>;
+
+export const ongoingWeeklyBoardResponseSchema = z.looseObject({
+  status: z.string().optional(),
+  message: z.string().nullable().optional(),
+  data: z.array(rawOngoingWeeklyBoardSchema).optional(),
+});
+
+export type RawOngoingWeeklyBoardResponse = z.infer<typeof ongoingWeeklyBoardResponseSchema>;
+
+/* ---------- ongoing quiz sessions (QuizSessionController::ongoing) ----------
+   GET /api/v1/quiz-sessions/ongoing
+   Returns current ongoing quiz sessions with selectable prizes and user prize selections. */
+
+export const rawOngoingQuizSessionSchema = z.looseObject({
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  title: z.string().nullable().optional(),
+  start_date: z.string().nullable().optional(),
+  end_date: z.string().nullable().optional(),
+  status: z.string().nullable().optional(),
+  my_prize_selections: z
+    .record(z.string(), rawUserPrizeSelectionSchema)
+    .or(z.array(rawUserPrizeSelectionSchema))
+    .nullable()
+    .optional(),
+  selectable_prizes: z
+    .record(z.string(), z.array(rawSelectablePrizeSchema))
+    .nullable()
+    .optional(),
+});
+
+export type RawOngoingQuizSession = z.infer<typeof rawOngoingQuizSessionSchema>;
+
+export const ongoingQuizSessionResponseSchema = z.looseObject({
+  status: z.string().optional(),
+  message: z.string().nullable().optional(),
+  data: z.array(rawOngoingQuizSessionSchema).optional(),
+});
+
+export type RawOngoingQuizSessionResponse = z.infer<typeof ongoingQuizSessionResponseSchema>;
+
+/* ---------- quiz session attempts (GET /api/v1/quiz-sessions/{id}/attempts) ---------- */
+
+export const rawQuizSessionAttemptSchema = z.looseObject({
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)).optional(),
+  attempt_number: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  status: z.string().nullable().optional(),
+  score: z.number().nullable().optional(),
+  speed_seconds: z.number().nullable().optional(),
+  is_best: z.boolean().nullable().optional(),
+  subject_id: z.number().nullable().optional(),
+  subject_name: z.string().nullable().optional(),
+  category_id: z.number().nullable().optional(),
+  category_name: z.string().nullable().optional(),
+});
+
+export type RawQuizSessionAttempt = z.infer<typeof rawQuizSessionAttemptSchema>;
+
+export const quizSessionAttemptsResponseSchema = z.looseObject({
+  success: z.boolean().optional(),
+  status: z.string().optional(),
+  data: z.array(rawQuizSessionAttemptSchema).optional(),
+  message: z.string().nullable().optional(),
+});
+
+export type RawQuizSessionAttemptsResponse = z.infer<typeof quizSessionAttemptsResponseSchema>;
+
+/* ---------- quiz session subjects (GET /api/v1/quiz-sessions/{id}/subjects) ---------- */
+
+export const rawQuizCategorySchema = z.looseObject({
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  name: z.string(),
+  description: z.string().nullable().optional(),
+  is_eligible: z.boolean().optional(),
+  is_completed: z.boolean().optional(),
+  completion_percentage: z.number().optional(),
+  total_questions_completed: z.number().optional(),
+  total_questions: z.number().optional(),
+});
+
+export type RawQuizCategory = z.infer<typeof rawQuizCategorySchema>;
+
+export const rawQuizSubjectSchema = z.looseObject({
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  name: z.string(),
+  description: z.string().nullable().optional(),
+  image_url: z.string().nullable().optional(),
+  icon_url: z.string().nullable().optional(),
+  priority: z.number().optional(),
+  is_active: z.boolean().optional(),
+  is_locked: z.boolean().optional(),
+  age_range_ids: z.array(z.number()).optional(),
+  completion_percentage: z.number().optional(),
+  categories: z.array(rawQuizCategorySchema).optional(),
+  age_ranges: z.array(rawAgeRangeSchema).optional(),
+});
+
+export type RawQuizSubject = z.infer<typeof rawQuizSubjectSchema>;
+
+export const quizSessionSubjectsResponseSchema = z.looseObject({
+  success: z.boolean().optional(),
+  status: z.string().optional(),
+  data: z.array(rawQuizSubjectSchema).optional(),
+  message: z.string().nullable().optional(),
+});
+
+export type RawQuizSessionSubjectsResponse = z.infer<typeof quizSessionSubjectsResponseSchema>;
+
+/* ---------- quiz session gameplay (start attempt & submit answer) ---------- */
+export const quizOptionSchema = z.looseObject({
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  option_text: z.string().nullable().optional(),
+});
+
+export const quizQuestionSchema = z.looseObject({
+  id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  question_text: z.string().nullable().optional(),
+  question_image_url: z.string().nullable().optional(),
+  question_audio_url: z.string().nullable().optional(),
+  difficulty: z.number().nullable().optional(),
+  is_grouped: z.boolean().optional(),
+  stimulus: z.any().nullable().optional(),
+  grouped_questions: z.array(z.any()).nullable().optional(),
+  options: z.array(quizOptionSchema).optional(),
+});
+
+export const quizSessionStartDataSchema = z.looseObject({
+  attempt_id: z.number().or(z.string().transform((v) => Number(v) || 0)),
+  attempt_number: z.number().optional(),
+  extra_life: z.number().optional(),
+  first_question: quizQuestionSchema.nullable().optional(),
+  total_questions: z.number().optional(),
+  elapsed_seconds: z.number().optional(),
+});
+
+export const quizSessionStartResponseSchema = z.looseObject({
+  success: z.boolean().optional(),
+  message: z.string().nullable().optional(),
+  data: quizSessionStartDataSchema.optional(),
+});
+
+export const quizAnswerResponseSchema = z.looseObject({
+  success: z.boolean().optional(),
+  round_ended: z.boolean().optional(),
+  is_correct: z.boolean().optional(),
+  next_question: quizQuestionSchema.nullable().optional(),
+  extra_life: z.number().optional(),
+  score: z.number().optional(),
+  category_transition: z.any().nullable().optional(),
+});
+
+
+

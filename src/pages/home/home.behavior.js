@@ -90,31 +90,103 @@ export function mount() {/* ====================================================
   const DEFAULT_ICO=`<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>`;
   const STORE_SUBJ=useAppStore.getState().subjects;
   const API_SUBJ=Array.isArray(STORE_SUBJ)?STORE_SUBJ:null;
-  const SUBJ=(API_SUBJ&&API_SUBJ.length?API_SUBJ:[
-    {name:'No subjects yet',avg:null,q:0,tr:null,ico:null}
-  ]).map(s=>({name:s.name,q:s.q||0,avg:(typeof s.avg==='number')?s.avg:null,tr:(typeof s.tr==='number')?s.tr:null,
-    ico:s.ico||DEFAULT_ICO,icon:s.icon||null}));
-  const N=SUBJ.length, car=$('#car'), cards=[], A0=-200, A1=20; // gauge sweep angles
+
+  // Placeholder subjects when data is still loading (shows 3 shimmer cards)
+  const PLACEHOLDER_SUBJ=[
+    {name:'Loading...',avg:null,q:0,tr:null,ico:null,icon:null,_shimmer:true},
+    {name:'Loading...',avg:null,q:0,tr:null,ico:null,icon:null,_shimmer:true},
+    {name:'Loading...',avg:null,q:0,tr:null,ico:null,icon:null,_shimmer:true}
+  ];
+
+  let rawList = (API_SUBJ && API_SUBJ.length)
+    ? API_SUBJ
+    : (API_SUBJ === null ? PLACEHOLDER_SUBJ : [{name:'No subjects yet',avg:null,q:0,tr:null,ico:null}]);
+
+  let SUBJ = rawList.map(s=>({
+    name:s.name,
+    q:s.q||0,
+    avg:(typeof s.avg==='number')?s.avg:null,
+    tr:(typeof s.tr==='number')?s.tr:null,
+    ico:s.ico||DEFAULT_ICO,
+    icon:s.icon||null,
+    _shimmer:!!s._shimmer
+  }));
+
+  const car=$('#car'), cards=[], A0=-200, A1=20; // gauge sweep angles
+  let N=SUBJ.length;
   const P=(r,a)=>[102+r*Math.cos(a*Math.PI/180),104+r*Math.sin(a*Math.PI/180)];
   function arcPath(r,a,b){const[x1,y1]=P(r,a),[x2,y2]=P(r,b);return`M${x1.toFixed(1)} ${y1.toFixed(1)}A${r} ${r} 0 ${b-a>180?1:0} 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`}
   let ticks='';for(let i=0;i<=22;i++){const a=A0+(A1-A0)*i/22,big=i%5===0;const[x1,y1]=P(big?70:73,a),[x2,y2]=P(78,a);ticks+=`<line class="tk" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" style="${big?'stroke:#9da68e':''}"/>`}
   const score=s=>clamp((20-s.avg)/16,0.05,1); // faster = fuller gauge
-  SUBJ.forEach((s,k)=>{
-    const el=document.createElement('div');el.className='sc';el.dataset.k=k;
+
+  function renderCard(s, k) {
+    const el=document.createElement('div');el.className='sc' + (s._shimmer ? ' is-shimmer' : '');el.dataset.k=k;
     const ic=s.icon?`<img src="${s.icon}" alt="" style="width:24px;height:24px;object-fit:contain">`:`<svg viewBox="0 0 24 24">${s.ico}</svg>`;
-    el.innerHTML=`<div class="top"><span class="ic">${ic}</span><div><div class="nm">${s.name}</div><div class="kssr">${s.q} MCQs</div></div></div>
+    el.innerHTML=`<div class="top"><span class="ic">${ic}</span><div><div class="nm"><span class="nm-text">${s.name}</span></div><div class="kssr"><span class="kssr-text">${s.q} MCQs</span></div></div></div>
       <div class="gauge"><svg viewBox="0 0 204 116">${ticks}<path class="trk" d="${arcPath(90,A0,A1)}"/><path class="val" d="${arcPath(90,A0,A1)}"/>
         <g class="needle"><circle r="13" fill="#c6f432" opacity=".35" class="halo"/><circle r="8.5" fill="#fff" stroke="#1b1c19" stroke-width="3"/></g></svg>
-        <div class="read"><b><span class="v">${s.avg==null?'0.0':s.avg.toFixed(1)}</span><small>s</small></b><div>AVG SPEED</div></div></div>
-      <div class="ft"><span class="trend"><svg viewBox="0 0 10 10"><path d="M5 9 1 3h8z" fill="#3d6b06"/></svg>${s.tr==null?'No trend data':s.tr.toFixed(1)+'s faster this week'}</span></div>`;
-    car.appendChild(el);cards.push(el);
+        <div class="read"><b class="read-num"><span class="v read-text">${s.avg==null?'0.0':s.avg.toFixed(1)}</span><small class="read-text">s</small></b><div class="read-text">AVG SPEED</div></div></div>
+      <div class="ft"><span class="trend"><svg viewBox="0 0 10 10"><path d="M5 9 1 3h8z" fill="#3d6b06"/></svg><span class="trend-text">${s.tr==null?'No trend data':s.tr.toFixed(1)+'s faster this week'}</span></span></div>`;
     const v=el.querySelector('.val'),L=v.getTotalLength();v.style.strokeDasharray=L;v.style.strokeDashoffset=L;el._val=v;el._L=L;el._needle=el.querySelector('.needle');el._num=el.querySelector('.v');
+    return el;
+  }
+
+  SUBJ.forEach((s,k)=>{
+    const el=renderCard(s, k);
+    car.appendChild(el);cards.push(el);
   });
   $('#dots').innerHTML=SUBJ.map(()=>'<i></i>').join('');
-  const dots=[...document.querySelectorAll('#dots i')];
+  let dots=[...document.querySelectorAll('#dots i')];
   // needle rotation pivot (102,104); needle drawn pointing up (-90°)
   function setGauge(el,p){const a=A0+(A1-A0)*p;const[nx,ny]=P(90,a);el._needle.setAttribute('transform',`translate(${nx.toFixed(1)} ${ny.toFixed(1)})`);el._val.style.strokeDashoffset=(el._L*(1-p)).toFixed(1)}
-  cards.forEach(el=>setGauge(el,0));
+  function updateCard(k, s) {
+    const el = cards[k];
+    if (!el) return;
+    el.classList.toggle('is-shimmer', !!s._shimmer);
+
+    const icWrap = el.querySelector('.ic');
+    if (icWrap) {
+      const ic = s.icon ? `<img src="${s.icon}" alt="" style="width:24px;height:24px;object-fit:contain">` : `<svg viewBox="0 0 24 24">${s.ico}</svg>`;
+      icWrap.innerHTML = ic;
+    }
+
+    const nmText = el.querySelector('.nm-text');
+    if (nmText) nmText.textContent = s.name;
+
+    const kssrText = el.querySelector('.kssr-text');
+    if (kssrText) kssrText.textContent = `${s.q} MCQs`;
+
+    const vText = el.querySelector('.v');
+    if (vText) vText.textContent = s.avg == null ? '0.0' : s.avg.toFixed(1);
+
+    const trendText = el.querySelector('.trend-text');
+    if (trendText) trendText.textContent = s.tr == null ? 'No trend data' : `${s.tr.toFixed(1)}s faster this week`;
+  }
+
+  function setSubjectsData(newSubjs) {
+    if (!Array.isArray(newSubjs) || !newSubjs.length) return;
+    const mapped = newSubjs.map(s => ({
+      name: s.name,
+      q: s.q || 0,
+      avg: typeof s.avg === 'number' ? s.avg : null,
+      tr: typeof s.tr === 'number' ? s.tr : null,
+      ico: s.ico || DEFAULT_ICO,
+      icon: s.icon || null,
+      _shimmer: false
+    }));
+
+    // If card count matches or is 3, update in place
+    mapped.forEach((s, idx) => {
+      if (idx < cards.length) {
+        SUBJ[idx] = s;
+        updateCard(idx, s);
+      }
+    });
+
+    animGauge(cur, 100);
+  }
+
+  window._ri9SetHomeSubjects = setSubjectsData;
   function animGauge(k,delay){
     const el=cards[k],s=SUBJ[k],hasAvg=s.avg!=null,target=hasAvg?score(s):0;
     if(reduce){setGauge(el,target);el._num.textContent=hasAvg?s.avg.toFixed(1):'0.0';return}
@@ -220,8 +292,10 @@ export function mount() {/* ====================================================
     // mirroring the prototype's nav('lobby'): whoosh plays BEFORE the
     // redirect so it stays audible (location.href kills the AudioContext).
     if(b.dataset.mode==='challenge'){setTimeout(()=>{SFX.play('whoosh');setTimeout(()=>location.href='challenge.html',260)},180);return}
-    // Quiz + Tournament — still stubs. The challenge hero button has no
-    // <b> label (index.html), so fall back to its data-mode for the toast.
+    // Quiz — real navigation to the prize quiz page (quiz.html),
+    // mirroring the prototype's nav('quiz').
+    if(b.dataset.mode==='quiz'){setTimeout(()=>{SFX.play('whoosh');setTimeout(()=>location.href='quiz.html',260)},180);return}
+    // Tournament — still stub.
     toast(`${label?label.textContent:b.dataset.mode} — next screen in the build`)}));
 
   /* ---------- sound toggle + locked shell ---------- */

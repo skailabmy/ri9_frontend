@@ -240,8 +240,102 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .sc .ic svg{width:28px;height:28px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .sc .ic svg .f{fill:var(--ink);stroke:none}
 .sc.on .ic{background:var(--lime)}
-.sc .nm{font-size:17px;font-weight:700;line-height:1.05;letter-spacing:-.2px}
-.sc .kssr{font-size:9.5px;font-weight:700;letter-spacing:1.4px;color:var(--muted);margin-top:3px}
+.sc .nm{font-size:17px;font-weight:700;line-height:1.05;letter-spacing:-.2px;transition:opacity .2s}
+.sc .kssr{font-size:9.5px;font-weight:700;letter-spacing:1.4px;color:var(--muted);margin-top:3px;transition:opacity .2s}
+
+/* ---------- shimmer loading state for carousel cards ---------- */
+.sc.is-shimmer .nm,
+.sc.is-shimmer .kssr,
+.sc.is-shimmer .read,
+.sc.is-shimmer .trend,
+.sc.is-shimmer .ic {
+  position: relative;
+  overflow: hidden;
+}
+.sc.is-shimmer .nm-text,
+.sc.is-shimmer .kssr-text,
+.sc.is-shimmer .read-text,
+.sc.is-shimmer .trend-text {
+  visibility: hidden;
+}
+.sc.is-shimmer .ic svg,
+.sc.is-shimmer .ic img {
+  opacity: 0;
+}
+.sc.is-shimmer .trend svg {
+  display: none;
+}
+.sc.is-shimmer .trend {
+  background: #eef2e6;
+  min-width: 130px;
+  min-height: 22px;
+}
+.sc.is-shimmer .nm {
+  min-height: 18px;
+  min-width: 90px;
+  border-radius: 6px;
+  background: #edf1e4;
+}
+.sc.is-shimmer .kssr {
+  min-height: 12px;
+  min-width: 55px;
+  border-radius: 4px;
+  background: #edf1e4;
+}
+.sc.is-shimmer .read {
+  min-height: 44px;
+}
+.sc.is-shimmer .gauge .read b {
+  display: inline-block;
+  min-width: 72px;
+  height: 32px;
+  border-radius: 8px;
+  background: #edf1e4;
+  margin-bottom: 3px;
+}
+.sc.is-shimmer .gauge .read div {
+  width: 60px;
+  height: 10px;
+  border-radius: 4px;
+  background: #edf1e4;
+  margin: 4px auto 0;
+}
+.sc.is-shimmer .gauge .val {
+  opacity: 0;
+}
+.sc.is-shimmer .gauge .halo {
+  animation: none;
+  opacity: 0;
+}
+.sc.is-shimmer .gauge .trk {
+  stroke: #e4e9db;
+}
+
+/* Shimmer gradient animation */
+.sc.is-shimmer .shimmer-bar,
+.sc.is-shimmer .nm::after,
+.sc.is-shimmer .kssr::after,
+.sc.is-shimmer .trend::after,
+.sc.is-shimmer .gauge .read b::after,
+.sc.is-shimmer .gauge .read div::after,
+.sc.is-shimmer .ic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.65) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: carShimmer 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes carShimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
 .gauge{position:relative;width:204px;height:116px;margin:10px auto 0}
 .gauge svg{width:100%;height:100%;overflow:visible}
 .gauge .trk{fill:none;stroke:#eef2e6;stroke-width:12;stroke-linecap:round}

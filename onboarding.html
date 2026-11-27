@@ -11,11 +11,12 @@
 <link rel="stylesheet" href="/src/pages/home/home.css">
 <link rel="stylesheet" href="/src/pages/onboarding/onboarding.css">
 <script>
-/* Early gate: if the walkthrough was already completed, jump straight
-   home before first paint (localStorage works in the Capacitor WebView
-   on iOS + Android; the try/catch guards private mode / storage bugs).
+/* Early gate: require authentication like other pages.
+   If not authenticated, bounce to auth immediately before paint.
+   If the walkthrough was already completed, jump straight home.
    Add ?walkthrough to force it to show again. */
 (function(){
+  try{if(!localStorage.getItem('ri9-token')){location.replace('auth.html');return}}catch(_){}
   var force=/[?&#]walkthrough\b/.test(location.search+location.hash);
   if(force)return;
   try{if(localStorage.getItem('ri9_walkthrough')==='done')location.replace('index.html')}catch(_){}

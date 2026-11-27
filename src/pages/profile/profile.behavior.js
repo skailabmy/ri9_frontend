@@ -300,11 +300,11 @@ export function mount() {
     /* ---- boot: show a centered spinner, then load dropdowns + profile ---- */
     async function loadStatic(){
       try{COUNTRIES=await fetchCountries();
-        $('#pfCountry').innerHTML='<option value="">Select your country</option>'+COUNTRIES.map(c=>`<option value="${c.id}">${pfEsc(c.country_name||'')}</option>`).join('')}
-      catch(_){toast('Could not load countries')}
+        $('#pfCountry').innerHTML='<option value="">Select your country</option>'+COUNTRIES.map(c=>`<option value="${c.id??c.country_id}">${pfEsc(c.country_name||c.name||'')}</option>`).join('')}
+      catch(err){console.error('Failed to load countries:',err);toast('Could not load countries')}
       try{YEARS=await fetchAgeRanges();
         $('#pfYear').innerHTML='<option value="">Select your year</option>'+YEARS.map(y=>`<option value="${y.id}">${pfEsc(y.label||'')}</option>`).join('')}
-      catch(_){toast('Could not load years')}}
+      catch(err){console.error('Failed to load years:',err);toast('Could not load years')}}
     async function loadProfile(){
       try{const p=await fetchProfile();if(p)mergeApi(p);else toast('No profile yet — fill it in below')}
       catch(e){toast(pickErrMsg(e,'Could not load your profile'))}

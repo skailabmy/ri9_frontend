@@ -15,7 +15,7 @@
 import { useAppStore, type Role } from './store/app';
 import { getToken } from './api/storage';
 
-export type PageId = 'home' | 'profile' | 'stats' | 'challenge' | 'onboarding' | 'auth' | 'school' | 'parent';
+export type PageId = 'home' | 'profile' | 'stats' | 'challenge' | 'quiz' | 'past' | 'onboarding' | 'auth' | 'school' | 'parent';
 
 /** Canonical paths for programmatic navigation (like go_router's NamedRoutes) */
 export const routes = {
@@ -23,6 +23,8 @@ export const routes = {
   profile: 'profile.html',
   stats: 'stats.html',
   challenge: 'challenge.html',
+  quiz: 'quiz.html',
+  past: 'past.html',
   onboarding: 'onboarding.html',
   auth: 'auth.html',
   school: 'school.html',
@@ -30,7 +32,7 @@ export const routes = {
 } as const;
 
 /** Pages accessible without being logged in */
-const PUBLIC_PAGES: readonly PageId[] = ['auth', 'onboarding'] as const;
+const PUBLIC_PAGES: readonly PageId[] = ['auth'] as const;
 
 interface BootOptions {
   /** Which page is booting */

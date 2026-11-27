@@ -26,7 +26,7 @@
   <section class="screen play" id="s-lobby" aria-label="Daily challenge">
     <div class="ahdr in2" style="--a:up .5s ease">
       <button class="gbtn" id="lbBack" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <div class="tt"><h2>DAILY <span>CHALLENGE</span></h2><span class="live"><i></i>LIVE · RESETS <b id="resetT">--:--:--</b></span></div>
+      <div class="tt"><h2>DAILY <span>CHALLENGE</span></h2><span class="live" id="lbLive"><i></i><span id="lbLiveTxt">LIVE</span> · <span id="lbResetPrefix">RESETS</span> <b id="resetT">--:--:--</b></span></div>
       <button class="gbtn pwb" id="lbPast" aria-label="Past winners"><svg viewBox="0 0 24 24"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4c0 2.6 1.3 3.9 3.1 4.4M17 6h3c0 2.6-1.3 3.9-3.1 4.4M12 13v3"/><circle cx="17.5" cy="17.5" r="4.5" fill="#fff"/><path d="M17.5 15.5v2.2l1.4 1"/><path d="M8 20h4.5"/></svg></button>
       <button class="gbtn" id="lbInfo" aria-label="How ranking works"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/></svg></button>
     </div>
@@ -43,8 +43,8 @@
 
     <div class="lbar in2" id="lbar" style="--a:up .6s cubic-bezier(.2,1.3,.4,1);--d:.2s">
       <div class="lbar-f">
-        <button class="lrow" id="fSubj" aria-label="Change subject"><span class="li" id="fSubjI"></span><span class="lv"><small id="fSubjL">YEAR 4 · SUBJECT</small><b id="fSubjV">Mathematics</b></span><span class="chg"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></button>
-        <button class="lrow" id="fCh" aria-label="Change chapter"><span class="li"><b id="fChN">1</b></span><span class="lv"><small id="fChL">CHAPTER 1 OF 8</small><b id="fChV">Whole Numbers</b></span><span class="chg"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></button>
+        <button class="lrow" id="fSubj" aria-label="Change subject"><span class="li" id="fSubjI"></span><span class="lv"><small id="fSubjL">SUBJECT</small><b id="fSubjV">Select Subject</b></span><span class="chg"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></button>
+        <button class="lrow" id="fCh" aria-label="Change chapter"><span class="li"><b id="fChN">—</b></span><span class="lv"><small id="fChL">CHAPTER</small><b id="fChV">Select Chapter</b></span><span class="chg"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></button>
       </div>
       <button class="lgo" id="toDrill" aria-label="Start challenge"><span class="lping"></span><svg class="lring" viewBox="0 0 114 114"><circle cx="57" cy="57" r="55"/></svg><span class="lgi"><b>GO</b><span class="chev"><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg></span></span></button>
     </div>
@@ -63,13 +63,113 @@
     <div class="pw-list scroll" id="pwList"></div>
   </section>
 
-  <!-- ===== PICKER SHEET (subject / chapter / prize + academic year rail) ===== -->
+  <!-- ===== CHALLENGE TYPES (#s-types, ported from references/index.html) ===== -->
+  <section class="screen off" id="s-types" aria-label="Choose a challenge">
+    <div class="ahdr in2" style="--a:up .5s ease">
+      <button class="gbtn" id="typesBack" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="tt"><span class="tchip" id="tchip"><i></i><span>Mathematics · Ch 1</span></span></div>
+      <span style="width:42px;flex:none"></span>
+    </div>
+    <div class="ttl"><small>CHOOSE YOUR</small><h1>CHALLENGE</h1></div>
+    <div class="mgrid" id="mgrid" aria-roledescription="carousel"></div>
+    <div class="mdots" id="mdots" role="tablist" aria-label="Challenge pages"></div>
+    <div class="mpanel in2" id="mpanel" style="--a:up .6s cubic-bezier(.2,1.2,.4,1);--d:.3s">
+      <div class="mstats" id="mstats"></div>
+      <div class="mbest" id="mbestWrap" hidden><span><svg viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4c0 3 1.5 4.5 3.5 5M17 6h3c0 3-1.5 4.5-3.5 5M12 14v4M8 21h8"/></svg>Your best</span><b id="mbest">7:42</b></div>
+      <button class="go3d" id="mgo"><span class="lbl" id="mgoT">START SPEED RUN</span><span class="chev"><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg></span></button>
+    </div>
+  </section>
+
+  <!-- ===== DRILL / QUESTIONS SCREEN (#s-drill, from references/index.html) ===== -->
+  <section class="screen off" id="s-drill" aria-label="Challenge questions">
+    <div class="dhdr">
+      <button class="gbtn" id="dQuit" aria-label="Quit challenge"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="dname"><span id="dName"><svg viewBox="0 0 24 24" id="dIco"></svg><b id="dNameT">SPEED RUN</b></span></div>
+      <span class="dpts"><i></i><span id="dPts">+40</span></span>
+    </div>
+    <div class="hud">
+      <div class="tm"><b id="dTime">0:00.0</b><small id="dLim">LIMIT 1:00</small></div>
+      <div class="ac"><b><span id="dOk">0</span><em id="dTot">/6</em></b><small id="dNeed">NEED 4 RIGHT</small></div>
+    </div>
+    <div class="tbar" id="tbar"><i id="tbarI"></i></div>
+    <div class="segs" id="segs"></div>
+    <span class="plus1" id="plus1">+1</span>
+    <div class="qwrap">
+      <div class="qbox" id="qbox"></div>
+      <div class="ans" id="ans"></div>
+    </div>
+    <div class="flash" id="flash"></div>
+
+    <!-- ===== STIMULUS MODAL (#stim, for reading passages in grouped questions) ===== -->
+    <div class="stim" id="stim" role="dialog" aria-modal="true" aria-labelledby="sTitle">
+      <div class="sh">
+        <button class="gbtn" id="sClose" aria-label="Back to question"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+        <span class="st"><small id="sKind">READ THIS</small><b id="sTitle">Passage</b></span>
+        <span class="stm" id="sTime">0:00.0</span>
+      </div>
+      <div class="sb">
+        <div class="simg" id="sImg" style="display:none"></div>
+        <h3 id="sH">Passage</h3>
+        <div id="sTxt"></div>
+      </div>
+      <div class="sf">
+        <p class="qrem" id="sQ">Question</p>
+        <button class="back2" id="sBack"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>BACK TO QUESTION</span></button>
+      </div>
+    </div>
+
+    <!-- ===== DRILL RESULT MODAL (#res) ===== -->
+    <div class="res" id="res" role="dialog" aria-labelledby="resT">
+      <div class="badge3"><i class="burst"></i><span class="core" id="resIco"></span></div>
+      <h2 id="resT">CHALLENGE <span>BEATEN!</span></h2>
+      <p class="sub" id="resSub">You met both targets.</p>
+      <div class="earn" id="resEarn"><i></i><span id="resPts">+0</span><small>PTS</small></div>
+      <div class="chk">
+        <div class="ck2" id="ckA"><span class="st"></span><small>ACCURACY</small><b id="ckAv">5/6</b><em id="ckAn">Need 4/6</em></div>
+        <div class="ck2" id="ckT"><span class="st"></span><small>TIME</small><b id="ckTv">0:38.2</b><em id="ckTn">Limit 1:00</em></div>
+      </div>
+      <div class="dots6" id="resDots"></div>
+      <div class="acts">
+        <button class="go3d" id="resAgain"><span class="lbl">PLAY AGAIN</span><span class="chev"><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg></span></button>
+        <div class="lrow"><button class="lnk2" id="resRev"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>Review answers</button><button class="lnk2" id="resBack">Pick another challenge</button></div>
+      </div>
+    </div>
+    <div class="rv" id="rv" role="dialog" aria-modal="true" aria-labelledby="rvT">
+      <div class="rvh"><button class="rvx" id="rvX" aria-label="Back to results" hidden><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div class="tt"><small id="rvS">ALL 6 ANSWERED</small><h3 id="rvT">REVIEW <span>ANSWERS</span></h3></div><div class="rvsc"><b id="rvSc">0<em>/6</em></b><small id="rvTm">0:00.0</small></div></div>
+      <div class="rvbar" id="rvBar"></div>
+      <p class="rvtip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/></svg>Tap any question to see the answer and why.</p>
+      <div class="rvl" id="rvL"></div>
+      <div class="rvf"><button class="go3d" id="rvGo"><span class="lbl" id="rvGoT">SEE RESULTS</span><span class="chev"><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg><svg viewBox="0 0 12 24"><path d="M3 4l7 8-7 8"/></svg></span></button></div>
+    </div>
+    <div class="xp" id="xp" role="dialog" aria-modal="true" aria-labelledby="xpN">
+      <div class="xph"><button class="xpx" id="xpX" aria-label="Back to review"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div class="tt"><small>EXPLANATION</small><b class="xpnm" id="xpN">Question 1 of 6</b></div><span class="xpst" id="xpP"></span></div>
+      <div class="xpb" id="xpB"></div>
+      <div class="xpf"><button class="xpnv" id="xpPrev" aria-label="Previous question"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button class="askb" id="xpAsk"><i><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 12h.01M15 12h.01M9.5 15.5h5"/></svg></i><span>ASK BOT</span></button><button class="xpnv" id="xpNext" aria-label="Next question"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
+    </div>
+    <div class="bot" id="bot" role="dialog" aria-modal="true" aria-labelledby="botN">
+      <div class="both"><button class="botx" id="botX" aria-label="Back to explanation"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><span class="bav"><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 12h.01M15 12h.01M9.5 15.5h5"/></svg></span><div class="tt"><b id="botN">RI9 Buddy</b><small><i></i>Online · your study helper</small></div></div>
+      <div class="botl" id="botL" aria-live="polite"></div>
+      <div class="botq" id="botQ"><div class="m"><small id="botQn">QUESTION 1</small><b id="botQt">Question</b></div><button id="botPush"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Push to message</button></div>
+      <div class="botch" id="botCh"></div>
+      <div class="botc"><textarea id="botIn" rows="1" placeholder="Type your question…" aria-label="Message"></textarea><button class="snd" id="botSend" aria-label="Send" disabled><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2.5-6.5z"/><path d="M11.5 13.5 20 4"/></svg></button></div>
+    </div>
+  </section>
+
+  <!-- ===== PICKER POPUP (academic year / subject / chapter) ===== -->
   <div class="pkbd" id="pkBd"></div>
   <div class="pk" id="pk" role="dialog" aria-modal="true" aria-labelledby="pkT">
-    <div class="yrail" id="yrail"><span class="yic"><svg viewBox="0 0 24 24"><path d="M3 9l9-5 9 5-9 5z"/><path d="M7 11.5V16c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4.5M21 9v5"/></svg></span><span class="ytx"><small id="ycurS">ACADEMIC YEAR</small><b id="ycur">KSSR Year 4</b></span><button class="ychg" id="ychg" aria-haspopup="listbox">Change<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></div>
-    <div class="ydd" id="ydd" role="listbox" aria-label="Academic year"></div>
-    <div class="pkh"><small id="pkS">STEP 1 · SUBJECT</small><h3 id="pkT">PICK A SUBJECT</h3><button class="pkx" id="pkX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-    <div class="pk-o" id="pkO"></div>
+    <div class="yrail" id="yrail">
+      <span class="yic"><svg viewBox="0 0 24 24"><path d="M3 9l9-5 9 5-9 5z"/><path d="M7 11.5V16c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4.5M21 9v5"/></svg></span>
+      <span class="ytx"><small id="ycurS">ACADEMIC YEAR</small><b id="ycur">Select Year</b></span>
+      <button class="ychg" id="ychg" aria-haspopup="listbox">Change<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    </div>
+    <div class="ydd scroll" id="ydd" role="listbox" aria-label="Academic year"></div>
+    <div class="pkh">
+      <small id="pkS">STEP 1 · SUBJECT</small>
+      <h4 id="pkT">PICK A SUBJECT</h4>
+      <button class="pkx" id="pkX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="opts" id="pkO"></div>
   </div>
 
   <!-- ===== PRIZE PICKER DIALOG (ported from the prototype #pzd) ===== -->
@@ -78,6 +178,29 @@
     <div class="ph"><small id="pzS"><i>1</i>1ST PLACE</small><h4 id="pzT">PICK YOUR PRIZE</h4><p id="pzP">Finish 1st and this one is yours.</p>
       <button class="px" id="pzX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <div class="pg" id="pzG"></div>
+  </div>
+
+  <!-- ===== STREAK CELEBRATION MODAL (#sk, ported from prototype) ===== -->
+  <div class="sk" id="sk" role="dialog" aria-modal="true" aria-labelledby="skLbl" aria-describedby="skSub">
+    <div class="rays" aria-hidden="true"></div><div class="glow2" aria-hidden="true"></div><div class="emb2" id="skEmb" aria-hidden="true"></div>
+    <button class="sk-x" id="skX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <span class="sk-k sk-in" id="skK" style="--d:.05s"><i></i>STREAK UPDATED</span>
+    <div class="sk-fl" aria-hidden="true">
+      <svg viewBox="0 0 19 25"><path class="o" d="M9.5 0.5c1.4 4.6 7.8 7.4 7.8 14.3a7.8 7.8 0 0 1-15.6 0c0-4.2 2.6-6.1 3.5-9.6 1.3 2.1 1.4 3.9 2.6 4.6.7-3.4.6-6.4 1.7-9.3z" fill="#ff5a2e"/><path class="i" d="M9.6 11.8c.9 2.8 4.3 3.7 4.3 7.2a4.3 4.3 0 0 1-8.6 0c0-2.2 1.9-3.6 2.1-5.6.8.8 1.2 1.6 1.4 2.4.6-1.3.7-2.6.8-4z" fill="#ffb420"/><path class="c" d="M9.6 17.2c.5 1.4 2.1 1.9 2.1 3.7a2.1 2.1 0 0 1-4.2 0c0-1.1.9-1.8 1.1-2.8.4.4.6.8.7 1.2.3-.7.3-1.3.3-2.1z" fill="#fff3c4"/></svg>
+      <div class="sk-num" id="skNum"><div class="roll" id="skRoll"></div></div>
+    </div>
+    <div class="sk-lbl sk-in" id="skLbl" style="--d:.5s">DAY <span>STREAK!</span></div>
+    <p class="sk-sub sk-in" id="skSub" style="--d:.6s"></p>
+    <div class="sk-wk sk-in" style="--d:.75s">
+      <h5><span>THIS WEEK</span><em id="skBest"></em></h5>
+      <div class="sk-days" id="skDays"></div>
+      <div class="sk-ms"><span class="md" id="skMd">7</span><div><b id="skMsT"></b><small id="skMsS"></small><div class="bar"><i id="skBar"></i></div></div></div>
+    </div>
+    <span class="sk-bonus" id="skBonus"><span class="cn"></span><span id="skBonusT">+10 streak coins</span></span>
+    <div class="sk-act sk-in" style="--d:.9s">
+      <button class="pri" id="skBack"><svg viewBox="0 0 24 24"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-12H13z" fill="currentColor" stroke="none"/></svg><span id="skBackL">BACK TO CHALLENGE</span></button>
+      <button class="sec" id="skHome"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/></svg>DASHBOARD</button>
+    </div>
   </div>
 
   <!-- ===== PAST WINNERS DETAIL SHEET ===== -->
@@ -90,6 +213,15 @@
 
   <div class="toast" id="toast" role="status"></div>
 </main>
+</div>
+
+<!-- ===== COUNTDOWN OVERLAY (#launch, full-screen top level outside stage) ===== -->
+<div class="launch" id="launch" hidden>
+  <div class="lines"></div>
+  <div class="lbox">
+    <div class="cnt" id="cnt">3</div>
+    <div class="pf-load" id="launchLoad" style="display:none"><span class="spin-lg"></span><small style="display:block;margin-top:14px;font-weight:700;letter-spacing:1px;font-size:13px;color:var(--ink)">GETTING QUESTIONS...</small></div>
+  </div>
 </div>
 </body>
 </html>

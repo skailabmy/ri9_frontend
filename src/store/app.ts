@@ -11,7 +11,17 @@
    ============================================================ */
 import { createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
-import type { LeaderboardSummary, SummaryPeriod } from '../api/leaderboard';
+import type {
+  LeaderboardSummary,
+  SummaryPeriod,
+  WeeklyBoardHistoryItem,
+  WeeklyBoardHistoryStats,
+  QuizSessionHistoryItem,
+  QuizSessionHistoryStats,
+  OngoingWeeklyBoard,
+  OngoingQuizSession,
+  QuizSessionAttempt,
+} from '../api/leaderboard';
 
 /** Subject carousel card consumed by home.behavior.js — the mapped
     shape of GET /api/v2/user/subject-stats (gauge avg speed, weekly
@@ -46,9 +56,29 @@ interface AppState {
       lobby's segment toggle writes it; challenge.ts subscribes and
       re-fetches the summary when it changes (never persisted) */
   lbPeriod: SummaryPeriod;
+  /** Active tab on the Past Winners screen ('quiz' | 'lb' | null when closed) */
+  pwTab: 'quiz' | 'lb' | null;
+  /** Active filter on the Past Winners screen ('all' | 'won' | 'played') */
+  pwFilter: 'all' | 'won' | 'played';
   /** Live leaderboard summary (top-3 podium + user standing) —
       ephemeral, always re-fetched per page load */
   lbSummary: LeaderboardSummary | null;
+  /** Historical weekly boards for past winners (mapped from
+      GET /api/v1/weekly-boards/history — ephemeral, re-fetched per load) */
+  weeklyBoardsHistory: WeeklyBoardHistoryItem[] | null;
+  weeklyBoardsStats: WeeklyBoardHistoryStats | null;
+  /** Historical quiz sessions for past winners (mapped from
+      GET /api/v1/quiz-sessions/history — ephemeral, re-fetched per load) */
+  quizSessionsHistory: QuizSessionHistoryItem[] | null;
+  quizSessionsStats: QuizSessionHistoryStats | null;
+  /** Active ongoing weekly board with selectable prizes and user picks
+      (mapped from GET /api/v1/weekly-boards/ongoing — ephemeral) */
+  ongoingBoard: OngoingWeeklyBoard | null;
+  /** Active ongoing quiz session with selectable prizes and user picks
+      (mapped from GET /api/v1/quiz-sessions/ongoing — ephemeral) */
+  ongoingQuizSession: OngoingQuizSession | null;
+  /** Attempts for the active ongoing quiz session */
+  quizSessionAttempts: QuizSessionAttempt[] | null;
   /** Subject carousel data for the home screen (mapped from
       /api/v2/user/subject-stats — ephemeral, re-fetched per load) */
   subjects: HomeSubject[] | null;
@@ -66,7 +96,20 @@ interface AppState {
   setGoal: (goal: DailyGoal) => void;
   setMeName: (name: string | null) => void;
   setLbPeriod: (period: SummaryPeriod) => void;
+  setPwTab: (tab: 'quiz' | 'lb' | null) => void;
+  setPwFilter: (filter: 'all' | 'won' | 'played') => void;
   setLbSummary: (summary: LeaderboardSummary | null) => void;
+  setWeeklyBoardsHistory: (
+    boards: WeeklyBoardHistoryItem[] | null,
+    stats?: WeeklyBoardHistoryStats | null,
+  ) => void;
+  setQuizSessionsHistory: (
+    sessions: QuizSessionHistoryItem[] | null,
+    stats?: QuizSessionHistoryStats | null,
+  ) => void;
+  setOngoingBoard: (ongoingBoard: OngoingWeeklyBoard | null) => void;
+  setOngoingQuizSession: (ongoingQuizSession: OngoingQuizSession | null) => void;
+  setQuizSessionAttempts: (attempts: QuizSessionAttempt[] | null) => void;
   setSubjects: (subjects: HomeSubject[] | null) => void;
   setCoinBalance: (balance: number | null) => void;
   showToast: (msg: string) => void;
@@ -80,7 +123,16 @@ export const appStore = createStore<AppState>()(
       goal: null,
       meName: null,
       lbPeriod: 'today',
+      pwTab: null,
+      pwFilter: 'all',
       lbSummary: null,
+      weeklyBoardsHistory: null,
+      weeklyBoardsStats: null,
+      quizSessionsHistory: null,
+      quizSessionsStats: null,
+      ongoingBoard: null,
+      ongoingQuizSession: null,
+      quizSessionAttempts: null,
       subjects: null,
       coinBalance: null,
       toastSeq: 0,
@@ -90,7 +142,16 @@ export const appStore = createStore<AppState>()(
       setGoal: (goal) => set({ goal }),
       setMeName: (meName) => set({ meName }),
       setLbPeriod: (lbPeriod) => set({ lbPeriod }),
+      setPwTab: (pwTab) => set({ pwTab }),
+      setPwFilter: (pwFilter) => set({ pwFilter }),
       setLbSummary: (lbSummary) => set({ lbSummary }),
+      setWeeklyBoardsHistory: (weeklyBoardsHistory, weeklyBoardsStats = null) =>
+        set({ weeklyBoardsHistory, weeklyBoardsStats }),
+      setQuizSessionsHistory: (quizSessionsHistory, quizSessionsStats = null) =>
+        set({ quizSessionsHistory, quizSessionsStats }),
+      setOngoingBoard: (ongoingBoard) => set({ ongoingBoard }),
+      setOngoingQuizSession: (ongoingQuizSession) => set({ ongoingQuizSession }),
+      setQuizSessionAttempts: (quizSessionAttempts) => set({ quizSessionAttempts }),
       setSubjects: (subjects) => set({ subjects }),
       setCoinBalance: (coinBalance) => set({ coinBalance }),
       showToast: (toastMsg) => set((s) => ({ toastMsg, toastSeq: s.toastSeq + 1 })),

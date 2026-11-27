@@ -15,6 +15,7 @@ import { boot } from '../../router';
 import { mount } from './home.behavior';
 import { useAppStore } from '../../store/app';
 import { mountPullToRefresh } from '../../utils/pullToRefresh';
+import { getToken } from '../../api/storage';
 import {
   ensureSession,
   effectiveCoinBalance,
@@ -121,7 +122,7 @@ function applyUser(user: User, streak: number | null): void {
 }
 
 function applySubjects(subjects: Subject[]): void {
-  useAppStore.getState().setSubjects(subjects.map((s): CarouselSubject => ({
+  const mapped = subjects.map((s): CarouselSubject => ({
     name: s.name,
     q: s.questionCount,
     // live values from /api/v2/user/subject-stats: gauge avg speed
@@ -131,7 +132,13 @@ function applySubjects(subjects: Subject[]): void {
     tr: s.trendSeconds ?? null,
     ico: null, // API gives icon_url images, not inline SVGs
     icon: s.iconUrl ?? null,
-  })));
+  }));
+  useAppStore.getState().setSubjects(mapped);
+
+  const setHomeSubjects = (window as unknown as { _ri9SetHomeSubjects?: (data: CarouselSubject[]) => void })._ri9SetHomeSubjects;
+  if (typeof setHomeSubjects === 'function') {
+    setHomeSubjects(mapped);
+  }
 }
 
 /* ---------- bridge: page SFX toggle ↔ persisted Zustand store ----------
@@ -167,8 +174,26 @@ function bridgeSfx(): void {
    next page load; everything else is live. */
 let booted = false;
 
+function initUIEarly(): void {
+  if (booted) return;
+  booted = true;
+  mount();
+  bridgeSfx();
+  mountPullToRefresh({
+    refresh: () => loadDashboard(),
+    disabled: () =>
+      document.querySelector('#gbd.open, #gsh.open') !== null,
+  });
+}
+
 async function loadDashboard(): Promise<void> {
   const splash = document.getElementById('boot');
+  splash?.remove();
+
+  // Mount early so the 3 carousel cards display their shimmer animation immediately
+  // without being blocked while waiting for network requests
+  initUIEarly();
+
   let loginError: unknown = null;
   let dataError: unknown = null;
   try {
@@ -200,42 +225,10 @@ async function loadDashboard(): Promise<void> {
     if (user) applyUser(user, streak);
     if (subjects) applySubjects(subjects);
   } finally {
-    if (!booted) {
-      booted = true;
-      // Run the prototype logic (SFX engine, carousel, goal rings, dock
-      // nav) AFTER the data lands, while the splash still covers it.
-      mount();
-      bridgeSfx();
-      // Pull-to-refresh — armed once the page is interactive. The goal
-      // sheet/backdrop and any open overlay opt out via `disabled`.
-      // Home never scrolls, so the default document scroller check
-      // (scrollTop 0) is always true.
-      mountPullToRefresh({
-        refresh: () => loadDashboard(),
-        disabled: () =>
-          document.querySelector('#gbd.open, #gsh.open') !== null,
-      });
-      // Lift the white splash even if the API is unreachable — the
-      // dashboard then shows ZERO values (streak 0 · balance 0 ·
-      // zeroed carousel) instead of the old mock numbers.
-      splash?.remove();
-      // Surface the failure as a toast, mirroring the profile page's
-      // pickErrMsg + toast pattern (the page's popup subscribes to
-      // the store's toastSeq, fed by showToast).
-      if (loginError) {
-        useAppStore.getState().showToast(pickErrMsg(loginError, 'Login failed — could not reach the server'));
-      } else if (dataError) {
-        useAppStore.getState().showToast(pickErrMsg(dataError, 'Could not load dashboard data'));
-      }
-    } else {
-      // pull-to-refresh completed — report the outcome
-      if (loginError) {
-        useAppStore.getState().showToast(pickErrMsg(loginError, 'Refresh failed — could not reach the server'));
-      } else if (dataError) {
-        useAppStore.getState().showToast(pickErrMsg(dataError, 'Could not refresh dashboard data'));
-      } else {
-        useAppStore.getState().showToast('Dashboard updated');
-      }
+    if (loginError) {
+      useAppStore.getState().showToast(pickErrMsg(loginError, 'Login failed — could not reach the server'));
+    } else if (dataError) {
+      useAppStore.getState().showToast(pickErrMsg(dataError, 'Could not load dashboard data'));
     }
   }
 }

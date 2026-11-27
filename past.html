@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Past Winners</title>
+<meta name="theme-color" content="#eaf7d4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap">
+<link rel="stylesheet" href="/src/pages/past/past.css">
+<script type="module" src="/src/pages/past/past.ts"></script>
+</head>
+<body>
+<div class="arena-bg" aria-hidden="true"><canvas class="emb"></canvas><i class="vign"></i></div>
+
+<div class="viewport" id="vp">
+<main class="stage" id="stage">
+
+  <!-- ===== PAST WINNERS SCREEN (#s-past) ===== -->
+  <section class="screen play" id="s-past" aria-label="Past winners">
+    <div class="ahdr in2" style="--a:up .5s ease">
+      <button class="gbtn" id="pwBack" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="tt"><h2>PAST <span>WINNERS</span></h2></div>
+      <span style="width:42px;flex:none"></span>
+    </div>
+
+    <div class="aseg pwseg in2" id="pwSeg" style="--d:.04s">
+      <span class="k" id="pwK"></span>
+      <button class="on" data-t="quiz">PRIZE QUIZ</button>
+      <button data-t="lb">LEADERBOARDS</button>
+    </div>
+
+    <div class="pw-sum in2" id="pwSum" style="--d:.08s"></div>
+    <div class="pw-chips in2" id="pwF" style="--d:.1s"></div>
+    <div class="pw-list" id="pwList"></div>
+  </section>
+
+  <!-- ===== PAST WINNERS DETAIL MODAL (#pwd) ===== -->
+  <div class="pwd-bd" id="pwdBd"></div>
+  <div class="pwd" id="pwd" role="dialog" aria-modal="true" aria-labelledby="pwdT">
+    <div class="pwd-h">
+      <small id="pwdS"></small>
+      <h4 id="pwdT"></h4>
+      <p id="pwdP"></p>
+      <button class="pwd-x" id="pwdX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="pwd-you" id="pwdYou"></div>
+    </div>
+    <div class="pwd-b" id="pwdB"></div>
+    <div class="pwd-f" id="pwdF"></div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+</main>
+</div>
+</body>
+</html>

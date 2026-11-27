@@ -22,6 +22,8 @@ export default defineConfig({
         profile: resolve(root, 'profile.html'),
         stats: resolve(root, 'stats.html'),
         challenge: resolve(root, 'challenge.html'),
+        quiz: resolve(root, 'quiz.html'),
+        past: resolve(root, 'past.html'),
       },
     },
   },

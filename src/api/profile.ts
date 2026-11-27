@@ -240,6 +240,14 @@ export async function fetchAgeRanges(): Promise<RawAgeRange[]> {
   return res.data;
 }
 
+/** PUT /api/v2/user/age-range → update the user's age range */
+export async function updateAgeRange(ageRangeId: number): Promise<{ success: boolean; message?: string; data?: unknown }> {
+  return await api<{ success: boolean; message?: string; data?: unknown }>('/api/v2/user/age-range', {
+    method: 'PUT',
+    body: { age_range_id: ageRangeId },
+  });
+}
+
 /* ---------- bundles (ported from BundleRepository) ---------- */
 
 /** Unwrap the { success, data: … } envelope the bundle endpoints use

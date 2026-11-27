@@ -19,6 +19,9 @@
    onboarding.html and the gate in home.ts both read the same
    key. Add ?walkthrough to the URL to force a replay.
    ============================================================ */
+import { boot } from '../../router';
+
+boot({ page: 'onboarding' });
 
 /* ---------- stage fit (390×820 scaled to viewport) ---------- */
 (function fitModule(): void {

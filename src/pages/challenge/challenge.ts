@@ -12,12 +12,19 @@
    WEEK segment toggle in the page writes lbPeriod; the
    subscription below re-fetches.
    ============================================================ */
+import 'katex/dist/katex.min.css';
 import { boot } from '../../router';
 import { mount } from './challenge.behavior';
 import { useAppStore } from '../../store/app';
 import { fetchCurrentUser, getToken } from '../../api/auth';
 import { fetchProfile } from '../../api/profile';
-import { fetchLeaderboardSummary, type SummaryPeriod } from '../../api/leaderboard';
+import {
+  fetchLeaderboardSummary,
+  fetchWeeklyBoardsHistory,
+  fetchQuizSessionsHistory,
+  fetchOngoingWeeklyBoard,
+  type SummaryPeriod,
+} from '../../api/leaderboard';
 import { ApiError } from '../../api/client';
 
 // Guard is a no-op for now; when auth lands, lock it down:
@@ -46,22 +53,88 @@ async function loadSummary(period: SummaryPeriod): Promise<void> {
   }
 }
 
-/** Resolve the signed-in kid's display name (profile fullname,
-    falling back to the /me username) into the store. Replaces
-    the prototype's qdProfile localStorage relic. */
+/** Resolve the signed-in kid's display name (falling back to /me username
+    if profile didn't provide one). initInitialData in challenge.behavior.js
+    already loads the profile and calls setMeName(profile.fullname || profile.username). */
 async function loadMe(): Promise<void> {
   if (!getToken()) return;
-  const { setMeName } = useAppStore.getState();
+  const { meName, setMeName } = useAppStore.getState();
+  if (meName) return;
   try {
-    const profile = await fetchProfile().catch(() => null);
-    const name = profile?.fullname || profile?.username || '';
-    if (name) { setMeName(name); return }
     const user = await fetchCurrentUser().catch(() => null);
     if (user?.username) setMeName(user.username);
   } catch { /* lobby keeps its fallback name */ }
 }
 
+/** Fetch past quiz sessions history from GET /api/v1/quiz-sessions/history
+    into the store. On failure or unauthenticated, stores null. */
+export async function loadQuizSessionsHistory(filter: 'all' | 'won' | 'played' = 'all'): Promise<void> {
+  const { setQuizSessionsHistory } = useAppStore.getState();
+  const token = getToken();
+  if (!token) {
+    console.warn('[QuizSessions] No auth token available, skipping fetch');
+    return;
+  }
+  try {
+    const res = await fetchQuizSessionsHistory(filter);
+    setQuizSessionsHistory(res.sessions, res.stats);
+  } catch (e) {
+    console.error('[QuizSessions] Failed to fetch quiz sessions history:', e);
+    setQuizSessionsHistory(null, null);
+  }
+}
+
+/** Fetch past weekly boards history from GET /api/v1/weekly-boards/history
+    into the store. On failure or unauthenticated, stores null. */
+export async function loadWeeklyBoardsHistory(filter: 'all' | 'won' | 'played' = 'all'): Promise<void> {
+  const { setWeeklyBoardsHistory } = useAppStore.getState();
+  const token = getToken();
+  if (!token) {
+    console.warn('[WeeklyBoards] No auth token available, skipping fetch');
+    return;
+  }
+  try {
+    const res = await fetchWeeklyBoardsHistory(filter);
+    setWeeklyBoardsHistory(res.boards, res.stats);
+  } catch (e) {
+    console.error('[WeeklyBoards] Failed to fetch boards history:', e);
+    setWeeklyBoardsHistory(null, null);
+  }
+}
+
+/** Fetch ongoing weekly board with selectable prizes into store. */
+export async function loadOngoingBoard(): Promise<void> {
+  const { setOngoingBoard } = useAppStore.getState();
+  if (!getToken()) return;
+  try {
+    const ongoing = await fetchOngoingWeeklyBoard();
+    setOngoingBoard(ongoing);
+  } catch (e) {
+    console.error('[OngoingBoard] Failed to fetch ongoing board:', e);
+    setOngoingBoard(null);
+  }
+}
+
 mount();
+
+/* Watch pwTab & pwFilter: trigger history fetch with filter for current tab */
+let lastPwTab = useAppStore.getState().pwTab;
+let lastPwFilter = useAppStore.getState().pwFilter;
+useAppStore.subscribe((s) => {
+  const tabChanged = s.pwTab !== lastPwTab;
+  const filterChanged = s.pwFilter !== lastPwFilter;
+
+  if (tabChanged || filterChanged) {
+    lastPwTab = s.pwTab;
+    lastPwFilter = s.pwFilter;
+
+    if (s.pwTab === 'lb') {
+      void loadWeeklyBoardsHistory(s.pwFilter);
+    } else if (s.pwTab === 'quiz') {
+      void loadQuizSessionsHistory(s.pwFilter);
+    }
+  }
+});
 
 /* Period toggle: the lobby writes lbPeriod; re-fetch on change. */
 let lastPeriod = useAppStore.getState().lbPeriod;
@@ -73,4 +146,5 @@ useAppStore.subscribe((s) => {
 });
 
 void loadSummary(lastPeriod);
+void loadOngoingBoard();
 void loadMe();
